@@ -11,9 +11,9 @@ FactoryGirl.define do
     user_id 2
     content "I'm the feedback content, look at me!"
     after(:create) do |f|
-      u1 = FactoryGirl.create(:spec_user, email: 'participant1@gmail.com')
-      u2 = FactoryGirl.create(:spec_user, email: 'participant2@gmail.com')
-      u3 = FactoryGirl.create(:spec_user, email: 'participant3@gmail.com')
+      u1 = FactoryGirl.create(:spec_user, email: 'peer1@gmail.com')
+      u2 = FactoryGirl.create(:spec_user, email: 'peer2@gmail.com')
+      u3 = FactoryGirl.create(:spec_user, email: 'peer3@gmail.com')
       FactoryGirl.create(:spec_feedback_link, user: u1, feedback: f, agree: true)
       FactoryGirl.create(:spec_feedback_link, user: u2, feedback: f, agree: true)
       FactoryGirl.create(:spec_feedback_link, user: u3, feedback: f)

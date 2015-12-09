@@ -36,17 +36,17 @@ describe Feedback do
     expect(@feedback.save).to eq(false)
   end
 
-  context 'with participants' do
+  context 'with peers' do
     before(:each) do
       @feedback = FactoryGirl.create(:spec_full_feedback)
     end
 
-    it 'has a count of participants' do
-      expect(@feedback.participants.count).to be > 0
+    it 'has a count of peers' do
+      expect(@feedback.peers.count).to be > 0
     end
 
-    it 'has a count of participants in agreement' do
-      expect(@feedback.participants_in_agreement.count).to be > 0
+    it 'has a count of peers in agreement' do
+      expect(@feedback.peers_in_agreement.count).to be > 0
     end
 
     it 'has comments' do

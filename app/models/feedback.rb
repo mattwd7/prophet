@@ -3,7 +3,7 @@ class Feedback < ActiveRecord::Base
   belongs_to :user
   has_many :comments
   has_many :feedback_links
-  has_many :participants, through: :feedback_links, source: :user
+  has_many :peers, through: :feedback_links, source: :user
 
   validates_presence_of :user_id, :author_id, :content
 
@@ -16,7 +16,7 @@ class Feedback < ActiveRecord::Base
     write_attribute(:author_id, value)
   end
 
-  def participants_in_agreement
+  def peers_in_agreement
     User.joins(:feedback_links).where("feedback_links.feedback_id = ? and agree = ?", id, true)
   end
 
