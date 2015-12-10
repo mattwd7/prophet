@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe Feedback do
   before(:each) do
-    @author = FactoryGirl.create(:spec_user, email: 'author@gmail.com')
-    @recipient = FactoryGirl.create(:spec_user, email: 'recipient@gmail.com')
+    @author = FactoryGirl.create(:spec_user, email: 'author1@gmail.com')
+    @recipient = FactoryGirl.create(:spec_user, email: 'recipient1@gmail.com')
   end
 
   it 'has a valid factory' do

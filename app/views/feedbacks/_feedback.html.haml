@@ -1,0 +1,10 @@
+.feedback
+  .address-info
+    = address_info(feedback, current_user)
+    = feedback.created_at
+  .agreement-info
+    = flavor_text(feedback)
+    = feedback.peers_in_agreement.count
+    = feedback.peers.count
+  .comments
+    = feedback.comments.count

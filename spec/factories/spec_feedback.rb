@@ -11,6 +11,9 @@ FactoryGirl.define do
     user_id 2
     content "I'm the feedback content, look at me!"
     after(:create) do |f|
+      user = FactoryGirl.create(:spec_user, email: 'user@gmail.com')
+      author = FactoryGirl.create(:spec_user, email: 'author@gmail.com')
+      f.update_attributes(author_id: author.id, user_id: user.id)
       u1 = FactoryGirl.create(:spec_user, email: 'peer1@gmail.com')
       u2 = FactoryGirl.create(:spec_user, email: 'peer2@gmail.com')
       u3 = FactoryGirl.create(:spec_user, email: 'peer3@gmail.com')

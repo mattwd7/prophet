@@ -16,16 +16,4 @@ describe 'User' do
     expect(page).to have_css('#user_email')
   end
 
-  context 'with personal feedback' do
-    it ''
-  end
-
-  context 'with authored feedback' do
-
-  end
-
-  context 'as a peer for feedback' do
-    
-  end
-
 end

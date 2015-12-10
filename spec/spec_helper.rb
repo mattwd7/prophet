@@ -83,3 +83,10 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+def log_in_with(email, password)
+  visit root_path
+  find('#user_email').set email
+  find('#user_password').set 'password'
+  find('input[type=submit]').click
+end
