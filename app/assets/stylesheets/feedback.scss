@@ -1,0 +1,45 @@
+.feedback {
+  border: 1px solid black;
+  width: 600px;
+  margin: 0 auto;
+  padding: 10px 15px;
+  .banner {
+    height: 50px;
+    & > * {
+      float: left;
+    }
+    .avatar {
+      border: 1px solid black;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+    .data {
+      margin-left: 10px;
+      .timestamp {
+        font-size: 10px;
+      }
+    }
+    .score {
+      float: right;
+      & * {
+        display: inline-block;
+      }
+      .numbers > * {
+        border: 1px solid black;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        color: white;
+      }
+      .agree {
+        background: rgb(241, 129, 121)
+      }
+      .other {
+        background: #aaa;
+      }
+    }
+  }
+}

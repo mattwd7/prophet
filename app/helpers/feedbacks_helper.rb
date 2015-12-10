@@ -4,7 +4,7 @@ module FeedbacksHelper
     if feedback.author == current_user
       "ME to #{feedback.user.email}"
     elsif feedback.user == current_user
-      "#{feedback.user.email} to ME"
+      "#{feedback.author.email} to ME"
     else
       "#{feedback.author.email} to #{feedback.user.email}"
     end

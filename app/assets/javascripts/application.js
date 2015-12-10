@@ -14,3 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+   $('#banner .sort div').click(function(){
+       $(this).siblings().removeClass('selected');
+       $(this).addClass('selected');
+   })
+});

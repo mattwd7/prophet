@@ -13,3 +13,38 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+    margin: 0;
+}
+#banner {
+    background: rgb(241, 129, 121);
+    height: 80px;
+}
+
+#banner #session {
+    float: right;
+    margin: 10px 10px 0 0;
+}
+#banner .sort {
+    width: 250px;
+    margin: 0 auto;
+    padding-top: 20px;
+    font-size: 20px;
+}
+#banner .sort > div {
+    border: 1px solid white;
+    display: inline-block;
+    padding: 5px 40px;
+    color: white;
+}
+#banner .sort > div:hover {
+    cursor: pointer;
+}
+#banner .sort .selected {
+    background: white;
+    color: rgb(241, 129, 121);
+}
+#banner .sort .all {
+    margin-left: -5px;
+}
