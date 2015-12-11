@@ -1,9 +1,14 @@
 require 'rails_helper'
 
-describe 'User' do
+describe 'User', js: true do
   before(:each) do
     @user = FactoryGirl.create(:spec_user)
+    @author = FactoryGirl.create(:spec_user, email: "author1@gmail.com")
     @recipient = FactoryGirl.create(:spec_user, email: 'tony@gmail.com', first_name: 'Tony', last_name: 'Decino')
+    @mine1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user)
+    @mine2 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user)
+    @mine3 = FactoryGirl.create(:spec_full_feedback, author: @user, user: @author)
+    @all1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient)
     log_in_with(@user.email, 'password')
   end
 
@@ -15,25 +20,27 @@ describe 'User' do
   end
 
   it 'can create feedback for a coworker' do
-    expect(@recipient.feedbacks.count).to eq(0)
+    init_count = @recipient.feedbacks.count
     # error handling
     find("#feedback_content").set "@TonyDeBINO Feedback content for Tony is HERE."
     click_button "Submit"
-    expect(@recipient.feedbacks.count).to eq(0)
+    expect(@recipient.feedbacks.count).to eq(init_count)
     expect(page).to have_content('user tag')
 
     find("#feedback_content").set "@TonyDecino Feedback content for Tony is HERE."
     click_button "Submit"
-    expect(@recipient.feedbacks.count).to eq(1)
-    expect(@recipient.feedbacks.first.content).to_not match(/\@\S+/)
+    sleep 1
+    expect(@recipient.feedbacks.count).to eq(init_count + 1)
+    expect(@recipient.feedbacks.last.content).to_not match(/\@\S+/)
   end
 
   it 'can ask for feedback for himself' do
-    expect(@user.feedbacks.count).to eq(0)
+    init_count = @user.feedbacks.count
     find("#feedback_content").set "@me Did I effectively communicate the company's goals at the meeting today?"
     click_button 'Submit'
-    expect(@user.feedbacks.count).to eq(1)
-    feedback = @user.feedbacks.first
+    sleep 1
+    expect(@user.feedbacks.count).to eq(init_count + 1)
+    feedback = @user.feedbacks.last
     within "#feedback-#{feedback.id}" do
       expect(page).to_not have_css('.score')
     end
@@ -47,6 +54,21 @@ describe 'User' do
     find('#peers').set '@JohnDoe @JohnDoe-1 @JohnDoe-2'
     click_button "Submit"
     expect(Feedback.last.peers.count).to eq(3)
+  end
+
+  it 'can comment on feedback'
+
+  it 'sees self-involved feedback on ME feedback and all other feedback on ALL feed' do
+    expect(page).to have_css("#feedback-#{@mine1.id}")
+    expect(page).to have_css("#feedback-#{@mine2.id}")
+    expect(page).to have_css("#feedback-#{@mine3.id}")
+    expect(page).to_not have_css("#feedback-#{@all1.id}")
+    find('.sort .all').click
+    expect(page).to_not have_css("#feedback-#{@mine1.id}")
+    expect(page).to_not have_css("#feedback-#{@mine2.id}")
+    expect(page).to_not have_css("#feedback-#{@mine3.id}")
+    expect(page).to have_css("#feedback-#{@all1.id}")
+
   end
 
 

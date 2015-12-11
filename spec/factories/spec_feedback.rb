@@ -7,16 +7,20 @@ FactoryGirl.define do
   end
 
   factory :spec_full_feedback, class: Feedback do
-    author_id 1
-    user_id 2
     content "I'm the feedback content, look at me!"
-    after(:create) do |f|
-      user = FactoryGirl.create(:spec_user, email: 'user@gmail.com')
-      author = FactoryGirl.create(:spec_user, email: 'author@gmail.com')
-      f.update_attributes(author_id: author.id, user_id: user.id)
-      u1 = FactoryGirl.create(:spec_user, email: 'peer1@gmail.com')
-      u2 = FactoryGirl.create(:spec_user, email: 'peer2@gmail.com')
-      u3 = FactoryGirl.create(:spec_user, email: 'peer3@gmail.com')
+    after(:build) do |f|
+      if f.user_id.nil?
+        user = FactoryGirl.create(:spec_user, email: 'user@gmail.com')
+        f.user_id ||= user.id
+      end
+      if f.author_id.nil?
+        author = FactoryGirl.create(:spec_user, email: 'author@gmail.com')
+        f.author_id ||= author.id
+      end
+      user_count = User.count
+      u1 = FactoryGirl.create(:spec_user, email: "peer#{user_count + 1}@gmail.com")
+      u2 = FactoryGirl.create(:spec_user, email: "peer#{user_count + 2}@gmail.com")
+      u3 = FactoryGirl.create(:spec_user, email: "peer#{user_count + 3}@gmail.com")
       FactoryGirl.create(:spec_feedback_link, user: u1, feedback: f, agree: true)
       FactoryGirl.create(:spec_feedback_link, user: u2, feedback: f, agree: true)
       FactoryGirl.create(:spec_feedback_link, user: u3, feedback: f)

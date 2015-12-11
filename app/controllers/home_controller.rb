@@ -2,7 +2,8 @@ class HomeController < ApplicationController
 
   def index
     if user_signed_in?
-      @feedbacks = Feedback.all
+      @my_feedbacks = Feedback.where("author_id = ? or user_id = ?", current_user.id, current_user.id)
+      @all_feedbacks = Feedback.where("author_id <> ? and user_id  <> ?", current_user.id, current_user.id)
     else
       redirect_to new_user_session_path
     end

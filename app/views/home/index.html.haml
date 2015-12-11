@@ -1,5 +1,9 @@
 = render partial: 'feedbacks/form'
 
 
-- @feedbacks.each do |f|
-  = render partial: 'feedbacks/feedback', locals: { feedback: f }
+.my-feedbacks
+  - @my_feedbacks.each do |f|
+    = render partial: 'feedbacks/feedback', locals: { feedback: f }
+.all-feedbacks
+  - @all_feedbacks.each do |f|
+    = render partial: 'feedbacks/feedback', locals: { feedback: f }
