@@ -2,8 +2,10 @@
 
 
 .my-feedbacks
-  - @my_feedbacks.each do |f|
-    = render partial: 'feedbacks/feedback', locals: { feedback: f }
+  - @my_feedbacks.each do |feedback|
+    = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
 .all-feedbacks
-  - @all_feedbacks.each do |f|
-    = render partial: 'feedbacks/feedback', locals: { feedback: f }
+  - @all_feedbacks.each do |feedback|
+    = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
+    - feedback.comments.each do |comment|
+      = render partial: 'comments/comment', locals: { comment: comment }

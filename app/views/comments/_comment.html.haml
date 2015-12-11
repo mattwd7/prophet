@@ -1,0 +1,16 @@
+.comment
+  %table
+    %tr
+      %td
+        .avatar
+        %td
+          .content
+            = comment.content
+          .data
+            .timestamp
+              = comment.created_at
+            .score
+              .flavor= flavor_text(comment)
+              .numbers
+                .agree= comment.peers_in_agreement.count
+                .other= comment.peers.count

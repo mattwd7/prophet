@@ -1,17 +1,41 @@
 .feedback {
   border: 1px solid black;
-  width: 600px;
+  width: 630px;
   margin: 0 auto;
-  padding: 10px 15px;
   margin-bottom: 20px;
+  & > * {
+  padding: 10px 15px;
+  }
+  .avatar {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    background: #aaa;
+  }
+  .numbers > * {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    color: white;
+  }
+  .agree {
+    background: rgb(241, 129, 121)
+  }
+  .other {
+    background: #aaa;
+  }
+
   .banner {
-    height: 50px;
+    height: 40px;
+    padding-bottom: 0;
     & > * {
       float: left;
     }
     .avatar {
-      border: 1px solid black;
-      border-radius: 50%;
       width: 30px;
       height: 30px;
     }
@@ -26,21 +50,65 @@
       & * {
         display: inline-block;
       }
-      .numbers > * {
-        border: 1px solid black;
-        border-radius: 50%;
-        width: 25px;
-        height: 25px;
-        text-align: center;
-        line-height: 25px;
-        color: white;
+    }
+  }
+  .content {
+    padding-top: 0;
+    font-size: 20px;
+  }
+  table.actions {
+    border-top: 1px solid #999;
+    width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    td {
+      width: 33%;
+      text-align: center;
+    }
+  }
+
+  td:first-of-type{
+    vertical-align: top;
+  }
+  .comments {
+    padding: 0;
+    border-top: 1px solid black;
+    background: #eee;
+    & > * {
+      padding: 10px 15px;
+    }
+    .comment {
+      margin-bottom: 10px;
+      .data * {
+        display: inline-block;
+        font-size: 14px;
+        color: #555;
       }
-      .agree {
-        background: rgb(241, 129, 121)
+      .content {
+        font-size: 14px;
       }
-      .other {
-        background: #aaa;
+      .score {
+        margin-left: 10px;
+        .numbers > * {
+          width: 20px;
+          height: 20px;
+          line-height: 20px;
+          color: white;
+        }
       }
+    }
+  }
+
+  .comment-form {
+    & > * {
+      display: inline-block;
+    }
+    textarea {
+      width: 560px;
+      font-size: 16px;
+    }
+    input {
+      float: right;
     }
   }
 }

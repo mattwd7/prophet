@@ -10,9 +10,9 @@ module FeedbacksHelper
     end
   end
 
-  def flavor_text(feedback)
-    agree_count = feedback.peers_in_agreement.count
-    peer_count = feedback.peers.count
+  def flavor_text(feedback_or_comment)
+    agree_count = feedback_or_comment.peers_in_agreement.count
+    peer_count = feedback_or_comment.peers.count
     if agree_count > (peer_count / 2)
       'MEANINGFUL'
     elsif agree_count == (peer_count / 2)

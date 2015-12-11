@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   has_many :feedbacks
   has_many :feedback_links
+  has_many :comments
+  has_many :comment_links
 
   before_save :make_proper, :generate_user_tag
 

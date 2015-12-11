@@ -56,7 +56,16 @@ describe 'User', js: true do
     expect(Feedback.last.peers.count).to eq(3)
   end
 
-  it 'can comment on feedback'
+  it 'can comment on feedback' do
+    comment_count = @mine3.comments.count
+    within("#feedback-#{@mine3.id}") do
+      find('#comment_content').set 'This is my new comment'
+      click_button 'Submit'
+      sleep 1
+      expect(@mine3.comments.count).to eq(comment_count + 1)
+      expect(page).to have_content(@mine3.comments.last.content)
+    end
+  end
 
   it 'sees self-involved feedback on ME feedback and all other feedback on ALL feed' do
     expect(page).to have_css("#feedback-#{@mine1.id}")

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :feedbacks
+  resources :comments
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

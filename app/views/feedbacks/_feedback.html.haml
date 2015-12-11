@@ -12,5 +12,16 @@
           .other= feedback.peers.count
   .content
     = feedback.content
+  %table.actions
+    %tr
+      %td.actionable
+        Actionable?
+      %td.comment-count
+        = "Comments (#{feedback.comments.count})"
+      %td.share
+        Share
+
   .comments
-    = feedback.comments.count
+    - feedback.comments.each do |comment|
+      = render partial: 'comments/comment', locals: { comment: comment }
+    =render partial: 'comments/form', locals: { feedback_id: feedback.id }
