@@ -3,6 +3,7 @@
   width: 600px;
   margin: 0 auto;
   padding: 10px 15px;
+  margin-bottom: 20px;
   .banner {
     height: 50px;
     & > * {
@@ -39,6 +40,57 @@
       }
       .other {
         background: #aaa;
+      }
+    }
+  }
+}
+
+.feedback-form {
+  border: 1px solid black;
+  width: 630px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  .avatar {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background: #aaa;
+    display: inline-block;
+  }
+  .top {
+    border-bottom: 1px solid black;
+    padding: 10px 15px;
+    .avatar {
+      vertical-align: top;
+    }
+    textarea {
+      width: 540px;
+      height: 75px;
+      margin-left: 10px;
+    }
+  }
+  .bottom {
+    padding: 10px 15px;
+    .entry {
+      margin-bottom: 10px;
+      input {
+        width: 540px;
+        margin-left: 4px;
+      }
+    }
+    .peers {
+      width: 500px;
+      display: inline-block;
+      .avatar {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .submit {
+      display: inline-block;
+      input {
+        width: 90px;
       }
     }
   }

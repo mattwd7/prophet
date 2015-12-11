@@ -1,14 +1,15 @@
-.feedback
+.feedback{ id: "feedback-#{feedback.id}" }
   .banner
     .avatar
     .data
       .address= address_info(feedback, current_user)
       .timestamp= feedback.created_at
-    .score
-      .flavor= flavor_text(feedback)
-      .numbers
-        .agree= feedback.peers_in_agreement.count
-        .other= feedback.peers.count
+    - if feedback.author != feedback.user
+      .score
+        .flavor= flavor_text(feedback)
+        .numbers
+          .agree= feedback.peers_in_agreement.count
+          .other= feedback.peers.count
   .content
     = feedback.content
   .comments

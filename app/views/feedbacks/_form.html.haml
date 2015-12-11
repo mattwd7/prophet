@@ -1,0 +1,16 @@
+.feedback-form
+  = form_for Feedback.new, as: :feedback, url: feedbacks_path do |f|
+    .top
+      .recipient.avatar
+      = f.text_area :content, placeholder: 'Send or Request feedback...'
+    .bottom
+      .entry
+        Peers:
+        = text_field_tag :peers, '', placeholder: 'Separate usertags by spaces (e.g. @JohnDoe @MichaelFasbender)'
+      .peers
+        .dummy.avatar
+        .dummy.avatar
+        .dummy.avatar
+      .submit
+        = f.hidden_field(:author_id, value: current_user.id)
+        = submit_tag 'Submit'
