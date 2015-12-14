@@ -19,7 +19,7 @@
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql:prophet_production</jdbc-url>
-      <user-name>prophet_production</user-name>
+      <user-name>prophet_db</user-name>
       <libraries />
     </data-source>
   </component>
