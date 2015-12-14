@@ -16,7 +16,7 @@
 
 body {
     margin: 0;
-}
+    font-family: arial, sans-serif}
 #banner {
     background: rgb(241, 129, 121);
     height: 80px;

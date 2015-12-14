@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :comment_links
 
+  validates_presence_of :email
   before_save :make_proper, :generate_user_tag
 
 
@@ -16,10 +17,18 @@ class User < ActiveRecord::Base
     Feedback.where(author_id: self.id)
   end
 
+  def is_peer?(feedback)
+    FeedbackLink.where(feedback: feedback, user: self).count > 0
+  end
+
+  def agrees_with(feedback)
+    feedback_links.where(feedback: feedback).first.try(:agree) || self == feedback.author
+  end
+
 private
   def make_proper
-    first_name.capitalize!
-    last_name.capitalize!
+    first_name.try(:capitalize!)
+    last_name.try(:capitalize!)
   end
 
   def generate_user_tag

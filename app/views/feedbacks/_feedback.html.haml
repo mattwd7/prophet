@@ -7,9 +7,8 @@
     - if feedback.author != feedback.user
       .score
         .flavor= flavor_text(feedback)
-        .numbers
-          .agree= feedback.peers_in_agreement.count
-          .other= feedback.peers.count
+        .numbers{ class: feedback.user != current_user  && current_user.is_peer?(feedback) ? 'active' : nil }
+          = vote_numbers(feedback, current_user)
   .content
     = feedback.content
   %table.actions

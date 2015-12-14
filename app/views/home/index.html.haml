@@ -7,5 +7,3 @@
 .all-feedbacks
   - @all_feedbacks.each do |feedback|
     = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
-    - feedback.comments.each do |comment|
-      = render partial: 'comments/comment', locals: { comment: comment }

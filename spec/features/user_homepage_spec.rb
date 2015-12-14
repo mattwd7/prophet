@@ -23,12 +23,12 @@ describe 'User', js: true do
     init_count = @recipient.feedbacks.count
     # error handling
     find("#feedback_content").set "@TonyDeBINO Feedback content for Tony is HERE."
-    click_button "Submit"
+    within('.feedback-form'){ click_button "Submit" }
     expect(@recipient.feedbacks.count).to eq(init_count)
     expect(page).to have_content('user tag')
 
     find("#feedback_content").set "@TonyDecino Feedback content for Tony is HERE."
-    click_button "Submit"
+    within('.feedback-form'){ click_button "Submit" }
     sleep 1
     expect(@recipient.feedbacks.count).to eq(init_count + 1)
     expect(@recipient.feedbacks.last.content).to_not match(/\@\S+/)
@@ -37,7 +37,7 @@ describe 'User', js: true do
   it 'can ask for feedback for himself' do
     init_count = @user.feedbacks.count
     find("#feedback_content").set "@me Did I effectively communicate the company's goals at the meeting today?"
-    click_button 'Submit'
+    within('.feedback-form'){ click_button 'Submit' }
     sleep 1
     expect(@user.feedbacks.count).to eq(init_count + 1)
     feedback = @user.feedbacks.last
@@ -52,7 +52,7 @@ describe 'User', js: true do
     end
     find("#feedback_content").set "@TonyDecino Feedback content for Tony is HERE."
     find('#peers').set '@JohnDoe @JohnDoe-1 @JohnDoe-2'
-    click_button "Submit"
+    within('.feedback-form'){ click_button "Submit" }
     expect(Feedback.last.peers.count).to eq(3)
   end
 
@@ -65,6 +65,10 @@ describe 'User', js: true do
       expect(@mine3.comments.count).to eq(comment_count + 1)
       expect(page).to have_content(@mine3.comments.last.content)
     end
+  end
+
+  it 'can vote on a feedback or a comment he is a peer of' do
+
   end
 
   it 'sees self-involved feedback on ME feedback and all other feedback on ALL feed' do
