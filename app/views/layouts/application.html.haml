@@ -22,9 +22,9 @@
 
     -#%p.notice= notice
     -#%p.alert= alert
-    %p.errors= flash[:error]
-
-    = yield
+    .full
+      %p.errors= flash[:error]
+      = yield
 
 </body>
 </html>

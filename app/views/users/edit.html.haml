@@ -3,12 +3,16 @@
     %ul
       %li
         = f.submit "Update"
+        = link_to 'Back', root_path
+      %br
       %li
+        First Name:
         = f.text_field :first_name
       %li
+        Last Name:
         = f.text_field :last_name
       %li
-        = f.label :email
+        Email:
         = f.email_field :email, autofocus: true
       %li
         = f.file_field :avatar

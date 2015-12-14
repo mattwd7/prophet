@@ -25,6 +25,10 @@ body {
     top: 0px;
 }
 
+.full {
+    margin-top: 100px;
+}
+
 #banner #session {
     float: right;
     margin: 10px 10px 0 0;
