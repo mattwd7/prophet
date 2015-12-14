@@ -39,6 +39,10 @@ group :test do
   gem 'rspec-activemodel-mocks'
 end
 
+group :production do
+  gem 'pg'
+end
+
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 # gem 'spring',        group: :development
 
