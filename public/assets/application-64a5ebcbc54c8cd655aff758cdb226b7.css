@@ -1,0 +1,279 @@
+/* line 1, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.no-feedback {
+  width: 370px;
+  margin: 0 auto;
+}
+
+/* line 6, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback {
+  border: 1px solid black;
+  width: 630px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+/* line 11, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback > * {
+  padding: 10px 15px;
+}
+/* line 14, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .avatar {
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background: #aaa;
+}
+/* line 21, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .active.votes:hover {
+  cursor: pointer;
+}
+/* line 24, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .votes > * {
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  color: white;
+}
+/* line 32, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .votes > *.selected {
+  border-width: 3px;
+  border-color: gold;
+}
+/* line 37, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .agree {
+  background: #f18179;
+}
+/* line 40, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .dismiss {
+  background: #aaa;
+}
+/* line 44, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .banner {
+  height: 40px;
+  padding-bottom: 0;
+}
+/* line 47, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .banner > * {
+  float: left;
+}
+/* line 50, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .banner .avatar {
+  width: 30px;
+  height: 30px;
+}
+/* line 54, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .banner .data {
+  margin-left: 10px;
+}
+/* line 56, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .banner .data .timestamp {
+  font-size: 10px;
+}
+/* line 60, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .banner .score {
+  float: right;
+}
+/* line 62, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .banner .score * {
+  display: inline-block;
+}
+/* line 67, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .content {
+  padding-top: 0;
+  font-size: 20px;
+}
+/* line 71, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback table.actions {
+  border-top: 1px solid #999;
+  width: 600px;
+  margin: 0 auto;
+  padding: 10px;
+}
+/* line 76, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback table.actions td {
+  width: 33%;
+  text-align: center;
+}
+/* line 82, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback td:first-of-type {
+  vertical-align: top;
+}
+/* line 85, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comments {
+  padding: 0;
+  border-top: 1px solid black;
+  background: #eee;
+}
+/* line 89, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comments > * {
+  padding: 10px 15px;
+}
+/* line 92, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comments .comment {
+  margin-bottom: 10px;
+}
+/* line 94, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comments .comment .data * {
+  display: inline-block;
+  font-size: 14px;
+  color: #555;
+}
+/* line 99, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comments .comment .content {
+  font-size: 14px;
+}
+/* line 101, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comments .comment .content .author {
+  color: blue;
+}
+/* line 105, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comments .comment .score {
+  margin-left: 10px;
+}
+/* line 107, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comments .comment .score .votes > * {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  color: white;
+}
+/* line 118, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comment-form > * {
+  display: inline-block;
+}
+/* line 121, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comment-form textarea {
+  width: 560px;
+  font-size: 16px;
+}
+/* line 125, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback .comment-form input {
+  float: right;
+}
+
+/* line 131, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form {
+  border: 1px solid black;
+  width: 630px;
+  margin: 100px auto 20px auto;
+}
+/* line 135, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .avatar {
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background: #aaa;
+  display: inline-block;
+}
+/* line 143, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .top {
+  border-bottom: 1px solid black;
+  padding: 10px 15px;
+}
+/* line 146, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .top .avatar {
+  vertical-align: top;
+}
+/* line 149, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .top textarea {
+  width: 540px;
+  height: 75px;
+  margin-left: 10px;
+}
+/* line 155, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .bottom {
+  padding: 10px 15px;
+}
+/* line 157, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .bottom .entry {
+  margin-bottom: 10px;
+}
+/* line 159, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .bottom .entry input {
+  width: 540px;
+  margin-left: 4px;
+}
+/* line 164, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .bottom .peers {
+  width: 500px;
+  display: inline-block;
+}
+/* line 167, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .bottom .peers .avatar {
+  width: 20px;
+  height: 20px;
+}
+/* line 172, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .bottom .submit {
+  display: inline-block;
+}
+/* line 174, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/feedback.scss */
+.feedback-form .bottom .submit input {
+  width: 90px;
+}
+/* line 1, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/user.scss */
+.edit-user {
+  margin-top: 100px;
+}
+/* line 3, /Users/mattwd7/Desktop/prophet/app/assets/stylesheets/user.scss */
+.edit-user li {
+  list-style-type: none;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+
+
+body {
+    margin: 0;
+    font-family: arial, sans-serif}
+#banner {
+    background: rgb(241, 129, 121);
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+}
+
+#banner #session {
+    float: right;
+    margin: 10px 10px 0 0;
+}
+#banner .sort {
+    width: 250px;
+    margin: 0 auto;
+    padding-top: 20px;
+    font-size: 20px;
+}
+#banner .sort > div {
+    border: 1px solid white;
+    display: inline-block;
+    padding: 5px 40px;
+    color: white;
+}
+#banner .sort > div:hover {
+    cursor: pointer;
+}
+#banner .sort .selected {
+    background: white;
+    color: rgb(241, 129, 121);
+}
+#banner .sort .all {
+    margin-left: -5px;
+}
