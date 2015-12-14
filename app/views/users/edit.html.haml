@@ -1,0 +1,16 @@
+.edit-user
+  = form_for @user, html: { method: :put, multipart: true } do |f|
+    %ul
+      %li
+        = f.submit "Update"
+      %li
+        = f.text_field :first_name
+      %li
+        = f.text_field :last_name
+      %li
+        = f.label :email
+        = f.email_field :email, autofocus: true
+      %li
+        = f.file_field :avatar
+      %li
+        = image_tag @user.avatar.url

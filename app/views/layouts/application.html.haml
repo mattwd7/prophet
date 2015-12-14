@@ -9,7 +9,7 @@
     #banner
       - if current_user
         #session
-          = current_user.email
+          = link_to current_user.email, edit_user_path(current_user)
           |
           = link_to 'Sign Out', destroy_user_session_path, method: :delete
       .sort
@@ -19,8 +19,6 @@
     -#%p.notice= notice
     -#%p.alert= alert
     %p.errors= flash[:error]
-
-
 
     = yield
 
