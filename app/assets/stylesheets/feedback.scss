@@ -1,3 +1,8 @@
+.no-feedback {
+  width: 370px;
+  margin: 0 auto;
+}
+
 .feedback {
   border: 1px solid black;
   width: 630px;
@@ -93,6 +98,9 @@
       }
       .content {
         font-size: 14px;
+        .author {
+          color: blue;
+        }
       }
       .score {
         margin-left: 10px;
@@ -168,8 +176,4 @@
       }
     }
   }
-}
-
-.all-feedbacks {
-  display: none;
 }

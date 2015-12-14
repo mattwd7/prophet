@@ -1,9 +1,15 @@
 = render partial: 'feedbacks/form'
 
 
-.my-feedbacks
-  - @my_feedbacks.each do |feedback|
-    = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
-.all-feedbacks
-  - @all_feedbacks.each do |feedback|
-    = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
+.my-feedbacks{ style: @my_feedbacks.count < 1 ? 'display:none' : '' }
+  - if @my_feedbacks.count < 1
+    .no-feedback No feedback yet. Create feedback to start things off!
+  - else
+    - @my_feedbacks.each do |feedback|
+      = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
+.all-feedbacks{ style: @my_feedbacks.count > 0 ? 'display:none' : '' }
+  - if @all_feedbacks.count < 1
+    .no-feedback No feedback yet. Create feedback to start things off!
+  - else
+    - @all_feedbacks.each do |feedback|
+      = render partial: 'feedbacks/feedback', locals: { feedback: feedback }

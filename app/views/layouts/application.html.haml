@@ -13,8 +13,12 @@
           |
           = link_to 'Sign Out', destroy_user_session_path, method: :delete
       .sort
-        .me.selected Me
-        .all All
+        -if @my_feedbacks && @my_feedbacks.count > 0
+          .me.selected Me
+          .all All
+        - else
+          .me Me
+          .all.selected All
 
     -#%p.notice= notice
     -#%p.alert= alert

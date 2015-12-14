@@ -2,11 +2,11 @@ module FeedbacksHelper
 
   def address_info(feedback, current_user)
     if feedback.author == current_user
-      "ME to #{feedback.user.email}"
+      "ME to #{feedback.user.user_tag}"
     elsif feedback.user == current_user
-      "#{feedback.author.email} to ME"
+      "#{feedback.author.user_tag} to ME"
     else
-      "#{feedback.author.email} to #{feedback.user.email}"
+      "#{feedback.author.user_tag} to #{feedback.user.user_tag}"
     end
   end
 

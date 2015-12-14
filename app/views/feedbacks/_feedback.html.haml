@@ -3,7 +3,7 @@
     .avatar
     .data
       .address= address_info(feedback, current_user)
-      .timestamp= feedback.created_at
+      .timestamp= "#{time_ago_in_words(feedback.created_at)} ago"
     - if feedback.author != feedback.user
       .score
         .flavor= flavor_text(feedback)

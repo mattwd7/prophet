@@ -5,11 +5,11 @@
         .avatar
         %td
           .content
-            %span= comment.user.user_tag
+            %span.author= comment.user.user_tag
             %span= comment.content
           .data
             .timestamp
-              = comment.created_at
+              = "#{time_ago_in_words(comment.created_at)} ago"
             .score
               .flavor= flavor_text(comment)
               .votes{ class: comment.feedback.user != current_user  && current_user.is_peer?(comment.feedback) && comment.user != current_user ? 'active' : nil }

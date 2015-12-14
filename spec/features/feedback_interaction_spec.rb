@@ -12,10 +12,6 @@ describe 'Feedback' do
     expect(page).to have_content(@feedback.peers.count)
   end
 
-  it 'displays its timestamp' do
-    expect(page).to have_content(@feedback.created_at)
-  end
-
   it 'displays the number of comments' do
     expect(page).to have_content(@feedback.comments.count)
   end
