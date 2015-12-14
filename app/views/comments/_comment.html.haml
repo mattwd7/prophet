@@ -11,6 +11,6 @@
               = comment.created_at
             .score
               .flavor= flavor_text(comment)
-              .numbers
+              .votes
                 .agree= comment.peers_in_agreement.count
                 .dismiss= comment.peers.count

@@ -6,6 +6,7 @@ gem 'rails', '4.1.8'
 gem 'mysql2', '~>0.3.17'
 gem 'devise'
 gem 'haml', '~> 4.0.6'
+gem 'paperclip'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'

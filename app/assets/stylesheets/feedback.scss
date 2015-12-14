@@ -13,10 +13,10 @@
     height: 25px;
     background: #aaa;
   }
-  .active.numbers:hover {
+  .active.votes:hover {
     cursor: pointer;
   }
-  .numbers > * {
+  .votes > * {
     border: 1px solid black;
     border-radius: 50%;
     width: 25px;
@@ -96,7 +96,7 @@
       }
       .score {
         margin-left: 10px;
-        .numbers > * {
+        .votes > * {
           width: 20px;
           height: 20px;
           line-height: 20px;

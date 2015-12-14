@@ -15,7 +15,7 @@ $(document).ready(function(){
         }
     }
 
-    $('.active.numbers .number').click(function(){
+    $('.active.votes .vote').click(function(){
         var url = $(this).attr('data-action');
         var params = $(this).hasClass('agree') ? true : false;
         if (!$(this).hasClass('selected')) {

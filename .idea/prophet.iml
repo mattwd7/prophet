@@ -328,6 +328,8 @@
     <orderEntry type="library" scope="PROVIDED" name="capybara (v2.5.0, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="capybara-webkit (v1.7.1, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="childprocess (v0.5.8, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="climate_control (v0.0.3, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="cocaine (v0.5.7, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-rails (v4.0.1, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-script (v2.4.1, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="coffee-script-source (v1.10.0, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
@@ -353,6 +355,7 @@
     <orderEntry type="library" scope="PROVIDED" name="json_spec (v1.1.4, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.6.3, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mime-types (v2.99, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mimemagic (v0.3.0, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mini_portile2 (v2.0.0, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="minitest (v5.5.1, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.11.2, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
@@ -360,6 +363,7 @@
     <orderEntry type="library" scope="PROVIDED" name="mysql2 (v0.3.20, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.6.7, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="orm_adapter (v0.5.0, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="paperclip (v4.3.0, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v1.5.5, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.3, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails (v4.1.8, RVM: ruby-2.1.2 [imfuna2]) [gem]" level="application" />
