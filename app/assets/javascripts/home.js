@@ -25,7 +25,7 @@ $(document).ready(function(){
             if ($(this).hasClass('agree')) {
                 $(this).text(Number($(this).text()) + 1);
             } else {
-                otherVote.text(Number($(this).text()) - 1);
+                otherVote.text(Number(otherVote.text()) - 1);
             }
             $.ajax({
                 type: "POST",
