@@ -5,10 +5,16 @@ describe 'User', js: true do
     @user = FactoryGirl.create(:spec_user)
     @author = FactoryGirl.create(:spec_user, email: "author1@gmail.com")
     @recipient = FactoryGirl.create(:spec_user, email: 'tony@gmail.com', first_name: 'Tony', last_name: 'Decino')
-    @mine1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user)
-    @mine2 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user)
-    @mine3 = FactoryGirl.create(:spec_full_feedback, author: @user, user: @author)
-    @all1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient)
+    @mine1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user) # @user is feedback recipient
+    @mine2 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user) # @user is feedback recipient
+    @mine3 = FactoryGirl.create(:spec_full_feedback, author: @user, user: @author) # @user is author
+    @all1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user completely uninvolved
+
+    @peer1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user is a peer
+    FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @peer1)
+    @peer1.comments.each do |c|
+      FactoryGirl.create(:spec_comment_link, user: @user, comment: c)
+    end
     log_in_with(@user.email, 'password')
   end
 
@@ -53,6 +59,7 @@ describe 'User', js: true do
     find("#feedback_content").set "@TonyDecino Feedback content for Tony is HERE."
     find('#peers').set '@JohnDoe @JohnDoe-1 @JohnDoe-2'
     within('.feedback-form'){ click_button "Submit" }
+    sleep 1
     expect(Feedback.last.peers.count).to eq(3)
   end
 
@@ -67,8 +74,10 @@ describe 'User', js: true do
     end
   end
 
-  it 'can vote on a feedback or a comment he is a peer of' do
+  it 'can vote on a feedback he is a peer of' do
     FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @all1)
+    @all1.reload
+    visit current_path
     expect(@all1.peers).to include(@user)
     agree_count = @all1.peers_in_agreement.count
     visit current_path
@@ -85,6 +94,52 @@ describe 'User', js: true do
       @all1.reload
       expect(@all1.peers_in_agreement.count).to eq(agree_count)
       expect(page).to have_content('2')
+    end
+  end
+
+  it 'can vote on a comment he is a peer of' do
+    within("#feedback-#{@mine1.id}") do
+      within(first('.comment')) do
+        within('.votes') do
+          expect('.agree').to_not have_content(1) # i'm not a peer, so my comment on my feedback does not get 1 agree
+          expect(page).to_not have_css('active') # i cannot vote on my own comment
+        end
+      end
+    end
+
+    within("#feedback-#{@mine3.id}") do
+      within(first('.comment')) do
+        within('.votes') do
+          within('.dismiss'){ expect(page).to have_content(@mine3.peers.count + 1) }
+          expect(page).to have_content(1) # my comment gets a +1 and I cannot change it
+          expect(page).to_not have_css('active')
+        end
+      end
+    end
+
+    find(".all").click
+    within("#feedback-#{@peer1.id}") do
+      within(first('.comment')) do
+        expect(page).to have_css('.active') # as a peer, I can vote to agree on this comment
+        within('.votes') do
+          within('.dismiss'){ expect(page).to have_content(@peer1.peers.count + 1) }
+          expect(page).to have_content(1) # my comment gets a +1 and I cannot change it
+          agree_count = @peer1.comments.first.peers_in_agreement.count
+          find('.agree').click
+          sleep 1
+          expect(@peer1.comments.first.peers_in_agreement.count).to eq(agree_count + 1)
+        end
+      end
+    end
+
+    within("#feedback-#{@all1.id}") do
+      within(first('.comment')) do
+        within('.votes') do
+          within('.dismiss'){ expect(page).to have_content(@all1.peers.count + 1) }
+          expect(page).to have_content(1) # peer-generated comment gets +1
+          expect(page).to_not have_css('active') # I cannot vote on the comment in a feedback I am not a peer of
+        end
+      end
     end
   end
 

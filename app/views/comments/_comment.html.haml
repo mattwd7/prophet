@@ -1,16 +1,16 @@
-.comment
+.comment{ id: "comment-#{comment.id}" }
   %table
     %tr
       %td
         .avatar
         %td
           .content
-            = comment.content
+            %span= comment.user.user_tag
+            %span= comment.content
           .data
             .timestamp
               = comment.created_at
             .score
               .flavor= flavor_text(comment)
-              .votes
-                .agree= comment.peers_in_agreement.count
-                .dismiss= comment.peers.count
+              .votes{ class: comment.feedback.user != current_user  && current_user.is_peer?(comment.feedback) && comment.user != current_user ? 'active' : nil }
+                = vote_numbers(comment, current_user)

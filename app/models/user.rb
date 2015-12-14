@@ -20,12 +20,20 @@ class User < ActiveRecord::Base
     Feedback.where(author_id: self.id)
   end
 
-  def is_peer?(feedback)
-    FeedbackLink.where(feedback: feedback, user: self).count > 0
+  def is_peer?(feedback_or_comment)
+    if feedback_or_comment.instance_of?(Feedback)
+      FeedbackLink.where(feedback: feedback_or_comment, user: self).count > 0
+    else
+      CommentLink.where(comment: feedback_or_comment, user: self).count > 0
+    end
   end
 
-  def agrees_with(feedback)
-    feedback_links.where(feedback: feedback).first.try(:agree) || self == feedback.author
+  def agrees_with(feedback_or_comment)
+    if feedback_or_comment.instance_of?(Feedback)
+      feedback_links.where(feedback: feedback_or_comment).first.try(:agree) || self == feedback_or_comment.author
+    else
+      comment_links.where(comment: feedback_or_comment).first.try(:agree) || self == feedback_or_comment.author
+    end
   end
 
 private

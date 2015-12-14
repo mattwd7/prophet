@@ -20,6 +20,9 @@ body {
 #banner {
     background: rgb(241, 129, 121);
     height: 80px;
+    position: fixed;
+    width: 100%;
+    top: 0px;
 }
 
 #banner #session {
