@@ -17,9 +17,9 @@
     </data-source>
     <data-source source="LOCAL" name="Rails prophet: production" uuid="66f8e88b-0e61-4a5a-9a08-399c0ee7d8d5">
       <driver-ref>mysql</driver-ref>
-      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://127.0.0.1/db/prophet_production</jdbc-url>
-      <user-name>root</user-name>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:prophet_production</jdbc-url>
+      <user-name>prophet_production</user-name>
       <libraries />
     </data-source>
   </component>

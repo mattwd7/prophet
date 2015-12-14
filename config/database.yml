@@ -26,5 +26,9 @@ test:
   database: db/prophet_test
 
 production:
-  <<: *default
-  database: db/prophet_production
+  adapter: postgresql
+  encoding: unicode
+  database: prophet_production
+  pool: 5
+  username: prophet_db
+  password:
