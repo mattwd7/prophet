@@ -9,4 +9,10 @@ class FeedbacksController < ApplicationController
     redirect_to root_path
   end
 
+  def vote
+    link = FeedbackLink.where(user: current_user, feedback_id: params[:id]).first
+    link.update_attributes(agree: params[:agree])
+    render nothing: true
+  end
+
 end

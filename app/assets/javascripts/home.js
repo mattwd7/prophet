@@ -14,4 +14,21 @@ $(document).ready(function(){
             $('.my-feedbacks').show();
         }
     }
+
+    $('.active.numbers .number').click(function(){
+        var url = $(this).attr('data-action');
+        var params = $(this).hasClass('agree') ? true : false;
+        if (!$(this).hasClass('selected')) {
+            var otherVote = $(this).siblings();
+            otherVote.removeClass('selected');
+            otherVote.text(Number(otherVote.text()) - 1);
+            $(this).addClass('selected');
+            $(this).text(Number($(this).text()) + 1);
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: { agree: params }
+            });
+        }
+    })
 });

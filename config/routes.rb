@@ -2,8 +2,17 @@ Rails.application.routes.draw do
   root 'home#index'
 
   devise_for :users
-  resources :feedbacks
-  resources :comments
+  resources :feedbacks do
+    member do
+      post :vote
+    end
+  end
+
+  resources :comments do
+    member do
+      post :vote
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

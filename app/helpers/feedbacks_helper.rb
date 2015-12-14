@@ -11,19 +11,13 @@ module FeedbacksHelper
   end
 
   def vote_numbers(feedback, current_user)
-    if feedback.user == current_user
-      "<div class='agree'>#{feedback.peers_in_agreement.count + 1}</div><div class='dismiss'>#{feedback.peers.count + 1}</div>".html_safe
-    else
-      if current_user.agrees_with(feedback)
-        "<div class='agree selected'>#{feedback.peers_in_agreement.count + 1}</div><div class='dismiss'>#{feedback.peers.count + 1}</div>".html_safe
-      else
-        if current_user.is_peer?(feedback)
-          "<div class='agree'>#{feedback.peers_in_agreement.count + 1}</div><div class='dismiss selected'>#{feedback.peers.count + 1}</div>".html_safe
-        else
-          "<div class='agree'>#{feedback.peers_in_agreement.count + 1}</div><div class='dismiss'>#{feedback.peers.count + 1}</div>".html_safe
-        end
-      end
+    output = "<div class='number agree' data-action='#{vote_feedback_path(feedback.id)}'>#{feedback.peers_in_agreement.count + 1}</div><div class='number dismiss' data-action='#{vote_feedback_path(feedback.id)}'>#{feedback.peers.count + 1}</div>"
+    if current_user.agrees_with(feedback)
+      output.gsub!('agree', 'agree selected')
+    elsif current_user.is_peer?(feedback)
+        output.gsub!('dismiss', 'dismiss selected')
     end
+    output.html_safe
   end
 
   def flavor_text(feedback_or_comment)

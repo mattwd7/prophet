@@ -68,7 +68,24 @@ describe 'User', js: true do
   end
 
   it 'can vote on a feedback or a comment he is a peer of' do
-
+    FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @all1)
+    expect(@all1.peers).to include(@user)
+    agree_count = @all1.peers_in_agreement.count
+    visit current_path
+    find('.all').click
+    expect(page).to have_content(@all1.content)
+    within("#feedback-#{@all1.id}") do
+      expect(page).to have_css('.active')
+      first('.agree').click
+      sleep 1
+      @all1.reload
+      expect(@all1.peers_in_agreement.count).to eq(agree_count + 1)
+      first('.dismiss').click
+      sleep 1
+      @all1.reload
+      expect(@all1.peers_in_agreement.count).to eq(agree_count)
+      expect(page).to have_content('2')
+    end
   end
 
   it 'sees self-involved feedback on ME feedback and all other feedback on ALL feed' do
