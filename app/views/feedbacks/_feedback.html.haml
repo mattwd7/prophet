@@ -1,4 +1,5 @@
-.feedback{ id: "feedback-#{feedback.id}" }
+- hidden ||= nil
+.feedback{ id: "feedback-#{feedback.id}", style: hidden ? 'display:none' : 'display:block' }
   .banner
     .avatar
     .data

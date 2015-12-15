@@ -1,5 +1,5 @@
 .feedback-form
-  = form_for Feedback.new, as: :feedback, url: feedbacks_path do |f|
+  = form_for Feedback.new, as: :feedback, url: feedbacks_path, remote: true do |f|
     .top
       .recipient.avatar
       = f.text_area :content, placeholder: 'Send or Request feedback...'
