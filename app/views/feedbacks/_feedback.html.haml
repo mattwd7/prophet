@@ -20,7 +20,8 @@
       %td.share
         Share
 
-  .comments
-    - feedback.comments.each do |comment|
-      = render partial: 'comments/comment', locals: { comment: comment }
+  .commenting
+    .comments
+      - feedback.comments.each do |comment|
+        = render partial: 'comments/comment', locals: { comment: comment }
     =render partial: 'comments/form', locals: { feedback_id: feedback.id }

@@ -1,0 +1,4 @@
+var feedback = $("<%= escape_javascript("#feedback-#{@feedback.id}") %>"),
+        html = "<%= escape_javascript(render partial: 'comment', locals: { comment: @comment, hidden: true } ) %>";
+feedback.find('.comment-form textarea').val('').blur();
+$(html).appendTo(feedback.find('.comments')).fadeIn(400);

@@ -1,11 +1,11 @@
 $(document).ready(function(){
     $('#banner .sort div').click(function(){
-        toggleVisible($(this).attr('class'));
+        toggleBanner($(this).attr('class'));
         $(this).siblings().removeClass('selected');
         $(this).addClass('selected');
     });
 
-    function toggleVisible(input){
+    function toggleBanner(input){
         if (input === 'team'){
             $('.my-feedbacks').hide();
             $('.all-feedbacks').show();
@@ -14,6 +14,12 @@ $(document).ready(function(){
             $('.my-feedbacks').show();
         }
     }
+
+    $('.comment-form textarea').keypress(function(e){
+        if (e.which === 13){
+            $(this).closest('form').submit();
+        }
+    });
 
     $('.active.votes .vote').click(function(){
         var url = $(this).attr('data-action'),

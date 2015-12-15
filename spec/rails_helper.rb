@@ -29,6 +29,7 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
 
   Capybara.javascript_driver = :webkit
+  Capybara.default_max_wait_time = 5
 
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
