@@ -6,7 +6,7 @@ $(document).ready(function(){
     });
 
     function toggleVisible(input){
-        if (input === 'all'){
+        if (input === 'team'){
             $('.my-feedbacks').hide();
             $('.all-feedbacks').show();
         } else if (input === 'me'){

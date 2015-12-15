@@ -13,11 +13,11 @@ describe 'User', js: true do
   end
 
   it 'without personal feedback defaults to ALL' do
-    @all1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user completely uninvolved
+    @team1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user completely uninvolved
     log_in_with(@user.email, 'password')
 
-    expect(page).to have_css('.all.selected')
-    expect(page).to have_content(@all1.content)
+    expect(page).to have_css('.team.selected')
+    expect(page).to have_content(@team1.content)
   end
 
   context 'in established environment' do
@@ -25,7 +25,7 @@ describe 'User', js: true do
       @mine1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user) # @user is feedback recipient
       @mine2 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user) # @user is feedback recipient
       @mine3 = FactoryGirl.create(:spec_full_feedback, author: @user, user: @author) # @user is author
-      @all1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user completely uninvolved
+      @team1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user completely uninvolved
 
       @peer1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user is a peer
       FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @peer1)
@@ -92,24 +92,24 @@ describe 'User', js: true do
     end
 
     it 'can vote on a feedback he is a peer of' do
-      FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @all1)
-      @all1.reload
+      FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @team1)
+      @team1.reload
       visit current_path
-      expect(@all1.peers).to include(@user)
-      agree_count = @all1.peers_in_agreement.count
+      expect(@team1.peers).to include(@user)
+      agree_count = @team1.peers_in_agreement.count
       visit current_path
-      find('.all').click
-      expect(page).to have_content(@all1.content)
-      within("#feedback-#{@all1.id}") do
+      find('.team').click
+      expect(page).to have_content(@team1.content)
+      within("#feedback-#{@team1.id}") do
         expect(page).to have_css('.active')
         first('.agree').click
         sleep 1
-        @all1.reload
-        expect(@all1.peers_in_agreement.count).to eq(agree_count + 1)
+        @team1.reload
+        expect(@team1.peers_in_agreement.count).to eq(agree_count + 1)
         first('.dismiss').click
         sleep 1
-        @all1.reload
-        expect(@all1.peers_in_agreement.count).to eq(agree_count)
+        @team1.reload
+        expect(@team1.peers_in_agreement.count).to eq(agree_count)
         expect(page).to have_content('2')
       end
     end
@@ -134,7 +134,7 @@ describe 'User', js: true do
         end
       end
 
-      find(".all").click
+      find(".team").click
       within("#feedback-#{@peer1.id}") do
         within(first('.comment')) do
           expect(page).to have_css('.active') # as a peer, I can vote to agree on this comment
@@ -149,10 +149,10 @@ describe 'User', js: true do
         end
       end
 
-      within("#feedback-#{@all1.id}") do
+      within("#feedback-#{@team1.id}") do
         within(first('.comment')) do
           within('.votes') do
-            within('.dismiss'){ expect(page).to have_content(@all1.peers.count + 1) }
+            within('.dismiss'){ expect(page).to have_content(@team1.peers.count + 1) }
             expect(page).to have_content(1) # peer-generated comment gets +1
             expect(page).to_not have_css('active') # I cannot vote on the comment in a feedback I am not a peer of
           end
@@ -160,16 +160,16 @@ describe 'User', js: true do
       end
     end
 
-    it 'sees self-involved feedback on ME feedback and all other feedback on ALL feed' do
+    it 'sees self-involved feedback on ME feedback and all other feedback on TEAM feed' do
       expect(page).to have_css("#feedback-#{@mine1.id}")
       expect(page).to have_css("#feedback-#{@mine2.id}")
       expect(page).to have_css("#feedback-#{@mine3.id}")
-      expect(page).to_not have_css("#feedback-#{@all1.id}")
-      find('.sort .all').click
+      expect(page).to_not have_css("#feedback-#{@team1.id}")
+      find('.sort .team').click
       expect(page).to_not have_css("#feedback-#{@mine1.id}")
       expect(page).to_not have_css("#feedback-#{@mine2.id}")
       expect(page).to_not have_css("#feedback-#{@mine3.id}")
-      expect(page).to have_css("#feedback-#{@all1.id}")
+      expect(page).to have_css("#feedback-#{@team1.id}")
 
     end
   end
