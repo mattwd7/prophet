@@ -15,6 +15,14 @@ $(document).ready(function(){
         }
     }
 
+    $('#add-peers').chosen({
+        width: "100%"
+    });
+
+    $('.feedback-form .peers .remove').click(function(){
+        $(this).closest('.peer').remove();
+    });
+
     $('.comment-form textarea').keypress(function(e){
         if (e.which === 13){
             $(this).closest('form').submit();

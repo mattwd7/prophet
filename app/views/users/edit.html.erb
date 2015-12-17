@@ -1,0 +1,66 @@
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+        $('#cropbox').Jcrop({
+            onChange: update_crop,
+            onSelect: update_crop,
+            aspectRatio: 1
+        });
+    });
+
+    function update_crop(coords) {
+        var rx = 100/coords.w;
+        var ry = 100/coords.h;
+        $('#preview').css({
+            width: Math.round(rx * <%= @user.avatar_geometry(:large).width %>) + 'px',
+            height: Math.round(ry * <%= @user.avatar_geometry(:large).height %>) + 'px',
+            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+            marginTop: '-' + Math.round(ry * coords.y) + 'px'
+        });
+
+        var ratio = <%= @user.avatar_geometry(:original).width %> / <%= @user.avatar_geometry(:large).width %>;
+        $("#crop_x").val(Math.round(coords.x * ratio));
+        $("#crop_y").val(Math.round(coords.y * ratio));
+        $("#crop_w").val(Math.round(coords.w * ratio));
+        $("#crop_h").val(Math.round(coords.h * ratio));
+    }
+</script>
+
+<div class='edit-user'>
+  <%= form_for @user, html: { method: :put, multipart: true } do |f| %>
+    <ul>
+      <li>
+        <%= f.submit "Update" %>
+        <%= link_to 'Back', root_path %>
+      </li>
+      <br/>
+      <li>
+        First Name:
+        <%= f.text_field :first_name %>
+      </li>
+      <li>
+        Last Name:
+        <%= f.text_field :last_name %>
+      </li>
+      <li>
+        Email:
+        <%= f.email_field :email, autofocus: true %>
+      </li>
+      <li>
+        <%= f.file_field :avatar %>
+      <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] do %>
+        <li>
+          <%= f.hidden_field attribute, id: attribute %>
+        </li>
+      <% end %>
+      <li id='cropbox'>
+        <%= image_tag @user.avatar.url(:large) %>
+      </li>
+
+      <h4>Preview:</h4>
+      <div id="preview-container">
+        <%= image_tag @user.avatar.url(:large), :id => "preview" %>
+      </div>
+
+    </ul>
+  <% end %>
+</div>

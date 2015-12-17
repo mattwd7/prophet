@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
+  get '/peers' => 'home#peers'
 
   devise_for :users
   resources :users

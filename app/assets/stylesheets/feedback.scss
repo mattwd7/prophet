@@ -164,9 +164,23 @@
     .peers {
       width: 500px;
       display: inline-block;
-      .avatar {
-        width: 20px;
-        height: 20px;
+      font-size: 11px;
+      .peer {
+        border: 1px solid black;
+        padding: 3px 5px;
+        border-radius: 8px;
+        display: inline-block;
+        .avatar {
+          width: 20px;
+          height: 20px;
+          vertical-align: middle;
+        }
+        .remove {
+          font-weight: bold;
+          &:hover {
+            cursor: pointer;
+          }
+        }
       }
     }
     .submit {

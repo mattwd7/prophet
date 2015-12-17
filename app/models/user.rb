@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_attached_file :avatar, default_url: "/images/:style/missing.png"
+  has_attached_file :avatar, styles: { small: "100x100#", large: "500x500>" }, processors: [:cropper]
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   has_many :feedbacks
@@ -15,9 +15,25 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   before_save :make_proper, :generate_user_tag
 
+  def cropping?
+    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+  end
+
+  def avatar_geometry(style = :original)
+    @geometry ||= {}
+    if avatar.path(style)
+      @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
+    else
+      @geometry[style] = OpenStruct.new(width: 0, height: 0)
+    end
+  end
 
   def authored_feedbacks
     Feedback.where(author_id: self.id)
+  end
+
+  def peers
+    User.where.not(id: self.id)
   end
 
   def is_peer?(feedback_or_comment)
@@ -37,6 +53,10 @@ class User < ActiveRecord::Base
   end
 
 private
+  def reprocess_avatar
+    avatar.reprocess!
+  end
+
   def make_proper
     first_name.try(:capitalize!)
     last_name.try(:capitalize!)
