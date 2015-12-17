@@ -7,12 +7,7 @@
       .entry
         Peers:
         -#= text_field_tag :peers, '', placeholder: 'Separate usertags by spaces (e.g. @JohnDoe @MichaelFasbender)'
-        = select_tag :peers, options_for_select(current_user.peers.map(&:user_tag)), { multiple: 'multiple', id: 'add-peers' }
-      .peers
-        .peer
-          .dummy.avatar
-          %span.user-tag @TonyDecino
-          %span.remove x
+        = select_tag :peers, options_with_images(current_user.peers), { multiple: 'multiple', id: 'add-peers' }
       .submit
         = f.hidden_field(:author_id, value: current_user.id)
         = submit_tag 'Submit'
