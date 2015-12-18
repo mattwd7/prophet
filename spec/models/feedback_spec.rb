@@ -36,6 +36,12 @@ describe Feedback do
     expect(@feedback.save).to eq(false)
   end
 
+  it 'creates unique tags if the content has hashtags' do
+    content = "Really great job wrapping up that project my man! #leadership #teamplayer #leadership"
+    @feedback = FactoryGirl.create(:spec_feedback, user: @recipient, author: @author, content: content)
+    expect(@feedback.tags.count).to eq(2)
+  end
+
   context 'with peers' do
     before(:each) do
       @feedback = FactoryGirl.create(:spec_full_feedback)
