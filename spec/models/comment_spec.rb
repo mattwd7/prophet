@@ -24,4 +24,10 @@ describe Comment do
     expect(result).to eq(true)
   end
 
+  it 'creates comment links for feedback peers' do
+    feedback = FactoryGirl.create(:spec_full_feedback)
+    comment = FactoryGirl.create(:spec_comment, feedback: feedback, user: feedback.peers.first)
+    expect(comment.peers.count).to eq(feedback.peers.count - 1)
+  end
+
 end

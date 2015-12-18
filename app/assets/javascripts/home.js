@@ -13,13 +13,16 @@ $(document).ready(function(){
             $('.all-feedbacks').hide();
             $('.my-feedbacks').show();
         }
+        window.scrollTo(0,0)
     }
 
     $('#feedback_user').chosen({
         width: "60%"
     });
-    $('#feedback_user').on('change', function(e){
-        e.preventDefault();
+    $(document).on('change', '#feedback_user', function(){
+        $('.content textarea').focus();
+    });
+    $(document).on("click",".active-result",function(){
         $('.content textarea').focus();
     });
 
