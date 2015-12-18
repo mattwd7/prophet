@@ -1,0 +1,93 @@
+h2 {
+  border-bottom: 1px solid #ccc;
+  font-weight: normal;
+  font-size: 18px;
+  width: 230px;
+  margin: 10px auto;
+}
+
+.number-bubble {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  border-radius: 50%;
+  margin: 5px auto 0 auto;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.column > * {
+  background: rgb(241, 241, 241);
+}
+
+#left {
+  float: left;
+  width: 250px;
+  & > * {
+  border: 1px solid #ccc;
+}
+  .feedback-summary {
+    margin-bottom: 20px;
+    padding: 10px;
+    ul {
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      list-style-type: none;
+      text-align: center;
+      width: 30%;
+      &:nth-child(1) .number-bubble{ background: rgb(241, 129, 121); }
+      &:nth-child(2) .number-bubble{ background: black; }
+      &:nth-child(3) .number-bubble{ background: #ccc; }
+    }
+  }
+  .profile {
+    .banner {
+      background: #ccc;
+      height: 60px;
+    }
+    table.data {
+      margin-top: -40px;
+      margin-bottom: 10px;
+      tr {
+        height: 80px;
+        vertical-align: bottom;
+      }
+      .avatar {
+        width: 55px;
+        height: 55px;
+        img {
+          width: 55px;
+          height: 55px;
+        }
+      }
+      .name {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .title {
+        color: #ccc;
+        font-size: 13px;
+      }
+    }
+    .status {
+      padding: 10px;
+    }
+  }
+}
+
+#middle {
+  float: left;
+  margin: 0 20px;
+}
+
+#right {
+  float:left;
+  width: 250px;
+  .attributes {
+    border: 1px solid #ccc;
+  }
+}

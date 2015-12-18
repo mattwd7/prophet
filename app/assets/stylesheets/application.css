@@ -16,7 +16,10 @@
 
 body {
     margin: 0;
-    font-family: arial, sans-serif}
+    font-family: arial, sans-serif;
+    background: rgb(229, 227, 227);
+}
+
 #banner {
     background: rgb(241, 129, 121);
     height: 80px;
@@ -24,10 +27,12 @@ body {
     width: 100%;
     top: 0px;
     z-index: 999;
+    border-bottom: 1px solid black;
 }
 
 .full {
-    margin-top: 100px;
+    margin: 100px auto 0 auto;
+    width: 1180px;
 }
 
 #banner .logo {

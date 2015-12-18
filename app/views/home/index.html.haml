@@ -1,15 +1,59 @@
-= render partial: 'feedbacks/form'
+.column#left
+  .feedback-summary
+    %h2 Resonance
+    %ul
+      %li
+        Resonant
+        .number-bubble
+          10
+      %li
+        Mixed
+        .number-bubble
+          7
+      %li
+        Isolated
+        .number-bubble
+          2
+    %h2 Requests sent to me
+    %ul
+      %li
+        Unresolved
+        .number-bubble
+          10
+
+  .profile
+    .banner
+    %table.data
+      %tr
+        %td
+          .avatar
+            = image_tag current_user.avatar.url(:large)
+        %td
+          .name= "#{current_user.first_name} #{current_user.last_name}"
+          .title Software Engineer
+    .status
+      Information or goals for myself can go here. I can also edit them here, inline with the homepage document. Use Jeditable!
 
 
-.my-feedbacks{ style: @my_feedbacks.count < 1 ? 'display:none' : '' }
-  - if @my_feedbacks.count < 1
-    .no-feedback No feedback yet. Create feedback to start things off!
-  - else
-    - @my_feedbacks.each do |feedback|
-      = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
-.all-feedbacks{ style: @my_feedbacks.count > 0 ? 'display:none' : '' }
-  - if @team_feedbacks.count < 1
-    .no-feedback No feedback yet. Create feedback to start things off!
-  - else
-    - @team_feedbacks.each do |feedback|
-      = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
+
+.column#middle
+  = render partial: 'feedbacks/form'
+
+  .my-feedbacks{ style: @my_feedbacks.count < 1 ? 'display:none' : '' }
+    - if @my_feedbacks.count < 1
+      .no-feedback No feedback yet. Create feedback to start things off!
+    - else
+      - @my_feedbacks.each do |feedback|
+        = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
+  .all-feedbacks{ style: @my_feedbacks.count > 0 ? 'display:none' : '' }
+    - if @team_feedbacks.count < 1
+      .no-feedback No feedback yet. Create feedback to start things off!
+    - else
+      - @team_feedbacks.each do |feedback|
+        = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
+
+
+
+.column#right
+  .attributes
+    %h2 Attributes

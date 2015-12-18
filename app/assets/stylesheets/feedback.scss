@@ -33,6 +33,7 @@
   width: 630px;
   margin: 0 auto;
   margin-bottom: 20px;
+  background: rgb(251, 249, 249);
   & > * {
   padding: 10px 15px;
   }
@@ -53,14 +54,14 @@
     }
   }
   .agree {
-    background: rgb(241, 129, 121)
+    background: rgb(241, 129, 121);
   }
   .dismiss {
     background: #aaa;
   }
 
   .top {
-    border: 1px solid #666;
+    border-bottom: 2px solid #aaa;
   }
   .banner {
     height: 40px;
@@ -161,9 +162,10 @@
 }
 
 .feedback-form {
+  background: rgb(251, 249, 249) !important;
   border: 1px solid #ccc;
   width: 630px;
-  margin: 100px auto 20px auto;
+  margin-bottom: 20px;
   .avatar {
     width: 45px;
     height: 45px;
