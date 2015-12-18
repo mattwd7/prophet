@@ -4,6 +4,7 @@
     %tr
       %td
         .avatar
+          = image_tag comment.user.avatar.url(:large)
         %td
           .content
             %span.author= comment.user.user_tag

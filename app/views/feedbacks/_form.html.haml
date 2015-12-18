@@ -1,13 +1,19 @@
 .feedback-form
   = form_for Feedback.new, as: :feedback, url: feedbacks_path, remote: true do |f|
+    = f.hidden_field(:author_id, value: current_user.id)
     .top
-      .recipient.avatar
-      = f.text_area :content, placeholder: 'Send or Request feedback...'
+      %table
+        %tr
+          %td
+            .avatar
+              = image_tag current_user.avatar.url(:large)
+          %td
+            .recipient
+              Feedback For:
+              = f.select :user, options_with_images([current_user, current_user.peers].flatten)
+            .content
+              = f.text_area :content, placeholder: 'Send or Request feedback...'
     .bottom
-      .entry
-        Peers:
-        -#= text_field_tag :peers, '', placeholder: 'Separate usertags by spaces (e.g. @JohnDoe @MichaelFasbender)'
-        = select_tag :peers, options_with_images(current_user.peers), { multiple: 'multiple', id: 'add-peers' }
-      .submit
-        = f.hidden_field(:author_id, value: current_user.id)
-        = submit_tag 'Submit'
+      Peers:
+      = select_tag :peers, options_with_images(current_user.peers), { multiple: true, id: 'add-peers' }
+      .submit-tag Send

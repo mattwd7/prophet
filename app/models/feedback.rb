@@ -6,7 +6,6 @@ class Feedback < ActiveRecord::Base
   has_many :peers, through: :feedback_links, source: :user
 
   validates_presence_of :user_id, :author_id, :content
-  before_validation :parse_user
 
   def author
     User.find(author_id)
@@ -22,23 +21,9 @@ class Feedback < ActiveRecord::Base
   end
 
   def assign_peers(peer_tags)
-    peer_tags.split(' ').each do |peer_tag|
+    peer_tags.each do |peer_tag|
       user = User.find_by_user_tag(peer_tag)
       FeedbackLink.create(feedback: self, user: user)
-    end
-  end
-
-private
-  def parse_user
-    exp = /\@\S+/
-    user_tag = content.match(exp)
-    if user_tag
-      if user_tag[0].downcase == '@me'
-        self.user = author
-      else
-        self.user = User.find_by_user_tag(user_tag[0])
-      end
-      self.content.sub!(exp, '').strip!
     end
   end
 

@@ -3,6 +3,7 @@
     %tr
       %td
         .avatar
+          = image_tag current_user.avatar.url(:large)
       %td
         = form_for Comment.new, as: :comment, url: comments_path, remote: true do |f|
           = f.text_area :content, placeholder: 'Contribute to the discussion...'

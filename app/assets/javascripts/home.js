@@ -15,15 +15,33 @@ $(document).ready(function(){
         }
     }
 
-    $('#add-peers').chosen({
-        width: "100%"
+    $('#feedback_user').chosen({
+        width: "60%"
+    });
+    $('#feedback_user').on('change', function(e){
+        e.preventDefault();
+        $('.content textarea').focus();
     });
 
-    $('.comment-form textarea').keypress(function(e){
+    $('#add-peers').chosen({
+        width: "65%"
+    });
+
+    $('.feedback-form .submit-tag').click(function(){
+        $(this).closest('form').submit();
+    });
+
+    $('.actions .comment-count').click(function(){
+        $(this).closest('.feedback').find('textarea').focus();
+    });
+
+    $('.comment-form textarea').on('keypress', (function(e){
+        alert('keypress');
         if (e.which === 13){
+            alert('ENTER!');
             $(this).closest('form').submit();
         }
-    });
+    }));
 
     $('.active.votes .vote').click(function(){
         var url = $(this).attr('data-action'),

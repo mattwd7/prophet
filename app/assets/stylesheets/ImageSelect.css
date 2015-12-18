@@ -10,11 +10,13 @@
 
 /* Tag image */
 .chose-image {
-	width:55px;
-	max-height:55px;
+	width:32px;
+	max-height:32px;
 	padding: 2px 5px 3px 0px;
 	vertical-align:middle;
     border-radius: 50%;
+    position: relative;
+    top: -3px;
 }
 
 .chose-image.rtl {
