@@ -30,6 +30,16 @@ body {
     margin-top: 100px;
 }
 
+#banner .logo {
+    background: url('logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 250px;
+    height: 80px;
+    position: absolute;
+    left: 20px;
+}
+
 #banner #session {
     float: right;
     margin: 10px 10px 0 0;

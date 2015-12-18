@@ -36,9 +36,7 @@ $(document).ready(function(){
     });
 
     $('.comment-form textarea').on('keypress', (function(e){
-        alert('keypress');
         if (e.which === 13){
-            alert('ENTER!');
             $(this).closest('form').submit();
         }
     }));

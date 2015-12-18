@@ -7,6 +7,7 @@
     = csrf_meta_tags
   %body
     #banner
+      .logo
       - if current_user
         #session
           = link_to current_user.email, edit_user_path(current_user)
