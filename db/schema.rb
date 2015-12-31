@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151218213348) do
+ActiveRecord::Schema.define(version: 20151231213321) do
 
   create_table "comment_links", force: true do |t|
     t.integer  "comment_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20151218213348) do
     t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "resonance_value"
   end
 
   create_table "tag_links", force: true do |t|

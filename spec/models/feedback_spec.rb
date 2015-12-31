@@ -59,6 +59,15 @@ describe Feedback do
       expect(@feedback.comments.count).to be > 0
     end
 
+    it 'has a resonance value between 0 and 2 that is updated when feedback links update' do
+      expect(@feedback.resonance_value).to eq(2)
+      @feedback.feedback_links.where(agree: true).first.update_attributes(agree: false)
+      @feedback.reload
+      expect(@feedback.resonance_value).to eq(1)
+      @feedback.feedback_links.where(agree: true).first.update_attributes(agree: false)
+      @feedback.reload
+      expect(@feedback.resonance_value).to eq(0)
+    end
 
   end
 

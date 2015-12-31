@@ -14,31 +14,42 @@ describe 'Feedback filtering', js: true do
 
   it 'narrows results based on resonance' do
     log_in_with(@user.email, 'secret')
+    expect(page).to have_css('.feedback-summary .number-bubble', text: 1)
+
     expect(page).to have_content(@resonant_feedback.content)
     expect(page).to have_content(@mixed_feedback.content)
     expect(page).to have_content(@isolated_feedback.content)
 
-    filter('resonant')
+    filter_resonance('resonant')
     expect(page).to have_css('.filter-tag', text: 'Resonant'.upcase)
     expect(page).to have_content(@resonant_feedback.content)
     expect(page).to_not have_content(@mixed_feedback.content)
     expect(page).to_not have_content(@isolated_feedback.content)
 
-    filter('mixed')
+    filter_resonance('mixed')
     expect(page).to have_css('.filter-tag', text: 'Mixed'.upcase)
     expect(page).to_not have_content(@resonant_feedback.content)
     expect(page).to have_content(@mixed_feedback.content)
     expect(page).to_not have_content(@isolated_feedback.content)
 
-    filter('isolated')
+    filter_resonance('isolated')
     expect(page).to have_css('.filter-tag', text: 'Isolated'.upcase)
     expect(page).to_not have_content(@resonant_feedback.content)
     expect(page).to_not have_content(@mixed_feedback.content)
     expect(page).to have_content(@isolated_feedback.content)
   end
 
+  it 'narrows results based on attributes'
+  it 'narrows results based on both resonance and attributes'
+  it 'expands results when you remove a filter tag'
+
+
 end
 
-def filter(resonance)
+def filter_resonance(resonance)
   find(".feedback-summary ##{resonance}").click
+end
+
+def filter_attribute(attribute)
+  find(".attribute ##{attribute}").click
 end
