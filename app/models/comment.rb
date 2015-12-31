@@ -17,7 +17,7 @@ class Comment < ActiveRecord::Base
 
 private
   def create_links
-    feedback.peers.where("users.id <> ?", user.id).each do |peer|
+    [feedback.peers, feedback.author].flatten.each do |peer|
       CommentLink.create(user: peer, comment: self) if peer != self.user
     end
   end

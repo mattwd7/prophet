@@ -9,24 +9,27 @@ describe 'User', js: true do
 
   it 'in env without feedback sees that there is no content' do
     log_in_with(@user.email, 'password')
-    expect(page).to have_content('No feedback yet. Create feedback to start things off!')
+    expect(page).to have_content('No feedback results found.')
   end
 
   it 'without personal feedback defaults to ALL' do
-    @team1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user completely uninvolved
+    @peer1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user is a peer
+    FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @peer1)
+    @peer1.comments.each do |c|
+      FactoryGirl.create(:spec_comment_link, user: @user, comment: c)
+    end
     log_in_with(@user.email, 'password')
 
     expect(page).to have_css('.team.selected')
-    expect(page).to have_content(@team1.content)
+    expect(page).to have_content(@peer1.content)
   end
 
   context 'in established environment' do
     before(:each) do
       @mine1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user) # @user is feedback recipient
       @mine2 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user) # @user is feedback recipient
-      @mine3 = FactoryGirl.create(:spec_full_feedback, author: @user, user: @author) # @user is author
+      @i_am_author = FactoryGirl.create(:spec_full_feedback, author: @user, user: @author) # @user is author
       @team1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user completely uninvolved
-
       @peer1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user is a peer
       FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @peer1)
       @peer1.comments.each do |c|
@@ -66,24 +69,14 @@ describe 'User', js: true do
       end
     end
 
-    # it 'can create a feedback with peers' do
-    #   (1..3).each do |num|
-    #     FactoryGirl.create(:spec_user, email: "user#{num}@gmail.com", first_name: "John", last_name: "Doe")
-    #   end
-    #   find("#feedback_content").set "@TonyDecino Feedback content for Tony is HERE."
-    #   find('#peers').set '@JohnDoe @JohnDoe-1 @JohnDoe-2'
-    #   within('.feedback-form'){ find('.submit-tag').click }
-    #   sleep 1
-    #   expect(Feedback.last.peers.count).to eq(3)
-    # end
-
     it 'can comment on feedback', no_webkit: true do
-      comment_count = @mine3.comments.count
-      within("#feedback-#{@mine3.id}"){ find('#comment_content').set "This is my new comment\n" }
-      within("#feedback-#{@mine3.id}") do
+      comment_count = @i_am_author.comments.count
+      find('.team').click
+      within(".feedback#feedback-#{@i_am_author.id}"){ find('#comment_content').set "This is my new comment\n" }
+      within("#feedback-#{@i_am_author.id}") do
         expect(page).to have_css('.comment', count: comment_count + 1)
-        expect(@mine3.comments.count).to eq(comment_count + 1)
-        expect(page).to have_content(@mine3.comments.last.content)
+        expect(@i_am_author.comments.count).to eq(comment_count + 1)
+        expect(page).to have_content(@i_am_author.comments.last.content)
       end
     end
 
@@ -120,10 +113,11 @@ describe 'User', js: true do
         end
       end
 
-      within("#feedback-#{@mine3.id}") do
+      find('.team').click
+      within("#feedback-#{@i_am_author.id}") do
         within(first('.comment')) do
           within('.votes') do
-            within('.dismiss'){ expect(page).to have_content(@mine3.peers.count + 1) }
+            within('.dismiss'){ expect(page).to have_content(@i_am_author.peers.count + 1) }
             expect(page).to have_content(1) # my comment gets a +1 and I cannot change it
             expect(page).to_not have_css('active')
           end
@@ -144,28 +138,20 @@ describe 'User', js: true do
           end
         end
       end
-
-      within("#feedback-#{@team1.id}") do
-        within(first('.comment')) do
-          within('.votes') do
-            within('.dismiss'){ expect(page).to have_content(@team1.peers.count + 1) }
-            expect(page).to have_content(1) # peer-generated comment gets +1
-            expect(page).to_not have_css('active') # I cannot vote on the comment in a feedback I am not a peer of
-          end
-        end
-      end
     end
 
-    it 'sees self-involved feedback on ME feedback and all other feedback on TEAM feed' do
+    it 'sees recieved feedback on ME feedback and all other feedback on TEAM feed' do
       expect(page).to have_css("#feedback-#{@mine1.id}")
       expect(page).to have_css("#feedback-#{@mine2.id}")
-      expect(page).to have_css("#feedback-#{@mine3.id}")
+      expect(page).to_not have_css("#feedback-#{@i_am_author.id}")
       expect(page).to_not have_css("#feedback-#{@team1.id}")
+      expect(page).to_not have_css("#feedback-#{@peer1.id}")
       find('.sort .team').click
       expect(page).to_not have_css("#feedback-#{@mine1.id}")
       expect(page).to_not have_css("#feedback-#{@mine2.id}")
-      expect(page).to_not have_css("#feedback-#{@mine3.id}")
-      expect(page).to have_css("#feedback-#{@team1.id}")
+      expect(page).to have_css("#feedback-#{@i_am_author.id}")
+      expect(page).to_not have_css("#feedback-#{@team1.id}")
+      expect(page).to have_css("#feedback-#{@peer1.id}")
 
     end
   end

@@ -27,7 +27,7 @@ describe Comment do
   it 'creates comment links for feedback peers' do
     feedback = FactoryGirl.create(:spec_full_feedback)
     comment = FactoryGirl.create(:spec_comment, feedback: feedback, user: feedback.peers.first)
-    expect(comment.peers.count).to eq(feedback.peers.count - 1)
+    expect(comment.peers.count).to eq(feedback.peers.count) # peers + feedback_author - comment_author
   end
 
   it 'creates unique tags for the feedback to which it belongs' do

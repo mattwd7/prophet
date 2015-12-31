@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   end
 
   def my_feedbacks(resonance=nil, attributes=nil)
-    query = Feedback.where("author_id = ? or user_id = ?", self.id, self.id).order('created_at DESC')
+    query = Feedback.where("user_id = ?", self.id).order('created_at DESC')
     if resonance && resonance.count > 0
       resonance.each do |r|
         value = Scoreable::RESONANCE_TEXT.index(r)
@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def team_feedbacks(resonance=nil, attributes=nil)
-    query = Feedback.where("author_id <> ? and user_id  <> ?", self.id, self.id).order('created_at DESC')
+    query = Feedback.joins(:feedback_links).where("feedbacks.author_id = ? or feedback_links.user_id = ?", self.id, self.id).distinct("feedbacks.id").order('created_at DESC')
     if resonance && resonance.count > 0
       resonance.each do |r|
         value = Scoreable::RESONANCE_TEXT.index(r)
