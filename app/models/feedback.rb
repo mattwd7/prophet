@@ -11,6 +11,10 @@ class Feedback < ActiveRecord::Base
   validates_presence_of :user_id, :author_id, :content
   after_create :parse_tags
 
+  scope :resonant, -> { where(resonance_value: 2) }
+  scope :mixed, -> { where(resonance_value: 1) }
+  scope :isolated, -> { where(resonance_value: 0) }
+
   def author
     User.find(author_id)
   end

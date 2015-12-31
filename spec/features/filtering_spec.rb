@@ -8,14 +8,13 @@ describe 'Feedback filtering', js: true do
     @mixed_feedback = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user, content: 'people have mixed opinions on this one')
     @isolated_feedback = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user, content: 'Im all alone on this one :(')
     @resonant_feedback.feedback_links.each{|fl| fl.update_attributes(agree: true) }
-    @mixed_feedback.feedback_links.where(agree: true).first.destroy
+    @mixed_feedback.feedback_links.where(agree: true).first.update_attributes(agree: false)
     @isolated_feedback.feedback_links.each{|fl| fl.update_attributes(agree: false) }
   end
 
   it 'narrows results based on resonance' do
     log_in_with(@user.email, 'secret')
     expect(page).to have_css('.feedback-summary .number-bubble', text: 1)
-
     expect(page).to have_content(@resonant_feedback.content)
     expect(page).to have_content(@mixed_feedback.content)
     expect(page).to have_content(@isolated_feedback.content)

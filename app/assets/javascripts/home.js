@@ -34,7 +34,7 @@ $(document).ready(function(){
         $(this).closest('form').submit();
     });
 
-    $('.actions .comment-count').click(function(){
+    $(document).on('click', '.actions .comment-count', function(){
         $(this).closest('.feedback').find('textarea').focus();
     });
 
