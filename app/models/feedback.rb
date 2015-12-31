@@ -1,4 +1,5 @@
 class Feedback < ActiveRecord::Base
+  include Scoreable
 
   belongs_to :user
   has_many :comments

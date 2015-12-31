@@ -23,15 +23,7 @@ module FeedbacksHelper
   end
 
   def flavor_text(feedback_or_comment)
-    agree_count = feedback_or_comment.peers_in_agreement.count
-    peer_count = feedback_or_comment.peers.count
-    if agree_count > (peer_count / 2)
-      'MEANINGFUL'
-    elsif agree_count == (peer_count / 2)
-      'MIXED'
-    else
-      'NEGLIGIBLE'
-    end
+    feedback_or_comment.resonance_text
   end
 
 

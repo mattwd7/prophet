@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
   get '/peers' => 'home#peers'
+  post '/filter_feedbacks' => 'home#filter_feedbacks'
 
   devise_for :users
   resources :users

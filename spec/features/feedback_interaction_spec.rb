@@ -17,7 +17,7 @@ describe 'Feedback' do
   end
 
   it 'displays the appropriate flavor text' do
-    expect(page).to have_content('MEANINGFUL')
+    expect(page).to have_content('RESONANT')
   end
 
   it 'can be commented on'

@@ -1,0 +1,29 @@
+#filter-tags {
+  height: 28px;
+  margin-bottom: 5px;
+  background: none;
+  .resonance-tags {
+    float: left;
+  }
+  .attribute-tags {
+    float: right;
+  }
+  .filter-tag {
+    color: black;
+    padding: 5px;
+    & > * {
+      display: inline-block;
+    }
+    .text {
+      font-size: 13px
+    }
+    .delete {
+      font-size: 20px;
+      margin-left: 5px;
+      &:hover {
+        cursor: pointer;
+        color: #777;
+      }
+    }
+  }
+}

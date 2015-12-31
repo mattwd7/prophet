@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  include Scoreable
+
   belongs_to :user
   belongs_to :feedback
   has_many :comment_links

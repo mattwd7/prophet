@@ -28,6 +28,30 @@ class User < ActiveRecord::Base
     end
   end
 
+  def my_feedbacks(resonance=nil, attributes=nil)
+    query = Feedback.where("author_id = ? or user_id = ?", self.id, self.id).order('created_at DESC')
+    if resonance && resonance.count > 0
+      resonance.each do |r|
+        value = Scoreable::RESONANCE_TEXT.index(r)
+        # TODO: make this faster by storing and changing resonance values in the DB (query, not 'select')
+        query = query.all.select{|f| f.resonance_value == value}
+      end
+    end
+    query
+  end
+
+  def team_feedbacks(resonance=nil, attributes=nil)
+    query = Feedback.where("author_id <> ? and user_id  <> ?", self.id, self.id).order('created_at DESC')
+    if resonance && resonance.count > 0
+      resonance.each do |r|
+        value = Scoreable::RESONANCE_TEXT.index(r)
+        # TODO: make this faster by storing and changing resonance values in the DB (query, not 'select')
+        query = query.all.select{|f| f.resonance_value == value}
+      end
+    end
+    query
+  end
+
   def authored_feedbacks
     Feedback.where(author_id: self.id)
   end
