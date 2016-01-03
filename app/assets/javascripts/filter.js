@@ -7,6 +7,12 @@ $(document).ready(function(){
         toggleBubble($(this), type);
     });
 
+    $(document).on('click', '.filter-tag .delete', function(){
+        var name = $(this).siblings('.text').text(),
+            type = $(this).closest('.resonance-tags').length > 0 ? 'resonance' : 'attribute';
+        removeTag(name, type);
+    });
+
     function toggleBubble(elem, type){
         var bubble = $(elem),
             name = bubble.siblings().text().toUpperCase();
@@ -51,8 +57,12 @@ $(document).ready(function(){
             method: 'post',
             url: '/filter_feedbacks',
             data: filters,
+            beforeSend: function(){
+                $(".column#middle").addClass('blur');
+            },
             success: function(data){
                 $('#feedbacks').html(data);
+                $(".column#middle").removeClass('blur');
             }
         })
     }

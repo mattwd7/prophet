@@ -22,6 +22,14 @@ h2 {
   }
 }
 
+.blur {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -ms-filter: blur(5px);
+  -o-filter: blur(5px);
+  opacity: 0.25;
+}
+
 .column > * {
   background: rgb(241, 241, 241);
 }
