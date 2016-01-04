@@ -10,10 +10,10 @@ describe 'Feedback filtering', js: true do
     @resonant_feedback.feedback_links.each{|fl| fl.update_attributes(agree: true) }
     @mixed_feedback.feedback_links.where(agree: true).first.update_attributes(agree: false)
     @isolated_feedback.feedback_links.each{|fl| fl.update_attributes(agree: false) }
+    log_in_with(@user.email, 'secret')
   end
 
   it 'narrows results based on resonance' do
-    log_in_with(@user.email, 'secret')
     expect(page).to have_css('.feedback-summary .number-bubble', text: 1)
     expect(page).to have_content(@resonant_feedback.content)
     expect(page).to have_content(@mixed_feedback.content)
@@ -38,7 +38,25 @@ describe 'Feedback filtering', js: true do
     expect(page).to have_content(@isolated_feedback.content)
   end
 
-  it 'narrows results based on attributes'
+  it 'narrows results based on attributes' do
+    FactoryGirl.create(:spec_comment, feedback: @resonant_feedback, user: @author, content: "You did a great job #leadership")
+    expect(@resonant_feedback.tags.count).to eq(1)
+    visit root_path
+    within('.attributes') { expect(page).to have_content('leadership') }
+    filter_attribute('leadership')
+    expect(page).to_not have_content(@mixed_feedback.content)
+    expect(page).to_not have_content(@isolated_feedback.content)
+    expect(page).to have_content(@resonant_feedback.content)
+    filter_resonance('resonant')
+    expect(page).to_not have_content(@mixed_feedback.content)
+    expect(page).to_not have_content(@isolated_feedback.content)
+    expect(page).to have_content(@resonant_feedback.content)
+    filter_resonance('mixed')
+    expect(page).to_not have_content(@mixed_feedback.content)
+    expect(page).to_not have_content(@isolated_feedback.content)
+    expect(page).to_not have_content(@resonant_feedback.content)
+  end
+
   it 'narrows results based on both resonance and attributes'
   it 'expands results when you remove a filter tag'
 
@@ -50,5 +68,7 @@ def filter_resonance(resonance)
 end
 
 def filter_attribute(attribute)
-  find(".attribute ##{attribute}").click
+  within('.attributes') do
+    within('li', text: attribute){ find('.number-bubble').click }
+  end
 end

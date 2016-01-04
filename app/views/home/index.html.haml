@@ -48,5 +48,10 @@
 
 
 .column#right
-  .attributes
+  .attributes.filters
     %h2 Attributes
+    %ul
+      - @tags.each do |tag_name, count|
+        %li
+          .description= tag_name
+          .number-bubble= count

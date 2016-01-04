@@ -30,26 +30,12 @@ class User < ActiveRecord::Base
 
   def my_feedbacks(resonance=nil, attributes=nil)
     query = Feedback.where("user_id = ?", self.id).order('created_at DESC')
-    if resonance && resonance.count > 0
-      resonance.each do |r|
-        value = Scoreable::RESONANCE_TEXT.index(r)
-        # TODO: make this faster by storing and changing resonance values in the DB (query, not 'select')
-        query = query.all.select{|f| f.resonance_value == value}
-      end
-    end
-    query
+    apply_filter(query, resonance, attributes)
   end
 
   def team_feedbacks(resonance=nil, attributes=nil)
     query = Feedback.joins(:feedback_links).where("feedbacks.author_id = ? or feedback_links.user_id = ?", self.id, self.id).distinct("feedbacks.id").order('created_at DESC')
-    if resonance && resonance.count > 0
-      resonance.each do |r|
-        value = Scoreable::RESONANCE_TEXT.index(r)
-        # TODO: make this faster by storing and changing resonance values in the DB (query, not 'select')
-        query = query.all.select{|f| f.resonance_value == value}
-      end
-    end
-    query
+    apply_filter(query, resonance, attributes)
   end
 
   def authored_feedbacks
@@ -76,6 +62,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def my_tags
+    TagLink.joins(:tag).joins(:feedback).where('feedbacks.id IN (?)', feedbacks.map(&:id)).group(:name).count
+  end
+
 private
   def reprocess_avatar
     avatar.reprocess!
@@ -95,6 +85,17 @@ private
       end
       self.user_tag = tag
     end
+  end
+
+  def apply_filter(base_query, resonance=nil, attributes=nil)
+    if resonance && resonance.count > 0
+      value = Scoreable::RESONANCE_TEXT.index(resonance.first)
+      base_query = base_query.where(resonance_value: value)
+    end
+    if attributes && attributes.count > 0
+      base_query = base_query.joins(:tags).where('tags.name IN (?)', attributes)
+    end
+    base_query
   end
 
 end

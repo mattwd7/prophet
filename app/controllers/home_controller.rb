@@ -5,6 +5,7 @@ class HomeController < ApplicationController
       @peers = current_user.peers
       @my_feedbacks = current_user.my_feedbacks
       @team_feedbacks = current_user.team_feedbacks
+      @tags = current_user.my_tags
     else
       redirect_to new_user_session_path
     end

@@ -39,16 +39,24 @@ $(document).ready(function(){
             filterFeedbacks();
         } else {
             // append to attributes
+            $('#filter-tags .attribute-tags').append(newTag);
+            filters.attributes.push(name);
+            filterFeedbacks();
         }
     }
 
     function removeTag(name, type){
         if (type == 'resonance'){
             $(".resonance-tags .filter-tag:contains(" + name + ")").remove();
+            $(".feedback-summary li:contains(" + toTitleCase(name) + ") .number-bubble").removeClass('selected');
             filters.resonance = [];
             filterFeedbacks();
         } else {
             // remove attribute tag
+            $(".attribute-tags .filter-tag:contains(" + name + ")").remove();
+            $(".attributes li:contains(" + name.toLowerCase() + ") .number-bubble").removeClass('selected');
+            filters.attributes.splice(filters.attributes.indexOf(name), 1);
+            filterFeedbacks();
         }
     }
 
@@ -65,6 +73,11 @@ $(document).ready(function(){
                 $(".column#middle").removeClass('blur');
             }
         })
+    }
+
+
+    function toTitleCase(str){
+        return str.replace(/\w+/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     }
 
 });

@@ -101,5 +101,18 @@ h2 {
   width: 250px;
   .attributes {
     border: 1px solid #ccc;
+    padding: 10px;
+    ul {
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      list-style-type: none;
+      text-align: center;
+      width: 30%;
+      &:nth-child(1) .number-bubble{ background: rgb(241, 129, 121); }
+      &:nth-child(2) .number-bubble{ background: black; }
+      &:nth-child(3) .number-bubble{ background: #ccc; }
+    }
   }
 }
