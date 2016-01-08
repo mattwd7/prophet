@@ -11,6 +11,7 @@
   .filter-tag {
     color: black;
     padding: 5px;
+    display: inline-block;
     & > * {
       display: inline-block;
     }

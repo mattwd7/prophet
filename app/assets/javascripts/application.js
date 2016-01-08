@@ -14,3 +14,12 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+
+$(document).ready(function(){
+    $(document).on('keypress', function(e) {
+        if (e.which === 13) { // if is enter
+            $(':focus').click();
+        }
+    });
+})

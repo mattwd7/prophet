@@ -90,6 +90,15 @@
     clear: both;
     margin: 15px 0;
   }
+  .tags {
+    .tag {
+      display: inline-block;
+      margin-right: 5px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
   table.actions {
     border-top: 1px solid #999;
     width: 600px;

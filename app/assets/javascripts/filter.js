@@ -7,6 +7,11 @@ $(document).ready(function(){
         toggleBubble($(this), type);
     });
 
+    $('.tag').click(function(){
+        var name = $(this).text();
+        createTag(name, 'attribute');
+    });
+
     $(document).on('click', '.filter-tag .delete', function(){
         var name = $(this).siblings('.text').text(),
             type = $(this).closest('.resonance-tags').length > 0 ? 'resonance' : 'attribute';

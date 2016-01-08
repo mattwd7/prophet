@@ -24,8 +24,8 @@ FactoryGirl.define do
       FactoryGirl.create(:spec_feedback_link, user: u1, feedback: f, agree: true)
       FactoryGirl.create(:spec_feedback_link, user: u2, feedback: f, agree: true)
       FactoryGirl.create(:spec_feedback_link, user: u3, feedback: f)
-      FactoryGirl.create(:spec_comment, feedback: f, user: u1, content: "I have to say I agree with this feedback. Please do better.")
-      FactoryGirl.create(:spec_comment, feedback: f, user: u2, content: "I also agree with this feedback, but noticed you've gotten better.")
+      FactoryGirl.create(:spec_comment, feedback: f, user: u1, content: "I have to say I agree with this feedback. Please do better. #lackluster")
+      FactoryGirl.create(:spec_comment, feedback: f, user: u2, content: "I also agree with this feedback, but noticed you've gotten better. #stopsucking")
     end
   end
 

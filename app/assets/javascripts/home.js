@@ -27,11 +27,11 @@ $(document).ready(function(){
         $(this).closest('.feedback').find('textarea').focus();
     });
 
-    $('.comment-form textarea').on('keypress', (function(e){
+    $(document).on('keypress', '.comment-form textarea', function(e){
         if (e.which === 13){
             $(this).closest('form').submit();
         }
-    }));
+    })
 
     $('.active.votes .vote').click(function(){
         var url = $(this).attr('data-action'),
