@@ -71,3 +71,7 @@ body {
 #banner .sort .team {
     margin-left: -5px;
 }
+.editable .ph {
+    color: gray;
+    font-style: italic;
+}

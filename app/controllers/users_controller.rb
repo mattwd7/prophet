@@ -6,13 +6,18 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.assign_attributes(permitted_params)
-    if @user.save
-      @user.avatar.reprocess! if @user.cropping?
-      redirect_to edit_user_path
+    if request.xhr?
+      @user.update_attributes(bio: params[:value])
+      render text: params[:value]
     else
-      flash[:error] = @user.errors.full_messages
-      redirect_to edit_user_path
+      @user.assign_attributes(permitted_params)
+      if @user.save
+        @user.avatar.reprocess! if @user.cropping?
+        redirect_to edit_user_path
+      else
+        flash[:error] = @user.errors.full_messages
+        redirect_to edit_user_path
+      end
     end
   end
 

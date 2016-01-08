@@ -28,8 +28,8 @@
         %td
           .name= "#{current_user.first_name} #{current_user.last_name}"
           .title Software Engineer
-    .status
-      Information or goals for myself can go here. I can also edit them here, inline with the homepage document. Use Jeditable!
+    .status.editable{ 'data-action' => user_url(current_user) }
+      = current_user.bio
 
 
 

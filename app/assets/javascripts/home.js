@@ -5,17 +5,6 @@ $(document).ready(function(){
         $(this).addClass('selected');
     });
 
-    function toggleBanner(input){
-        if (input === 'team'){
-            $('.my-feedbacks').hide();
-            $('.all-feedbacks').show();
-        } else if (input === 'me'){
-            $('.all-feedbacks').hide();
-            $('.my-feedbacks').show();
-        }
-        window.scrollTo(0,0)
-    }
-
     $('#feedback_user').chosen({
         width: "60%"
     });
@@ -64,4 +53,29 @@ $(document).ready(function(){
         }
     })
 
+    $('.profile .status').each(function(){
+        $(this).editable($(this).attr('data-action'), {
+            type: 'textarea',
+            height: '100px',
+            placeholder: '<span class="ph">Click to add a short bio...</span>',
+            method: 'PUT',
+            onblur: 'submit',
+            data: function(string){ return $.trim(string); },
+            onsubmit: function(){
+                console.log($(this).closest('.status').attr('data-action'));
+            }
+        })
+    })
+
 });
+
+function toggleBanner(input){
+    if (input === 'team'){
+        $('.my-feedbacks').hide();
+        $('.all-feedbacks').show();
+    } else if (input === 'me'){
+        $('.all-feedbacks').hide();
+        $('.my-feedbacks').show();
+    }
+    window.scrollTo(0,0)
+}
