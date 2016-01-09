@@ -29,12 +29,12 @@ class User < ActiveRecord::Base
   end
 
   def my_feedbacks(resonance=nil, attributes=nil)
-    query = Feedback.where("user_id = ?", self.id).order('created_at DESC')
+    query = Feedback.where("user_id = ? or author_id = ?", self.id, self.id).order('created_at DESC')
     apply_filter(query, resonance, attributes)
   end
 
   def team_feedbacks(resonance=nil, attributes=nil)
-    query = Feedback.joins(:feedback_links).where("feedbacks.author_id = ? or feedback_links.user_id = ?", self.id, self.id).distinct("feedbacks.id").order('created_at DESC')
+    query = Feedback.joins(:feedback_links).where("feedback_links.user_id = ?", self.id).distinct("feedbacks.id").order('created_at DESC')
     apply_filter(query, resonance, attributes)
   end
 

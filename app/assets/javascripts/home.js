@@ -5,6 +5,26 @@ $(document).ready(function(){
         $(this).addClass('selected');
     });
 
+    $('.profile .status').each(function(){
+        $(this).editable($(this).attr('data-action'), {
+            type: 'textarea',
+            height: '100px',
+            placeholder: '<span class="ph">Click to add a short bio...</span>',
+            method: 'PUT',
+            onblur: 'nothing',
+            submit: 'OK',
+            cancel: 'Cancel',
+            data: function(string){ return $.trim(string); },
+            onsubmit: function(){
+                console.log($(this).closest('.status').attr('data-action'));
+            }
+        })
+    });
+
+    ////////////////////////////////////////////
+    // FEEDBACK FORM
+    ////////////////////////////////////////////
+
     $('#feedback_user').chosen({
         width: "60%"
     });
@@ -23,15 +43,38 @@ $(document).ready(function(){
         $(this).closest('form').submit();
     });
 
+    ////////////////////////////////////////////
+    // COMMENTS
+    ////////////////////////////////////////////
+
     $(document).on('click', '.actions .comment-count', function(){
         $(this).closest('.feedback').find('textarea').focus();
     });
 
-    $(document).on('keypress', '.comment-form textarea', function(e){
-        if (e.which === 13){
-            $(this).closest('form').submit();
+    $(document).on('focus', '.comment-form textarea', function(){
+        var submit = $(this).closest('.comment-form').find('.submit-tag');
+        if (submit.is(':hidden')){
+            $('.comment-form .submit-tag').slideUp('fast');
+            submit.slideDown('fast');
         }
-    })
+    });
+
+    $(document).on('click', '.comment-form .submit-tag', function(){
+        $(this).closest('form').submit();
+    });
+
+    $(document).on('click', '.action.agree, .action.dismiss', function(){
+        var feedback = $(this).closest('.feedback');
+        if ($(this).hasClass('agree')){
+            feedback.find('.votes .agree').click();
+        } else {
+            feedback.find('.votes .dismiss').click();
+        }
+    });
+
+    ////////////////////////////////////////////
+    // FEEDBACKS
+    ////////////////////////////////////////////
 
     $('.active.votes .vote').click(function(){
         var url = $(this).attr('data-action'),
@@ -51,22 +94,6 @@ $(document).ready(function(){
                 data: { agree: params }
             });
         }
-    })
-
-    $('.profile .status').each(function(){
-        $(this).editable($(this).attr('data-action'), {
-            type: 'textarea',
-            height: '100px',
-            placeholder: '<span class="ph">Click to add a short bio...</span>',
-            method: 'PUT',
-            onblur: 'nothing',
-            submit: 'OK',
-            cancel: 'Cancel',
-            data: function(string){ return $.trim(string); },
-            onsubmit: function(){
-                console.log($(this).closest('.status').attr('data-action'));
-            }
-        })
     })
 
 });

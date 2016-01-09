@@ -8,3 +8,4 @@
         = form_for Comment.new, as: :comment, url: comments_path, remote: true do |f|
           = f.text_area :content, placeholder: 'Contribute to the discussion...'
           = f.hidden_field :feedback_id, value: feedback_id
+          .submit-tag{ 'tabindex' => 0 } Submit

@@ -69,11 +69,14 @@ describe 'User', js: true do
       end
     end
 
-    it 'can comment on feedback', no_webkit: true do
+    it 'can comment on feedback' do
       comment_count = @i_am_author.comments.count
-      find('.team').click
-      within(".feedback#feedback-#{@i_am_author.id}"){ find('#comment_content').set "This is my new comment\n" }
       within("#feedback-#{@i_am_author.id}") do
+        expect(page).to_not have_content("Submit")
+        find('#comment_content').click
+        expect(page).to have_content("Submit")
+        find('#comment_content').set "This is my new comment\n"
+        find('.submit-tag').click
         expect(page).to have_css('.comment', count: comment_count + 1)
         expect(@i_am_author.comments.count).to eq(comment_count + 1)
         expect(page).to have_content(@i_am_author.comments.last.content)
@@ -140,19 +143,44 @@ describe 'User', js: true do
       end
     end
 
-    it 'sees recieved feedback on ME feedback and all other feedback on TEAM feed' do
+    it 'sees recieved feedback on ME feedback and all feedback he is a peer to on TEAM feed' do
       expect(page).to have_css("#feedback-#{@mine1.id}")
       expect(page).to have_css("#feedback-#{@mine2.id}")
-      expect(page).to_not have_css("#feedback-#{@i_am_author.id}")
+      expect(page).to have_css("#feedback-#{@i_am_author.id}")
       expect(page).to_not have_css("#feedback-#{@team1.id}")
       expect(page).to_not have_css("#feedback-#{@peer1.id}")
       find('.sort .team').click
       expect(page).to_not have_css("#feedback-#{@mine1.id}")
       expect(page).to_not have_css("#feedback-#{@mine2.id}")
-      expect(page).to have_css("#feedback-#{@i_am_author.id}")
+      expect(page).to_not have_css("#feedback-#{@i_am_author.id}")
       expect(page).to_not have_css("#feedback-#{@team1.id}")
       expect(page).to have_css("#feedback-#{@peer1.id}")
+    end
 
+    it 'has additional feedback actions AGREE and DISMISS as a peer' do
+      expect(page).to_not have_css('.action', text: 'Agree')
+      expect(page).to_not have_css('.action', text: 'Dismiss')
+      find('.sort .team').click
+      within("#feedback-#{@peer1.id}") do
+        expect(page).to have_css('.action', text: 'Agree')
+        expect(page).to have_css('.action', text: 'Dismiss')
+      end
+      agree_count = @peer1.peers_in_agreement.count
+      within("#feedback-#{@peer1.id}") do
+        expect(page).to_not have_css('.vote.agree.selected')
+        expect(page).to have_css('.vote.dismiss.selected')
+        find('.action', text: 'Agree').click
+        expect(page).to have_css('.vote.agree.selected')
+        expect(page).to_not have_css('.vote.dismiss.selected')
+        sleep 2 # TODO: figure out how to wait for ajax
+        @peer1.reload
+        expect(@peer1.peers_in_agreement.count).to eq(agree_count + 1)
+        find('.action', text: 'Dismiss').click
+        expect(page).to_not have_css('.vote.agree.selected')
+        expect(page).to have_css('.vote.dismiss.selected')
+        @peer1.reload
+        expect(@peer1.peers_in_agreement.count).to eq(agree_count)
+      end
     end
   end
 

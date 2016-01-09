@@ -8,7 +8,7 @@
         %td
           .content
             %span.author= comment.user.user_tag
-            %span= comment.content
+            %span= simple_format(comment.content)
           .data
             .timestamp
               = "#{time_ago_in_words(comment.created_at)} ago"

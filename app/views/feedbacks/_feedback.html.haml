@@ -13,17 +13,20 @@
           .votes{ class: feedback.user != current_user  && current_user.is_peer?(feedback) ? 'active' : nil }
             = vote_numbers(feedback, current_user)
     .content
-      = feedback.content
+      = simple_format(feedback.content)
     .tags
       - feedback.tags.each do |tag|
         .tag= tag.name
     %table.actions
       %tr
-        %td.actionable
-          Actionable?
-        %td.comment-count
+        - if current_user.is_peer?(feedback)
+          %td.action.agree
+            Agree
+          %td.action.dismiss
+            Dismiss
+        %td.action.comment-count
           = "Comments (#{feedback.comments.count})"
-        %td.share
+        %td.action.share
           Share
 
   .commenting
