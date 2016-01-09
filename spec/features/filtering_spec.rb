@@ -25,12 +25,21 @@ describe 'Feedback filtering', js: true do
     expect(page).to_not have_content(@mixed_feedback.content)
     expect(page).to_not have_content(@isolated_feedback.content)
 
+    # multiple tags
     filter_resonance('mixed')
     expect(page).to have_css('.filter-tag', text: 'Mixed'.upcase)
+    expect(page).to have_css('.filter-tag', text: 'Resonant'.upcase)
+    expect(page).to have_content(@resonant_feedback.content)
+    expect(page).to have_content(@mixed_feedback.content)
+    expect(page).to_not have_content(@isolated_feedback.content)
+
+    # remove a tag
+    within('.filter-tag', text: 'Resonant'.upcase){ find('.delete').click }
     expect(page).to_not have_content(@resonant_feedback.content)
     expect(page).to have_content(@mixed_feedback.content)
     expect(page).to_not have_content(@isolated_feedback.content)
 
+    within('.filter-tag', text: 'Mixed'.upcase){ find('.delete').click }
     filter_resonance('isolated')
     expect(page).to have_css('.filter-tag', text: 'Isolated'.upcase)
     expect(page).to_not have_content(@resonant_feedback.content)

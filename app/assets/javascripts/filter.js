@@ -7,9 +7,10 @@ $(document).ready(function(){
         toggleBubble($(this), type);
     });
 
-    $('.tag').click(function(){
+    $(document).on('click', '.tag', function(){
         var name = $(this).text();
-        createTag(name, 'attribute');
+        var elem = $('.attribute:contains(' + name + ') .number-bubble');
+        toggleBubble(elem, 'attribute');
     });
 
     $(document).on('click', '.filter-tag .delete', function(){
@@ -36,7 +37,7 @@ $(document).ready(function(){
     }
 
     function createTag(name, type){
-        var newTag = "<div class='filter-tag'><div class='text'>" + name + "</div><div class='delete'>x</div></div>";
+        var newTag = "<div class='filter-tag'><div class='text'>" + name.toUpperCase() + "</div><div class='delete'>x</div></div>";
         if (type == 'resonance'){
             $('#filter-tags .resonance-tags .filter-tag').remove();
             $('#filter-tags .resonance-tags').append(newTag);

@@ -59,7 +59,9 @@ $(document).ready(function(){
             height: '100px',
             placeholder: '<span class="ph">Click to add a short bio...</span>',
             method: 'PUT',
-            onblur: 'submit',
+            onblur: 'nothing',
+            submit: 'OK',
+            cancel: 'Cancel',
             data: function(string){ return $.trim(string); },
             onsubmit: function(){
                 console.log($(this).closest('.status').attr('data-action'));
