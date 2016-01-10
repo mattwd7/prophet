@@ -1,13 +1,12 @@
 module FeedbacksHelper
 
   def address_info(feedback, current_user)
-
     if feedback.author == current_user
-      "ME to #{feedback.user.user_tag}"
+      "ME to #{feedback.user.full_name}"
     elsif feedback.user == current_user
-      "#{feedback.author.user_tag} to ME"
+      "#{feedback.author.full_name}"
     else
-      "#{feedback.author.user_tag} to #{feedback.user.user_tag}"
+      "#{feedback.author.full_name} to #{feedback.user.full_name}"
     end
   end
 
@@ -23,7 +22,8 @@ module FeedbacksHelper
   end
 
   def flavor_text(feedback_or_comment)
-    feedback_or_comment.resonance_text
+    output = "<div class='#{feedback_or_comment.resonance_text.downcase}'>" + feedback_or_comment.resonance_text + '</div>'
+    output.html_safe
   end
 
 

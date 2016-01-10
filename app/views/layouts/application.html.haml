@@ -10,9 +10,12 @@
       .logo
       - if current_user
         #session
-          = link_to current_user.email, edit_user_path(current_user)
-          |
-          = link_to 'Sign Out', destroy_user_session_path, method: :delete
+          .avatar
+            = image_tag current_user.avatar.url(:large)
+          %ul.options
+            %li= link_to 'Edit Profile', edit_user_path(current_user)
+            %li= link_to 'Logout', destroy_user_session_path, method: :delete
+
       .sort
         -if @my_feedbacks && @my_feedbacks.count > 0
           .me.selected Me
@@ -21,8 +24,6 @@
           .me Me
           .team.selected Team
 
-    -#%p.notice= notice
-    -#%p.alert= alert
     .full
       %p.errors= flash[:error]
       = yield

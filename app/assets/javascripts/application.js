@@ -22,4 +22,12 @@ $(document).ready(function(){
             $(':focus').click();
         }
     });
-})
+
+    $('#session').hover(function(){
+        $(this).find('.options').slideDown('fast');
+    });
+
+    $('.full').hover(function(){
+        $('#session .options').slideUp('fast');
+    })
+});

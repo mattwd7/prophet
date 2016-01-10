@@ -7,7 +7,7 @@
           = image_tag comment.user.avatar.url(:large)
         %td
           .content
-            %span.author= comment.user.user_tag
+            %span.author= comment.user.full_name
             %span= simple_format(comment.content)
           .data
             .timestamp

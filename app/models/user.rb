@@ -15,17 +15,8 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   before_save :make_proper, :generate_user_tag
 
-  def cropping?
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
-  end
-
-  def avatar_geometry(style = :original)
-    @geometry ||= {}
-    if avatar.path(style)
-      @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
-    else
-      @geometry[style] = OpenStruct.new(width: 0, height: 0)
-    end
+  def full_name
+    first_name + ' ' + last_name
   end
 
   def my_feedbacks(resonance=nil, attributes=nil)
@@ -64,6 +55,19 @@ class User < ActiveRecord::Base
 
   def my_tags
     TagLink.joins(:tag).joins(:feedback).where('feedbacks.id IN (?)', feedbacks.map(&:id)).group(:name).count
+  end
+
+  def cropping?
+    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+  end
+
+  def avatar_geometry(style = :original)
+    @geometry ||= {}
+    if avatar.path(style)
+      @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
+    else
+      @geometry[style] = OpenStruct.new(width: 0, height: 0)
+    end
   end
 
 private
