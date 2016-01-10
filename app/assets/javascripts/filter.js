@@ -91,7 +91,9 @@ $(document).ready(function(){
     }
 
     function formattedTag(tag){
-        tag = tag.substr(1, tag.length);
+        if (tag[0] === '#'){
+            tag = tag.substr(1, tag.length);
+        }
         return tag.toUpperCase();
     }
 

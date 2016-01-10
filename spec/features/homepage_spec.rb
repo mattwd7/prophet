@@ -39,9 +39,10 @@ describe 'User', js: true do
     end
 
     it 'signs into and out of his account' do
-      expect(page).to have_content(@user.email)
-      expect(page).to have_content('Sign Out')
-      click_link 'Sign Out'
+      find('#session').hover
+      expect(page).to have_content('Edit Profile')
+      expect(page).to have_content('Logout')
+      click_link 'Logout'
       expect(page).to have_css('#user_email')
     end
 
