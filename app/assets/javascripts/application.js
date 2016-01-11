@@ -19,7 +19,11 @@
 $(document).ready(function(){
     $(document).on('keypress', function(e) {
         if (e.which === 13) { // if is enter
-            $(':focus').click();
+            var focus = $(':focus')
+            focus.click();
+            if(focus.hasClass('submit-tag')){
+                focus.blur();
+            }
         }
     });
 

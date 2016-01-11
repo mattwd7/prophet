@@ -7,9 +7,10 @@ h2 {
 }
 
 .number-bubble {
+  font-family: 'Avenir-Roman';
   width: 40px;
   height: 40px;
-  line-height: 40px;
+  line-height: 45px;
   color: white;
   border-radius: 50%;
   margin: 5px auto 0 auto;
@@ -41,8 +42,12 @@ h2 {
   border: 1px solid #ccc;
 }
   .feedback-summary {
+    font-family: 'Avenir-Heavy';
     margin-bottom: 20px;
     padding: 10px;
+    h2 {
+      font-family: 'Avenir-Medium';
+    }
     ul {
       padding: 0;
     }
@@ -77,10 +82,12 @@ h2 {
         }
       }
       .name {
+        font-family: 'Avenir-Heavy';
         font-size: 18px;
         font-weight: bold;
       }
       .title {
+        font-family: 'Avenir-Medium';
         color: #ccc;
         font-size: 13px;
       }
