@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
+  get '/recipients' => 'home#recipients'
   get '/peers' => 'home#peers'
   post '/filter_feedbacks' => 'home#filter_feedbacks'
 

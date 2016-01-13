@@ -205,7 +205,7 @@
 }
 
 .feedback-form {
-  background: rgb(251, 249, 249) !important;
+  background: white !important;
   border: 1px solid #ccc;
   width: 630px;
   margin-bottom: 20px;
@@ -217,45 +217,39 @@
       height: 45px;
     }
   }
-  .search-choice {
-    height: 32px !important;
-  }
-  .search-choice-close {
-    top: 10px !important;
+  textarea {
+    resize: none;
+    font-family: 'Avenir-Book';
+    border: none;
+    font-size: 18px;
   }
   .top {
     border-bottom: 1px solid #ccc;
     padding: 10px 15px;
+    min-height: 50px;
     .avatar {
-      vertical-align: top;
+      position: absolute;
+      z-index: 1;
     }
-    table {
-      td:first-child {
-        vertical-align: top;
+    .content {
+      margin-top: 5px;
+      textarea {
+        width: 530px;
+        max-width: 530px;
+        height: 40px;
+        left: 60px;
       }
-      td:last-child {
-        padding-left: 10px;
-      }
-      .content {
-        margin-top: 5px;
-      }
-    }
-    textarea {
-      width: 530px;
-      max-width: 530px;
-      height: 75px;
     }
   }
   .bottom {
     padding: 10px 15px;
-    .entry {
-      display: inline-block;
+    textarea {
+      width: 450px;
+      max-width: 450px;
+      height: 30px;
     }
     .submit {
       display: inline-block;
-      input {
-        width: 90px;
-      }
     }
   }
 }

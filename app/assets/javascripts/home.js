@@ -35,9 +35,62 @@ $(document).ready(function(){
         $('.content textarea').focus();
     });
 
-    $('#add-peers').chosen({
-        width: "65%"
+    var recipients = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: '/recipients'
+        }
     });
+
+    var peers = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: '/peers'
+        }
+    });
+
+    $('#feedback_content').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    }, {
+        name: 'recipients',
+        display: 'user_tag',
+        source: recipients,
+        limit: 10,
+        templates: {
+            suggestion: Handlebars.compile('<div><img src="{{avatar_url}}"><div class="info"><div class="name">{{name}}</div><div class="title">{{title}}</div><div class="user_tag">{{user_tag}}</div></div></div>')
+        }
+    });
+
+    $('#peers').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    }, {
+        name: 'peers',
+        display: 'user_tag',
+        source: peers,
+        limit: 10,
+        templates: {
+            suggestion: Handlebars.compile('<div><img src="{{avatar_url}}"><div class="info"><div class="name">{{name}}</div><div class="title">{{title}}</div><div class="user_tag">{{user_tag}}</div></div></div>')
+        }
+    });
+
+//    $('#add-peers').typeahead({
+//        hint: true,
+//        highlight: true,
+//        minLength: 1
+//    }, {
+//        name: 'usertags',
+//        source: substringMatcher(test)
+//    });
+
+//    $('#add-peers').chosen({
+//        width: "65%"
+//    });
 
     $('.feedback-form .submit-tag').click(function(){
         $(this).closest('form').submit();
