@@ -1,11 +1,14 @@
 .feedback-form
   = form_for Feedback.new, as: :feedback, url: feedbacks_path, remote: true do |f|
     = f.hidden_field(:author_id, value: current_user.id)
-    .top
-      .avatar
-        = image_tag current_user.avatar.url(:large)
-      .content
-        = f.text_area :content, placeholder: 'Send or Request feedback here...'
+    %table.top
+      %tr
+        %td
+          .avatar
+            = image_tag current_user.avatar.url(:large)
+        %td
+          .content
+            = f.text_area :content, placeholder: 'Send or Request feedback here...'
     .bottom
       = text_area_tag :peers, '', placeholder: 'Tag peers here...'
       .submit-tag{ 'tabindex' => 0 } Send
