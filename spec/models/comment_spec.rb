@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Comment do
   before(:each) do
     @user = FactoryGirl.create(:spec_user)
-    @feedback = FactoryGirl.create(:spec_feedback)
+    @feedback = FactoryGirl.create(:spec_feedback, user: @user)
   end
 
   it 'has a valid factory' do
@@ -33,7 +33,7 @@ describe Comment do
   it 'creates unique tags for the feedback to which it belongs' do
     feedback_content = "Really great job wrapping up that project my man! #leadership #teamplayer #leadership"
     comment_content = "Really great job wrapping up that project my man! #leadership #teamplayer #youmyboyblue"
-    feedback = FactoryGirl.create(:spec_feedback, content: feedback_content)
+    feedback = FactoryGirl.create(:spec_feedback, content: feedback_content, user: @user)
     FactoryGirl.create(:spec_comment, content: comment_content, feedback: feedback)
     expect(feedback.tags.count).to eq(3)
     expect(Tag.count).to eq(3)

@@ -9,6 +9,7 @@ class Feedback < ActiveRecord::Base
   has_many :tags, through: :tag_links
 
   validates_presence_of :user_id, :author_id, :content
+  before_validation :parse_recipient
   after_create :parse_tags
 
   scope :resonant, -> { where(resonance_value: 2) }
@@ -44,6 +45,12 @@ private
     content.scan(/#\S+/).uniq.each do |tag_name|
       add_tag(tag_name)
     end
+  end
+
+  def parse_recipient
+    user_tag = content.scan(/@\S+/).uniq.first
+    self.user ||= User.find_by_user_tag(user_tag)
+    self.content = self.content.sub(user_tag, '').strip if user_tag
   end
 
 end

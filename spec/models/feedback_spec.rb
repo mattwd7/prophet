@@ -8,8 +8,6 @@ describe Feedback do
 
   it 'has a valid factory' do
     @feedback = FactoryGirl.build(:spec_feedback, user: @recipient, author: @author)
-    @feedback.save
-    puts @feedback.errors.full_messages
     expect(@feedback.save).to eq(true)
   end
 
@@ -40,6 +38,13 @@ describe Feedback do
     content = "Really great job wrapping up that project my man! #leadership #teamplayer #leadership"
     @feedback = FactoryGirl.create(:spec_feedback, user: @recipient, author: @author, content: content)
     expect(@feedback.tags.count).to eq(2)
+  end
+
+  it 'determines the user from the content' do
+    @feedback = FactoryGirl.build(:spec_feedback, user: nil, author: @author, content: "#{@recipient.user_tag} I need you to receive this content")
+    expect(@feedback.save).to eq(true)
+    expect(@feedback).to eq(@recipient.feedbacks.first)
+    expect(@feedback.content).to eq('I need you to receive this content')
   end
 
   context 'with peers' do

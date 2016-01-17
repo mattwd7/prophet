@@ -49,20 +49,18 @@ describe 'User', js: true do
     it 'can create feedback for a coworker' do
       init_count = @recipient.feedbacks.count
 
-      first('.chosen-container').click
-      find('li.active-result', text: '@TonyDecino').click
-      find("#feedback_content").set "Feedback content for Tony is HERE."
+      find("#feedback_content").set "@TonyDecino Feedback content for Tony is HERE."
       within('.feedback-form'){ find('.submit-tag').click }
       sleep 1
       expect(@recipient.feedbacks.count).to eq(init_count + 1)
-      expect(@recipient.feedbacks.last.content).to_not match(/\@\S+/)
+      expect(@recipient.feedbacks.last.content).to_not match(/@\S+/)
     end
 
     it 'can ask for feedback for himself' do
       init_count = @user.feedbacks.count
-      find("#feedback_content").set "@me Did I effectively communicate the company's goals at the meeting today?"
+      find("#feedback_content").set "#{@user.user_tag} Did I effectively communicate the company's goals at the meeting today?"
       within('.feedback-form'){ find('.submit-tag').click }
-      sleep 1
+      sleep 2
       expect(@user.feedbacks.count).to eq(init_count + 1)
       feedback = @user.feedbacks.last
       within "#feedback-#{feedback.id}" do
