@@ -25,9 +25,13 @@
           %td.action.dismiss
             Dismiss
         %td.action.comment-count
-          = "Comments (#{feedback.comments.count})"
+          .icon
+          .name
+            = "Comment (#{feedback.comments.count})"
         %td.action.share
-          Share
+          .icon
+          .name
+            Share
 
   .commenting
     .comments

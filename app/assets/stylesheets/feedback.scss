@@ -8,7 +8,6 @@
   color: white;
   padding: 5px 40px;
   font-size: 20px;
-  font-weight: 500;
   width: 50px;
   float: right;
   &:hover {
@@ -114,12 +113,32 @@
     width: 600px;
     margin: 0 auto;
     padding: 10px;
+    color: #777;
     td {
       width: 25%;
       text-align: center;
       &:hover {
         cursor: pointer;
       }
+      & > * {
+        display: inline-block;
+      }
+      .icon {
+        height: 25px;
+        width: 25px;
+        display: inline-block;
+        vertical-align: bottom;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      &.comment-count .icon{
+        background-image: url('comment_icon.png');
+      }
+      &.share .icon{
+        background-image: url('share_icon.png');
+      }
+      &.share {  }
     }
     .agree, .dismiss {
       background: transparent;
@@ -194,6 +213,7 @@
       width: 550px;
       max-width: 550px;
       font-size: 16px;
+      font-family: 'Avenir-Book';
     }
     input {
       float: right;
@@ -234,6 +254,7 @@
         max-width: 530px;
         height: 40px;
         left: 60px;
+        line-height: 40px;
       }
     }
   }
@@ -251,6 +272,15 @@
 }
 
 .ui-menu-item {
+  background: white;
+  border: 1px solid #ccc;
+  &.ui-state-focus, &.ui-state-focus:hover {
+    border: 1px solid #aaa;
+    background: #ddd;
+    .user-tag {
+      font-weight: bold;
+    }
+  }
   > * {
     display: inline-block;
   }

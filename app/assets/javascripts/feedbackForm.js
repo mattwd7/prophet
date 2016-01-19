@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
     var feedbackContent = $('.feedback-form #feedback_content'),
         recipientList = [],
         peers = $('.feedback-form #peers'),
@@ -12,6 +11,14 @@ $(document).ready(function(){
     function extractLast( term ) {
         return split( term ).pop();
     }
+
+    feedbackContent.focus(function(){
+        $(this).css('line-height', '18px');
+    }).blur(function(){
+        if ($(this).val().length < 1){
+            $(this).css('line-height', '40px');
+        }
+    });
 
     feedbackContent.focus(function(){
         if (recipientList.length < 1) {
@@ -46,7 +53,7 @@ $(document).ready(function(){
                 })
                 .autocomplete( "instance" )._renderItem = function( ul, item ) {
                 return $( "<li>" )
-                    .append( "<div class='avatar'><img src='" + item.avatar_url + "'/></div><div class='info'>" + item.name + "<div class='title'>" + item.title + "</div>" + item.user_tag + "</div>" )
+                    .append( "<div class='avatar'><img src='" + item.avatar_url + "'/></div><div class='info'>" + item.name + "<div class='title'>" + item.title + "</div><div class='user-tag'>" + item.user_tag + "</div></div>" )
                     .appendTo( ul );
             };
         }
@@ -102,7 +109,7 @@ $(document).ready(function(){
                 })
                 .autocomplete( "instance" )._renderItem = function( ul, item ) {
                 return $( "<li>" )
-                    .append( "<div class='avatar'><img src='" + item.avatar_url + "'/></div><div class='info'>" + item.name + "<div class='title'>" + item.title + "</div>" + item.user_tag + "</div>" )
+                    .append( "<div class='avatar'><img src='" + item.avatar_url + "'/></div><div class='info'>" + item.name + "<div class='title'>" + item.title + "</div><div class='user-tag'>" + item.user_tag + "</div></div>" )
                     .appendTo( ul );
             };
         }
