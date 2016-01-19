@@ -12,6 +12,7 @@ $(document).ready(function(){
         return split( term ).pop();
     }
 
+    // styling toggle for centering placeholder text
     feedbackContent.focus(function(){
         $(this).css('line-height', '18px');
     }).blur(function(){
@@ -36,7 +37,7 @@ $(document).ready(function(){
                 })
                 .autocomplete({
                     source: function( request, response ) {
-                        var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+                        var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term.replace(' ', '')), "i");
                         response( $.grep( recipientList, function( item ){
                             return matcher.test( item.user_tag );
                         }))
@@ -84,7 +85,7 @@ $(document).ready(function(){
                         }
 
                         // regex to match string entered with start of suggestion strings
-                        var re = $.ui.autocomplete.escapeRegex(term);
+                        var re = $.ui.autocomplete.escapeRegex(term.replace(' ', ''));
                         var matcher = new RegExp('^' + re, 'i');
 
                         var regex_validated_array = $.grep(peerList, function (user) {
