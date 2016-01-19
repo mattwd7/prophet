@@ -1,3 +1,8 @@
-var html = "<%= escape_javascript(render partial: 'feedback', locals: { feedback: @feedback, hidden: true } ) %>";
-$('.feedback-form').find('#feedback_content, #peers').val('').blur();
-$(html).prependTo('.my-feedbacks').fadeIn(400);
+<% if @errors.empty? %>
+    var html = "<%= escape_javascript(render partial: 'feedback', locals: { feedback: @feedback, hidden: true } ) %>";
+    $('.feedback-form').find('#feedback_content, #peers').val('').blur();
+    $(html).prependTo('.my-feedbacks').fadeIn(400);
+<% else %>
+    $('#error-messages').text("<%= escape_javascript(raw(@errors.join("\n"))) %>");
+    $('#error-messages').show().delay(4000).fadeOut(500);
+<% end %>

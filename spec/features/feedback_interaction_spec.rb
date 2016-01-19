@@ -39,20 +39,4 @@ describe 'Feedback' do
     end
   end
 
-  it 'can be commented on'
-
-  context 'belonging to current_user' do
-    it 'cannot be voted on'
-  end
-
-  context 'authored by current_user' do
-    it 'cannot be voted on'
-
-  end
-
-  context 'available to a peer' do
-    it 'can be voted on'
-
-  end
-
 end

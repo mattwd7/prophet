@@ -1,14 +1,14 @@
 class FeedbacksController < ApplicationController
 
   def create
+    @errors = []
     @feedback = Feedback.new(params.require(:feedback).permit(:author_id, :content))
     @feedback.assign_peers(params[:peers].split(', ')) if params[:peers]
     unless @feedback.save
-      flash[:error] = 'Must define a legitimate user tag.'
-      redirect_to root_path
-    else
-      respond_to{ |format| format.js }
+      @errors.push(@feedback.errors.full_messages)
     end
+    @errors.flatten!
+    respond_to{ |format| format.js }
   end
 
   def vote
