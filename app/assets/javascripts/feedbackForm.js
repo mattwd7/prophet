@@ -1,8 +1,8 @@
 $(document).ready(function(){
 
-    var feedbackContent = $('.feedback-form #feedback_content'),
+    var feedbackContentForm = $('.feedback-form #feedback_content'),
         recipientList = [],
-        peers = $('.feedback-form #peers'),
+        peersForm = $('.feedback-form #peers'),
         peerList = [];
 
     function split( val ) {
@@ -13,7 +13,7 @@ $(document).ready(function(){
     }
 
     // styling toggle for centering placeholder text
-    feedbackContent.focus(function(){
+    feedbackContentForm.focus(function(){
         $(this).css('line-height', '18px');
     }).blur(function(){
         if ($(this).val().length < 1){
@@ -21,7 +21,7 @@ $(document).ready(function(){
         }
     });
 
-    feedbackContent.focus(function(){
+    feedbackContentForm.focus(function(){
         if (recipientList.length < 1) {
             $.get('/recipients', function (data) {
                 $.each(data, function (i, user) {
@@ -60,14 +60,14 @@ $(document).ready(function(){
         }
     });
 
-    peers.focus(function(){
+    peersForm.focus(function(){
         if (peerList.length < 1) {
             $.get('/peers', function (data) {
                 $.each(data, function (i, user) {
                     peerList.push(user);
                 })
             });
-            peers
+            $(this)
                 .bind( "keydown", function( event ) {
                     if ( event.keyCode === $.ui.keyCode.TAB &&
                         $( this ).autocomplete( "instance" ).menu.active ) {
@@ -113,6 +113,42 @@ $(document).ready(function(){
                     .append( "<div class='avatar'><img src='" + item.avatar_url + "'/></div><div class='info'>" + item.name + "<div class='title'>" + item.title + "</div><div class='user-tag'>" + item.user_tag + "</div></div>" )
                     .appendTo( ul );
             };
+        }
+    });
+
+    function updateSource(inputTarget, omissionArray){
+        var subset = [];
+        omissionArray = omissionArray.map(function(e){ return e.trim() });
+        peerList.forEach(function(p){
+            if (omissionArray.indexOf(p.user_tag) < 0 ){
+                subset.push(p);
+            }
+        });
+        inputTarget.autocomplete('option', 'source', function( request, response ) {
+            var term = request.term;
+
+            // substring of new string (only when a comma is in string)
+            if (term.indexOf(', ') > 0) {
+                var index = term.lastIndexOf(', ');
+                term = term.substring(index + 2);
+            }
+
+            // regex to match string entered with start of suggestion strings
+            var re = $.ui.autocomplete.escapeRegex(term.replace(' ', ''));
+            var matcher = new RegExp('^' + re, 'i');
+
+            var regex_validated_array = $.grep(subset, function (user) {
+                return matcher.test(user.user_tag);
+            });
+
+            response(regex_validated_array);
+        });
+    }
+
+    peersForm.keyup(function(){
+        var input = $(this).val();
+        if (input[input.length - 1] === ','){
+            updateSource($(this), input.split(','));
         }
     });
 
