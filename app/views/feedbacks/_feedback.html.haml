@@ -35,6 +35,8 @@
 
   .commenting
     .comments
-      - feedback.comments.each do |comment|
-        = render partial: 'comments/comment', locals: { comment: comment }
+      - if feedback.comments.count > 2
+        .view-all= link_to "View #{feedback.comments.count - 2} more comments", '', remote: true
+      - feedback.comments.each_with_index do |comment, i|
+        = render partial: 'comments/comment', locals: { comment: comment, hidden: (i > 1) }
     =render partial: 'comments/form', locals: { feedback_id: feedback.id }

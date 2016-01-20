@@ -20,7 +20,6 @@ describe Comment do
     expect(@comment.save).to eq(false)
     @comment = FactoryGirl.build(:spec_comment, content: "My Comment")
     result = @comment.save
-    puts @comment.errors.full_messages
     expect(result).to eq(true)
   end
 

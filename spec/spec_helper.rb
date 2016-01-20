@@ -93,9 +93,7 @@ end
 
 def wait_for_ajax
   counter = 0
-  puts 'called!', page.execute_script("$.active").to_i
   while page.execute_script("$.active").to_i > 0
-    puts page.execute_script("$.active")
     counter += 1
     sleep(0.1)
     raise "AJAX request took longer than 5 seconds." if counter >= 50

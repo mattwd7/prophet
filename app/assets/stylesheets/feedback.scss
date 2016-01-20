@@ -163,6 +163,12 @@
         height: 35px;
       }
     }
+    .view-all {
+      color: darkblue;
+      margin: 5px;
+      a { text-decoration: none; }
+      a:hover { text-decoration: underline; }
+    }
     .comment {
       margin-bottom: 10px;
       .data {
@@ -187,7 +193,7 @@
           }
         }
         .author {
-          color: blue;
+          color: darkblue;
         }
       }
       .score {

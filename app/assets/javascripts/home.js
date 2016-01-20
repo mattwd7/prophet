@@ -50,6 +50,11 @@ $(document).ready(function(){
         }
     });
 
+    $('.view-all').click(function(){
+        $(this).closest('.comments').find('.comment').show();
+        $(this).hide();
+    });
+
     ////////////////////////////////////////////
     // FEEDBACKS
     ////////////////////////////////////////////

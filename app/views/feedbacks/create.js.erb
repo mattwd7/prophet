@@ -3,6 +3,6 @@
     $('.feedback-form').find('#feedback_content, #peers').val('').blur();
     $(html).prependTo('.my-feedbacks').fadeIn(400);
 <% else %>
-    $('#error-messages').text("<%= escape_javascript(raw(@errors.join("\n"))) %>");
+    $('#error-messages').html("<%= escape_javascript(raw(simple_format(@errors.join("\n")))) %>");
     $('#error-messages').show().delay(4000).fadeOut(500);
 <% end %>

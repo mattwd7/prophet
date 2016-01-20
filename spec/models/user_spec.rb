@@ -25,7 +25,6 @@ describe User do
     FactoryGirl.create(:spec_comment, user: peer2, feedback: feedback2, content: "#bravery")
     FactoryGirl.create(:spec_comment, user: peer2, feedback: feedback2, content: "#honor")
     tags = recipient.my_tags
-    puts tags
     expect(tags.count).to eq(5)
     expect(tags['#bravery']).to eq(2)
     expect(tags['#leadership']).to eq(1)

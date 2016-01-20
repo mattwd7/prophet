@@ -82,6 +82,26 @@ describe 'User', js: true do
       end
     end
 
+    it 'sees only latest 2 comments until clicking to see all' do
+      4.times{ FactoryGirl.create(:spec_comment, user: @i_am_author.user, feedback: @i_am_author) }
+      @i_am_author.reload
+      comment_count = @i_am_author.comments.count
+      visit root_path
+      expect(comment_count).to eq(6)
+      within("#feedback-#{@i_am_author.id}") do
+        expect(page).to have_css('.comment', count: 2)
+        expect(page).to have_content("View 4 more comments")
+        find('#comment_content').click
+        expect(page).to have_content("Submit")
+        find('#comment_content').set "This is my new comment\n"
+        find('.submit-tag').click
+        expect(page).to have_css('.comment', count: 3)
+        click_link "View 4 more comments"
+        expect(page).to have_css('.comment', count: 7)
+        expect(page).to_not have_content("View 4 more comments")
+      end
+    end
+
     it 'can vote on a feedback he is a peer of' do
       FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @team1)
       @team1.reload
@@ -141,7 +161,7 @@ describe 'User', js: true do
       end
     end
 
-    it 'sees recieved feedback on ME feedback and all feedback he is a peer to on TEAM feed' do
+    it 'sees received feedback on ME feedback and all feedback he is a peer to on TEAM feed' do
       expect(page).to have_css("#feedback-#{@mine1.id}")
       expect(page).to have_css("#feedback-#{@mine2.id}")
       expect(page).to have_css("#feedback-#{@i_am_author.id}")
