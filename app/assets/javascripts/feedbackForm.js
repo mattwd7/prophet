@@ -5,19 +5,19 @@ $(document).ready(function(){
         peersForm = $('.feedback-form #peers'),
         peerList = [];
 
-    function split( val ) {
-        return val.split( /,\s*/ );
-    }
-    function extractLast( term ) {
-        return split( term ).pop();
-    }
-
     // styling toggle for centering placeholder text
-    feedbackContentForm.focus(function(){
-        $(this).css('line-height', '18px');
-    }).blur(function(){
-        if ($(this).val().length < 1){
-            $(this).css('line-height', '40px');
+    $(document).on('click, focus', '.feedback-form', function(){
+        $(this).addClass('active');
+    }).on('blur', '.feedback-form', function(){
+        $(this).removeClass('active');
+    });
+
+    feedbackContentForm.elastic();
+    feedbackContentForm.keyup(function(){
+        if ($(this).val().length > 0){
+            $(this).closest('.feedback-form').find('.submit-tag').addClass('active');
+        } else {
+            $(this).closest('.feedback-form').find('.submit-tag').removeClass('active');
         }
     });
 
@@ -157,6 +157,15 @@ $(document).ready(function(){
     });
 
     $('.feedback-form .submit-tag').click(function(){
-        $(this).closest('form').submit();
+        if ($(this).hasClass('active')){
+            $(this).closest('form').submit();
+        }
     });
 });
+
+function split( val ) {
+    return val.split( /,\s*/ );
+}
+function extractLast( term ) {
+    return split( term ).pop();
+}

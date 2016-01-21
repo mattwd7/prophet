@@ -65,6 +65,11 @@ $(document).ready(function(){
     }
 
     function filterFeedbacks(){
+        if (filters.resonance.length + filters.attributes.length > 0){
+            $('#filter-tags').show();
+        } else {
+            $('#filter-tags').hide();
+        }
         $.ajax({
             method: 'post',
             url: '/filter_feedbacks',

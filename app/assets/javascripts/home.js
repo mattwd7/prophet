@@ -42,8 +42,18 @@ $(document).ready(function(){
         }
     });
 
+    $(document).on('keyup', '.comment-form textarea', function(){
+        if ($(this).val().length > 0){
+            $(this).closest('.comment-form').find('.submit-tag').addClass('active');
+        } else {
+            $(this).closest('.comment-form').find('.submit-tag').removeClass('active');
+        }
+    })
+
     $(document).on('click', '.comment-form .submit-tag', function(){
-        $(this).closest('form').submit();
+        if ($(this).hasClass('active')){
+            $(this).closest('form').submit();
+        }
     });
 
     $(document).on('click', '.action.agree', function(){

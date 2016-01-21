@@ -4,14 +4,19 @@
 }
 
 .submit-tag {
+  opacity: .7;
   background: rgb(241, 129, 121);
   color: white;
   padding: 5px 40px;
   font-size: 20px;
   width: 50px;
   float: right;
-  &:hover {
-    cursor: pointer;
+  &.active {
+    opacity: 1;
+    &:hover {
+      cursor: pointer;
+      background: rgb(211, 113, 106);
+    }
   }
 }
 
@@ -248,16 +253,24 @@
   border: 1px solid #ccc;
   width: 630px;
   margin-bottom: 20px;
+  &.active {
+    box-shadow: 0 0 10px #719ECE;
+  }
   textarea {
     resize: none;
     font-family: 'Avenir-Book';
     border: none;
     font-size: 18px;
+    outline: none;
   }
   .top {
     border-bottom: 1px solid #ccc;
     padding: 10px 15px;
     min-height: 50px;
+    width: 100%;
+    td {
+      vertical-align: top;
+    }
     .avatar {
       width: 45px;
       height: 45px;
@@ -273,7 +286,6 @@
         max-width: 530px;
         height: 40px;
         left: 60px;
-        line-height: 40px;
       }
     }
   }
