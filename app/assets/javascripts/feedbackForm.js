@@ -105,6 +105,7 @@ $(document).ready(function(){
                         terms.push(ui.item.user_tag);
                         terms.push('');
                         this.value = terms.join(', ');
+                        updateSource(peersForm);
                         return false;
                     }
                 })
@@ -114,10 +115,16 @@ $(document).ready(function(){
                     .appendTo( ul );
             };
         }
+//        updateSource(peersForm);
     });
 
-    function updateSource(inputTarget, omissionArray){
-        var subset = [];
+    function updateSource(inputTarget){
+        var subset = [],
+            omissionArray = inputTarget.val().split(','),
+            recipient = feedbackContentForm.val().match(/@\S+/);
+        if (recipient != null){
+            omissionArray.push(recipient[0]); // do not include the recipient of the feedback
+        }
         omissionArray = omissionArray.map(function(e){ return e.trim() });
         peerList.forEach(function(p){
             if (omissionArray.indexOf(p.user_tag) < 0 ){
@@ -146,10 +153,7 @@ $(document).ready(function(){
     }
 
     peersForm.keyup(function(){
-        var input = $(this).val();
-        if (input[input.length - 1] === ','){
-            updateSource($(this), input.split(','));
-        }
+        updateSource($(this));
     });
 
     $('.feedback-form .submit-tag').click(function(){
