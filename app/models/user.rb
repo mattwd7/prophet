@@ -93,8 +93,8 @@ private
 
   def apply_filter(base_query, resonance=nil, attributes=nil)
     if resonance && resonance.count > 0
-      value = Scoreable::RESONANCE_TEXT.index(resonance.first)
-      base_query = base_query.where(resonance_value: value)
+      values = resonance.map{ |r| Scoreable::RESONANCE_TEXT.index(r) }
+      base_query = base_query.where(resonance_value: values)
     end
     if attributes && attributes.count > 0
       base_query = base_query.joins(:tags).where('tags.name IN (?)', attributes)

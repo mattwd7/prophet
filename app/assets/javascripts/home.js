@@ -1,6 +1,11 @@
 $(document).ready(function(){
-    $('#banner .sort div').click(function(){
+    $('#banner .sort div').not('.bar').click(function(){
         toggleBanner($(this).attr('class'));
+        if ($(this).hasClass('team')){
+            $('.sort .bar').addClass('slide');
+        } else {
+            $('.sort .bar').removeClass('slide');
+        }
         $(this).siblings().removeClass('selected');
         $(this).addClass('selected');
     });

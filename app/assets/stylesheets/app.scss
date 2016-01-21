@@ -63,27 +63,33 @@ a:visited { color: inherit; }
     }
   }
   .sort {
-    font-family: 'Avenir-Roman';
     width: 250px;
     margin: 0 auto;
     padding-top: 20px;
     font-size: 20px;
-    & > div {
-      border: 1px solid white;
+    .me, .team {
       display: inline-block;
-      padding: 5px 40px;
+      padding: 5px 0;
       color: white;
-    }
-    &:hover {
-      cursor: pointer;
+      width: 48%;
+      text-align: center;
+      &:hover {
+        cursor: pointer;
+      }
     }
     .selected {
-      font-family: 'Avenir-Heavy';
-      background: white;
-      color: rgb(241, 129, 121);
+
     }
-    .team {
-      margin-left: -6px;
+    .bar {
+      margin-top: 5px;
+      width: 50%;
+      height: 1px;
+      background-color: #fff;
+      margin-left: 0;
+      transition: all .4s ease-in-out;
+      &.slide {
+        margin-left: 50%;
+      }
     }
   }
 }
