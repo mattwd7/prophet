@@ -56,11 +56,12 @@ describe 'User', js: true do
       expect(@recipient.feedbacks.last.content).to_not match(/@\S+/)
     end
 
-    it 'can ask for feedback for himself' do
+    it 'can ask for feedback for himself', no_webkit: true do
       init_count = @user.feedbacks.count
+      last_id = Feedback.last.id
       find("#feedback_content").set "#{@user.user_tag} Did I effectively communicate the company's goals at the meeting today?"
       within('.feedback-form'){ find('.submit-tag').click }
-      sleep 2
+      expect(page).to have_css("#feedback-#{last_id + 1}")
       expect(@user.feedbacks.count).to eq(init_count + 1)
       feedback = @user.feedbacks.last
       within "#feedback-#{feedback.id}" do
@@ -82,7 +83,7 @@ describe 'User', js: true do
       end
     end
 
-    it 'sees only latest 2 comments until clicking to see all' do
+    it 'sees only latest 2 comments until clicking to see all', no_webkit: true do
       4.times{ FactoryGirl.create(:spec_comment, user: @i_am_author.user, feedback: @i_am_author) }
       @i_am_author.reload
       comment_count = @i_am_author.comments.count
@@ -121,7 +122,7 @@ describe 'User', js: true do
         sleep 1
         @team1.reload
         expect(@team1.peers_in_agreement.count).to eq(agree_count)
-        expect(page).to have_content('2')
+        expect(page).to have_content(agree_count + 1)
       end
     end
 
@@ -181,7 +182,6 @@ describe 'User', js: true do
       find('.sort .team').click
       within("#feedback-#{@peer1.id}") do
         expect(page).to have_css('.action', text: 'Agree')
-        expect(page).to have_css('.action', text: 'Dismiss')
       end
       agree_count = @peer1.peers_in_agreement.count
       within("#feedback-#{@peer1.id}") do
@@ -193,7 +193,7 @@ describe 'User', js: true do
         sleep 2 # TODO: figure out how to wait for ajax
         @peer1.reload
         expect(@peer1.peers_in_agreement.count).to eq(agree_count + 1)
-        find('.action', text: 'Dismiss').click
+        find('.action', text: 'Agree').click
         expect(page).to_not have_css('.vote.agree.selected')
         expect(page).to have_css('.vote.dismiss.selected')
         @peer1.reload

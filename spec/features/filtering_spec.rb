@@ -46,7 +46,7 @@ describe 'Feedback filtering', js: true do
     expect(page).to have_content(@isolated_feedback.content)
   end
 
-  it 'narrows results based on attributes', no_webkit: true do
+  it 'narrows results based on attributes' do
     FactoryGirl.create(:spec_comment, feedback: @resonant_feedback, user: @author, content: "You did a great job #leadership")
     expect(@resonant_feedback.tags.count).to eq(3)
     visit root_path
@@ -62,7 +62,7 @@ describe 'Feedback filtering', js: true do
     filter_resonance('mixed')
     expect(page).to_not have_content(@mixed_feedback.content)
     expect(page).to_not have_content(@isolated_feedback.content)
-    expect(page).to_not have_content(@resonant_feedback.content)
+    expect(page).to have_content(@resonant_feedback.content)
   end
 
   it 'narrows results based on both resonance and attributes'

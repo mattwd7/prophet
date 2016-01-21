@@ -14,7 +14,7 @@ describe 'Feedback', js: true do
       find("#peers").set @user.user_tag
       find('.submit-tag').click
     end
-    expect(page).to have_content("Feedback must designate a valid user tag.")
+    expect(page).to have_content("Feedback must begin with a valid user tag.")
   end
 
   it 'displays error when no content is included' do

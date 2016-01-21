@@ -9,7 +9,7 @@ class Feedback < ActiveRecord::Base
   has_many :tags, through: :tag_links
 
   validates_presence_of :author_id
-  validates_presence_of :user_id, message: 'Feedback must designate a valid user tag.'
+  validates_presence_of :user_id, message: 'Feedback must begin with a valid user tag.'
   validates_presence_of :content, message: 'Feedback must have content.'
   before_validation :parse_recipient
   after_create :parse_tags

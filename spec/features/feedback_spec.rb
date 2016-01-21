@@ -8,16 +8,23 @@ describe 'Feedback' do
   end
 
   it 'displays the peer agreement numbers' do
-    expect(page).to have_content(@feedback.peers_in_agreement.count)
-    expect(page).to have_content(@feedback.peers.count)
-  end
-
-  it 'displays the number of comments' do
-    expect(page).to have_content(@feedback.comments.count)
+    expect(page).to have_content(@feedback.peers_in_agreement.count + 1)
+    expect(page).to have_content(@feedback.peers.count + 1)
   end
 
   it 'displays the appropriate flavor text' do
+    expect(@feedback.peers_in_agreement.count).to eq(2)
+    expect(@feedback.peers.count).to eq(3)
+    expect(page).to have_content('MIXED')
+    @feedback.feedback_links.each{|fl| fl.update_attributes(agree: true)}
+    visit root_path
     expect(page).to have_content('RESONANT')
+    @feedback.feedback_links.each{|fl| fl.update_attributes(agree: false)}
+    visit root_path
+    expect(page).to have_content('ISOLATED')
+    @feedback.feedback_links.first.update_attributes(agree: true)
+    visit root_path
+    expect(page).to have_content('ISOLATED')
   end
 
   context 'with tags' do
