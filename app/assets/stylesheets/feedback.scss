@@ -132,13 +132,26 @@
         background-position: center;
         background-size: contain;
       }
-      &.comment-count .icon{
+      &.agree {
+        &.selected {
+          color: rgb(241, 129, 121);
+          .icon { background: rgb(241, 129, 121); }
+        }
+        .icon {
+          border: 1px solid #aaa;
+          border-radius: 50%;
+          width: 25px;
+          height: 25px;
+          overflow: hidden;
+          background: #ccc;
+        }
+      }
+      &.leave-comment .icon {
         background-image: url('comment_icon.png');
       }
-      &.share .icon{
+      &.share .icon {
         background-image: url('share_icon.png');
       }
-      &.share {  }
     }
     .agree, .dismiss {
       background: transparent;

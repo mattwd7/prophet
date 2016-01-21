@@ -20,11 +20,11 @@
     %table.actions
       %tr
         - if current_user.is_peer?(feedback)
-          %td.action.agree
-            Agree
-          %td.action.dismiss
-            Dismiss
-        %td.action.comment-count
+          %td.action.agree{ class: current_user.agrees_with(feedback) ? 'selected' : nil }
+            .icon
+            .name
+              Agree
+        %td.action.leave-comment
           .icon
           .name
             = "Comment"

@@ -30,7 +30,7 @@ $(document).ready(function(){
     // COMMENTS
     ////////////////////////////////////////////
 
-    $(document).on('click', '.actions .comment-count', function(){
+    $(document).on('click', '.actions .leave-comment', function(){
         $(this).closest('.feedback').find('textarea').focus();
     });
 
@@ -46,12 +46,14 @@ $(document).ready(function(){
         $(this).closest('form').submit();
     });
 
-    $(document).on('click', '.action.agree, .action.dismiss', function(){
+    $(document).on('click', '.action.agree', function(){
         var feedback = $(this).closest('.feedback');
-        if ($(this).hasClass('agree')){
-            feedback.find('.votes .agree').click();
-        } else {
+        if ($(this).hasClass('selected')){
+            $(this).removeClass('selected');
             feedback.find('.votes .dismiss').click();
+        } else {
+            $(this).addClass('selected');
+            feedback.find('.votes .agree').click();
         }
     });
 
