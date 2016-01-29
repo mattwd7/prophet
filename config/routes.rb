@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get '/recipients' => 'home#recipients'
   get '/peers' => 'home#peers'
+  get '/additional_peers' => 'home#additional_peers'
   post '/filter_feedbacks' => 'home#filter_feedbacks'
 
   devise_for :users
@@ -9,6 +10,7 @@ Rails.application.routes.draw do
   resources :feedbacks do
     member do
       post :vote
+      post :share
     end
   end
 

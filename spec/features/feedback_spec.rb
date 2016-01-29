@@ -27,6 +27,27 @@ describe 'Feedback' do
     expect(page).to have_content('ISOLATED')
   end
 
+  it 'can have additional peers added via share button', js: true do
+    @newpeer1 = FactoryGirl.create(:spec_user, email: 'newpeer1@gmail.com', first_name: 'new', last_name: 'peer')
+    @newpeer2 = FactoryGirl.create(:spec_user, email: 'newpeer2@gmail.com', first_name: 'new', last_name: 'peer')
+    peer_count = @feedback.peers.count
+    visit current_path
+    within "#feedback-#{@feedback.id}" do
+      find('.action.share').click
+    end
+    within '#share-panel' do
+      find('textarea').set "#{@newpeer1.user_tag}, #{@newpeer2.user_tag}"
+      find('.share').click
+    end
+    sleep 2
+    visit current_path
+    @feedback.reload
+    expect(@feedback.peers.count).to eq(peer_count + 2)
+    within("#feedback-#{@feedback.id}") do
+      expect(page).to have_css('.dismiss', text: peer_count + 2)
+    end
+  end
+
   context 'with tags' do
     it 'lists its tags directly after its content' do
       tags = @feedback.tags.map(&:name)

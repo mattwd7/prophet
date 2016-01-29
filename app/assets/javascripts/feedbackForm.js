@@ -115,7 +115,6 @@ $(document).ready(function(){
                     .appendTo( ul );
             };
         }
-//        updateSource(peersForm);
     });
 
     function updateSource(inputTarget){

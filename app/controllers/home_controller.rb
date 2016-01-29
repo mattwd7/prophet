@@ -11,16 +11,25 @@ class HomeController < ApplicationController
   end
 
   def recipients
-    @recipients = typeahead_attributes([current_user, current_user.peers].flatten)
+    @recipients = autocomplete_attributes([current_user, current_user.peers].flatten)
     respond_to do |format|
       format.json { render json: @recipients.to_json }
     end
   end
 
   def peers
-    @peers = typeahead_attributes(current_user.peers)
+    @peers = autocomplete_attributes(current_user.peers)
     respond_to do |format|
       format.json { render json: @peers.to_json }
+    end
+  end
+
+  def additional_peers
+    @feedback = Feedback.find(params[:id])
+    # TODO: optimize the following statement. Too many DB calls
+    users = current_user.peers - @feedback.peers - [@feedback.author] - [@feedback.user]
+    respond_to do |format|
+      format.json { render json: autocomplete_attributes(users) }
     end
   end
 
@@ -31,7 +40,7 @@ class HomeController < ApplicationController
   end
 
 private
-  def typeahead_attributes(users)
+  def autocomplete_attributes(users)
     users.map{|p| {user_tag: p.user_tag, avatar_url: p.avatar.url(:large), name: p.full_name, title: p.title}}
   end
 

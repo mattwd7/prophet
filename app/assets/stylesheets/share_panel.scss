@@ -1,0 +1,93 @@
+#share-panel {
+  border: 1px solid #ccc;
+  width: 500px;
+  background: white;
+  position: fixed;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 200px;
+  z-index: 1;
+  display: none;
+  .header {
+    background: rgb(241, 129, 121);
+    color: white;
+    font-family: 'Avenir-Medium';
+    padding: 10px;
+    & > * {
+      display: inline-block;
+    }
+    .close {
+      float: right;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .top {
+    padding: 10px;
+  }
+  .banner {
+    height: 40px;
+    padding-bottom: 0;
+    & > * {
+      float: left;
+    }
+    .data {
+      font-family: 'Avenir-Heavy';
+      margin-left: 10px;
+      font-size: 20px;
+      .timestamp {
+        font-family: 'Avenir-Roman';
+        font-size: 13px;
+        color: #aaa;
+      }
+    }
+    .score {
+      float: right;
+      & * {
+        display: inline-block;
+      }
+    }
+  }
+  .content {
+    padding-top: 0;
+    font-size: 20px;
+    clear: both;
+    margin: 15px 0;
+  }
+
+  .additional-peers {
+    width: 100%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    textarea {
+      width: 99%;
+      resize: none;
+      font-family: 'Avenir-Book';
+      border: none;
+      font-size: 18px;
+      outline: none;
+    }
+  }
+
+  .actions {
+    margin: 20px 0 10px 260px;
+    width: 230px;
+    & > * {
+      display: inline-block;
+      background: rgb(241, 129, 121);
+      color: white;
+      padding: 5px 30px;
+      font-size: 20px;
+      width: 50px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .cancel {
+      background: #ccc;
+      color: black;
+    }
+  }
+}

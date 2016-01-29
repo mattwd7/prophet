@@ -36,6 +36,10 @@ class Feedback < ActiveRecord::Base
       user = User.find_by_user_tag(peer_tag)
       FeedbackLink.create(feedback: self, user: user)
     end
+
+    self.comments.each do |comment|
+      CommentLink.create(comment: comment, user: user)
+    end
   end
 
   def add_tag(tag_name)

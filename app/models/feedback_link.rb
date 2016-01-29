@@ -2,6 +2,7 @@ class FeedbackLink < ActiveRecord::Base
   belongs_to :user
   belongs_to :feedback
 
+  validates :user_id, uniqueness: { scope: :feedback_id }
   after_save :update_feedback_resonance
 
 private

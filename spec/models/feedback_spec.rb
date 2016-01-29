@@ -82,6 +82,15 @@ describe Feedback do
       expect(request.resonance_value).to eq(-1)
     end
 
+    it 'cannot have the same peer assigned twice' do
+      same_peer = @feedback.peers.first
+      new_peer = FactoryGirl.create(:spec_user, email: 'new_peer@gmail.com')
+      new_link = FeedbackLink.new(user: same_peer, feedback: @feedback)
+      expect(new_link.save).to eq(false)
+      new_link = FeedbackLink.new(user: new_peer, feedback: @feedback)
+      expect(new_link.save).to eq(true)
+    end
+
   end
 
 end
