@@ -17,13 +17,15 @@
 
 
 $(document).ready(function(){
-    $(document).on('keypress', function(e) {
+    $(document).on('keydown', function(e) {
         if (e.which === 13) { // if is enter
-            var focus = $(':focus')
+            var focus = $(':focus');
             focus.click();
             if(focus.hasClass('submit-tag')){
                 focus.blur();
             }
+        } else if (e.keyCode == 27) {
+            $('#share-panel').hide();
         }
     });
 

@@ -45,6 +45,9 @@ describe 'Feedback' do
     expect(@feedback.peers.count).to eq(peer_count + 2)
     within("#feedback-#{@feedback.id}") do
       expect(page).to have_css('.dismiss', text: peer_count + 2)
+      within('.commenting') do
+        expect(page).to have_css('.dismiss', text: peer_count + 2)
+      end
     end
   end
 
