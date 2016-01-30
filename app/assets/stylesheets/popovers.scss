@@ -1,0 +1,32 @@
+#session-options {
+  list-style-type: none;
+  font-size: 16px;
+  display: none;
+  background: white;
+  padding: 0;
+  hr {
+    border: none;
+    height: 1px;
+    background: #ccc;
+  }
+  .name {
+    padding-top: 10px;
+    font-size: 20px;
+    font-family: 'Avenir-Roman';
+  }
+  li {
+    width: 100%;
+    a {
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      padding: 15px 2px;
+      color: #aaa;
+      &:hover {
+        cursor: pointer;
+        background: rgb(241, 129, 121);
+        color: black;
+      }
+    }
+  }
+}

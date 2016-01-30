@@ -37,30 +37,6 @@ a:visited { color: inherit; }
         height: 65px;
       }
     }
-    .options {
-      list-style-type: none;
-      position: absolute;
-      width: 200px;
-      right: 0px;
-      top: 60px;
-      font-size: 20px;
-      display: none;
-      li {
-        border: 1px solid black;
-        width: 100%;
-        a {
-          text-decoration: none;
-          padding: 10px 10px;
-          display: block;
-          background: #ccc;
-          width: 100%;
-          &:hover {
-            cursor: pointer;
-            background: #999;
-          }
-        }
-      }
-    }
   }
   .sort {
     width: 250px;

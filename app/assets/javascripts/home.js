@@ -10,6 +10,14 @@ $(document).ready(function(){
         $(this).addClass('selected');
     });
 
+    $('#banner .avatar').webuiPopover({
+        placement: 'bottom-left',
+        trigger: 'hover',
+        width: 200,
+        type: 'html',
+        url: $('#session-options')
+    });
+
     $('.profile .status').each(function(){
         $(this).editable($(this).attr('data-action'), {
             type: 'textarea',

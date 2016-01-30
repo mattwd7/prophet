@@ -17,6 +17,7 @@
 
 
 $(document).ready(function(){
+
     $(document).on('keydown', function(e) {
         if (e.which === 13) { // if is enter
             var focus = $(':focus');
@@ -29,11 +30,4 @@ $(document).ready(function(){
         }
     });
 
-    $('#session').hover(function(){
-        $(this).find('.options').slideDown('fast');
-    });
-
-    $('.full').hover(function(){
-        $('#session .options').slideUp('fast');
-    })
 });
