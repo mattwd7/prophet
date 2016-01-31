@@ -12,7 +12,7 @@ $(document).ready(function(){
 
     $('#banner .avatar').webuiPopover({
         placement: 'bottom-left',
-        trigger: 'hover',
+        trigger: 'click',
         width: 200,
         type: 'html',
         url: $('#session-options')

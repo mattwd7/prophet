@@ -91,6 +91,8 @@ describe 'User', js: true do
       expect(comment_count).to eq(6)
       within("#feedback-#{@i_am_author.id}") do
         expect(page).to have_css('.comment', count: 2)
+        expect(page).to have_css("#comment-#{@i_am_author.comments.last.id}")
+        expect(page).to_not have_css("#comment-#{@i_am_author.comments.first.id}")
         expect(page).to have_content("View 4 more comments")
         find('#comment_content').click
         expect(page).to have_content("Submit")
@@ -100,6 +102,8 @@ describe 'User', js: true do
         click_link "View 4 more comments"
         expect(page).to have_css('.comment', count: 7)
         expect(page).to_not have_content("View 4 more comments")
+        expect(page).to have_css("#comment-#{@i_am_author.comments.last.id}")
+        expect(page).to have_css("#comment-#{@i_am_author.comments.first.id}")
       end
     end
 

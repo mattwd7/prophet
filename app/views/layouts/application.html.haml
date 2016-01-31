@@ -4,6 +4,7 @@
     %title Prophet
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = favicon_link_tag 'favicon.ico'
     = csrf_meta_tags
   %body
     #banner
@@ -29,8 +30,9 @@
       %p.errors= flash[:error]
       = yield
 
-  .popover#session-options
-    .name= current_user.full_name
-    %li= link_to 'Edit Profile', edit_user_path(current_user)
-    %hr
-    %li= link_to 'Logout', destroy_user_session_path, method: :delete
+  - if current_user
+    .popover#session-options
+      .name= current_user.full_name
+      %li= link_to 'Edit Profile', edit_user_path(current_user)
+      %hr
+      %li= link_to 'Logout', destroy_user_session_path, method: :delete
