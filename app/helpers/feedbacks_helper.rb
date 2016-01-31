@@ -14,9 +14,9 @@ module FeedbacksHelper
 
   def vote_numbers(feedback_or_comment, current_user)
     path = feedback_or_comment.instance_of?(Feedback) ? vote_feedback_path(feedback_or_comment.id) : vote_comment_path(feedback_or_comment.id)
-    output = "<div class='vote agree' data-action='#{path}'>#{feedback_or_comment.peers_in_agreement.count + 1}</div><div class='vote dismiss' data-action='#{path}'>#{feedback_or_comment.peers.count + 1}</div>"
+    output = "<div class='vote agree' data-action='#{path}'><div class='number'>#{feedback_or_comment.peers_in_agreement.count + 1}</div><div class='text'>agree</div></div><div class='vote dismiss' data-action='#{path}'><div class='number'>#{feedback_or_comment.peers.count + 1}</div><div class='text'>peers</div></div>"
     if current_user.agrees_with(feedback_or_comment)
-      output.gsub!('agree', 'agree selected')
+      output.gsub!('agree\'', 'agree selected\'')
     elsif current_user.is_peer?(feedback_or_comment)
         output.gsub!('dismiss', 'dismiss selected')
     end

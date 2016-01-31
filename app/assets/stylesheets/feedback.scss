@@ -48,27 +48,52 @@
   .active.votes:hover {
     cursor: pointer;
   }
-  .votes > * {
-    font-family: 'Avenir-Roman';
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    line-height: 40px;
-    color: white;
-    &.selected {
-      border-width: 3px;
-      border-color: gold;
+  .flavor {
+    vertical-align: 24px;
+  }
+  .votes {
+    .vote {
+      .number {
+        font-family: 'Avenir-Roman';
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        line-height: 40px;
+        color: white;
+        border-width: 3px;
+      }
+      &.selected .number {
+        border-color: gold !important;
+      }
+      .text {
+        font-size: 12px;
+        text-align: center;
+      }
+      &.agree {
+        .number {
+          background: rgb(241, 129, 121);
+          border: 3px solid rgb(241, 129, 121);
+          margin-right: 3px;
+        }
+        .text {
+          color: rgb(241, 129, 121);
+        }
+      }
+      &.dismiss {
+        .number {
+          background: #aaa;
+          border: 3px solid #aaa
+        }
+        .text {
+          color: #aaa;
+        }
+      }
+      .text {
+        color: black;
+        display: block;
+      }
     }
-  }
-  .agree {
-    background: rgb(241, 129, 121);
-    border: 3px solid rgb(241, 129, 121);
-    margin-right: 3px;
-  }
-  .dismiss {
-    background: #aaa;
-    border: 3px solid #aaa
   }
 
   .top {
@@ -219,7 +244,7 @@
         .flavor {
           font-family: 'Avenir-Heavy';
         }
-        .votes > * {
+        .votes .vote .number {
           width: 20px;
           height: 20px;
           line-height: 22px;

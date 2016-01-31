@@ -12,7 +12,7 @@
           .data
             .timestamp
               = "#{time_ago_in_words(comment.created_at)} ago"
-            .score
-              .flavor= flavor_text(comment)
-              .votes{ class: comment.feedback.user != current_user  && current_user.is_peer?(comment.feedback) && comment.user != current_user ? 'active' : nil }
-                = vote_numbers(comment, current_user)
+            -#.score
+            -#  .flavor= flavor_text(comment)
+            -#  .votes{ class: comment.feedback.user != current_user  && current_user.is_peer?(comment.feedback) && comment.user != current_user ? 'active' : nil }
+            -#    = vote_numbers(comment, current_user)
