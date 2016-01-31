@@ -15,9 +15,9 @@ a:visited { color: inherit; }
   z-index: 1;
   border-bottom: 1px solid black;
   .logo {
-    background: url('logo.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+    font-family: 'Chancery';
+    font-size: 47px;
+    color: white;
     width: 250px;
     height: 80px;
     position: absolute;

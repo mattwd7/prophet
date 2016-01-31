@@ -14,10 +14,13 @@ $(document).ready(function(){
 
     feedbackContentForm.elastic();
     feedbackContentForm.keyup(function(){
+        var submit_button = $(this).closest('.feedback-form').find('.submit-tag');
         if ($(this).val().length > 0){
-            $(this).closest('.feedback-form').find('.submit-tag').addClass('active');
+            submit_button.addClass('active');
+            submit_button.attr('tabindex', 0);
         } else {
-            $(this).closest('.feedback-form').find('.submit-tag').removeClass('active');
+            submit_button.removeClass('active');
+            submit_button.attr('tabindex', '');
         }
     });
 

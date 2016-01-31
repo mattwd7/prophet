@@ -51,12 +51,15 @@ $(document).ready(function(){
     });
 
     $(document).on('keyup', '.comment-form textarea', function(){
+        var submit_button = $(this).closest('.comment-form').find('.submit-tag');
         if ($(this).val().length > 0){
-            $(this).closest('.comment-form').find('.submit-tag').addClass('active');
+            submit_button.addClass('active');
+            submit_button.attr('tabindex', 0);
         } else {
-            $(this).closest('.comment-form').find('.submit-tag').removeClass('active');
+            submit_button.removeClass('active');
+            submit_button.attr('tabindex', '');
         }
-    })
+    });
 
     $(document).on('click', '.comment-form .submit-tag', function(){
         if ($(this).hasClass('active')){
