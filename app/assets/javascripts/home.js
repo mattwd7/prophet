@@ -95,9 +95,9 @@ $(document).ready(function(){
             otherVote.removeClass('selected');
             $(this).addClass('selected');
             if ($(this).hasClass('agree')) {
-                $(this).text(Number($(this).text()) + 1);
+                $(this).find('.number').text(Number($(this).find('.number').text()) + 1);
             } else {
-                otherVote.text(Number(otherVote.text()) - 1);
+                otherVote.find('.number').text(Number(otherVote.find('.number').text()) - 1);
             }
             $.ajax({
                 type: "POST",

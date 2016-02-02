@@ -5,12 +5,11 @@
   .top
     .banner
       .avatar
-        = image_tag feedback.author.avatar.url(:large)
+        %img
       .data
-        .address= address_info(feedback, current_user)
-        .timestamp= "#{time_ago_in_words(feedback.created_at)} ago"
+        .address
+        .timestamp
     .content
-      = simple_format(feedback.content)
 
   .additional-peers
     = text_area_tag :additional_peers, '', placeholder: 'Tag additional peers here...'

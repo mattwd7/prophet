@@ -22,9 +22,6 @@ describe 'Feedback' do
     @feedback.feedback_links.each{|fl| fl.update_attributes(agree: false)}
     visit root_path
     expect(page).to have_content('ISOLATED')
-    @feedback.feedback_links.first.update_attributes(agree: true)
-    visit root_path
-    expect(page).to have_content('ISOLATED')
   end
 
   it 'can have additional peers added via share button', js: true do
@@ -44,10 +41,7 @@ describe 'Feedback' do
     @feedback.reload
     expect(@feedback.peers.count).to eq(peer_count + 2)
     within("#feedback-#{@feedback.id}") do
-      expect(page).to have_css('.dismiss', text: peer_count + 2)
-      within('.commenting') do
-        expect(page).to have_css('.dismiss', text: peer_count + 2)
-      end
+      expect(page).to have_css('.dismiss .number', text: peer_count + 3) # +1 for author
     end
   end
 
