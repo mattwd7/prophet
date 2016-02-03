@@ -1,0 +1,17 @@
+%div
+  A better way to send and receive feedback at work.
+
+%div
+  %h1 Sign up
+  %h2 Send us your information below so we can reach out to you and get Prophet set up at your company!
+
+  = form_tag registration_request_users_path, id: 'registration' do
+    = text_field_tag :first_name, '', placeholder: 'First Name'
+    = text_field_tag :last_name, '', placeholder: 'Last Name'
+    = text_field_tag :email, '', placeholder: 'Email'
+    = text_field_tag :email_confirmation, '', placeholder: 'Confirm Email'
+    = text_field_tag :company, '', placeholder: 'Company'
+
+    .legal
+      By clicking Sign Up, you agree to our Terms and that you have read our Data Policy, including our cookie use.
+    .submit-tag{ 'tabindex' => 1 } Sign Up

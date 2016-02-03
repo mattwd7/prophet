@@ -7,6 +7,22 @@ describe 'User', js: true do
     @recipient = FactoryGirl.create(:spec_user, email: 'tony@gmail.com', first_name: 'Tony', last_name: 'Decino')
   end
 
+  it 'can request an account on the main page, receiving an email' do
+    mail_count = ActionMailer::Base.deliveries.count
+    visit root_path
+    expect(page).to have_content("Sign Up")
+    within('#registration') do
+      find('#first_name').set "Matthew"
+      find('#last_name').set "Dick"
+      find("#email").set "matt@gmail.com"
+      find("#email_confirmation").set "matt@gmail.com"
+      find("#company").set "PROPHET"
+      find('.submit-tag').click
+    end
+    expect(page).to have_content('Thank you for your interest. We will contact you as soon as possible!')
+    expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
+  end
+
   it 'in env without feedback sees that there is no content' do
     log_in_with(@user.email, 'password')
     expect(page).to have_content('No feedback results found.')

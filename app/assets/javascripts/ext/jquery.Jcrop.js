@@ -38,7 +38,7 @@
         is_msie = /msie/.test(_ua),
         ie6mode = /msie [1-6]\./.test(_ua);
 
-    // Internal Methods {{{
+    // InternalMail Methods {{{
     function px(n) {
       return Math.round(n) + 'px';
     }
@@ -392,7 +392,7 @@
     docOffset = getPos($img);
     // }}}
     // }}}
-    // Internal Modules {{{
+    // InternalMail Modules {{{
     // Touch Module {{{ 
     var Touch = (function () {
       // Touch support detection function adapted (under MIT License)
@@ -965,7 +965,7 @@
       }
       //}}}
 
-      // Internal Methods
+      // InternalMail Methods
       function updateVisible(select) //{{{
       {
         if (awake) {

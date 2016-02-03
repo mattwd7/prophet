@@ -1,13 +1,15 @@
 class HomeController < ApplicationController
 
-  def index
+  def main
     if user_signed_in?
-      @my_feedbacks = current_user.my_feedbacks
-      @team_feedbacks = current_user.team_feedbacks
-      @tags = current_user.my_tags
-    else
-      redirect_to new_user_session_path
+      redirect_to index_path
     end
+  end
+
+  def index
+    @my_feedbacks = current_user.my_feedbacks
+    @team_feedbacks = current_user.team_feedbacks
+    @tags = current_user.my_tags
   end
 
   def recipients

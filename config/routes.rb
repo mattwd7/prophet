@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root 'home#main'
+  get '/index' => 'home#index'
   get '/recipients' => 'home#recipients'
   get '/peers' => 'home#peers'
   get '/additional_peers' => 'home#additional_peers'
   post '/filter_feedbacks' => 'home#filter_feedbacks'
 
   devise_for :users
-  resources :users
+  resources :users do
+    collection do
+      post :registration_request
+    end
+  end
+
   resources :feedbacks do
     member do
       post :vote

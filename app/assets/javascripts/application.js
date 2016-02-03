@@ -30,4 +30,10 @@ $(document).ready(function(){
         }
     });
 
+    $(document).on('click', '.submit-tag', function(){
+        if ($(this).attr('tabindex') !== undefined){
+            $(this).closest('form').submit();
+        }
+    })
+
 });

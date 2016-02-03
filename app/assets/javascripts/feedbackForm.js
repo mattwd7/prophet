@@ -158,11 +158,6 @@ $(document).ready(function(){
         updateSource($(this));
     });
 
-    $('.feedback-form .submit-tag').click(function(){
-        if ($(this).hasClass('active')){
-            $(this).closest('form').submit();
-        }
-    });
 });
 
 function split( val ) {

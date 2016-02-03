@@ -61,12 +61,6 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('click', '.comment-form .submit-tag', function(){
-        if ($(this).hasClass('active')){
-            $(this).closest('form').submit();
-        }
-    });
-
     $(document).on('click', '.action.agree', function(){
         var feedback = $(this).closest('.feedback');
         if ($(this).hasClass('selected')){
