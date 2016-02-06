@@ -5,10 +5,19 @@ body {
   height: 100%;
 }
 
+a { text-decoration: none; }
 a:visited { color: inherit; }
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   border-style: none;
+}
+
+input:not([type=checkbox]):not([type=file]) {
+  border-radius: 5px;
+  height: 25px;
+  width: 150px;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+  border: 1px solid #ccc;
 }
 
 #banner {

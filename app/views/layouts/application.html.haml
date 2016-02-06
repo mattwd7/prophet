@@ -6,10 +6,10 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = favicon_link_tag 'favicon.ico'
     = csrf_meta_tags
-  %body
+  %body{ class: "#{controller_name} #{action_name}" }
     #banner
       .logo
-        Prophet
+        = link_to 'Prophet', index_path
       - if current_user
         #session
           .avatar
@@ -29,29 +29,21 @@
             = f.label 'Email'
             = f.text_field :email
             .rememberable
-              = f.check_box :remember_me
+              = f.check_box :remember_me, tabindex: -1
               = 'Keep me logged in'
           .password
             = f.label 'Password'
             = f.password_field :password
-            = link_to 'Forgot your password?'
+            = link_to 'Forgot your password?', nil, tabindex: -1
           .submit-tag{ 'tabindex' => 0 } Log in
 
     #error-messages
     #warning-messages
 
     .full
-      %p.errors= flash[:error]
-      %p.notices= flash[:notice]
+      -#%p.errors= flash[:error]
+      -#%p.notices= flash[:notice]
       = yield
-
-    .footer
-      %ul.business-links
-        %li= link_to 'Terms and Conditions'
-        %li= link_to 'Privacy Policy'
-        %li= link_to 'Data Policy'
-        %li= link_to 'Help'
-        %li= link_to 'Careers'
 
   - if current_user
     .popover#session-options

@@ -14,18 +14,7 @@
         .description.isolated Isolated
         .number-bubble#isolated= @my_feedbacks.isolated.count
 
-  .profile
-    .banner
-    %table.data
-      %tr
-        %td
-          .avatar
-            = image_tag current_user.avatar.url(:large)
-        %td
-          .name= "#{current_user.first_name} #{current_user.last_name}"
-          .title= current_user.title
-    .status.editable{ 'data-action' => user_url(current_user) }
-      = current_user.bio
+  = render partial: 'users/profile'
 
 
 
