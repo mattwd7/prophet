@@ -11,7 +11,6 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   border-style: none;
 }
-
 input:not([type=checkbox]):not([type=file]) {
   border-radius: 5px;
   height: 25px;
@@ -19,6 +18,7 @@ input:not([type=checkbox]):not([type=file]) {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   border: 1px solid #ccc;
 }
+li { list-style-type: none; }
 
 #banner {
   background: rgb(241, 129, 121);
@@ -136,7 +136,6 @@ input:not([type=checkbox]):not([type=file]) {
   bottom: 0px;
   width: 100%;
   li {
-    list-style-type: none;
     display: inline-block;
     &:not(:first-child) {
       border-left: 1px solid black;
