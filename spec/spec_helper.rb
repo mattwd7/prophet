@@ -86,9 +86,11 @@ end
 
 def log_in_with(email, password)
   visit root_path
-  find('#user_email').set email
-  find('#user_password').set 'password'
-  find('input[type=submit]').click
+  within('#banner') do
+    find('#user_email').set email
+    find('#user_password').set password
+    find('.submit-tag', text: 'Log in').click
+  end
 end
 
 def wait_for_ajax

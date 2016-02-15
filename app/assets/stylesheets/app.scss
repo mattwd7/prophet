@@ -99,32 +99,32 @@ li { list-style-type: none; }
     }
   }
   .sort {
-    width: 250px;
-    margin: 0 auto;
+    width: 350px;
+    margin-left: 400px;
     padding-top: 20px;
     font-size: 20px;
-    .me, .team {
+    & > *:not(.bar) {
       display: inline-block;
       padding: 5px 0;
       color: white;
-      width: 48%;
+      width: 32%;
       text-align: center;
       &:hover {
         cursor: pointer;
       }
     }
-    .selected {
-
-    }
     .bar {
       margin-top: 5px;
-      width: 50%;
+      width: 33%;
       height: 1px;
       background-color: #fff;
       margin-left: 0;
       transition: all .4s ease-in-out;
-      &.slide {
-        margin-left: 50%;
+      &.slide1 {
+        margin-left: 33%;
+      }
+      &.slide2 {
+        margin-left: 66%;
       }
     }
   }

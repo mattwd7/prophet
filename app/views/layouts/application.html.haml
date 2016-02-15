@@ -22,6 +22,8 @@
           - else
             .me Me
             .team.selected Team
+          - if current_user.type == 'Manager'
+            .manager Manager
           .bar
       - else
         = form_for :user, url: session_path(:user), html: { id: 'sign-in' } do |f|
@@ -35,7 +37,7 @@
             = f.label 'Password'
             = f.password_field :password
             = link_to 'Forgot your password?', nil, tabindex: -1
-          .submit-tag{ 'tabindex' => 0 } Log in
+          .submit-tag.active{ 'tabindex' => 0 } Log in
 
     #error-messages
     #warning-messages

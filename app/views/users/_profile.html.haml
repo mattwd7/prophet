@@ -10,3 +10,6 @@
         .title= current_user.title
   .status.editable{ 'data-action' => user_url(current_user) }
     = current_user.bio
+
+  - if current_user.type == 'Manager'
+    = render partial: 'users/manager_team'

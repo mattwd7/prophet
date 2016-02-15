@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :feedback_links
   has_many :comments
   has_many :comment_links
+  has_many :manager_employees, foreign_key: 'employee_id'
+  has_many :managers, through: :manager_employees, source: :user
 
   validates_presence_of :email
   before_save :make_proper, :generate_user_tag

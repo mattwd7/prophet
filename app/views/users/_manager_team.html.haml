@@ -1,0 +1,11 @@
+- employees ||= current_user.employees
+#manager-team
+  %ul
+    - employees.each do |employee|
+      %li.employee
+        .avatar
+          = image_tag employee.avatar.url(:large)
+        .name
+          = employee.full_name
+        .title
+          = employee.title
