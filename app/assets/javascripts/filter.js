@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var filters = {resonance: [], attributes: []};
+    var filters = {resonance: [], attributes: [], user_id: null};
 
     $('.filters .number-bubble').click(function(){
         var type = $(this).closest('.feedback-summary').length > 0 ? 'resonance' : 'attribute';
@@ -78,7 +78,8 @@ $(document).ready(function(){
                 $(".column#middle").addClass('blur');
             },
             success: function(data){
-                $('#feedbacks').html(data);
+                $('#feedbacks').html(data.feedbacks);
+                updateResonanceNumbers(data.resonances);
                 if ($('#banner .team').hasClass('selected')){
                     toggleBanner('team');
                 }
@@ -96,6 +97,17 @@ $(document).ready(function(){
             tag = tag.substr(1, tag.length);
         }
         return tag.toUpperCase();
+    }
+
+    $('#manager-team .employee').click(function(){
+        filters = {resonance: [], attributes: [], user_id: $(this).attr('id')};
+        filterFeedbacks();
+    })
+
+    function updateResonanceNumbers(resonances){
+        $(".feedback-summary .number-bubble#resonant").text(resonances.resonant);
+        $(".feedback-summary .number-bubble#mixed").text(resonances.mixed);
+        $(".feedback-summary .number-bubble#isolated").text(resonances.isolated);
     }
 
 });

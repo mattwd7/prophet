@@ -2,7 +2,7 @@
 #manager-team
   %ul
     - employees.each do |employee|
-      %li.employee
+      %li.employee{ id: employee.id }
         .avatar
           = image_tag employee.avatar.url(:large)
         .name

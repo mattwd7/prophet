@@ -101,3 +101,7 @@ def wait_for_ajax
     raise "AJAX request took longer than 5 seconds." if counter >= 50
   end
 end
+
+def filter_resonance(resonance)
+  find(".feedback-summary ##{resonance}").click
+end
