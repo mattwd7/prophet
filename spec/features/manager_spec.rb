@@ -24,9 +24,10 @@ describe 'Manager', js: true do
 
   context 'on the Manager tab' do
     before(:each) do
-      @feedback1 = FactoryGirl.create(:spec_feedback, user: @employee2, content: 'Most resonant', resonance_value: 2)
-      @feedback2 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @feedback1.author, content: 'Something mixed', resonance_value: 1)
-      @feedback3 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @feedback1.author, content: 'Pretty well isolated', resonance_value: 0)
+      @author = FactoryGirl.create(:spec_user, email: 'author@gmail.com')
+      @feedback1 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Most resonant', resonance_value: 2)
+      @feedback2 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Something mixed', resonance_value: 1)
+      @feedback3 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Pretty well isolated', resonance_value: 0)
       find('.sort .manager').click
     end
 

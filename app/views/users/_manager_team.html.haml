@@ -5,7 +5,7 @@
       %li.employee{ id: employee.id }
         .avatar
           = image_tag employee.avatar.url(:large)
-        .name
-          = employee.full_name
-        .title
-          = employee.title
+        .info
+          .name= employee.full_name
+          .title= employee.title
+          .user-tag= employee.user_tag

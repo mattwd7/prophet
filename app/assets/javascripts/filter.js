@@ -86,8 +86,6 @@ $(document).ready(function(){
                     $('#feedbacks div').hide();
                     container.html(data.feedbacks);
                     container.show();
-                    // get or create selected user's own feedback div
-                    // populate that div with filtered feedbacks
                 }
                 updateResonanceNumbers(data.resonances);
                 if ($('#banner .team').hasClass('selected')){
@@ -126,13 +124,11 @@ $(document).ready(function(){
     }
 
     function getUserFeedbackDiv(user_id){
-        var existingDiv = $('#feedbacks').find('.feedbacks#user-' + user_id);
-        if (existingDiv.length > 0){
-            return existingDiv;
-        } else {
-            $('#feedbacks').append("<div class='feedbacks' id='user-" + user_id + "'></div>" );
-            return $('#feedbacks').find('.feedbacks#user-' + user_id);
+        var feedbacks = $('#feedbacks');
+        if (feedbacks.find('.feedbacks#user-' + user_id).length < 1){
+            feedbacks.append("<div class='feedbacks' id='user-" + user_id + "'></div>" );
         }
+        return feedbacks.find('.feedbacks#user-' + user_id);
     }
 
 });
