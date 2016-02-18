@@ -55,7 +55,7 @@ describe 'User', js: true do
     end
 
     it 'signs into and out of his account' do
-      find('#session .avatar').click
+      find('.session .avatar').click
       expect(page).to have_content('Edit Profile')
       expect(page).to have_content('Logout')
       click_link 'Logout'

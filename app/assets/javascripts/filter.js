@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-    var filters = {resonance: [], attributes: [], user_id: null};
+    var currentUserId = $('.session').attr('id');
+    var filters = {resonance: [], attributes: [], user_id: currentUserId};
 
     $('.filters .number-bubble').click(function(){
         var type = $(this).closest('.feedback-summary').length > 0 ? 'resonance' : 'attribute';
@@ -78,7 +79,16 @@ $(document).ready(function(){
                 $(".column#middle").addClass('blur');
             },
             success: function(data){
-                $('#feedbacks').html(data.feedbacks);
+                if (currentUserId == filters.user_id){
+                    $('#feedbacks').html(data.feedbacks);
+                } else {
+                    var container = getUserFeedbackDiv(filters.user_id);
+                    $('#feedbacks div').hide();
+                    container.html(data.feedbacks);
+                    container.show();
+                    // get or create selected user's own feedback div
+                    // populate that div with filtered feedbacks
+                }
                 updateResonanceNumbers(data.resonances);
                 if ($('#banner .team').hasClass('selected')){
                     toggleBanner('team');
@@ -87,6 +97,16 @@ $(document).ready(function(){
             }
         })
     }
+
+    $('.sort .me, .sort .team').click(function(){
+        filters.user_id = currentUserId;
+        filterFeedbacks();
+    });
+
+    $('#manager-team .employee').click(function(){
+        filters = {resonance: [], attributes: [], user_id: $(this).attr('id')};
+        filterFeedbacks();
+    });
 
     function toTitleCase(str){
         return str.replace(/\w+/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
@@ -99,15 +119,20 @@ $(document).ready(function(){
         return tag.toUpperCase();
     }
 
-    $('#manager-team .employee').click(function(){
-        filters = {resonance: [], attributes: [], user_id: $(this).attr('id')};
-        filterFeedbacks();
-    })
-
     function updateResonanceNumbers(resonances){
         $(".feedback-summary .number-bubble#resonant").text(resonances.resonant);
         $(".feedback-summary .number-bubble#mixed").text(resonances.mixed);
         $(".feedback-summary .number-bubble#isolated").text(resonances.isolated);
+    }
+
+    function getUserFeedbackDiv(user_id){
+        var existingDiv = $('#feedbacks').find('.feedbacks#user-' + user_id);
+        if (existingDiv.length > 0){
+            return existingDiv;
+        } else {
+            $('#feedbacks').append("<div class='feedbacks' id='user-" + user_id + "'></div>" );
+            return $('#feedbacks').find('.feedbacks#user-' + user_id);
+        }
     }
 
 });

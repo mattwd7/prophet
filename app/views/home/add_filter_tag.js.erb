@@ -1,6 +1,0 @@
-var html = "<%= escape_javascript(render partial: 'feedbacks/filter_tag', locals: { text: @tag_name } ) %>";
-if (<%= @type == 'resonance' %>){
-    $(html).appendTo("#filter-tags .resonance-tags");
-} else {
-    $(html).appendTo("#filter-tags .attribute-tags");
-}
