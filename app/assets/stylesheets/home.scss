@@ -41,6 +41,7 @@ h2 {
   & > * {
   border: 1px solid #ccc;
 }
+
   .feedback-summary {
     font-family: 'Avenir-Heavy';
     margin-bottom: 20px;
@@ -120,4 +121,93 @@ h2 {
       &:nth-child(3) .number-bubble{ background: #ccc; }
     }
   }
+}
+
+#home_left {
+  left: 125px;
+  position: absolute;
+  width: 500px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: Avenir;
+  padding-top: 50px;
+}
+
+#home_right {
+  float: right;
+  width: 500px;
+  margin-right: 70px;
+  font-size: 40px;
+  font-weight: 500;
+  font-family: Avenir;
+}
+
+#blurb {
+  font-size: 18px;
+  width: inherit;
+}
+
+#name {
+  width: inherit;
+}
+
+#first_name {
+  width: 230px;
+  font-family: 'Avenir';
+  height: 30px;
+  padding-left: 10px;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+#last_name {
+  width: 230px;
+  font-family: 'Avenir';
+  height: 30px;
+  padding-left: 10px;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+#home_field {
+  width: inherit;
+  margin-top: -8px;
+}
+
+#email {
+  width: 485px;
+  font-family: 'Avenir';
+  height: 30px;
+  padding-left: 10px;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+#email_confirmation {
+  width: 485px;
+  font-family: 'Avenir';
+  height: 30px;
+  padding-left: 10px;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+#company {
+  width: 485px;
+  font-family: 'Avenir';
+  height: 30px;
+  padding-left: 10px;
+  font-size: 18px;
+  font-weight: 100;
+}
+
+.legal {
+  font-size:10px;
+  width:350px;
+  margin-top: 10px;
+}
+
+#sign_up {
+  float: left;
+  margin-top: 15px;
 }
