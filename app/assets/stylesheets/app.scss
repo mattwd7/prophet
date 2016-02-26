@@ -99,7 +99,7 @@ li { list-style-type: none; }
     }
   }
   .sort {
-    width: 350px;
+    width: 500px;
     margin-left: 400px;
     padding-top: 20px;
     font-size: 20px;
@@ -107,7 +107,7 @@ li { list-style-type: none; }
       display: inline-block;
       padding: 5px 0;
       color: white;
-      width: 32%;
+      width: 24%;
       text-align: center;
       &:hover {
         cursor: pointer;
@@ -115,7 +115,7 @@ li { list-style-type: none; }
     }
     .bar {
       margin-top: 5px;
-      width: 33%;
+      width: 24%;
       height: 1px;
       background-color: #fff;
       margin-left: 0;

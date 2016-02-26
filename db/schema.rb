@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215203913) do
+ActiveRecord::Schema.define(version: 20160226141144) do
 
   create_table "comment_links", force: true do |t|
     t.integer  "comment_id"
@@ -53,6 +53,12 @@ ActiveRecord::Schema.define(version: 20160215203913) do
     t.datetime "updated_at"
   end
 
+  create_table "organizations", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tag_links", force: true do |t|
     t.integer  "tag_id"
     t.integer  "feedback_id"
@@ -89,6 +95,7 @@ ActiveRecord::Schema.define(version: 20160215203913) do
     t.string   "bio"
     t.string   "title"
     t.string   "type"
+    t.integer  "organization_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

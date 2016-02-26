@@ -89,7 +89,7 @@ $(document).ready(function(){
                 }
                 updateResonanceNumbers(data.resonances);
                 if ($('#banner .team').hasClass('selected')){
-                    toggleBanner('team');
+                    selectBannerTab('team');
                 }
                 $(".column#middle").removeClass('blur');
             }

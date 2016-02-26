@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, default_url: ":style/missing.png", styles: { small: "100x100#", large: "500x500>" }, processors: [:cropper]
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
+  belongs_to :organization
   has_many :feedbacks
   has_many :feedback_links
   has_many :comments
@@ -84,7 +85,7 @@ private
 
   def generate_user_tag
     unless self.id
-      tag = '@' + self.first_name + self.last_name
+      tag = '@' + self.first_name.to_s + self.last_name.to_s
       existing_tags_count = User.where("user_tag LIKE '#{tag}%'").count
       if existing_tags_count > 0
         tag += "-#{existing_tags_count.to_s}"

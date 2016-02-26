@@ -22,8 +22,10 @@
           - else
             .me Me
             .team.selected Team
-          - if current_user.type == 'Manager'
-            .manager Manager
+          -#- if current_user.type == 'Manager'
+          .manager Manager
+          - if current_user.type == 'Admin'
+            .admin Admin
           .bar
       - else
         = form_for :user, url: session_path(:user), html: { id: 'sign-in' } do |f|

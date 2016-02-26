@@ -1,13 +1,16 @@
 $(document).ready(function(){
     $('#banner .sort div').not('.bar').click(function(){
-        toggleBanner($(this).attr('class'));
-        var bar = $('.sort .bar');
-        bar.attr('class', bar.attr('class').replace(/slide\d/, ''));
-        if ($(this).hasClass('team')){
-            $('.sort .bar').addClass('slide1');
-        } else if ($(this).hasClass('manager')) {
-            $('.sort .bar').addClass('slide2');
+        selectBannerTab($(this).attr('class'));
+        var tabs = $('.sort div').not('.bar'),
+            position, margin;
+        for (var i = 0; i < tabs.length; i++){
+            if (tabs.eq(i)[0] === $(this)[0]){
+                position = i;
+                break;
+            }
         }
+        marginLeft = String(position * 25.5) + '%';
+        $('.sort .bar').css('margin-left', marginLeft);
         $(this).siblings().removeClass('selected');
         $(this).addClass('selected');
     });
@@ -105,7 +108,7 @@ $(document).ready(function(){
 
 });
 
-function toggleBanner(input){
+function selectBannerTab(input){
     if (input === 'team'){
         $('.my-feedbacks').hide();
         $('.all-feedbacks').show();

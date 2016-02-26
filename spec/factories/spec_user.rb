@@ -13,4 +13,12 @@ FactoryGirl.define do
     password 'password'
     type 'Manager'
   end
+
+  factory :spec_admin, class: Admin do
+    first_name 'Master'
+    last_name 'Admin'
+    email 'admin@gmail.com'
+    password 'password'
+    type 'Admin'
+  end
 end
