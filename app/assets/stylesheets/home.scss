@@ -152,6 +152,8 @@ h2 {
 }
 
 #registration {
+  border-bottom: 2px solid #aaa;
+  padding-bottom: 80px;
   .name-info input{
     width: 230px;
   }
@@ -160,10 +162,16 @@ h2 {
   }
   input {
     font-family: 'Avenir';
-    height: 30px;
+    height: 40px;
     padding-left: 10px;
     font-size: 18px;
     font-weight: 100;
+  }
+  #sign_up .submit-tag{
+    font-family: 'Avenir';
+    width: 73px;
+    border-radius: 8px;
+    font-weight: normal;
   }
 }
 
