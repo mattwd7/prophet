@@ -22,6 +22,7 @@ gem 'turbolinks'
 gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'seed_dump'
 
 group :test do
   gem 'cucumber-rails', :require => false

@@ -22,8 +22,8 @@
           - else
             .me Me
             .team.selected Team
-          -#- if current_user.type == 'Manager'
-          .manager Manager
+          - if current_user.type == 'Manager'
+            .manager Manager
           - if current_user.type == 'Admin'
             .admin Admin
           .bar

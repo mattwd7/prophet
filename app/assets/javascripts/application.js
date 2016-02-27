@@ -26,7 +26,13 @@ $(document).ready(function(){
                 focus.blur();
             }
         } else if (e.keyCode == 27) {
-            $('#share-panel').hide();
+            $('#share-panel').hide(); // TODO: change this to a class
+        }
+    });
+
+    $(document).on('keydown', 'input', function(e){
+        if (e.which == 13){
+            $(this).closest('form').submit();
         }
     });
 

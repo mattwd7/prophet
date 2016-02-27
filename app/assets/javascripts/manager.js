@@ -1,12 +1,12 @@
 $(document).ready(function(){
-    var employees = $('#manager-team');
+    var employeesPanel = $('#manager-team');
 
     $('.sort div').click(function(){
         if ($(this).hasClass('manager')){
-            employees.slideDown('slow');
+            employeesPanel.slideDown('slow');
             managerSelectPrompt();
         } else if (!$(this).hasClass('bar')){
-            employees.slideUp('slow');
+            employeesPanel.slideUp('slow');
         }
     });
 

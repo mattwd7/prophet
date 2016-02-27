@@ -6,6 +6,12 @@ Rails.application.routes.draw do
   get '/additional_peers' => 'home#additional_peers'
   post '/filter_feedbacks' => 'home#filter_feedbacks'
 
+  resources :organizations do
+    collection do
+      get :get_users
+    end
+  end
+
   devise_for :users
   resources :users do
     collection do

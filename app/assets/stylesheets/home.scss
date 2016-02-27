@@ -151,54 +151,20 @@ h2 {
   width: inherit;
 }
 
-#first_name {
-  width: 230px;
-  font-family: 'Avenir';
-  height: 30px;
-  padding-left: 10px;
-  font-size: 18px;
-  font-weight: 100;
-}
-
-#last_name {
-  width: 230px;
-  font-family: 'Avenir';
-  height: 30px;
-  padding-left: 10px;
-  font-size: 18px;
-  font-weight: 100;
-}
-
-#home_field {
-  width: inherit;
-  margin-top: -8px;
-}
-
-#email {
-  width: 485px;
-  font-family: 'Avenir';
-  height: 30px;
-  padding-left: 10px;
-  font-size: 18px;
-  font-weight: 100;
-}
-
-#email_confirmation {
-  width: 485px;
-  font-family: 'Avenir';
-  height: 30px;
-  padding-left: 10px;
-  font-size: 18px;
-  font-weight: 100;
-}
-
-#company {
-  width: 485px;
-  font-family: 'Avenir';
-  height: 30px;
-  padding-left: 10px;
-  font-size: 18px;
-  font-weight: 100;
+#registration {
+  .name-info input{
+    width: 230px;
+  }
+  .additional-info input {
+    width: 485px;
+  }
+  input {
+    font-family: 'Avenir';
+    height: 30px;
+    padding-left: 10px;
+    font-size: 18px;
+    font-weight: 100;
+  }
 }
 
 .legal {

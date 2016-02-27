@@ -8,14 +8,12 @@
       Send us your information below so we can reach out to you and get Prophet set up at your company!
 
     = form_tag registration_request_users_path, id: 'registration' do
-      #name
+      .name-info
         = text_field_tag :first_name, '', placeholder: 'First Name'
         = text_field_tag :last_name, '', placeholder: 'Last Name'
-      #home_field
+      .additional-info
         = text_field_tag :email, '', placeholder: 'Email'
-      #home_field
         = text_field_tag :email_confirmation, '', placeholder: 'Confirm Email'
-      #home_field
         = text_field_tag :company, '', placeholder: 'Company'
 
       .legal
