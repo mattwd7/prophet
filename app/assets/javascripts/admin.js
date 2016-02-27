@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+//
     $('.sort div').click(function(){
         if ($(this).hasClass('admin')){
             $('.column').hide();
@@ -8,6 +8,11 @@ $(document).ready(function(){
             $('.column').show();
         }
     });
+
+    // remove these later
+//    $('.column').hide();
+//    initAdmin();
+
 
     var users;
     function initAdmin(){
@@ -24,54 +29,29 @@ $(document).ready(function(){
     function initGrid(){
         var grid;
         var columns = [
-            {id: "title", name: "Title", field: "title"},
-            {id: "duration", name: "Duration", field: "duration"},
-            {id: "%", name: "% Complete", field: "percentComplete"},
-            {id: "start", name: "Start", field: "start"},
-            {id: "finish", name: "Finish", field: "finish"},
-            {id: "effort-driven", name: "Effort Driven", field: "effortDriven"}
+            {id: "first_name", name: "First Name", field: "first_name", width: 160},
+            {id: "last_name", name: "Last Name", field: "last_name", width: 200},
+            {id: "user_tag", name: "User Tag", field: "user_tag", width: 200},
+            {id: "email", name: "Email", field: "email", width: 240},
+            {id: "manager", name: "Manager", field: "manager", width: 200}
         ];
         var options = {
             enableCellNavigation: true,
-            enableColumnReorder: false
+            enableColumnReorder: false,
+            autoHeight: true
         };
         var data = [];
-        for (var i = 0; i < 5; i++) {
-            var d = (data[i] = {});
-            d["title"] = "<a href='#' tabindex='0'>Task</a> " + i;
-            d["duration"] = "5 days";
-            d["percentComplete"] = Math.min(100, Math.round(Math.random() * 110));
-            d["start"] = "01/01/2009";
-            d["finish"] = "01/05/2009";
-            d["effortDriven"] = (i % 5 == 0);
+        for (var i = 0; i < users.length; i++) {
+            data[i] = {
+                first_name: users[i].first_name,
+                last_name: users[i].last_name,
+                user_tag: users[i].user_tag,
+                email: users[i].email,
+                manager: users[i].manager
+            };
         }
-        console.log(data);
         grid = new Slick.Grid("#admin-grid", data, columns, options);
-        grid.init();
-    }
 
-//    function initGrid(){
-//        var grid;
-//        var columns = [
-//            {id: "first_name", name: "First Name", field: "first_name"},
-//            {id: "last_name", name: "Last Name", field: "last_name"},
-//            {id: "user_tag", name: "User Tag", field: "user_tag"},
-//            {id: "email", name: "Email", field: "email"}
-//        ];
-//        var options = {
-//            enableCellNavigation: true,
-//            enableColumnReorder: false
-//        };
-//        var data = [];
-//        for (var i = 0; i < users.length; i++) {
-//            data[i] = {
-//                first_name: users[i].first_name,
-//                last_name: users[i].last_name,
-//                user_tag: users[i].user_tag,
-//                email: users[i].email
-//            };
-//        }
-//        grid = new Slick.Grid("#admin-grid", data, columns, options);
-//
-//    }
+    }
 });
+
