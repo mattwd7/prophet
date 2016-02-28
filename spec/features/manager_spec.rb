@@ -36,7 +36,6 @@ describe 'Manager', js: true do
     end
 
     it 'lists his employees' do
-      sleep 20
       expect(@manager.employees.count).to eq(3)
       expect(page).to have_css('.employee', count: 3)
       expect(page).to have_content(@employee1.full_name)

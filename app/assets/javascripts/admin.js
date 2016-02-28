@@ -10,8 +10,8 @@ $(document).ready(function(){
     });
 
     // remove these later
-//    $('.column').hide();
-//    initAdmin();
+    $('.column').hide();
+    initAdmin();
 
 
     var users;

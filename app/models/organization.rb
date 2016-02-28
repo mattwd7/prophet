@@ -17,7 +17,7 @@ class Organization < ActiveRecord::Base
         last_name: user.last_name,
         user_tag: user.user_tag,
         email: user.email,
-        manager: user.managers.first.full_name
+        manager: user.managers.first.try(:full_name)
       }
     end
   end
