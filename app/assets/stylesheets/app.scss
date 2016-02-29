@@ -137,7 +137,31 @@ li { list-style-type: none; }
   bottom: 0px;
   width: 100%;
   left:0px;
-  height: 20vh;
+  height: 10vh;
+  li {
+    display: inline-block;
+    &:not(:first-child) {
+      border-left: 1px solid black;
+    }
+    a {
+      text-decoration: none;
+      padding: 0 10px;
+      text-align: center;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.legal_footer {
+  background: white;
+  position: relative;
+  bottom: 0px;
+  width: 130%;
+  margin-left: -150px;
+  left:0px;
+  height: 10vh;
   li {
     display: inline-block;
     &:not(:first-child) {
