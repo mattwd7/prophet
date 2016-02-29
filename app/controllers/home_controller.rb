@@ -6,6 +6,36 @@ class HomeController < ApplicationController
     end
   end
 
+  def terms
+    if user_signed_in?
+      redirect_to index_path
+    end
+  end
+
+  def privacy
+    if user_signed_in?
+      redirect_to index_path
+    end
+  end
+
+  def data
+    if user_signed_in?
+      redirect_to index_path
+    end
+  end
+
+  def help
+    if user_signed_in?
+      redirect_to index_path
+    end
+  end
+
+  def careers
+    if user_signed_in?
+      redirect_to index_path
+    end
+  end
+
   def index
     @my_feedbacks = current_user.my_feedbacks
     @team_feedbacks = current_user.team_feedbacks

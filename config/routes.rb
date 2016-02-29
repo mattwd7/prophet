@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   get '/recipients' => 'home#recipients'
   get '/peers' => 'home#peers'
   get '/additional_peers' => 'home#additional_peers'
+  get '/terms' => 'home#terms'
+  get '/privacy' => 'home#privacy'
+  get '/data' => 'home#data'
+  get 'help' => 'home#help'
+  get '/careers' => 'home#careers'
   post '/filter_feedbacks' => 'home#filter_feedbacks'
 
   resources :organizations do
