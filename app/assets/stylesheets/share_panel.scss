@@ -1,5 +1,5 @@
 #share-panel {
-  border: 1px solid #ccc;
+  border: 1px solid #000;
   width: 500px;
   background: white;
   position: fixed;
@@ -12,7 +12,7 @@
   .header {
     background: rgb(241, 129, 121);
     color: white;
-    font-family: 'Avenir-Medium';
+    font-family: 'Avenir';
     padding: 10px;
     & > * {
       display: inline-block;
@@ -25,7 +25,7 @@
     }
   }
   .top {
-    padding: 10px;
+    padding: 15px;
   }
   .banner {
     height: 40px;
@@ -54,7 +54,7 @@
     padding-top: 0;
     font-size: 20px;
     clear: both;
-    margin: 15px 0;
+    margin: 20px 0 0 4px;
   }
 
   .additional-peers {
@@ -62,12 +62,13 @@
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     textarea {
-      width: 99%;
+      width: 90%;
       resize: none;
       font-family: 'Avenir-Book';
       border: none;
       font-size: 18px;
       outline: none;
+      margin: 10px 0 0 5px;
     }
   }
 
@@ -78,6 +79,7 @@
       display: inline-block;
       background: rgb(241, 129, 121);
       color: white;
+      border-radius: 6px;
       padding: 5px 30px;
       font-size: 20px;
       width: 50px;

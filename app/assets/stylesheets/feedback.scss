@@ -8,6 +8,7 @@
   background: rgb(241, 129, 121);
   color: white;
   padding: 5px 40px;
+  border-radius: 8px;
   font-size: 20px;
   width: 50px;
   float: right;
@@ -286,7 +287,9 @@
     font-family: 'Avenir-Book';
     border: none;
     font-size: 18px;
+    font-weight: 100;
     outline: none;
+
   }
   .top {
     border-bottom: 1px solid #ccc;

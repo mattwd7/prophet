@@ -59,7 +59,7 @@ li { list-style-type: none; }
       display: inline-block;
       height: 70px;
       vertical-align: middle;
-      margin-top: 10px;
+      margin-top: 8px;
       margin-right: 10px;
       label:not(#rememberable) {
         font-size: 12px;
@@ -69,6 +69,7 @@ li { list-style-type: none; }
         border-radius: 5px;
         height: 25px;
         width: 150px;
+        padding-left: 5px;
       }
       .rememberable {
         color: black;
