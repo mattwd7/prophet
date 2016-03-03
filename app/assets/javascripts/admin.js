@@ -34,6 +34,7 @@ $(document).ready(function(){
     function initGrid(users){
         for (var i = 0; i < users.length; i++){
             var user = users[i];
+            grid.append(headers());
             grid.append(userRow(user));
         }
         grid.DataTable({
@@ -52,6 +53,14 @@ $(document).ready(function(){
         });
 
         grid.addClass('initialized');
+    }
+
+    function headers(){
+        return "<thead><tr><td>First Name</td>" +
+            "<td>Last Name</td>" +
+            "<td>User Tag</td>" +
+            "<td>Email</td>" +
+            "<td>Manager</td></tr>"
     }
 
     function userRow(user){
