@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :organizations do
     collection do
       get :get_users
+      put :update_user
     end
   end
 

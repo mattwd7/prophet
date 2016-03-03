@@ -40,15 +40,26 @@ $(document).ready(function(){
             'order': [[ 1, "asc" ], [ 0, "asc" ]],
             'paging': false
         });
+
+        // Use .each() to allow for proper $(this) scope
+        $('#admin-grid_wrapper').find('.inline-editable').each(function(){
+            $(this).editable('organizations/update_user', {
+                method: 'PUT',
+                onblur: 'submit',
+                submitdata: { id: $(this).closest('tr').attr('user_id'), attribute: $(this).closest('td').attr('user_attribute') },
+                data: function(string){ return $.trim(string); }
+            });
+        });
+
         grid.addClass('initialized');
     }
 
     function userRow(user){
-        return  "<tr><td>" + user.first_name + "</td>" +
-                "<td>" + user.last_name + "</td>" +
-                "<td>" + user.user_tag + "</td>" +
-                "<td>" + user.email + "</td>" +
-                "<td>" + user.manager + "</td></tr>";
+        return  "<tr user_id=" + user.id + "><td user_attribute='first_name' class='inline-editable'>" + user.first_name + "</td>" +
+                "<td user_attribute='last_name' class='inline-editable'>" + user.last_name + "</td>" +
+                "<td user_attribute='user_tag'>" + user.user_tag + "</td>" +
+                "<td user_attribute='email' class='inline-editable'>" + user.email + "</td>" +
+                "<td user_attribute='managers'>" + user.managers + "</td></tr>";
     };
 
 });

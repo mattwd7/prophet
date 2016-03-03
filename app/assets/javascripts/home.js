@@ -23,6 +23,7 @@ $(document).ready(function(){
         url: $('#session-options')
     });
 
+    // Use .each() to allow for proper $(this) scope
     $('.profile .status').each(function(){
         $(this).editable($(this).attr('data-action'), {
             type: 'textarea',
@@ -32,10 +33,7 @@ $(document).ready(function(){
             onblur: 'nothing',
             submit: 'OK',
             cancel: 'Cancel',
-            data: function(string){ return $.trim(string); },
-            onsubmit: function(){
-                console.log($(this).closest('.status').attr('data-action'));
-            }
+            data: function(string){ return $.trim(string); }
         })
     });
 

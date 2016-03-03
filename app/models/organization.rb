@@ -12,15 +12,9 @@ class Organization < ActiveRecord::Base
 
   def spreadsheet_data
     users.map do |user|
-      {
-        first_name: user.first_name,
-        last_name: user.last_name,
-        user_tag: user.user_tag,
-        email: user.email,
-        manager: user.managers.first.try(:full_name)
-      }
+      manager_hash = { managers: user.managers.map(&:full_name).join(', ') }
+      user.attributes.merge(manager_hash)
     end
   end
-
 
 end
