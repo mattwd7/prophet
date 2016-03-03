@@ -103,7 +103,7 @@ li { list-style-type: none; }
   .sort {
     width: 500px;
     margin-left: 400px;
-    padding-top: 20px;
+    padding-top: 7px;
     font-size: 20px;
     & > *:not(.bar) {
       display: inline-block;
@@ -114,6 +114,17 @@ li { list-style-type: none; }
       &:hover {
         cursor: pointer;
       }
+    }
+    .notifications {
+      position: relative;
+      background: red;
+      border-radius: 50%;
+      height: 20px;
+      width: 20px;
+      color: white;
+      font-size: 15px;
+      line-height: 23px;
+      left: 100px;
     }
     .bar {
       margin-top: 5px;

@@ -7,12 +7,13 @@ class Feedback < ActiveRecord::Base
   has_many :peers, through: :feedback_links, source: :user
   has_many :tag_links
   has_many :tags, through: :tag_links
+  has_many :notifications
 
   validates_presence_of :author_id
   validates_presence_of :user_id, message: 'Feedback must begin with a valid user tag.'
   validates_presence_of :content, message: 'Feedback must have content.'
   before_validation :parse_recipient
-  after_create :parse_tags
+  after_create :parse_tags, :create_notification
 
   scope :resonant, -> { where(resonance_value: 2) }
   scope :mixed, -> { where(resonance_value: 1) }
@@ -57,6 +58,10 @@ private
     user_tag = content.scan(/@\S+/).uniq.first
     self.user ||= User.find_by_user_tag(user_tag)
     self.content = self.content.sub(user_tag, '').strip if user_tag
+  end
+
+  def create_notification
+    Notification.create(feedback: self, user: self.user)
   end
 
 end

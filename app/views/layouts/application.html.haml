@@ -16,17 +16,21 @@
             = image_tag current_user.avatar.url(:large)
 
         .sort
-          -if @my_feedbacks && @my_feedbacks.count > 0
-            .me.selected Me
-            .team Team
-          - else
-            .me Me
-            .team.selected Team
+          - me_selected = (@my_feedbacks && @my_feedbacks.count > 0)
+          .me{class: me_selected ? 'selected' : '' }
+            .notifications
+              = current_user.my_notifications
+            Me
+          .team{class: me_selected ? '' : 'selected' }
+            .notifications
+              = current_user.team_notifications
+            Team
           - if current_user.type == 'Manager'
             .manager Manager
           - if current_user.type == 'Admin'
             .admin Admin
           .bar
+
       - else
         = form_for :user, url: session_path(:user), html: { id: 'sign-in' } do |f|
           .email

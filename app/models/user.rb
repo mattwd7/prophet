@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :comment_links
   has_many :manager_employees, foreign_key: 'employee_id'
   has_many :managers, through: :manager_employees
+  has_many :notifications
 
   validates_presence_of :email
   before_save :make_proper, :generate_user_tag
@@ -58,6 +59,14 @@ class User < ActiveRecord::Base
 
   def my_tags
     TagLink.joins(:tag).joins(:feedback).where('feedbacks.id IN (?)', feedbacks.map(&:id)).group(:name).count
+  end
+
+  def my_notifications
+    Feedback.joins(:notifications).where("feedbacks.user_id = ? or feedbacks.author_id = ?", self.id, self.id).count
+  end
+
+  def team_notifications
+    Feedback.joins(:feedback_links).where("feedback_links.user_id = ?", self.id).distinct("feedbacks.id").joins(:notifications).count
   end
 
   def cropping?
