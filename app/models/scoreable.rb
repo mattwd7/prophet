@@ -5,8 +5,9 @@ module Scoreable
   # resonance values 0, 1, or 2
   # resonance value -1 for requests
   def calc_resonance_value
-    agree_count = self.peers_in_agreement.count.to_f
-    peer_count = self.peers.count.to_f
+    agree_count = self.peers_in_agreement.count.to_f + 1
+    peer_count = self.peers.count.to_f + 1
+    puts agree_count / peer_count
     if (self.class == Feedback && self.author_id == self.user_id) || peer_count < 1
       -1
     elsif agree_count / peer_count < 0.33

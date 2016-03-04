@@ -2,6 +2,7 @@ $(document).ready(function(){
 
     var currentUserId = $('.session').attr('id');
     var filters = {resonance: [], attributes: [], user_id: currentUserId};
+    var dirtyFilter = false;
 
     $('.filters .number-bubble').click(function(){
         var type = $(this).closest('.feedback-summary').length > 0 ? 'resonance' : 'attribute';
@@ -30,6 +31,7 @@ $(document).ready(function(){
             bubble.addClass('selected');
             createTag(name, type);
         }
+        dirtyFilter = true;
     }
 
     function createTag(name, type){
@@ -92,13 +94,18 @@ $(document).ready(function(){
                     selectBannerTab('team');
                 }
                 $(".column#middle").removeClass('blur');
+                dirtyFilter = false;
             }
         })
     }
 
     $('.sort .me, .sort .team').click(function(){
         filters.user_id = currentUserId;
-        filterFeedbacks();
+        if (dirtyFilter){
+            filterFeedbacks();
+        } else {
+            selectBannerTab($(this).attr('class').match(/me|team/)[0]);
+        }
     });
 
     $('#manager-team .employee').click(function(){
