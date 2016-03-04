@@ -62,11 +62,11 @@ class User < ActiveRecord::Base
   end
 
   def my_notifications
-    Feedback.joins(:notifications).where("feedbacks.user_id = ? or feedbacks.author_id = ?", self.id, self.id).count
+    notifications.joins(:feedback).where("feedbacks.user_id = ? or feedbacks.author_id = ?", self.id, self.id).select("DISTINCT feedbacks.id")
   end
 
   def team_notifications
-    Feedback.joins(:feedback_links).where("feedback_links.user_id = ?", self.id).distinct("feedbacks.id").joins(:notifications).count
+    notifications.joins(feedback: :feedback_links).where("feedback_links.user_id = ?", self.id).select("DISTINCT feedbacks.id")
   end
 
   def cropping?

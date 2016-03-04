@@ -9,7 +9,7 @@
   %body{ class: "#{controller_name} #{action_name}" }
     #banner
       .logo
-        = link_to 'Prophet', index_path
+        = link_to 'Prophet', root_path
       - if current_user
         .session{ id: current_user.id }
           .avatar
@@ -19,11 +19,11 @@
           - me_selected = (@my_feedbacks && @my_feedbacks.count > 0)
           .me{class: me_selected ? 'selected' : '' }
             .notifications
-              = current_user.my_notifications
+              = current_user.my_notifications.count
             Me
           .team{class: me_selected ? '' : 'selected' }
             .notifications
-              = current_user.team_notifications
+              = current_user.team_notifications.count
             Team
           - if current_user.type == 'Manager'
             .manager Manager
