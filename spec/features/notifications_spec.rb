@@ -59,7 +59,10 @@ describe 'Notifications', js: true do
 
     it 'count displayed is limited to distinct feedbacks' do
       within('.sort .me'){ expect(page).to have_content(1) }
-      within('.sort .team'){ expect(page).to have_content(0) }
+    end
+
+    it 'hides counter element instead of displaying 0' do
+      within('.sort .team'){ expect(page).to_not have_content(0) }
     end
 
     it 'are destroyed when a user clicks on a feedback' do
