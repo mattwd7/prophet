@@ -1,5 +1,5 @@
 - hidden ||= nil
-.feedback{ id: "feedback-#{feedback.id}", style: hidden ? 'display:none' : 'display:block' }
+.feedback{ id: "feedback-#{feedback.id}", class: feedback.notifications.count > 0 ? 'fresh' : '', style: hidden ? 'display:none' : 'display:block' }
   .top
     .banner
       .avatar

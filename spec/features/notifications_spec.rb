@@ -63,17 +63,27 @@ describe 'Notifications', js: true do
 
     it 'hides counter element instead of displaying 0' do
       within('.sort .team'){ expect(page).to_not have_content(0) }
+      within('.sort .team'){ expect(page).to_not have_css('.notifications') }
     end
 
-    it 'are destroyed when a user clicks on a feedback' do
-      # expect(page).to have_css('.feedback.fresh')
-      # first('.feedback').click
-      # expect(page).to_not have_css('.feedback.fresh')
-      # expect(@user.my_feedbacks.count).to eq(0)
-      # expect(Notification.where(user: @user1).count).to eq(0)
-    end
+    # it 'are destroyed when a user clicks on a feedback' do
+    #   expect(page).to have_css('.feedback.fresh')
+    #   first('.feedback').click
+    #   expect(page).to_not have_css('.feedback.fresh')
+    #   expect(@user.my_feedbacks.count).to eq(0)
+    #   expect(Notification.where(user: @user1).count).to eq(0)
+    # end
 
-    it 'are destroyed when a user scrolls past a feedback'
+    it 'are destroyed when a user scrolls past a feedback' do
+      FactoryGirl.create(:spec_feedback, author: @author, user: @user1)
+      FactoryGirl.create(:spec_feedback, author: @author, user: @user1)
+      FactoryGirl.create(:spec_feedback, author: @author, user: @user1)
+      visit current_path
+      expect(page).to have_css('.fresh', count: 4)
+      within('.sort .me'){ expect(page).to have_content(4) }
+      page.execute_script "window.scrollBy(0,10000)"
+      within('.sort .me'){ expect(page).to_not have_css('.notifications') }
+    end
 
     it 'brings the associated feedback to the top of the users feed'
 
