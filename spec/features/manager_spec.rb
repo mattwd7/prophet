@@ -44,7 +44,7 @@ describe 'Manager', js: true do
     end
 
     it 'can view an employees feedbacks' do
-      feedback = FactoryGirl.create(:spec_full_feedback, user: @employee2, content: 'This should show up. The others should not.')
+      feedback = FactoryGirl.create(:spec_full_feedback, user: @employee2, author: @author, content: 'This should show up. The others should not.')
       find('li.employee', text: @employee1.full_name).click
       expect(page).to_not have_content(feedback.content)
       view_as(@employee2)

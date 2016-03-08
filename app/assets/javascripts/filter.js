@@ -100,15 +100,16 @@ $(document).ready(function(){
     }
 
     $('.sort .me, .sort .team').click(function(){
+        var differentUser = filters.user_id !== currentUserId;
         filters.user_id = currentUserId;
-        if (dirtyFilter){
+        if (dirtyFilter || differentUser){
             filterFeedbacks();
         } else {
             selectBannerTab($(this).attr('class').match(/me|team/)[0]);
         }
     });
 
-    $('#manager-team .employee').click(function(){
+    $('#manager-team').find('.employee').click(function(){
         filters = {resonance: [], attributes: [], user_id: $(this).attr('id')};
         filterFeedbacks();
     });

@@ -10,7 +10,7 @@ describe 'Feedback filtering', js: true do
     @resonant_feedback.feedback_links.each{|fl| fl.update_attributes(agree: true) }
     @mixed_feedback.feedback_links.where(agree: true).first.update_attributes(agree: false)
     @isolated_feedback.feedback_links.each{|fl| fl.update_attributes(agree: false) }
-    log_in_with(@user.email, 'secret')
+    log_in_with(@user.email, 'password')
   end
 
   it 'narrows results based on resonance' do

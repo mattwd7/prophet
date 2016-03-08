@@ -50,7 +50,7 @@
 
     .full
       -#%p.errors= flash[:error]
-      -#%p.notices= flash[:notice]
+      %p.notices= flash[:notice]
       = yield
 
   - if current_user

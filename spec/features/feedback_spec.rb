@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Feedback' do
+describe 'Feedback', js: true do
   before(:each) do
     @feedback = FactoryGirl.create(:spec_full_feedback)
     @user = @feedback.user
@@ -15,10 +15,10 @@ describe 'Feedback' do
   it 'displays the appropriate flavor text' do
     expect(@feedback.peers_in_agreement.count).to eq(2)
     expect(@feedback.peers.count).to eq(3)
-    expect(page).to have_content('MIXED')
-    @feedback.feedback_links.each{|fl| fl.update_attributes(agree: true)}
-    visit root_path
     expect(page).to have_content('RESONANT')
+    @feedback.feedback_links.first.update_attributes(agree: false)
+    visit root_path
+    expect(page).to have_content('MIXED')
     @feedback.feedback_links.each{|fl| fl.update_attributes(agree: false)}
     visit root_path
     expect(page).to have_content('ISOLATED')

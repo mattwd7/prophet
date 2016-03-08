@@ -10,7 +10,7 @@ $(document).ready(function(){
         }
     });
 
-    $('#manager-team .employee').click(function(){
+    employeesPanel.find('.employee').click(function(){
         $('#viewing-as').remove();
         $('#manager-team .employee.selected').removeClass('selected');
         $(this).addClass('selected');
