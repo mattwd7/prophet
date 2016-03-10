@@ -69,6 +69,10 @@ class User < ActiveRecord::Base
     notifications.joins(feedback: :feedback_links).where("feedback_links.user_id = ?", self.id).select("DISTINCT feedbacks.id")
   end
 
+  def fresh_feedbacks
+    Feedback.joins(:notifications).where('notifications.user_id = ?', self.id)
+  end
+
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end

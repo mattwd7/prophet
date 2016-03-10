@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     member do
       post :vote
       post :share
+      post :destroy_notifications
     end
   end
 

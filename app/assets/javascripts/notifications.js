@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-    var bannerHeight = $('#banner').height(),
+    var busyFlag = false,
+        bannerHeight = $('#banner').height(),
         freshFeedbacks = $.map($('.feedback.fresh'), (function(elem){
             return { id: $(elem).attr('id').match(/\d+/)[0],
                     basePosition: $(elem).offset().top + $(elem).height() };
@@ -9,15 +10,33 @@ $(document).ready(function(){
     $(document).scroll(function(){
         if (freshFeedbacks.length > 0) {
             if (freshFeedbacks[0].basePosition - (window.pageYOffset - bannerHeight) < screen.height) {
-                acknowledgeNotification(freshFeedbacks[0])
+                acknowledgeNotification();
             }
         }
     });
 
-    function acknowledgeNotification(freshFeedback){
-        console.log('ACKNOWLEDGED!');
-        freshFeedbacks.splice(0, 1);
-        // some other handling code here
+    function acknowledgeNotification(){
+        var feedback = freshFeedbacks.splice(0, 1)[0];
+        destroyNotifications(feedback);
+    }
+
+    function destroyNotifications(feedback){
+        $.ajax({
+            url: '/feedbacks/' + feedback.id + '/destroy_notifications',
+            method: 'POST',
+            success: function(){
+                $('#feedback-' + feedback.id).removeClass('fresh');
+                var notificationsDisplay = $('.sort .selected .notifications'),
+                    newCount = +notificationsDisplay.text() - 1;
+                notificationsDisplay.text(newCount);
+                if (newCount < 1){
+                    notificationsDisplay.css('visibility', 'hidden');
+                }
+            },
+            error: function(){
+                alert("error!");
+            }
+        });
     }
 
 });

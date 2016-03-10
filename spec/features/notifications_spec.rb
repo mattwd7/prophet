@@ -74,15 +74,20 @@ describe 'Notifications', js: true do
     #   expect(Notification.where(user: @user1).count).to eq(0)
     # end
 
-    it 'are destroyed when a user scrolls past a feedback' do
+    it 'are destroyed when a user scrolls past a feedback', no_webkit: true do
       FactoryGirl.create(:spec_feedback, author: @author, user: @user1)
       FactoryGirl.create(:spec_feedback, author: @author, user: @user1)
       FactoryGirl.create(:spec_feedback, author: @author, user: @user1)
       visit current_path
       expect(page).to have_css('.fresh', count: 4)
       within('.sort .me'){ expect(page).to have_content(4) }
-      page.execute_script "window.scrollBy(0,10000)"
+      sleep 10
+      (1..15).each do |scroll|
+        page.execute_script "window.scrollBy(0,100)"
+      end
+      expect(page).to_not have_css('.fresh')
       within('.sort .me'){ expect(page).to_not have_css('.notifications') }
+      expect(@user1.my_notifications.count).to eq(0)
     end
 
     it 'brings the associated feedback to the top of the users feed'

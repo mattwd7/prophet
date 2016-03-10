@@ -23,4 +23,10 @@ class FeedbacksController < ApplicationController
     render text: @feedback.peers.count + 1
   end
 
+  def destroy_notifications
+    feedback = Feedback.find(params[:id])
+    feedback.notifications.where(user: current_user).destroy_all
+    render nothing: true
+  end
+
 end
