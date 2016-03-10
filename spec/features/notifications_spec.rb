@@ -70,7 +70,7 @@ describe 'Notifications', js: true do
     #   expect(page).to have_css('.feedback.fresh')
     #   first('.feedback').click
     #   expect(page).to_not have_css('.feedback.fresh')
-    #   expect(@user.my_feedbacks.count).to eq(0)
+    #   expect(@user1.my_notifications.count).to eq(0)
     #   expect(Notification.where(user: @user1).count).to eq(0)
     # end
 
@@ -81,7 +81,6 @@ describe 'Notifications', js: true do
       visit current_path
       expect(page).to have_css('.fresh', count: 4)
       within('.sort .me'){ expect(page).to have_content(4) }
-      sleep 10
       (1..15).each do |scroll|
         page.execute_script "window.scrollBy(0,100)"
       end
@@ -90,7 +89,9 @@ describe 'Notifications', js: true do
       expect(@user1.my_notifications.count).to eq(0)
     end
 
-    it 'brings the associated feedback to the top of the users feed'
+    it 'brings the freshest feedbacks to the top of the users feed'
+    it 'identifies fresh comments'
+    it 'forces fresh comments to display beyond the first 2'
 
   end
 
