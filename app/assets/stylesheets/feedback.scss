@@ -219,6 +219,10 @@
     }
     .comment {
       margin-bottom: 10px;
+      transition: 0.8s;
+      &.fresh {
+        background: rgb(255,253,162);
+      }
       .data {
         & * {
           display: inline-block;

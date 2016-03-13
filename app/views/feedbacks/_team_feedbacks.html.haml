@@ -1,5 +1,5 @@
-.all-feedbacks{ style: (!my_feedbacks || my_feedbacks.count < 1) ? '' : 'display:none' }
-  - if team_feedbacks && team_feedbacks.count < 1
+.all-feedbacks{ style: (!my_feedbacks || my_feedbacks.count.count < 1) ? '' : 'display:none' }
+  - if team_feedbacks && team_feedbacks.count.count < 1
     .no-feedback No feedback results found.
   - else
     - team_feedbacks.each do |feedback|

@@ -3,6 +3,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :feedback
+  has_many :notifications
   has_many :comment_links
   has_many :peers, through: :comment_links, source: :user
 
@@ -13,6 +14,10 @@ class Comment < ActiveRecord::Base
 
   def peers_in_agreement
     User.joins(:comment_links).where("comment_links.comment_id = ? and agree = ?", id, true)
+  end
+
+  def fresh?(user)
+    notifications.where(user: user).any?
   end
 
 private
@@ -30,7 +35,7 @@ private
 
   def create_notifications
     [self.feedback.peers, self.feedback.author, self.feedback.user].flatten.reject{|u| u == self.user}.each do |user|
-      Notification.create(feedback: self.feedback, user: user)
+      Notification.create(feedback: self.feedback, user: user, comment: self)
     end
   end
 

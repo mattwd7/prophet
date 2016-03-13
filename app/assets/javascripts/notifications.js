@@ -24,7 +24,11 @@ $(document).ready(function(){
             url: '/feedbacks/' + feedback.id + '/destroy_notifications',
             method: 'POST',
             success: function(){
-                $('#feedback-' + feedback.id).removeClass('fresh');
+                var feedbackElem = $('#feedback-' + feedback.id);
+                feedbackElem.removeClass('fresh');
+                feedbackElem.find('.fresh').each(function(){
+                    $(this).removeClass('fresh')
+                });
                 var notificationsDisplay = $('.sort .selected .notifications'),
                     newCount = +notificationsDisplay.text() - 1;
                 notificationsDisplay.text(newCount);

@@ -47,7 +47,7 @@ describe 'Notifications', js: true do
 
   context 'properly managed' do
     before(:each) do
-      @feedback = FactoryGirl.create(:spec_feedback, author: @author, user: @user1)
+      @feedback = FactoryGirl.create(:spec_feedback, author: @author, user: @user1, content: 'first feedback')
       FactoryGirl.create(:spec_feedback_link, user: @other_user, feedback: @feedback)
       expect(Notification.count).to eq(2)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
@@ -81,18 +81,46 @@ describe 'Notifications', js: true do
       visit current_path
       expect(page).to have_css('.fresh', count: 4)
       within('.sort .me'){ expect(page).to have_content(4) }
-      (1..15).each do |scroll|
-        page.execute_script "window.scrollBy(0,100)"
-      end
+      scroll_to_bottom
       expect(page).to_not have_css('.fresh')
       within('.sort .me'){ expect(page).to_not have_css('.notifications') }
       expect(@user1.my_notifications.count).to eq(0)
     end
 
-    it 'brings the freshest feedbacks to the top of the users feed'
-    it 'identifies fresh comments'
+    it 'brings the freshest feedbacks to the top of the users feed' do
+      scroll_to_bottom
+      expect(@user1.my_notifications.count).to eq(0)
+      FactoryGirl.create(:spec_feedback, author: @author, user: @user1, content: 'second most fresh')
+      sleep 1
+      FactoryGirl.create(:spec_feedback, author: @author, user: @user1, content: 'Most fresh')
+      visit current_path
+      within(all('.feedback')[0]){ expect(page).to have_content('Most fresh') }
+      within(all('.feedback')[1]){ expect(page).to have_content('second most fresh') }
+      within(all('.feedback')[2]){ expect(page).to have_content('first feedback') }
+      scroll_to_bottom
+      expect(@user1.my_notifications.count).to eq(0)
+      FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
+      visit current_path
+      within(all('.feedback')[0]){ expect(page).to have_content('first feedback') }
+    end
+
+    it 'identifies fresh comments' do
+      FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
+      visit current_path
+      expect(page).to have_css('.comment.fresh')
+      scroll_to_bottom
+      within(all('.feedback')[0]){ expect(page).to_not have_css('.fresh') }
+    end
+
+
     it 'forces fresh comments to display beyond the first 2'
 
   end
 
+end
+
+def scroll_to_bottom
+  (1..15).each do |scroll|
+    page.execute_script "window.scrollBy(0,100)"
+  end
 end

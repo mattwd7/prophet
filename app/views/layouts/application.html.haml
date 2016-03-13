@@ -16,7 +16,7 @@
             = image_tag current_user.avatar.url(:large)
 
         .sort
-          - me_selected = (@my_feedbacks && @my_feedbacks.count > 0)
+          - me_selected = (@my_feedbacks && @my_feedbacks.count.count > 0)
           .me{class: me_selected ? 'selected' : '' }
             .notifications{ style: "visibility: #{current_user.my_notifications.count < 1 ? 'hidden' : ''}" }
               = current_user.my_notifications.count

@@ -1,5 +1,6 @@
 - hidden ||= nil
-.comment{ id: "comment-#{comment.id}", style: hidden ? 'display:none' : 'display:block' }
+- fresh = comment.fresh?(current_user)
+.comment{ id: "comment-#{comment.id}", style: hidden ? 'display:none' : 'display:block', class: fresh ? 'fresh' : '' }
   %table
     %tr
       %td

@@ -6,13 +6,13 @@
     %ul
       %li
         .description.resonant Resonant
-        .number-bubble#resonant= @my_feedbacks.resonant.count
+        .number-bubble#resonant= @my_feedbacks.resonant.count.count
       %li
         .description.mixed Mixed
-        .number-bubble#mixed= @my_feedbacks.mixed.count
+        .number-bubble#mixed= @my_feedbacks.mixed.count.count
       %li
         .description.isolated Isolated
-        .number-bubble#isolated= @my_feedbacks.isolated.count
+        .number-bubble#isolated= @my_feedbacks.isolated.count.count
 
   = render partial: 'users/profile'
 
