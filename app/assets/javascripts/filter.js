@@ -126,9 +126,9 @@ $(document).ready(function(){
     }
 
     function updateResonanceNumbers(resonances){
-        $(".feedback-summary .number-bubble#resonant").text(resonances.resonant);
-        $(".feedback-summary .number-bubble#mixed").text(resonances.mixed);
-        $(".feedback-summary .number-bubble#isolated").text(resonances.isolated);
+        $(".feedback-summary .number-bubble#resonant").text(resonances.resonant.length);
+        $(".feedback-summary .number-bubble#mixed").text(resonances.mixed.length);
+        $(".feedback-summary .number-bubble#isolated").text(resonances.isolated.length);
     }
 
     function getUserFeedbackDiv(user_id){

@@ -25,7 +25,7 @@ $(document).ready(function(){
             },
             success: function(data){
                 sharePanel.hide();
-                $('#feedback-' + feedbackID).find('.dismiss').text(data);
+                $('#feedback-' + feedbackID).find('.dismiss .number').text(data);
             }
         })
     });

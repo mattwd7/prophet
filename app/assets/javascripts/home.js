@@ -66,13 +66,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.action.agree', function(){
         var feedback = $(this).closest('.feedback');
-        if ($(this).hasClass('selected')){
-            $(this).removeClass('selected');
-            feedback.find('.votes .dismiss').click();
-        } else {
-            $(this).addClass('selected');
-            feedback.find('.votes .agree').click();
-        }
+        feedback.find('.votes .agree').click();
     });
 
     $('.view-all').click(function(){
@@ -84,24 +78,19 @@ $(document).ready(function(){
     // FEEDBACKS
     ////////////////////////////////////////////
 
-    $('.active.votes .vote').click(function(){
+    $('.active.votes .vote.agree').click(function(){
         var url = $(this).attr('data-action'),
-            params = $(this).hasClass('agree') ? true : false;
-        if (!$(this).hasClass('selected')) {
-            var otherVote = $(this).siblings();
-            otherVote.removeClass('selected');
-            $(this).addClass('selected');
-            if ($(this).hasClass('agree')) {
-                $(this).find('.number').text(Number($(this).find('.number').text()) + 1);
-            } else {
-                otherVote.find('.number').text(Number(otherVote.find('.number').text()) - 1);
-            }
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: { agree: params }
-            });
-        }
+            agreeing = !$(this).hasClass('selected'),
+            change = agreeing ? 1 : -1,
+            feedback = $(this).closest('.feedback');
+        $(this).toggleClass('selected');
+        feedback.find('.action.agree').toggleClass('selected');
+        $(this).find('.number').text(+($(this).find('.number').text()) + change);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { agree: agreeing }
+        });
     })
 
 });

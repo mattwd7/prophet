@@ -9,7 +9,7 @@ module Scoreable
     peer_count = self.peers.count.to_f + 1
     if (self.class == Feedback && self.author_id == self.user_id) || peer_count < 1
       -1
-    elsif agree_count / peer_count < 0.33
+    elsif peer_count < 2 || agree_count / peer_count < 0.33
       0
     elsif agree_count / peer_count < 0.7
       1

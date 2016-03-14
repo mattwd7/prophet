@@ -6,9 +6,9 @@ module FeedbacksHelper
     elsif feedback.author == feedback.user
       "Feedback Request from #{feedback.user.full_name}"
     elsif feedback.user == current_user
-      "#{feedback.author.full_name}"
+      "Feedback from #{feedback.author.full_name}"
     else
-      "Feedback for #{feedback.user.full_name}"
+      "#{feedback.author.full_name} to #{feedback.user.full_name}"
     end
   end
 
@@ -17,8 +17,6 @@ module FeedbacksHelper
     output = "<div class='vote agree' data-action='#{path}'><div class='number'>#{feedback_or_comment.peers_in_agreement.count + 1}</div><div class='text'>agree</div></div><div class='vote dismiss' data-action='#{path}'><div class='number'>#{feedback_or_comment.peers.count + 1}</div><div class='text'>peers</div></div>"
     if current_user.agrees_with(feedback_or_comment)
       output.gsub!('agree\'', 'agree selected\'')
-    elsif current_user.is_peer?(feedback_or_comment)
-        output.gsub!('dismiss', 'dismiss selected')
     end
     output.html_safe
   end
