@@ -28,5 +28,17 @@ module FeedbacksHelper
     output.html_safe
   end
 
+  def hidden_comments_count(feedback, user)
+    total_comments = feedback.comments.count
+    fresh_comments = feedback.fresh_comments(user).count.count
+    if total_comments < 3
+      0
+    elsif fresh_comments > 2
+      total_comments - fresh_comments
+    else
+      total_comments - 2
+    end
+  end
+
 
 end

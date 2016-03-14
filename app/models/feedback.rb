@@ -47,6 +47,10 @@ class Feedback < ActiveRecord::Base
     TagLink.create(tag_name: tag_name, feedback: self)
   end
 
+  def fresh_comments(user)
+    comments.joins(:notifications).where("notifications.user_id = ?", user.id).group("comments.id")
+  end
+
 private
   def parse_tags
     content.scan(/#\S+/).uniq.each do |tag_name|
