@@ -198,11 +198,8 @@
     vertical-align: top;
   }
   .commenting {
-    padding: 0;
+    padding: 10px 0;
     background: #eee;
-    & > * {
-      padding: 10px 15px;
-    }
     .avatar {
       width: 35px;
       height: 35px;
@@ -218,7 +215,7 @@
       a:hover { text-decoration: underline; }
     }
     .comment {
-      margin-bottom: 10px;
+      padding: 5px 15px;
       transition: 0.8s;
       &.fresh {
         background: rgb(255,253,162);
@@ -264,6 +261,7 @@
   }
 
   .comment-form {
+    padding: 10px 15px 0 15px;
     & > * {
       display: inline-block;
     }
