@@ -28,16 +28,20 @@
   = render partial: 'users/profile'
 
   %ul.settings-menu
-    %li.selected Account
-    %li Notifications
+    %li.selected
+      Account
+      .chevron
+    %li
+      Notifications
+      .chevron
 
   .copyright
     Copyright 2016 Prophet
     %ul.links
-      %li About
-      %li Help
-      %li Terms
-      %li Privacy
+      %li= link_to 'About', about_path
+      %li= link_to 'Help', help_path
+      %li= link_to 'Terms', terms_path
+      %li= link_to 'Privacy', privacy_path
 
 
 .column#middle

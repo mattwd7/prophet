@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/terms' => 'home#terms'
   get '/privacy' => 'home#privacy'
   get '/data' => 'home#data'
+  get '/about' => 'home#about'
   get 'help' => 'home#help'
   get '/careers' => 'home#careers'
   post '/filter_feedbacks' => 'home#filter_feedbacks'

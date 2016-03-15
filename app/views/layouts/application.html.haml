@@ -53,6 +53,9 @@
       %p.notices= flash[:notice]
       = yield
 
+  - #Overlays
+  = render partial: 'feedbacks/share_panel'
+
   - if current_user
     .popover#session-options
       .name= current_user.full_name

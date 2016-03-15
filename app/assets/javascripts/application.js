@@ -25,8 +25,6 @@ $(document).ready(function(){
             if(focus.hasClass('submit-tag')){
                 focus.blur();
             }
-        } else if (e.keyCode == 27) {
-            $('#share-panel').hide(); // TODO: change this to a class
         }
     });
 

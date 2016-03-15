@@ -6,16 +6,27 @@ $(document).ready(function(){
 
     $(".feedback .action.share").click(function(){
         var feedback_id = $(this).closest('.feedback').attr('id').match(/\d+$/)[0];
+        $('body').children().not('#share-panel').not('.ui-autocomplete').addClass('blur');
         initSharePanel(feedback_id);
     });
 
-    sharePanel.find('.close, .cancel').click(function(){
+    function closeSharePanel(){
         sharePanel.hide();
+        $('body').children().removeClass('blur');
+    }
+
+    sharePanel.find('.close, .cancel').click(function(){
+        closeSharePanel();
+    });
+
+    $(document).on('keydown', function(e) {
+        if (e.keyCode == 27) {
+            closeSharePanel();
+        }
     });
 
     sharePanel.find('.share').click(function(){
         var newPeers = sharePanel.find('textarea').val();
-        console.log(newPeers);
         $.ajax({
             type: 'POST',
             url: '/feedbacks/' + feedbackID + '/share',
