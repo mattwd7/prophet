@@ -104,7 +104,7 @@ describe 'Notifications', js: true do
       within(all('.feedback')[0]){ expect(page).to have_content('first feedback') }
     end
 
-    it 'identifies fresh comments' do
+    it 'identifies fresh comments', no_webkit: true do
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
       visit current_path
       expect(page).to have_css('.comment.fresh')
@@ -113,7 +113,7 @@ describe 'Notifications', js: true do
     end
 
 
-    it 'forces fresh comments to display beyond the first 2' do
+    it 'forces fresh comments to display beyond the first 2', no_webkit: true do
       init_count = Notification.count
       scroll_to_bottom
       expect(Notification.count).to eq(init_count - 4)

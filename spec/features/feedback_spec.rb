@@ -45,23 +45,4 @@ describe 'Feedback', js: true do
     end
   end
 
-  context 'with tags' do
-    it 'lists its tags directly after its content' do
-      tags = @feedback.tags.map(&:name)
-      within('.feedback .top') do
-        tags.each{|tag| expect(page).to have_content(tag) }
-      end
-    end
-
-    it 'can have its tags clicked as a filter shortcut', js: true do
-      @feedback2 = FactoryGirl.create(:spec_full_feedback, content: 'Another feedback', author: @feedback.author, user: @feedback.user)
-      FactoryGirl.create(:spec_comment, content: "#tagcityson", feedback: @feedback2)
-      visit current_path
-      expect(page).to have_content(@feedback.content)
-      expect(page).to have_content(@feedback2.content)
-      find('.tag', text: '#tagcityson').click
-      expect(page).to_not have_content(@feedback.content)
-    end
-  end
-
 end

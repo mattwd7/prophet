@@ -14,9 +14,6 @@
             = vote_numbers(feedback, current_user)
     .content
       = simple_format(feedback.content)
-    .tags
-      - feedback.tags.each do |tag|
-        .tag= tag.name
     %table.actions
       %tr
         - if current_user.is_peer?(feedback)

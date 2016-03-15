@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     var currentUserId = $('.session').attr('id');
-    var filters = {resonance: [], attributes: [], user_id: currentUserId};
+    var filters = {resonance: [], user_id: currentUserId};
     var dirtyFilter = false;
 
     $('.filters .number-bubble').click(function(){
@@ -35,40 +35,22 @@ $(document).ready(function(){
     }
 
     function createTag(name, type){
-        var klass = '';
-        if (type === 'resonance'){
-            klass = name.toLowerCase();
-        }
+        var klass = name.toLowerCase();
         var newTag = "<div class='filter-tag'><div class='text " + klass + "'>" + formattedTag(name) + "</div><div class='delete'>x</div></div>";
-        if (type == 'resonance'){
-            $('#filter-tags .resonance-tags').append(newTag);
-            filters.resonance.push(name);
-            filterFeedbacks();
-        } else {
-            // append to attributes
-            $('#filter-tags .attribute-tags').append(newTag);
-            filters.attributes.push(name);
-            filterFeedbacks();
-        }
+        $('#filter-tags .resonance-tags').append(newTag);
+        filters.resonance.push(name);
+        filterFeedbacks();
     }
 
     function removeTag(name, type){
-        if (type == 'resonance'){
-            $(".resonance-tags .filter-tag:contains(" + formattedTag(name) + ")").remove();
-            $(".feedback-summary li:contains(" + toTitleCase(name) + ") .number-bubble").removeClass('selected');
-            filters.resonance.splice(filters.resonance.indexOf(name), 1);
-            filterFeedbacks();
-        } else {
-            // remove attribute tag
-            $(".attribute-tags .filter-tag:contains(" + formattedTag(name) + ")").remove();
-            $(".attributes li:contains(" + name.toLowerCase() + ") .number-bubble").removeClass('selected');
-            filters.attributes.splice(filters.attributes.indexOf(name), 1);
-            filterFeedbacks();
-        }
+        $(".resonance-tags .filter-tag:contains(" + formattedTag(name) + ")").remove();
+        $(".feedback-summary li:contains(" + toTitleCase(name) + ") .number-bubble").removeClass('selected');
+        filters.resonance.splice(filters.resonance.indexOf(name), 1);
+        filterFeedbacks();
     }
 
     function filterFeedbacks(){
-        if (filters.resonance.length + filters.attributes.length > 0){
+        if (filters.resonance.length > 0){
             $('#filter-tags').show();
         } else {
             $('#filter-tags').hide();
@@ -81,6 +63,7 @@ $(document).ready(function(){
                 $(".column#middle").addClass('blur');
             },
             success: function(data){
+                console.log(data.resonances);
                 if (currentUserId == filters.user_id){
                     $('#feedbacks').html(data.feedbacks);
                 } else {
@@ -110,7 +93,7 @@ $(document).ready(function(){
     });
 
     $('#manager-team').find('.employee').click(function(){
-        filters = {resonance: [], attributes: [], user_id: $(this).attr('id')};
+        filters = {resonance: [], user_id: $(this).attr('id')};
         filterFeedbacks();
     });
 
@@ -126,9 +109,9 @@ $(document).ready(function(){
     }
 
     function updateResonanceNumbers(resonances){
-        $(".feedback-summary .number-bubble#resonant").text(resonances.resonant.length);
-        $(".feedback-summary .number-bubble#mixed").text(resonances.mixed.length);
-        $(".feedback-summary .number-bubble#isolated").text(resonances.isolated.length);
+        $(".feedback-summary .number-bubble#resonant").text(resonances.resonant);
+        $(".feedback-summary .number-bubble#mixed").text(resonances.mixed);
+        $(".feedback-summary .number-bubble#isolated").text(resonances.isolated);
     }
 
     function getUserFeedbackDiv(user_id){

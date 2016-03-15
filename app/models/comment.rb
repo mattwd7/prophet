@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
   has_many :peers, through: :comment_links, source: :user
 
   validates_presence_of :content, :user_id, :feedback_id
-  after_create :create_links, :parse_tags, :create_notifications
+  after_create :create_links, :create_notifications
 
   def author; user end
 
@@ -24,12 +24,6 @@ private
   def create_links
     [feedback.peers, feedback.author].flatten.each do |peer|
       CommentLink.create(user: peer, comment: self) if peer != self.user
-    end
-  end
-
-  def parse_tags
-    content.scan(/#\S+/).uniq.each do |tag_name|
-      feedback.add_tag(tag_name)
     end
   end
 

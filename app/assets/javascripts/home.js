@@ -1,8 +1,10 @@
 $(document).ready(function(){
-    $('#banner .sort div').not('.bar').click(function(){
+    var banner = $('#banner');
+
+    banner.find('.sort div').not('.bar').click(function(){
         selectBannerTab($(this).attr('class'));
         var tabs = $('.sort div').not('.notifications, .bar'),
-            position, margin;
+            position, marginLeft;
         for (var i = 0; i < tabs.length; i++){
             if (tabs.eq(i)[0] === $(this)[0]){
                 position = i;
@@ -15,7 +17,7 @@ $(document).ready(function(){
         $(this).addClass('selected');
     });
 
-    $('#banner .avatar').webuiPopover({
+    banner.find('.avatar').webuiPopover({
         placement: 'bottom-left',
         trigger: 'click',
         width: 200,

@@ -103,6 +103,7 @@ describe 'User', js: true do
       4.times{ FactoryGirl.create(:spec_comment, user: @i_am_author.user, feedback: @i_am_author) }
       @i_am_author.reload
       comment_count = @i_am_author.comments.count
+      Notification.destroy_all
       visit root_path
       expect(comment_count).to eq(6)
       within("#feedback-#{@i_am_author.id}") do
@@ -138,7 +139,7 @@ describe 'User', js: true do
         sleep 1
         @team1.reload
         expect(@team1.peers_in_agreement.count).to eq(agree_count + 1)
-        first('.dismiss').click
+        first('.agree').click
         sleep 1
         @team1.reload
         expect(@team1.peers_in_agreement.count).to eq(agree_count)
@@ -206,7 +207,6 @@ describe 'User', js: true do
       agree_count = @peer1.peers_in_agreement.count
       within("#feedback-#{@peer1.id}") do
         expect(page).to_not have_css('.vote.agree.selected')
-        expect(page).to have_css('.vote.dismiss.selected')
         find('.action', text: 'Agree').click
         expect(page).to have_css('.vote.agree.selected')
         expect(page).to_not have_css('.vote.dismiss.selected')
@@ -215,7 +215,6 @@ describe 'User', js: true do
         expect(@peer1.peers_in_agreement.count).to eq(agree_count + 1)
         find('.action', text: 'Agree').click
         expect(page).to_not have_css('.vote.agree.selected')
-        expect(page).to have_css('.vote.dismiss.selected')
         @peer1.reload
         sleep 2 # TODO: figure out how to wait for ajax
         expect(@peer1.peers_in_agreement.count).to eq(agree_count)

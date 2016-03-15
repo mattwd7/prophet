@@ -23,14 +23,14 @@ class User < ActiveRecord::Base
     first_name + ' ' + last_name
   end
 
-  def my_feedbacks(resonance=nil, attributes=nil)
+  def my_feedbacks(resonance=nil)
     query = Feedback.joins("left join notifications on feedbacks.id = notifications.feedback_id").where("feedbacks.user_id = ? or feedbacks.author_id = ?", self.id, self.id).order('notifications.created_at DESC').group('feedbacks.id')
-    apply_filter(query, resonance, attributes)
+    apply_filter(query, resonance)
   end
 
-  def team_feedbacks(resonance=nil, attributes=nil)
+  def team_feedbacks(resonance=nil)
     query = Feedback.joins(:feedback_links).where("feedback_links.user_id = ?", self.id).joins("left join notifications on feedbacks.id = notifications.feedback_id").order('notifications.created_at DESC').group('feedbacks.id')
-    apply_filter(query, resonance, attributes)
+    apply_filter(query, resonance)
   end
 
   def authored_feedbacks
@@ -55,10 +55,6 @@ class User < ActiveRecord::Base
     else
       comment_links.where(comment: feedback_or_comment).first.try(:agree) || self == feedback_or_comment.author
     end
-  end
-
-  def my_tags
-    TagLink.joins(:tag).joins(:feedback).where('feedbacks.id IN (?)', feedbacks.map(&:id)).group(:name).count
   end
 
   def my_notifications
@@ -107,13 +103,10 @@ private
     end
   end
 
-  def apply_filter(base_query, resonance=nil, attributes=nil)
+  def apply_filter(base_query, resonance=nil)
     if resonance && resonance.count > 0
       values = resonance.map{ |r| Scoreable::RESONANCE_TEXT.index(r) }
       base_query = base_query.where(resonance_value: values)
-    end
-    if attributes && attributes.count > 0
-      base_query = base_query.joins(:tags).where('tags.name IN (?)', attributes)
     end
     base_query
   end

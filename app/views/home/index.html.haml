@@ -19,7 +19,6 @@
 .column#middle
   #filter-tags
     .resonance-tags
-    .attribute-tags
 
   = render partial: 'feedbacks/form'
 
@@ -29,13 +28,6 @@
 
 
 .column#right
-  .attributes.filters
-    %h2 Attributes
-    %ul
-      - @tags.each do |tag_name, count|
-        %li.attribute
-          .description= tag_name
-          .number-bubble= count
 
 %table#admin-grid
   %tbody

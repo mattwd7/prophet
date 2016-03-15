@@ -14,7 +14,6 @@ class HomeController < ApplicationController
   def index
     @my_feedbacks = current_user.my_feedbacks
     @team_feedbacks = current_user.team_feedbacks
-    @tags = current_user.my_tags
   end
 
   def recipients
@@ -43,14 +42,14 @@ class HomeController < ApplicationController
   def filter_feedbacks
     @user = params[:user_id] ? User.find(params[:user_id]) : current_user
     all_my_feedbacks = @user.my_feedbacks
-    my_feedbacks = @user.my_feedbacks(params[:resonance], params[:attributes])
+    my_feedbacks = @user.my_feedbacks(params[:resonance])
     if @user == current_user
-      team_feedbacks = @user.team_feedbacks(params[:resonance], params[:attributes])
+      team_feedbacks = @user.team_feedbacks(params[:resonance])
       html = render_to_string(partial: 'feedbacks/index', locals: { my_feedbacks: my_feedbacks, team_feedbacks: team_feedbacks })
     else
       html = render_to_string(partial: 'feedbacks/my_feedbacks', locals: { my_feedbacks: my_feedbacks })
     end
-    resonances = { resonant: all_my_feedbacks.resonant.count, mixed: all_my_feedbacks.mixed.count, isolated: all_my_feedbacks.isolated.count }
+    resonances = { resonant: all_my_feedbacks.resonant.count.count, mixed: all_my_feedbacks.mixed.count.count, isolated: all_my_feedbacks.isolated.count.count }
     respond_to do |format|
       format.json { render json: { feedbacks: html, resonances: resonances } }
     end
