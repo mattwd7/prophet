@@ -5,7 +5,7 @@
 
 .submit-tag {
   opacity: .7;
-  background: rgb(241, 129, 121);
+  background: rgb(0, 156, 70);
   color: white;
   padding: 5px 40px;
   border-radius: 8px;
@@ -76,12 +76,12 @@
       }
       &.agree {
         .number {
-          background: rgb(241, 129, 121);
-          border: 3px solid rgb(241, 129, 121);
+          background: rgb(0, 156, 70);
+          border: 3px solid rgb(0, 156, 70);
           margin-right: 3px;
         }
         .text {
-          color: rgb(241, 129, 121);
+          color: rgb(0, 156, 70);
         }
       }
       &.dismiss {
@@ -169,8 +169,8 @@
       }
       &.agree {
         &.selected {
-          color: rgb(241, 129, 121);
-          .icon { background: rgb(241, 129, 121); }
+          color: rgb(0, 156, 70);
+          .icon { background: rgb(0, 156, 70); }
         }
         .icon {
           border: 1px solid #aaa;

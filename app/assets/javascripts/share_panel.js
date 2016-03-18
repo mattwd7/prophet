@@ -35,7 +35,7 @@ $(document).ready(function(){
                 'id': feedbackID
             },
             success: function(data){
-                sharePanel.hide();
+                closeSharePanel();
                 $('#feedback-' + feedbackID).find('.dismiss .number').text(data);
             }
         })

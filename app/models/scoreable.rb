@@ -18,7 +18,7 @@ module Scoreable
     end
   end
 
-  def resonance_text
+  def resonance_text()
     RESONANCE_TEXT[calc_resonance_value]
   end
 
