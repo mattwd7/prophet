@@ -24,6 +24,12 @@ describe 'Feedback', js: true do
     expect(page).to have_content('ISOLATED')
   end
 
+  it 'with score 1 of 3 should be isolated' do
+    @feedback.feedback_links.first.destroy
+    @feedback.feedback_links.first.update_attributes(agree: false)
+    expect(@feedback.resonance_value).to eq(0)
+  end
+
   it 'can have additional peers added via share button', js: true do
     @newpeer1 = FactoryGirl.create(:spec_user, email: 'newpeer1@gmail.com', first_name: 'new', last_name: 'peer')
     @newpeer2 = FactoryGirl.create(:spec_user, email: 'newpeer2@gmail.com', first_name: 'new', last_name: 'peer')

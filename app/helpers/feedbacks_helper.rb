@@ -12,17 +12,17 @@ module FeedbacksHelper
     end
   end
 
-  def vote_numbers(feedback_or_comment, current_user)
-    path = feedback_or_comment.instance_of?(Feedback) ? vote_feedback_path(feedback_or_comment.id) : vote_comment_path(feedback_or_comment.id)
-    output = "<div class='vote agree' data-action='#{path}'><div class='number'>#{feedback_or_comment.peers_in_agreement.count + 1}</div><div class='text'>agree</div></div><div class='vote dismiss' data-action='#{path}'><div class='number'>#{feedback_or_comment.peers.count + 1}</div><div class='text'>peers</div></div>"
-    if current_user.agrees_with(feedback_or_comment)
+  def vote_numbers(feedback, current_user)
+    path = vote_feedback_path(feedback.id)
+    output = "<div class='vote agree' data-action='#{path}'><div class='number'>#{feedback.peers_in_agreement.count + 1}</div><div class='text'>agree</div></div><div class='vote dismiss' data-action='#{path}'><div class='number'>#{feedback.peers.count + 1}</div><div class='text'>peers</div></div>"
+    if current_user.agrees_with(feedback)
       output.gsub!('agree\'', 'agree selected\'')
     end
     output.html_safe
   end
 
-  def flavor_text(feedback_or_comment)
-    output = "<div class='#{feedback_or_comment.resonance_text.downcase}'>" + feedback_or_comment.resonance_text + '</div>'
+  def flavor_text(feedback)
+    output = "<div class='#{feedback.resonance_text.downcase}'>" + feedback.resonance_text + '</div>'
     output.html_safe
   end
 

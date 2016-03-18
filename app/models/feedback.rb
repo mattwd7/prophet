@@ -8,9 +8,10 @@ class Feedback < ActiveRecord::Base
   has_many :notifications
 
   validates_presence_of :author_id
-  validates_presence_of :user_id, message: 'Feedback must begin with a valid user tag.'
-  validates_presence_of :content, message: 'Feedback must have content.'
+  validates_presence_of :user_id, message: 'Tag must be valid.'
+  validates_presence_of :content, message: 'cannot be blank.'
   before_validation :parse_recipient
+  before_save :set_defaults
   after_create :create_notification
 
   scope :resonant, -> { where(resonance_value: 2) }
@@ -46,6 +47,10 @@ class Feedback < ActiveRecord::Base
   end
 
 private
+  def set_defaults
+    self.resonance_value ||= -1
+  end
+
   def parse_recipient
     user_tag = content.scan(/@\S+/).uniq.first
     self.user ||= User.find_by_user_tag(user_tag)

@@ -46,10 +46,6 @@ describe 'Feedback filtering', js: true do
     expect(page).to have_content(@isolated_feedback.content)
   end
 
-  it 'narrows results based on both resonance and attributes'
-  it 'expands results when you remove a filter tag'
-
-
 end
 
 def filter_resonance(resonance)

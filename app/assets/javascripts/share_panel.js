@@ -4,7 +4,7 @@ $(document).ready(function(){
         additionalPeers = [],
         feedbackID = null;
 
-    $(".feedback .action.share").click(function(){
+    $(document).on('click', '.feedback .action.share', function(){
         var feedback_id = $(this).closest('.feedback').attr('id').match(/\d+$/)[0];
         $('body').children().not('#share-panel').not('.ui-autocomplete').addClass('blur');
         initSharePanel(feedback_id);

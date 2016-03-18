@@ -63,7 +63,6 @@ $(document).ready(function(){
                 $(".column#middle").addClass('blur');
             },
             success: function(data){
-                console.log(data.resonances);
                 if (currentUserId == filters.user_id){
                     $('#feedbacks').html(data.feedbacks);
                 } else {

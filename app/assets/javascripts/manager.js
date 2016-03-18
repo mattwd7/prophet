@@ -13,6 +13,7 @@ $(document).ready(function(){
     employeesPanel.find('.employee').click(function(){
         $('#viewing-as').remove();
         $('#manager-team .employee.selected').removeClass('selected');
+        $(".feedback-summary .number-bubble").removeClass('selected');
         $(this).addClass('selected');
         var name = $(this).find('.name').text();
         var viewAs = "<div id='viewing-as'><div class='text'>" + name + "</div></div>";
