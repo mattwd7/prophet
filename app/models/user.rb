@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :notifications
 
   validates_presence_of :email
-  before_save :make_proper, :generate_user_tag
+  before_save :make_proper, :generate_user_tag, :update_user_tag
 
   def full_name
     first_name + ' ' + last_name
@@ -94,12 +94,21 @@ private
 
   def generate_user_tag
     unless self.id
-      tag = '@' + self.first_name.to_s + self.last_name.to_s
-      existing_tags_count = User.where("user_tag LIKE '#{tag}%'").count
-      if existing_tags_count > 0
-        tag += "-#{existing_tags_count.to_s}"
+      self.user_tag = '@' + self.first_name.to_s + self.last_name.to_s
+      last_tag = User.where("user_tag LIKE '#{user_tag}%'").sort.last.try(:user_tag)
+      if last_tag
+        last_tag_suffix = last_tag.match(/-\d+/)
+        next_tag = last_tag_suffix ? last_tag_suffix[0].match(/\d+/)[0].to_i + 1 : 1
+        self.user_tag += "-#{next_tag.to_s}"
       end
-      self.user_tag = tag
+    end
+  end
+
+  def update_user_tag
+    if self.first_name_changed? || self.last_name_changed?
+      suffix = self.user_tag.match(/-\d+/)
+      suffix = suffix ? suffix[0] : ''
+      self.user_tag = '@' + self.first_name.to_s + self.last_name.to_s + suffix
     end
   end
 
