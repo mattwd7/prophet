@@ -36,7 +36,7 @@ $(document).ready(function(){
             },
             success: function(data){
                 closeSharePanel();
-                $('#feedback-' + feedbackID).find('.dismiss .number').text(data);
+                $('#feedback-' + feedbackID).find('.peers .number').text(data);
             }
         })
     });

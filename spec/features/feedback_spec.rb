@@ -47,7 +47,7 @@ describe 'Feedback', js: true do
     @feedback.reload
     expect(@feedback.peers.count).to eq(peer_count + 2)
     within("#feedback-#{@feedback.id}") do
-      expect(page).to have_css('.dismiss .number', text: peer_count + 3) # +1 for author
+      expect(page).to have_css('.peers .number', text: peer_count + 3) # +1 for author
     end
   end
 

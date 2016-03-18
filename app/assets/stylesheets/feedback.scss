@@ -49,45 +49,84 @@
   &.fresh .top {
     background: rgb(255,253,162);
   }
-  .active.votes:hover {
-    cursor: pointer;
+  .active.votes .agree:hover {
+    .number {
+      width: 44px;
+      height: 44px;
+      margin-top: 1px;
+      margin-left: 0px;
+      cursor: pointer;
+      line-height: 47px;
+      transition: 0.2s;
+    }
+    .text {
+      opacity: 1;
+      transition: 0.2s;
+    }
   }
   .flavor {
-    vertical-align: 24px;
+    vertical-align: 30px;
   }
   .votes {
     .vote {
+      height: 55px;
+      width: 50px;
+      .number-container {
+        width: 100%;
+        height: 52px;
+      }
       .number {
         font-family: 'Avenir-Roman';
         border-radius: 50%;
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         text-align: center;
-        line-height: 40px;
+        line-height: 35px;
         color: white;
         border-width: 3px;
-      }
-      &.selected .number {
-        border-color: gold !important;
-      }
-      .text {
-        font-size: 12px;
-        text-align: center;
+        margin-top: 8px;
+        margin-left: 7px;
+        display: block;
+        transition: 0.2s;
       }
       &.agree {
         .number {
           background: rgb(0, 156, 70);
           border: 3px solid rgb(0, 156, 70);
-          margin-right: 3px;
         }
         .text {
           color: rgb(0, 156, 70);
+          opacity: 0;
+          transition: 0.2s;
         }
       }
-      &.dismiss {
+      &.selected {
+        .number {
+          width: 44px;
+          height: 44px;
+          margin-top: 1px;
+          margin-left: 0px;
+          line-height: 47px;
+        }
+        .text {
+          opacity: 1;
+          transition: 0.2s;
+        }
+      }
+      .text {
+        font-size: 12px;
+        text-align: center;
+      }
+      &.peers {
         .number {
           background: #aaa;
-          border: 3px solid #aaa
+          border: 3px solid #aaa;
+          width: 44px;
+          height: 44px;
+          margin-top: 1px;
+          margin-left: 0px;
+          line-height: 47px;
+          opacity: 0.5;
         }
         .text {
           color: #aaa;
@@ -188,7 +227,7 @@
         background-image: url('share_icon.png');
       }
     }
-    .agree, .dismiss {
+    .agree, .peers {
       background: transparent;
       border: none;
     }

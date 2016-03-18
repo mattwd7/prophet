@@ -209,7 +209,7 @@ describe 'User', js: true do
         expect(page).to_not have_css('.vote.agree.selected')
         find('.action', text: 'Agree').click
         expect(page).to have_css('.vote.agree.selected')
-        expect(page).to_not have_css('.vote.dismiss.selected')
+        expect(page).to_not have_css('.vote.peers.selected')
         sleep 2 # TODO: figure out how to wait for ajax
         @peer1.reload
         expect(@peer1.peers_in_agreement.count).to eq(agree_count + 1)
