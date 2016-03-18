@@ -3,6 +3,17 @@
     $('.feedback-form').find('#feedback_content, #peers').val('').blur();
     $(html).prependTo('.my-feedbacks').fadeIn(400);
 <% else %>
-    $('#error-messages').html("<%= escape_javascript(raw(simple_format(@errors.join("\n")))) %>");
-    $('#error-messages').show().delay(4000).fadeOut(500);
+    var errorMessages = $('#error-messages');
+    errorMessages.html("<%= escape_javascript(raw(simple_format(@errors.join("\n")))) %>");
+    $('.feedback-form .top').webuiPopover({
+        placement: 'right-bottom',
+        trigger: 'sticky',
+        width: 200,
+        type: 'html',
+        url: errorMessages
+    });
+    errorMessages.closest('.webui-popover').show();
+    setTimeout(function(){
+        errorMessages.closest('.webui-popover').fadeOut(500);
+    }, 2000);
 <% end %>

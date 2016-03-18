@@ -12,6 +12,14 @@ $(document).ready(function(){
         $(this).removeClass('active');
     });
 
+//    $('.feedback-form .top').webuiPopover({
+//        placement: 'right-bottom',
+//        trigger: 'sticky',
+//        width: 200,
+//        type: 'html',
+//        url: $('#error-messages')
+//    });
+
     feedbackContentForm.elastic();
     feedbackContentForm.keyup(function(){
         var submit_button = $(this).closest('.feedback-form').find('.submit-tag');

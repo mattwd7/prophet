@@ -45,7 +45,6 @@
             = link_to 'Forgot your password?', nil, tabindex: -1
           .submit-tag.active{ 'tabindex' => 0 } Log in
 
-    #error-messages
     #warning-messages
 
     .full
@@ -62,3 +61,7 @@
       %li= link_to 'Edit Profile', edit_user_path(current_user)
       %hr
       %li= link_to 'Logout', destroy_user_session_path, method: :delete
+
+    .popover#error-messages
+      .message
+        This is a feedback form error message.
