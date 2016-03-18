@@ -32,9 +32,9 @@ $(document).ready(function(){
     }
 
     function initGrid(users){
+        grid.append(headers());
         for (var i = 0; i < users.length; i++){
             var user = users[i];
-            grid.append(headers());
             grid.append(userRow(user));
         }
         grid.DataTable({
