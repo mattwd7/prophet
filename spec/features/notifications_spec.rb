@@ -22,6 +22,16 @@ describe 'Notifications', js: true do
     within('.sort .me'){ expect(page).to have_content(2) }
   end
 
+  it 'are issued to ME when one of my feedbacks increases in resonance' do
+    feedback = FactoryGirl.create(:spec_full_feedback, author: @author, user: @user1)
+    init_notifications = Notification.count
+    feedback.feedback_links.first.update_attributes(agree: false)
+    expect(feedback.resonance_value).to eq(1)
+    feedback.feedback_links.all.each{|fl| fl.update_attributes(agree: true)}
+    @user1.reload
+    expect(Notification.count).to eq(init_notifications + 1)
+  end
+
   it 'are issued to TEAM when a user becomes a peer for a feedback' do
     f = FactoryGirl.create(:spec_feedback, author: @author, user: @other_user)
     FactoryGirl.create(:spec_feedback_link, user: @user1, feedback: f)

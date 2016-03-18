@@ -46,6 +46,10 @@ class Feedback < ActiveRecord::Base
     comments.joins(:notifications).where("notifications.user_id = ?", user.id).group("comments.id")
   end
 
+  def create_notification
+    Notification.create(feedback: self, user: self.user)
+  end
+
 private
   def set_defaults
     self.resonance_value ||= -1
@@ -56,9 +60,4 @@ private
     self.user ||= User.find_by_user_tag(user_tag)
     self.content = self.content.sub(user_tag, '').strip if user_tag
   end
-
-  def create_notification
-    Notification.create(feedback: self, user: self.user)
-  end
-
 end
