@@ -10,7 +10,7 @@
   z-index: 1;
   display: none;
   .header {
-    background: rgb(0, 156, 70);
+    background: #8BC34A;
     color: white;
     font-family: 'Avenir';
     padding: 10px;
@@ -77,7 +77,7 @@
     width: 230px;
     & > * {
       display: inline-block;
-      background: rgb(0, 156, 70);
+      background: #8BC34A;
       color: white;
       border-radius: 6px;
       padding: 5px 30px;
