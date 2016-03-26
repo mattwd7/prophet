@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       post :vote
       post :share
       post :destroy_notifications
+      get :peers
     end
   end
 

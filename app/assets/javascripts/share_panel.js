@@ -4,6 +4,30 @@ $(document).ready(function(){
         additionalPeers = [],
         feedbackID = null;
 
+    $('.feedback').hover(function(){
+        feedbackID = $(this).attr('id').match(/\d+/)[0];
+        console.log(feedbackID);
+
+        $(this).find('.share').webuiPopover({
+            placement: 'right-bottom',
+            trigger: 'hover',
+            width: 200,
+            type: 'async',
+            animation: 'pop',
+            url: 'feedbacks/' + feedbackID + '/peers',
+            offsetLeft: -100,
+            content: function(data){
+                var html = '<ul>';
+                for(var arr_index in data){
+                    var user = data[arr_index];
+                    html += '<li>' + user.user_tag + '</li>';
+                }
+                html+='</ul>';
+                return html;
+            }
+        });
+    });
+
     $(document).on('click', '.feedback .action.share', function(){
         var feedback_id = $(this).closest('.feedback').attr('id').match(/\d+$/)[0];
         $('body').children().not('#share-panel').not('.ui-autocomplete').addClass('blur');

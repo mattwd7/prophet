@@ -51,4 +51,17 @@ describe 'Feedback', js: true do
     end
   end
 
+  it 'lists current peers when hovering over the share icon' do
+    (1..100).each do |num|
+      user = FactoryGirl.create(:spec_user, email: "newuser#{num}@gmail.com", first_name: 'newuser', last_name: num)
+      FactoryGirl.create(:spec_feedback_link, user: user, feedback: @feedback)
+    end
+    within("#feedback-#{@feedback.id}"){ find('.action.share').hover }
+    @feedback.peers.each do |peer|
+      expect(page).to have_content(peer.user_tag)
+    end
+  end
+
+  it 'lists current peers in the share panel'
+
 end

@@ -55,9 +55,4 @@ class HomeController < ApplicationController
     end
   end
 
-private
-  def autocomplete_attributes(users)
-    users.map{|p| {user_tag: p.user_tag, avatar_url: p.avatar.url(:large), name: p.full_name, title: p.title}}
-  end
-
 end

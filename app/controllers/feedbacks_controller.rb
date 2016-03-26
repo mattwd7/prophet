@@ -29,4 +29,12 @@ class FeedbacksController < ApplicationController
     render nothing: true
   end
 
+  def peers
+    @feedback = Feedback.find(params[:id])
+    peers = autocomplete_attributes([@feedback.peers, @feedback.author].flatten)
+    respond_to do |format|
+      format.json { render json: peers.to_json }
+    end
+  end
+
 end
