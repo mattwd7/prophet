@@ -147,42 +147,6 @@ describe 'User', js: true do
       end
     end
 
-    # it 'can vote on a comment he is a peer of' do
-    #   within("#feedback-#{@mine1.id}") do
-    #     within(first('.comment')) do
-    #       within('.votes') do
-    #         expect('.agree').to_not have_content(1) # i'm not a peer, so my comment on my feedback does not get 1 agree
-    #         expect(page).to_not have_css('active') # i cannot vote on my own comment
-    #       end
-    #     end
-    #   end
-    #
-    #   within("#feedback-#{@i_am_author.id}") do
-    #     within(first('.comment')) do
-    #       within('.votes') do
-    #         within('.dismiss'){ expect(page).to have_content(@i_am_author.peers.count + 1) }
-    #         expect(page).to have_content(1) # my comment gets a +1 and I cannot change it
-    #         expect(page).to_not have_css('active')
-    #       end
-    #     end
-    #   end
-    #
-    #   find(".team").click
-    #   within("#feedback-#{@peer1.id}") do
-    #     within(first('.comment')) do
-    #       expect(page).to have_css('.active') # as a peer, I can vote to agree on this comment
-    #       within('.votes') do
-    #         within('.dismiss'){ expect(page).to have_content(@peer1.peers.count + 1) }
-    #         expect(page).to have_content(1) # my comment gets a +1 and I cannot change it
-    #         agree_count = @peer1.comments.first.peers_in_agreement.count
-    #         find('.agree').click
-    #         sleep 1
-    #         expect(@peer1.comments.first.peers_in_agreement.count).to eq(agree_count + 1)
-    #       end
-    #     end
-    #   end
-    # end
-
     it 'sees received feedback on ME feedback and all feedback he is a peer to on TEAM feed' do
       expect(page).to have_css("#feedback-#{@mine1.id}")
       expect(page).to have_css("#feedback-#{@mine2.id}")

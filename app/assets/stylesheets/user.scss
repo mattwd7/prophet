@@ -7,7 +7,7 @@
     color: #aaa;
   }
   .submit-tag {
-    background: #f18179;
+    background: #8BC34A;
     color: white;
     padding: 5px 10px;
     font-size: 15px;
@@ -26,10 +26,10 @@
       li {
         padding: 10px;
         &.selected {
-          background: #f18179;
+          background: #8BC34A;
         }
         &:hover {
-          background: #f18179;
+          background: #8BC34A;
           cursor: pointer;
         }
         .chevron {
@@ -38,7 +38,7 @@
           background-size: contain;
           height: 20px;
           width: 20px;
-          float: righst;
+          float: right;
         }
       }
     }
