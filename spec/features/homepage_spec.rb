@@ -31,9 +31,9 @@ describe 'User', js: true do
   it 'without personal feedback defaults to ALL' do
     @peer1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user is a peer
     FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @peer1)
-    @peer1.comments.each do |c|
-      FactoryGirl.create(:spec_comment_link, user: @user, comment: c)
-    end
+    # @peer1.comments.each do |c|
+    #   FactoryGirl.create(:spec_comment_link, user: @user, comment: c)
+    # end
     log_in_with(@user.email, 'password')
 
     expect(page).to have_css('.team.selected')
@@ -48,9 +48,9 @@ describe 'User', js: true do
       @team1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user completely uninvolved
       @peer1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user is a peer
       FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @peer1)
-      @peer1.comments.each do |c|
-        FactoryGirl.create(:spec_comment_link, user: @user, comment: c)
-      end
+      # @peer1.comments.each do |c|
+      #   FactoryGirl.create(:spec_comment_link, user: @user, comment: c)
+      # end
       log_in_with(@user.email, 'password')
     end
 

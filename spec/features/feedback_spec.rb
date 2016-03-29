@@ -51,7 +51,7 @@ describe 'Feedback', js: true do
     end
   end
 
-  it 'lists current peers when hovering over the share icon' do
+  it 'lists current peers when hovering over the share icon', no_webkit: true do
     (1..100).each do |num|
       user = FactoryGirl.create(:spec_user, email: "newuser#{num}@gmail.com", first_name: 'newuser', last_name: num)
       FactoryGirl.create(:spec_feedback_link, user: user, feedback: @feedback)

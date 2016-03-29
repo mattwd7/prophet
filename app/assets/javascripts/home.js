@@ -39,6 +39,17 @@ $(document).ready(function(){
         })
     });
 
+    var sign_up_inputs = $('#home-right').find('input:text');
+    sign_up_inputs.keyup(function(){
+        $.each(sign_up_inputs, function(index, el){
+            if ($(el).val() === "") {
+                $('.submit-tag').removeClass('active');
+            } else if (index == sign_up_inputs.length - 1) {
+                $('.submit-tag').addClass('active');
+            }
+        });
+    });
+
     ////////////////////////////////////////////
     // COMMENTS
     ////////////////////////////////////////////

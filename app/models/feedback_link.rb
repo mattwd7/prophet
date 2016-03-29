@@ -9,7 +9,7 @@ class FeedbackLink < ActiveRecord::Base
 private
   def update_feedback_resonance
     new_resonance_value = feedback.calc_resonance_value
-    if new_resonance_value > feedback.resonance_value
+    if new_resonance_value > feedback.resonance_value && new_resonance_value > 0
       feedback.create_notification
     end
     feedback.update_attributes(resonance_value: feedback.calc_resonance_value)

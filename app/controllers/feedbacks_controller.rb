@@ -3,10 +3,11 @@ class FeedbacksController < ApplicationController
   def create
     @errors = []
     @feedback = Feedback.new(params.require(:feedback).permit(:author_id, :content))
-    unless @feedback.save
+    if @feedback.save
+      @feedback.assign_peers(params[:peers].split(', ')) if params[:peers]
+    else
       @errors.push(@feedback.errors.full_messages)
     end
-    @feedback.assign_peers(params[:peers].split(', ')) if params[:peers]
     @errors.flatten!
     respond_to{ |format| format.js }
   end
