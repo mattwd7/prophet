@@ -88,20 +88,39 @@
   .edit-user {
     li {
     }
-    #preview-container {
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      overflow: hidden;
-      border: 1px solid #ccc;
-    }
-    #cropbox {
-      float: right;
-      top: -80px;
-      left: -600px;
-    }
-    .jcrop-holder {
-      display: inline-block;
+    #avatar-handling {
+      height: 475px;
+      .previewing {
+        float: left;
+        #preview-container {
+          border-radius: 50%;
+          width: 100px;
+          height: 100px;
+          overflow: hidden;
+          border: 1px solid #ccc;
+          img#current {
+            width: 102px;
+            height: 102px;
+          }
+          #preview {
+            display: none;
+          }
+        }
+      }
+      .cropping {
+        float: right;
+        width: 400px;
+        #cropbox {
+          top: -80px;
+          left: -600px;
+          img {
+            width: 350px;
+          }
+        }
+        .jcrop-holder {
+          display: inline-block;
+        }
+      }
     }
   }
 

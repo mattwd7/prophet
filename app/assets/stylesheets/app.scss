@@ -20,13 +20,15 @@ input:not([type=checkbox]):not([type=file]) {
 }
 li { list-style-type: none; }
 
+.editable:hover { cursor: pointer; }
+
 #banner {
   background: #8BC34A;
   height: 80px;
   position: fixed;
   width: 100%;
   top: 0px;
-  z-index: 10;
+  z-index: 999;
   border-bottom: 1px solid black;
   .logo {
     font-family: 'Chancery';

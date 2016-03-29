@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_attached_file :avatar, default_url: ":style/missing.png", styles: { small: "100x100#", large: "500x500>" }, processors: [:cropper]
+  has_attached_file :avatar, default_url: ":style/missing.png", styles: { small: "100x100#", large: "350x350>" }, processors: [:cropper]
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   belongs_to :organization

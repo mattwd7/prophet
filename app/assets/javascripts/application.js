@@ -36,7 +36,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '.submit-tag', function(){
-        if ($(this).attr('tabindex') !== undefined){
+        if ($(this).hasClass('active')){
             $(this).closest('form').submit();
         }
     })

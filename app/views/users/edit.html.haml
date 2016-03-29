@@ -10,6 +10,8 @@
   function update_crop(coords) {
       var rx = 100/coords.w;
       var ry = 100/coords.h;
+      $('#current').hide();
+      $('#preview').show();
       $('#preview').css({
           width: Math.round(rx * #{@user.avatar_geometry(:large).width}) + 'px',
           height: Math.round(ry * #{@user.avatar_geometry(:large).height}) + 'px',
@@ -68,13 +70,16 @@
           %li
             = f.hidden_field attribute, id: attribute
 
-        %li
-          .label
-          #cropbox
-            = image_tag @user.avatar.url(:large)
-        -#%h4 Preview:
-        -#.preview-container
-        -#  = image_tag @user.avatar.url(:large), :id => "preview"
+        %li#avatar-handling
+          .previewing
+            %h4 Preview:
+            #preview-container
+              = image_tag @user.avatar.url(:large), :id => "current"
+              = image_tag @user.avatar.url(:original), :id => "preview"
+          .cropping
+            %h4 Image:
+            #cropbox
+              = image_tag @user.avatar.url(:original)
         %li
           .submit-tag.active Save Changes
 
