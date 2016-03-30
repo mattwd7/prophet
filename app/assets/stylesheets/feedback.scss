@@ -49,21 +49,6 @@
   &.fresh .top {
     background: rgb(255,253,162);
   }
-  .active.votes .agree:hover {
-    .number {
-      width: 44px;
-      height: 44px;
-      margin-top: 1px;
-      margin-left: 0px;
-      cursor: pointer;
-      line-height: 47px;
-      transition: 0.2s;
-    }
-    .text {
-      opacity: 1;
-      transition: 0.2s;
-    }
-  }
   .flavor {
     vertical-align: 30px;
   }
@@ -71,6 +56,9 @@
     .vote {
       height: 55px;
       width: 50px;
+      &:hover {
+        cursor: pointer;
+      }
       .number-container {
         width: 100%;
         height: 52px;

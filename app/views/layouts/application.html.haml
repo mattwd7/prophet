@@ -52,8 +52,9 @@
       %p.notices= flash[:notice]
       = yield
 
-  - #Overlays
+  - # Overlays
   - if current_user
     = render partial: 'feedbacks/share_panel'
+    = render partial: 'feedbacks/share_list'
     = render partial: 'popovers/session_options'
     = render partial: 'popovers/error_messages'

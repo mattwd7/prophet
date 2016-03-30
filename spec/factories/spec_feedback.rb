@@ -18,9 +18,9 @@ FactoryGirl.define do
         f.author_id ||= author.id
       end
       user_count = User.count
-      u1 = FactoryGirl.create(:spec_user, email: "peer#{user_count + 1}@gmail.com")
-      u2 = FactoryGirl.create(:spec_user, email: "peer#{user_count + 2}@gmail.com")
-      u3 = FactoryGirl.create(:spec_user, email: "peer#{user_count + 3}@gmail.com")
+      u1 = FactoryGirl.create(:spec_user, first_name: 'Tony', last_name: 'DeCino', email: "peer#{user_count + 1}@gmail.com")
+      u2 = FactoryGirl.create(:spec_user, first_name: 'Jason', last_name: 'Dick', email: "peer#{user_count + 2}@gmail.com")
+      u3 = FactoryGirl.create(:spec_user, first_name: 'Brian', last_name: 'Dick',  email: "peer#{user_count + 3}@gmail.com")
       FactoryGirl.create(:spec_feedback_link, user: u1, feedback: f, agree: true)
       FactoryGirl.create(:spec_feedback_link, user: u2, feedback: f, agree: true)
       FactoryGirl.create(:spec_feedback_link, user: u3, feedback: f)

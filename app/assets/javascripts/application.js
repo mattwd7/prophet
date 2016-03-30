@@ -39,6 +39,23 @@ $(document).ready(function(){
         if ($(this).hasClass('active')){
             $(this).closest('form').submit();
         }
-    })
+    });
+
+    // MODAL HANDLING
+
+    $(document).on('keydown', function(e) {
+        if (e.keyCode == 27) {
+            closeModal();
+        }
+    });
+
+    $(document).on('click', '.modal .close, .modal .cancel', function(){
+        closeModal();
+    });
+
+    function closeModal(){
+        $('.modal').hide();
+        $('body').children().removeClass('blur');
+    }
 
 });

@@ -30,9 +30,21 @@ class FeedbacksController < ApplicationController
     render nothing: true
   end
 
+  def peers_in_agreement
+    @feedback = Feedback.find(params[:id])
+    peers = autocomplete_attributes([@feedback.peers_in_agreement, @feedback.author].flatten)
+    respond_to do |format|
+      format.json { render json: peers.to_json }
+    end
+  end
+
   def peers
     @feedback = Feedback.find(params[:id])
-    peers = autocomplete_attributes([@feedback.peers, @feedback.author].flatten)
+    if params[:type] && params[:type] == 'Agree'
+      peers = autocomplete_attributes([@feedback.peers_in_agreement, @feedback.author].flatten)
+    else
+      peers = autocomplete_attributes([@feedback.peers, @feedback.author].flatten)
+    end
     respond_to do |format|
       format.json { render json: peers.to_json }
     end

@@ -1,26 +1,31 @@
 $(document).ready(function(){
 
     var sharePanel = $("#share-panel"),
+        shareList = $("#share-list"),
         additionalPeers = [],
         feedbackID = null;
 
     $('.feedback').hover(function(){
         feedbackID = $(this).attr('id').match(/\d+/)[0];
-        console.log(feedbackID);
 
-        $(this).find('.share').webuiPopover({
-            placement: 'right-bottom',
+        $(this).find('.vote.peers').webuiPopover({
+            placement: 'vertical',
             trigger: 'hover',
             width: 200,
             type: 'async',
             animation: 'pop',
             url: 'feedbacks/' + feedbackID + '/peers',
-            offsetLeft: -100,
+            style: 'inverse',
+            padding: false,
             content: function(data){
-                var html = '<ul>';
+                var html = '<ul class="peers-popover">';
                 for(var arr_index in data){
+                    if (arr_index > 19) {
+                        html += '<li><a>And ' + (data.length - 19) + ' more...</a></li>';
+                        break;
+                    }
                     var user = data[arr_index];
-                    html += '<li>' + user.user_tag + '</li>';
+                    html += '<li>' + user.name + '</li>';
                 }
                 html+='</ul>';
                 return html;
@@ -28,41 +33,36 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on('click', '.feedback .vote', function(){
+        var feedback_id = $(this).closest('.feedback').attr('id').match(/\d+$/)[0],
+            type = $(this).hasClass('agree') ? 'Agree' : 'Peers';
+        $('body').children().not('#share-list').not('.ui-autocomplete').addClass('blur');
+        initShareList(feedback_id, type);
+    });
+
+    function initShareList(feedback_id, type){
+//        var feedback = $('#feedback-' + feedback_id);
+        shareList.find('.header .text').text(type);
+        $.ajax({
+            type: 'GET',
+            url: '/feedbacks/' + feedback_id + '/peers',
+            data: { 'type': type },
+            success: function(data){
+                var userList = shareList.find('ul');
+                userList.html('');
+                for(var index in data){
+                    var user = data[index];
+                    userList.append('<li><div class="avatar"><img src="' + user.avatar_url + '"></div><div class="data"><div class="name">' + user.name + '</div><div class="title">' + user.title + '</div></li>')
+                }
+                $("#share-list").show();
+            }
+        })
+    }
+
     $(document).on('click', '.feedback .action.share', function(){
         var feedback_id = $(this).closest('.feedback').attr('id').match(/\d+$/)[0];
         $('body').children().not('#share-panel').not('.ui-autocomplete').addClass('blur');
         initSharePanel(feedback_id);
-    });
-
-    function closeSharePanel(){
-        sharePanel.hide();
-        $('body').children().removeClass('blur');
-    }
-
-    sharePanel.find('.close, .cancel').click(function(){
-        closeSharePanel();
-    });
-
-    $(document).on('keydown', function(e) {
-        if (e.keyCode == 27) {
-            closeSharePanel();
-        }
-    });
-
-    sharePanel.find('.share').click(function(){
-        var newPeers = sharePanel.find('textarea').val();
-        $.ajax({
-            type: 'POST',
-            url: '/feedbacks/' + feedbackID + '/share',
-            data: {
-                'additional_peers': newPeers,
-                'id': feedbackID
-            },
-            success: function(data){
-                closeSharePanel();
-                $('#feedback-' + feedbackID).find('.peers .number').text(data);
-            }
-        })
     });
 
     function initSharePanel(feedback_id){
@@ -175,6 +175,22 @@ $(document).ready(function(){
 
     sharePanel.find('textarea').keyup(function(){
         updateSource($(this));
+    });
+
+    sharePanel.find('.share').click(function(){
+        var newPeers = sharePanel.find('textarea').val();
+        $.ajax({
+            type: 'POST',
+            url: '/feedbacks/' + feedbackID + '/share',
+            data: {
+                'additional_peers': newPeers,
+                'id': feedbackID
+            },
+            success: function(data){
+                closeSharePanel();
+                $('#feedback-' + feedbackID).find('.peers .number').text(data);
+            }
+        })
     });
 
 });
