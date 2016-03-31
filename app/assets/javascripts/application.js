@@ -53,9 +53,9 @@ $(document).ready(function(){
         closeModal();
     });
 
-    function closeModal(){
-        $('.modal').hide();
-        $('body').children().removeClass('blur');
-    }
-
 });
+
+function closeModal(){
+    $('.modal').hide();
+    $('body').children().removeClass('blur');
+}

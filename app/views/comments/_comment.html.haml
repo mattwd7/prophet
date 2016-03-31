@@ -9,11 +9,11 @@
         %td
           .content
             %span.author= comment.user.full_name
-            %span= simple_format(comment.content)
-          .data
+            %span.text= simple_format(comment.content)
+          .actions
+            - if current_user == comment.user && comment.updated_at > 5.minutes.ago
+              .edit{href: edit_comment_path(comment)}
+                %a Edit
+              .delete= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?', :remote => true }, :class => 'Comment'
             .timestamp
               = "#{time_ago_in_words(comment.created_at)} ago"
-            -#.score
-            -#  .flavor= flavor_text(comment)
-            -#  .votes{ class: comment.feedback.user != current_user  && current_user.is_peer?(comment.feedback) && comment.user != current_user ? 'active' : nil }
-            -#    = vote_numbers(comment, current_user)

@@ -187,7 +187,7 @@ $(document).ready(function(){
                 'id': feedbackID
             },
             success: function(data){
-                closeSharePanel();
+                closeModal();
                 $('#feedback-' + feedbackID).find('.peers .number').text(data);
             }
         })
