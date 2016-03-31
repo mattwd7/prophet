@@ -8,17 +8,15 @@
   });
 
   function update_crop(coords) {
-      console.log(#{@user.avatar_geometry(:original).width});
-      console.log(#{@user.avatar_geometry(:original).height});
-      var rx = #{@user.avatar_geometry(:original).width} / (coords.w * 350);
-      var ry = #{@user.avatar_geometry(:original).height} / (coords.h * 350);
+      var rx = (350*100) / (#{@user.avatar_geometry(:original).width} * coords.w );
+      var ry = (350*100) / (#{@user.avatar_geometry(:original).height} * coords.h );
       $('#current').hide();
       $('#preview').show();
       $('#preview').css({
           width: Math.round(rx * #{@user.avatar_geometry(:original).width}) + 'px',
           height: Math.round(ry * #{@user.avatar_geometry(:original).height}) + 'px',
-          marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-          marginTop: '-' + Math.round(ry * coords.y) + 'px'
+          marginLeft: '-' + Math.round(coords.x * rx * #{@user.avatar_geometry(:original).width} / 350) + 'px',
+          marginTop: '-' + Math.round(coords.y * ry * #{@user.avatar_geometry(:original).height} / 350) + 'px'
       });
 
       var ratio = #{@user.avatar_geometry(:original).width} / #{@user.avatar_geometry(:large).width};
