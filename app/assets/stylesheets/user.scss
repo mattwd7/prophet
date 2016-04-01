@@ -89,7 +89,7 @@
     li {
     }
     #avatar-handling {
-      height: 475px;
+      height: 350px;
       .previewing {
         float: left;
         #preview-container {
@@ -114,7 +114,8 @@
           top: -80px;
           left: -600px;
           img {
-            width: 350px;
+            max-height: 350px;
+            max-width: 400px;
           }
         }
         .jcrop-holder {

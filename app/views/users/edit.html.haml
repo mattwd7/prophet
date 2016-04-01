@@ -1,5 +1,9 @@
 :javascript
+  var image_w, image_h
+
   $(document).ready(function(){
+      image_w = $('#cropbox').find('img').width();
+      image_h = $('#cropbox').find('img').height();
       $('#cropbox').Jcrop({
           onChange: update_crop,
           onSelect: update_crop,
@@ -8,15 +12,15 @@
   });
 
   function update_crop(coords) {
-      var rx = (350*100) / (#{@user.avatar_geometry(:original).width} * coords.w );
-      var ry = (350*100) / (#{@user.avatar_geometry(:original).height} * coords.h );
+      var rx = (image_w * 100) / (#{@user.avatar_geometry(:original).width} * coords.w );
+      var ry = (image_h * 100) / (#{@user.avatar_geometry(:original).height} * coords.h );
       $('#current').hide();
       $('#preview').show();
       $('#preview').css({
           width: Math.round(rx * #{@user.avatar_geometry(:original).width}) + 'px',
           height: Math.round(ry * #{@user.avatar_geometry(:original).height}) + 'px',
-          marginLeft: '-' + Math.round(coords.x * rx * #{@user.avatar_geometry(:original).width} / 350) + 'px',
-          marginTop: '-' + Math.round(coords.y * ry * #{@user.avatar_geometry(:original).height} / 350) + 'px'
+          marginLeft: '-' + Math.round(coords.x * rx * #{@user.avatar_geometry(:original).width} / image_w) + 'px',
+          marginTop: '-' + Math.round(coords.y * ry * #{@user.avatar_geometry(:original).height} / image_h) + 'px'
       });
 
       var ratio = #{@user.avatar_geometry(:original).width} / #{@user.avatar_geometry(:large).width};
