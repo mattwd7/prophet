@@ -52,6 +52,9 @@
       %p.notices= flash[:notice]
       = yield
 
+    - unless current_user
+      = render partial: 'home/footer'
+
   - # Overlays
   - if current_user
     = render partial: 'feedbacks/share_panel'
