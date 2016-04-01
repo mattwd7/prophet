@@ -79,7 +79,17 @@ $(document).ready(function(){
 
     $(document).on('click', '.action.agree', function(){
         var feedback = $(this).closest('.feedback');
-        feedback.find('.votes .agree').click();
+        var url = $(this).attr('data-action'),
+            agreeing = !$(this).hasClass('selected'),
+            change = agreeing ? 1 : -1,
+            agree_count = feedback.find('.vote.agree .number');
+        $(this).toggleClass('selected');
+        agree_count.text(+(agree_count.text()) + change);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: { agree: agreeing }
+        });
     });
 
     $('.view-all').click(function(){
@@ -91,20 +101,6 @@ $(document).ready(function(){
     // FEEDBACKS
     ////////////////////////////////////////////
 
-    $('.active.votes .vote.agree').click(function(){
-        var url = $(this).attr('data-action'),
-            agreeing = !$(this).hasClass('selected'),
-            change = agreeing ? 1 : -1,
-            feedback = $(this).closest('.feedback');
-        $(this).toggleClass('selected');
-        feedback.find('.action.agree').toggleClass('selected');
-        $(this).find('.number').text(+($(this).find('.number').text()) + change);
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: { agree: agreeing }
-        });
-    })
 
 });
 

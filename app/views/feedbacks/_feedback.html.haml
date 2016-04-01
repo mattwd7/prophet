@@ -17,7 +17,7 @@
     %table.actions
       %tr
         - if current_user.is_peer?(feedback)
-          %td.action.agree{ class: current_user.agrees_with(feedback) ? 'selected' : nil }
+          %td.action.agree{ class: current_user.agrees_with(feedback) ? 'selected' : nil, 'data-action' => vote_feedback_path(feedback) }
             .icon
             .name
               Agree

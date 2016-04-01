@@ -64,65 +64,32 @@
         height: 52px;
       }
       .number {
+        color: white;
         font-family: 'Avenir-Roman';
         border-radius: 50%;
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         text-align: center;
-        line-height: 35px;
-        color: white;
+        line-height: 47px;
         border-width: 3px;
         margin-top: 8px;
         margin-left: 7px;
         display: block;
         transition: 0.2s;
       }
-      &.agree {
-        .number {
-          background: #33691E;
-          border: 3px solid #33691E;
-        }
-        .text {
-          color: #33691E;
-          opacity: 0;
-          transition: 0.2s;
-        }
-      }
-      &.selected {
-        .number {
-          width: 44px;
-          height: 44px;
-          margin-top: 1px;
-          margin-left: 0px;
-          line-height: 47px;
-        }
-        .text {
-          opacity: 1;
-          transition: 0.2s;
-        }
-      }
       .text {
         font-size: 12px;
         text-align: center;
+        margin-left: 12px;
+      }
+      &.agree {
+        .number { background: #33691E; }
+        .text { color: #33691E; }
       }
       &.peers {
-        .number {
-          background: #aaa;
-          border: 3px solid #aaa;
-          width: 44px;
-          height: 44px;
-          margin-top: 1px;
-          margin-left: 0px;
-          line-height: 47px;
-          opacity: 0.5;
-        }
-        .text {
-          color: #aaa;
-        }
-      }
-      .text {
-        color: black;
-        display: block;
+        margin-left: -5px;
+        .number { background: #aaa; }
+        .text { color: #aaa; }
       }
     }
   }
