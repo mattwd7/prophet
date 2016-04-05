@@ -135,11 +135,11 @@ describe 'User', js: true do
       expect(page).to have_content(@team1.content)
       within("#feedback-#{@team1.id}") do
         expect(page).to have_css('.active')
-        first('.agree').click
+        find('.action.agree').click
         sleep 1
         @team1.reload
         expect(@team1.peers_in_agreement.count).to eq(agree_count + 1)
-        first('.agree').click
+        first('.action.agree').click
         sleep 1
         @team1.reload
         expect(@team1.peers_in_agreement.count).to eq(agree_count)
@@ -161,29 +161,6 @@ describe 'User', js: true do
       expect(page).to have_css("#feedback-#{@peer1.id}")
     end
 
-    it 'has additional feedback actions AGREE and DISMISS as a peer' do
-      expect(page).to_not have_css('.action', text: 'Agree')
-      expect(page).to_not have_css('.action', text: 'Dismiss')
-      find('.sort .team').click
-      within("#feedback-#{@peer1.id}") do
-        expect(page).to have_css('.action', text: 'Agree')
-      end
-      agree_count = @peer1.peers_in_agreement.count
-      within("#feedback-#{@peer1.id}") do
-        expect(page).to_not have_css('.vote.agree.selected')
-        find('.action', text: 'Agree').click
-        expect(page).to have_css('.vote.agree.selected')
-        expect(page).to_not have_css('.vote.peers.selected')
-        sleep 2 # TODO: figure out how to wait for ajax
-        @peer1.reload
-        expect(@peer1.peers_in_agreement.count).to eq(agree_count + 1)
-        find('.action', text: 'Agree').click
-        expect(page).to_not have_css('.vote.agree.selected')
-        @peer1.reload
-        sleep 2 # TODO: figure out how to wait for ajax
-        expect(@peer1.peers_in_agreement.count).to eq(agree_count)
-      end
-    end
   end
 
 

@@ -85,6 +85,17 @@ describe Feedback do
       expect(new_link.save).to eq(true)
     end
 
+    it 'has a comment history including share logs' do
+      @feedback.comments.update_all(created_at: 2.minutes.ago)
+      new_user = FactoryGirl.create(:spec_user, email: "somenewpeer@gmail.com")
+      @feedback.assign_peers([new_user.user_tag], @feedback.peers.first)
+      FactoryGirl.create(:spec_comment, feedback: @feedback, user: new_user, created_at: 2.minutes.from_now)
+      @feedback.reload
+      expect(@feedback.share_logs.count).to eq(1)
+      expect(@feedback.comment_history.count).to eq(4)
+      expect(@feedback.comment_history[2].class).to eq(ShareLog)
+    end
+
   end
 
 end

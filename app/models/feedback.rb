@@ -6,6 +6,7 @@ class Feedback < ActiveRecord::Base
   has_many :feedback_links
   has_many :peers, through: :feedback_links, source: :user
   has_many :notifications
+  has_many :share_logs
 
   validates_presence_of :author_id
   validates_presence_of :user_id, message: 'Tag must be valid.'
@@ -31,19 +32,22 @@ class Feedback < ActiveRecord::Base
     User.joins(:feedback_links).where("feedback_links.feedback_id = ? and agree = ?", id, true)
   end
 
-  def assign_peers(peer_tags)
+  def assign_peers(peer_tags, assigner=nil)
+    names = []
     peer_tags.each do |peer_tag|
       user = User.find_by_user_tag(peer_tag)
+      names << user.full_name
       FeedbackLink.create(feedback: self, user: user)
     end
-
-    self.comments.each do |comment|
-      CommentLink.create(comment: comment, user: user)
-    end
+    self.share_logs.create(user: assigner, names: names) if assigner
   end
 
   def fresh_comments(user)
     comments.joins(:notifications).where("notifications.user_id = ?", user.id).group("comments.id")
+  end
+
+  def comment_history
+   (comments + share_logs).sort{|a,b| a.created_at <=> b.created_at }
   end
 
   def create_notification

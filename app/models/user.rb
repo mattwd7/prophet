@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :manager_employees, foreign_key: 'employee_id'
   has_many :managers, through: :manager_employees
   has_many :notifications
+  has_many :share_logs
 
   validates_presence_of :email
   before_save :make_proper, :generate_user_tag, :update_user_tag
@@ -42,11 +43,7 @@ class User < ActiveRecord::Base
   end
 
   def is_peer?(feedback_or_comment)
-    if feedback_or_comment.instance_of?(Feedback)
-      FeedbackLink.where(feedback: feedback_or_comment, user: self).count > 0
-    else
-      CommentLink.where(comment: feedback_or_comment, user: self).count > 0
-    end
+    FeedbackLink.where(feedback: feedback_or_comment, user: self).count > 0
   end
 
   def agrees_with(feedback_or_comment)

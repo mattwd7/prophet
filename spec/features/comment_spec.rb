@@ -48,4 +48,17 @@ describe 'Comment', js: true do
     expect(@feedback.comments.count).to eq(2)
   end
 
+  it 'is displayed with share activity in order of occurrence' do
+    new_user = FactoryGirl.create(:spec_user, email: "newuser@gmail.com")
+    find('.action.share').click
+    find('#additional_peers').set new_user.user_tag
+    within('#share-panel'){ find('.action .share').click }
+    new_comment = FactoryGirl.create(:spec_comment, feedback: @feedback, user: new_user, content: 'My first comment since being added')
+    visit current_path
+    within('.commenting') do
+      expect(page).to have_content("#{@other_user.full_name} added #{new_user.full_name}")
+      expect(page).to have_content(new_comment.content)
+    end
+  end
+
 end

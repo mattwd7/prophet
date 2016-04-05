@@ -17,6 +17,9 @@
     & > * {
       display: inline-block;
     }
+    .text {
+      font-size: 24px;
+    }
     .close {
       float: right;
       &:hover {
@@ -73,7 +76,7 @@
       }
     }
 
-    .actions {
+    .action {
       margin: 20px 0 10px 260px;
       width: 230px;
       & > * {
@@ -98,9 +101,6 @@
   &#share-list {
     height: 500px;
     top: 10%;
-    .header .text {
-      font-size: 24px;
-    }
     ul {
       height: 400px;
       overflow-y: scroll;

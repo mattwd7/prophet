@@ -20,7 +20,7 @@ class FeedbacksController < ApplicationController
 
   def share
     @feedback = Feedback.find(params[:id])
-    @feedback.assign_peers(params[:additional_peers].split(', '))
+    @feedback.assign_peers(params[:additional_peers].split(', '), current_user)
     render text: @feedback.peers.count + 1
   end
 

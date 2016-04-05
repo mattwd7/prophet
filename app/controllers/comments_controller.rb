@@ -10,12 +10,6 @@ class CommentsController < ApplicationController
     respond_to { |format| format.js }
   end
 
-  def vote
-    link = CommentLink.where(user: current_user, comment_id: params[:id]).first
-    link.update_attributes(agree: params[:agree])
-    render nothing: true
-  end
-
   def edit
   end
 

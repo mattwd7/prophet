@@ -74,6 +74,23 @@
       }
     }
   }
+
+  .share-log {
+    table {
+      margin-left: 30px;
+      img {
+        width: 40px;
+      }
+      .content {
+        margin: 0;
+        font-size: 14px;
+        color: #aaa;
+        .text {
+          font-family: 'Avenir-Heavy';
+        }
+      }
+    }
+  }
 }
 
 .comment-form {
