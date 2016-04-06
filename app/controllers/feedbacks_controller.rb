@@ -9,7 +9,9 @@ class FeedbacksController < ApplicationController
       @errors.push(@feedback.errors.full_messages)
     end
     @errors.flatten!
-    respond_to{ |format| format.js }
+    respond_to do
+      |format| format.js
+    end
   end
 
   def vote
@@ -20,8 +22,11 @@ class FeedbacksController < ApplicationController
 
   def share
     @feedback = Feedback.find(params[:id])
-    @feedback.assign_peers(params[:additional_peers].split(', '), current_user)
-    render text: @feedback.peers.count + 1
+    @share_log = @feedback.assign_peers(params[:additional_peers].split(', '), current_user)
+    respond_to do |format|
+      format.js
+    end
+    # render text: @feedback.peers.count + 1
   end
 
   def destroy_notifications

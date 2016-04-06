@@ -53,6 +53,9 @@ describe 'Comment', js: true do
     find('.action.share').click
     find('#additional_peers').set new_user.user_tag
     within('#share-panel'){ find('.action .share').click }
+    within('.commenting') do
+      expect(page).to have_content("#{@other_user.full_name} added #{new_user.full_name}")
+    end
     new_comment = FactoryGirl.create(:spec_comment, feedback: @feedback, user: new_user, content: 'My first comment since being added')
     visit current_path
     within('.commenting') do

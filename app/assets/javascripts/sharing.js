@@ -179,18 +179,10 @@ $(document).ready(function(){
 
     sharePanel.find('.share').click(function(){
         var newPeers = sharePanel.find('textarea').val();
-        $.ajax({
-            type: 'POST',
-            url: '/feedbacks/' + feedbackID + '/share',
-            data: {
+        $.post('/feedbacks/' + feedbackID + '/share', {
                 'additional_peers': newPeers,
                 'id': feedbackID
-            },
-            success: function(data){
-                closeModal();
-                $('#feedback-' + feedbackID).find('.peers .number').text(data);
-            }
-        })
+            })
     });
 
 });
