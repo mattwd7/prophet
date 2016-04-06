@@ -40,6 +40,6 @@
         - if comment_or_log.is_a?(Comment)
           = render partial: 'comments/comment', locals: { comment: comment_or_log, hidden: (i - log_count < hidden_count) }
         - else
-          = render partial: 'comments/share_log', locals: { share_log: comment_or_log, hidden: (i - log_count < hidden_count) }
+          = render partial: 'feedbacks/share_log', locals: { share_log: comment_or_log, hidden: (i - log_count < hidden_count) }
 
     =render partial: 'comments/form', locals: { feedback_id: feedback.id }
