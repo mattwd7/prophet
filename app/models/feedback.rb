@@ -13,7 +13,7 @@ class Feedback < ActiveRecord::Base
   validates_presence_of :content, message: 'cannot be blank.'
   before_validation :parse_recipient
   before_save :set_defaults
-  after_create :create_notification
+  after_create :create_notification, :send_email
 
   scope :resonant, -> { where(resonance_value: 2) }
   scope :mixed, -> { where(resonance_value: 1) }
@@ -63,5 +63,9 @@ private
     user_tag = content.scan(/@\S+/).uniq.first
     self.user ||= User.find_by_user_tag(user_tag)
     self.content = self.content.sub(user_tag, '').strip if user_tag
+  end
+
+  def send_email
+    Notifier.new_feedback(self).deliver if user.mailer_settings.for('new_feedback').active?
   end
 end

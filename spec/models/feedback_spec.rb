@@ -41,6 +41,15 @@ describe Feedback do
     expect(@feedback.content).to eq('I need you to receive this content')
   end
 
+  it 'sends an email to the recipient on creation' do
+    @recipient.mailer_settings.each{|ms| ms.update_attributes(active?: false)}
+    FactoryGirl.create(:spec_feedback, user: @recipient, author: @author)
+    expect(ActionMailer::Base.deliveries.count).to eq(0)
+    @recipient.mailer_settings.each{|ms| ms.update_attributes(active?: true)}
+    FactoryGirl.create(:spec_feedback, user: @recipient, author: @author)
+    expect(ActionMailer::Base.deliveries.count).to eq(1)
+  end
+
   context 'with peers' do
     before(:each) do
       @feedback = FactoryGirl.create(:spec_full_feedback)
