@@ -28,7 +28,7 @@ describe User do
 
   it 'creates mailer settings on creation' do
     user = FactoryGirl.create(:spec_user)
-    expect(user.email_settings.count).to be > 0
+    expect(user.mailer_settings.count).to be > 0
   end
 
 

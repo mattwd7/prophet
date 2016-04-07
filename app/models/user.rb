@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
   before_save :make_proper, :generate_user_tag, :update_user_tag
-  after_create :set_email_settings
+  after_create :set_mailer_settings
 
   def full_name
     first_name + ' ' + last_name
@@ -81,8 +81,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_mail_settings(mailer_settings)
-
+  def update_mailer_settings(params)
+    mailer_settings.each do |setting|
+      setting.update_attributes(active?: !params[setting.name].nil?)
+    end
   end
 
 private
@@ -123,9 +125,9 @@ private
     base_query
   end
 
-  def set_email_settings
+  def set_mailer_settings
     MailerSetting::DEFAULT_SETTINGS.each do |setting|
-      self.email_settings.create(setting)
+      self.mailer_settings.create(setting)
     end
   end
 

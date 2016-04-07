@@ -32,7 +32,8 @@ describe 'User', js: true do
         all('input[type="checkbox"]:not(:checked)').each{|box| box.click }
         find('.submit-tag').click
       end
-      expect(@user.email_settings.map(&:active?).count(true)).to eq(@user.email_settings.count)
+      expect(page).to have_css('#general')
+      expect(@user.mailer_settings.map(&:active?).count(true)).to eq(@user.mailer_settings.count)
     end
 
   end
