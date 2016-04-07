@@ -20,6 +20,9 @@ input:not([type=checkbox]):not([type=file]) {
 }
 li { list-style-type: none; }
 
+label:hover { cursor: pointer; }
+input[type=checkbox]:hover{ cursor: pointer; }
+
 .editable:hover { cursor: pointer; }
 
 #banner {

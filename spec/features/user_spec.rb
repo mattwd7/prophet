@@ -23,6 +23,18 @@ describe 'User', js: true do
       expect(page).to have_content('Edit Profile')
     end
 
+    it 'can change email notification settings' do
+      visit edit_user_path(@user)
+      find('#settings-menu .notifications').click
+      within('#middle') do
+        expect(page).to have_content('Notifications')
+        expect(page).to have_css('input[type="checkbox"]')
+        all('input[type="checkbox"]:not(:checked)').each{|box| box.click }
+        find('.submit-tag').click
+      end
+      expect(@user.email_settings.map(&:active?).count(true)).to eq(@user.email_settings.count)
+    end
+
   end
 
 end

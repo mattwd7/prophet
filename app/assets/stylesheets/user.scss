@@ -21,7 +21,7 @@
   }
 
   .column#left {
-    .settings-menu {
+    #settings-menu {
       padding: 0;
       li {
         padding: 10px;
@@ -71,7 +71,7 @@
       padding-top: 10px;
       padding-bottom: 10px;
     }
-    & > * {
+    & > * > * {
       background: #eee;
       padding: 0 15px;
       margin: 0;
@@ -123,6 +123,10 @@
         }
       }
     }
+  }
+
+  #notifications {
+    display: none;
   }
 
 }

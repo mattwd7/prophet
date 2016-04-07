@@ -33,11 +33,11 @@
 .column#left
   = render partial: 'users/profile'
 
-  %ul.settings-menu
-    %li.selected
-      Account
+  %ul#settings-menu
+    %li.selected.general
+      General
       .chevron
-    %li
+    %li.notifications
       Notifications
       .chevron
 
@@ -51,54 +51,5 @@
 
 
 .column#middle
-  %h1 Account
-  %h2 Change your basic account settings here
-
-  .edit-user
-    = form_for @user, html: { method: :put, multipart: true } do |f|
-      %ul
-        %li
-          .label First Name
-          = f.text_field :first_name
-        %li
-          .label Last Name
-          = f.text_field :last_name
-        %li
-          .label Email
-          = f.email_field :email, autofocus: true
-        %li
-          .label Profile Photo
-          = f.file_field :avatar
-
-        - for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] do
-          %li
-            = f.hidden_field attribute, id: attribute
-
-        %li#avatar-handling
-          .previewing
-            %h4 Preview:
-            #preview-container
-              = image_tag @user.avatar.url(:large), :id => "current"
-              = image_tag @user.avatar.url(:original), :id => "preview"
-          .cropping
-            %h4 Image:
-            #cropbox
-              = image_tag @user.avatar.url(:original)
-        %li
-          .submit-tag.active Save Changes
-
-  %h1 Password Reset
-  %h2 Change your password or recover your existing one
-  = form_for @user, html: { method: :put } do |f|
-    = f.hidden_field :reset_password_token
-    %ul
-      %li
-        .label New Password
-        = f.password_field :password
-      %li
-        .label Verify Password
-        = f.password_field :password_confirmation
-      %li
-        .label
-        = link_to 'Forgot your password?', nil, tabindex: -1
-      .submit-tag.active Save Changes
+  = render partial: 'general_settings'
+  = render partial: 'notifications'

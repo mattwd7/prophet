@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    puts '!!!', params
     @user = User.find(params[:id])
     if request.xhr?
       @user.update_attributes(bio: params[:value])
@@ -27,6 +28,7 @@ class UsersController < ApplicationController
     else
       @user.assign_attributes(permitted_params)
       if @user.save
+        @user.update_mail_settings(params['mailer_settings'])
         @user.avatar.reprocess! if @user.cropping?
         redirect_to edit_user_path
       else

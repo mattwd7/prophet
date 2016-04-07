@@ -16,9 +16,11 @@ class User < ActiveRecord::Base
   has_many :managers, through: :manager_employees
   has_many :notifications
   has_many :share_logs
+  has_many :mailer_settings
 
   validates_presence_of :email
   before_save :make_proper, :generate_user_tag, :update_user_tag
+  after_create :set_email_settings
 
   def full_name
     first_name + ' ' + last_name
@@ -79,6 +81,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def update_mail_settings(mailer_settings)
+
+  end
+
 private
   def reprocess_avatar
     avatar.reprocess!
@@ -115,6 +121,12 @@ private
       base_query = base_query.where(resonance_value: values)
     end
     base_query
+  end
+
+  def set_email_settings
+    MailerSetting::DEFAULT_SETTINGS.each do |setting|
+      self.email_settings.create(setting)
+    end
   end
 
 end
