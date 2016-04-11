@@ -11,12 +11,17 @@ private
     new_resonance_value = feedback.calc_resonance_value
     if new_resonance_value > feedback.resonance_value && new_resonance_value > 0
       feedback.create_notification
+      send_email
     end
     feedback.update_attributes(resonance_value: feedback.calc_resonance_value)
   end
 
   def create_notification
     Notification.create(feedback: self.feedback, user: self.user)
+  end
+
+  def send_email
+    Notifier.feedback_resonates(self.feedback).deliver if feedback.user.mailer_settings.for('feedback_resonates').active?
   end
 
 end

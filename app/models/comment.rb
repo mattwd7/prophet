@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
   has_many :peers, through: :comment_links, source: :user
 
   validates_presence_of :content, :user_id, :feedback_id
-  after_create :create_notifications
+  after_create :create_notifications, :send_email
 
   def author; user end
 
@@ -21,6 +21,10 @@ private
     [self.feedback.peers, self.feedback.author, self.feedback.user].flatten.reject{|u| u == self.user}.each do |user|
       Notification.create(feedback: self.feedback, user: user, comment: self)
     end
+  end
+
+  def send_email
+    Notifier.new_comment(self.feedback).deliver if feedback.user.mailer_settings.for('new_comment').active?
   end
 
 end

@@ -99,10 +99,20 @@ describe Feedback do
       new_user = FactoryGirl.create(:spec_user, email: "somenewpeer@gmail.com")
       @feedback.assign_peers([new_user.user_tag], @feedback.peers.first)
       FactoryGirl.create(:spec_comment, feedback: @feedback, user: new_user, created_at: 2.minutes.from_now)
-      @feedback.reload
       expect(@feedback.share_logs.count).to eq(1)
       expect(@feedback.comment_history.count).to eq(4)
       expect(@feedback.comment_history[2].class).to eq(ShareLog)
+    end
+
+    it 'sends an email to the recipient when resonance increases' do
+      mail_count = ActionMailer::Base.deliveries.count
+      @recipient = @feedback.user
+      @recipient.mailer_settings.update_all(active?: true)
+      @feedback.feedback_links.each{|link| link.update_attributes(agree: false)}
+      @feedback.feedback_links.first.update_attributes(agree: true)
+      expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
+      @feedback.feedback_links.each{|link| link.update_attributes(agree: true)}
+      expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 2)
     end
 
   end

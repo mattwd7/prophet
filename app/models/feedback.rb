@@ -11,6 +11,7 @@ class Feedback < ActiveRecord::Base
   validates_presence_of :author_id
   validates_presence_of :user_id, message: 'Tag must be valid.'
   validates_presence_of :content, message: 'cannot be blank.'
+
   before_validation :parse_recipient
   before_save :set_defaults
   after_create :create_notification, :send_email
