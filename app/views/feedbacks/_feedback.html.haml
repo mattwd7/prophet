@@ -1,5 +1,11 @@
 - hidden ||= nil
 .feedback{ id: "feedback-#{feedback.id}", class: current_user.fresh_feedbacks.include?(feedback) ? 'fresh' : '', style: hidden ? 'display:none' : 'display:block' }
+  - if current_user.following_up?(feedback)
+    .follow-up
+      .close X
+      %h1 30-Day Follow-up
+      %h2 Its been 30 days since this feedback was posted. Please follow-up with a comment below describing whether or not you think it was addressed!
+      = render partial: 'comments/form', locals: { feedback: feedback, placeholder_text: 'Follow up...' }
   .top
     .banner
       .avatar
@@ -42,4 +48,5 @@
         - else
           = render partial: 'feedbacks/share_log', locals: { share_log: comment_or_log, hidden: (i - log_count < hidden_count) }
 
-    =render partial: 'comments/form', locals: { feedback_id: feedback.id }
+    - unless current_user.following_up?(feedback)
+      = render partial: 'comments/form', locals: { feedback: feedback }

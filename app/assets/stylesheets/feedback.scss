@@ -49,6 +49,25 @@
   &.fresh .top {
     background: rgb(255,253,162);
   }
+  .follow-up {
+    border-bottom: 1px solid #ccc;
+    background: #eee;
+    .close {
+      float: right;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    h1 {
+      font-size: 18px;
+    }
+    h2 {
+      font-size: 14px;
+      color: #aaa;
+      width: auto;
+      border: none;
+    }
+  }
   .flavor {
     vertical-align: 30px;
   }

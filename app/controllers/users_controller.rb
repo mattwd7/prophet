@@ -20,7 +20,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    puts '!!!', params
     @user = User.find(params[:id])
     if request.xhr?
       @user.update_attributes(bio: params[:value])

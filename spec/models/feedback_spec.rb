@@ -42,12 +42,13 @@ describe Feedback do
   end
 
   it 'sends an email to the recipient on creation' do
+    mail_count = ActionMailer::Base.deliveries.count
     @recipient.mailer_settings.each{|ms| ms.update_attributes(active?: false)}
     FactoryGirl.create(:spec_feedback, user: @recipient, author: @author)
-    expect(ActionMailer::Base.deliveries.count).to eq(0)
+    expect(ActionMailer::Base.deliveries.count).to eq(mail_count)
     @recipient.mailer_settings.each{|ms| ms.update_attributes(active?: true)}
     FactoryGirl.create(:spec_feedback, user: @recipient, author: @author)
-    expect(ActionMailer::Base.deliveries.count).to eq(1)
+    expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
   end
 
   context 'with peers' do

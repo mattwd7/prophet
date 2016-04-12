@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407133415) do
+ActiveRecord::Schema.define(version: 20160411142751) do
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160407133415) do
     t.boolean  "agree"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "followed_up?", default: false, null: false
   end
 
   create_table "feedbacks", force: true do |t|
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160407133415) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "resonance_value"
+    t.boolean  "followed_up?",    default: false, null: false
   end
 
   create_table "mailer_settings", force: true do |t|

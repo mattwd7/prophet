@@ -93,6 +93,10 @@
   }
 }
 
+.follow-up .comment-form textarea {
+  width: 535px;
+  max-width: 535px;
+}
 .comment-form {
   padding-top: 10px;
   & > * {

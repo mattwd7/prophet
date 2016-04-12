@@ -55,6 +55,11 @@ class Feedback < ActiveRecord::Base
     Notification.create(feedback: self, user: self.user)
   end
 
+  def follow_up
+    update_attributes(followed_up?: true)
+    Notification.create(user: user, feedback: self)
+  end
+
 private
   def set_defaults
     self.resonance_value ||= -1

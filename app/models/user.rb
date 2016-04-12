@@ -87,6 +87,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def following_up?(feedback)
+    link = feedback_links.where(feedback: feedback).first
+    if link
+      feedback.followed_up? && !link.followed_up?
+    end
+  end
+
 private
   def reprocess_avatar
     avatar.reprocess!

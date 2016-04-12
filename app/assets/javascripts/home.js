@@ -2,6 +2,7 @@ $(document).ready(function(){
     var banner = $('#banner');
 
     banner.find('.sort div').not('.bar').click(function(){
+        console.log('twice?');
         selectBannerTab($(this).attr('class'));
         var tabs = $('.sort div').not('.notifications, .bar'),
             position, marginLeft;
@@ -104,15 +105,21 @@ $(document).ready(function(){
 
 });
 
+function focusFollowUp(input){
+    $('.' + input + '-feedbacks').find('.feedback').eq(0).find('.follow-up textarea').focus();
+}
+
 function selectBannerTab(input){
     if (input === 'team'){
         $('.my-feedbacks').hide();
-        $('.all-feedbacks').show();
+        $('.team-feedbacks').show();
+        focusFollowUp(input);
     } else if (input === 'me'){
-        $('.all-feedbacks').hide();
+        $('.team-feedbacks').hide();
         $('.my-feedbacks').show();
+        focusFollowUp(input);
     } else {
-        $('.all-feedbacks').hide();
+        $('.team-feedbacks').hide();
         $('.my-feedbacks').hide();
     }
     window.scrollTo(0,0)
