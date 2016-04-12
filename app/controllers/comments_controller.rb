@@ -4,10 +4,12 @@ class CommentsController < ApplicationController
     @feedback = Feedback.find(params[:comment][:feedback_id])
     @comment = Comment.new(params.require(:comment).permit(:content, :feedback_id))
     @comment.user = current_user
-    unless @comment.save
-      flash[:error] = "Invalid Comment"
+    current_user.follow_up(@feedback) if @feedback.followed_up? && current_user.following_up?(@feedback)
+    if @comment.save
+      respond_to { |format| format.js }
+    else
+      render nothing: true
     end
-    respond_to { |format| format.js }
   end
 
   def edit

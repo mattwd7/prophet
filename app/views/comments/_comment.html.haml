@@ -14,6 +14,6 @@
             - if current_user == comment.user && comment.updated_at > 5.minutes.ago
               .edit{href: edit_comment_path(comment)}
                 %a Edit
-              .delete= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?', :remote => true }, :class => 'Comment'
+              .delete= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure you want to delete your comment?', :remote => true }, :class => 'Comment'
             .timestamp
               = "#{time_ago_in_words(comment.created_at)} ago"

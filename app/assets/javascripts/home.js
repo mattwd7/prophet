@@ -2,7 +2,6 @@ $(document).ready(function(){
     var banner = $('#banner');
 
     banner.find('.sort div').not('.bar').click(function(){
-        console.log('twice?');
         selectBannerTab($(this).attr('class'));
         var tabs = $('.sort div').not('.notifications, .bar'),
             position, marginLeft;

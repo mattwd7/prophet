@@ -94,6 +94,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def follow_up(feedback)
+    link = feedback_links.where(feedback: feedback).first
+    link.update_attributes(followed_up?: true) if link
+  end
+
 private
   def reprocess_avatar
     avatar.reprocess!
