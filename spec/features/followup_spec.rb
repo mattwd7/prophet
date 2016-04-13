@@ -31,14 +31,14 @@ describe 'Feedback followup' do
   context 'in browser', js: true do
     before(:each) do
       @feedback.update_attributes(created_at: 30.days.ago - 1.minute)
-      @peer = @feedback.peers.first
       Periodic.follow_ups
+      @peer = @feedback.peers.first
       log_in_with(@peer.email, 'password')
     end
 
     it 'hides normal commenting and creates a new css element at the top of the feedback for commenting' do
       find('.sort .team').click
-      within(first('.feedback')) do
+      within('#feedback-' + @feedback.id.to_s) do
         expect(page).to have_css('.follow-up')
         expect(page).to have_content('30-Day Follow-up')
         within('.follow-up') do

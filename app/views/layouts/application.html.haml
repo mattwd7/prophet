@@ -29,7 +29,7 @@
             .manager Manager
           - if current_user.type == 'Admin'
             .admin Admin
-          .bar
+          .bar{ style: me_selected ? '' : 'margin-left: 25.5%' }
 
       - else
         = form_for :user, url: session_path(:user), html: { id: 'sign-in' } do |f|
