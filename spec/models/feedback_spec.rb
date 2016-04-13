@@ -98,7 +98,7 @@ describe Feedback do
     it 'has a comment history including share logs' do
       @feedback.comments.update_all(created_at: 2.minutes.ago)
       new_user = FactoryGirl.create(:spec_user, email: "somenewpeer@gmail.com")
-      @feedback.assign_peers([new_user.user_tag], @feedback.peers.first)
+      @feedback.create_peer_links([new_user.user_tag], @feedback.peers.first)
       FactoryGirl.create(:spec_comment, feedback: @feedback, user: new_user, created_at: 2.minutes.from_now)
       expect(@feedback.share_logs.count).to eq(1)
       expect(@feedback.comment_history.count).to eq(4)
@@ -110,7 +110,7 @@ describe Feedback do
       @recipient = @feedback.user
       @recipient.mailer_settings.update_all(active?: true)
       @feedback.feedback_links.each{|link| link.update_attributes(agree: false)}
-      @feedback.feedback_links.first.update_attributes(agree: true)
+      @feedback.feedback_links.first(2).each{|link| link.update_attributes(agree: true)}
       expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
       @feedback.feedback_links.each{|link| link.update_attributes(agree: true)}
       expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 2)

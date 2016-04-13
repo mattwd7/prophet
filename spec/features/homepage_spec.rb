@@ -143,7 +143,7 @@ describe 'User', js: true do
         sleep 1
         @team1.reload
         expect(@team1.peers_in_agreement.count).to eq(agree_count)
-        expect(page).to have_content(agree_count + 1)
+        expect(page).to have_content(agree_count)
       end
     end
 

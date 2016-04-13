@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def team_feedbacks(resonance=nil)
-    query = Feedback.joins(:feedback_links).where("feedback_links.user_id = ?", self.id).joins("left join notifications on feedbacks.id = notifications.feedback_id").order('notifications.created_at DESC').group('feedbacks.id')
+    query = Feedback.joins(:feedback_links).where("feedbacks.author_id <> ? and feedback_links.user_id = ?", self.id, self.id).joins("left join notifications on feedbacks.id = notifications.feedback_id").order('notifications.created_at DESC').group('feedbacks.id')
     apply_filter(query, resonance)
   end
 

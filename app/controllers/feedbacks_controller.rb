@@ -4,7 +4,7 @@ class FeedbacksController < ApplicationController
     @errors = []
     @feedback = Feedback.new(params.require(:feedback).permit(:author_id, :content))
     if @feedback.save
-      @feedback.assign_peers(params[:peers].split(', ')) if params[:peers]
+      @feedback.create_peer_links(params[:peers].split(', ')) if params[:peers]
     else
       @errors.push(@feedback.errors.full_messages)
     end
@@ -22,11 +22,10 @@ class FeedbacksController < ApplicationController
 
   def share
     @feedback = Feedback.find(params[:id])
-    @share_log = @feedback.assign_peers(params[:additional_peers].split(', '), current_user)
+    @share_log = @feedback.create_peer_links(params[:additional_peers].split(', '), current_user)
     respond_to do |format|
       format.js
     end
-    # render text: @feedback.peers.count + 1
   end
 
   def destroy_notifications
@@ -37,7 +36,7 @@ class FeedbacksController < ApplicationController
 
   def peers_in_agreement
     @feedback = Feedback.find(params[:id])
-    peers = autocomplete_attributes([@feedback.peers_in_agreement, @feedback.author].flatten)
+    peers = autocomplete_attributes(@feedback.peers_in_agreement)
     respond_to do |format|
       format.json { render json: peers.to_json }
     end
@@ -46,9 +45,9 @@ class FeedbacksController < ApplicationController
   def peers
     @feedback = Feedback.find(params[:id])
     if params[:type] && params[:type] == 'Agree'
-      peers = autocomplete_attributes([@feedback.peers_in_agreement, @feedback.author].flatten)
+      peers = autocomplete_attributes(@feedback.peers_in_agreement)
     else
-      peers = autocomplete_attributes([@feedback.peers, @feedback.author].flatten)
+      peers = autocomplete_attributes(@feedback.peers)
     end
     respond_to do |format|
       format.json { render json: peers.to_json }

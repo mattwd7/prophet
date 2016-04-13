@@ -32,12 +32,28 @@ describe 'Feedback followup' do
     before(:each) do
       @feedback.update_attributes(created_at: 30.days.ago - 1.minute)
       Periodic.follow_ups
-      @peer = @feedback.peers.first
-      log_in_with(@peer.email, 'password')
+      @peer = @feedback.peers.last
+      @author = @feedback.author
     end
 
     it 'hides normal commenting and creates a new css element at the top of the feedback for commenting' do
+      log_in_with(@peer.email, 'password')
       find('.sort .team').click
+      within('#feedback-' + @feedback.id.to_s) do
+        expect(page).to have_css('.follow-up')
+        expect(page).to have_content('30-Day Follow-up')
+        within('.follow-up') do
+          expect(page).to have_css('textarea')
+          find('textarea').set "You've really progressed. Good show!"
+          find('.submit-tag').click
+        end
+        expect(page).to have_content('Thank you for following up!')
+      end
+    end
+
+    it 'displays follow-up for author' do
+      log_in_with(@author.email, 'password')
+      find('.sort .me').click
       within('#feedback-' + @feedback.id.to_s) do
         expect(page).to have_css('.follow-up')
         expect(page).to have_content('30-Day Follow-up')

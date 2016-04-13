@@ -14,7 +14,7 @@ class Feedback < ActiveRecord::Base
 
   before_validation :parse_recipient
   before_save :set_defaults
-  after_create :create_notification, :send_email
+  after_create :set_author_as_peer, :create_notification, :send_email
 
   scope :resonant, -> { where(resonance_value: 2) }
   scope :mixed, -> { where(resonance_value: 1) }
@@ -33,7 +33,7 @@ class Feedback < ActiveRecord::Base
     User.joins(:feedback_links).where("feedback_links.feedback_id = ? and agree = ?", id, true)
   end
 
-  def assign_peers(peer_tags, assigner=nil)
+  def create_peer_links(peer_tags, assigner=nil)
     names = []
     peer_tags.each do |peer_tag|
       user = User.find_by_user_tag(peer_tag)
@@ -63,6 +63,10 @@ class Feedback < ActiveRecord::Base
 private
   def set_defaults
     self.resonance_value ||= -1
+  end
+
+  def set_author_as_peer
+    FeedbackLink.create(feedback: self, user: self.author, agree: true)
   end
 
   def parse_recipient

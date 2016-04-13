@@ -39,7 +39,7 @@ describe 'Notifications', js: true do
     expect(@user1.my_notifications.count).to eq(0)
     expect(@user1.team_notifications.count).to eq(1)
     expect(@other_user.my_notifications.count).to eq(1)
-    expect(Notification.count).to eq(2)
+    expect(Notification.count).to eq(3)
     within('.sort .team'){ expect(page).to have_content(1) }
   end
 
@@ -52,18 +52,18 @@ describe 'Notifications', js: true do
     expect(@user1.my_notifications.count).to eq(1)
     expect(@other_user.team_notifications.count).to eq(0) # the commenter does not receive a notification for his own post
     expect(@author.my_notifications.count).to eq(1)
-    expect(Notification.count).to eq(2)
+    expect(Notification.count).to eq(3)
   end
 
   context 'properly managed' do
     before(:each) do
       @feedback = FactoryGirl.create(:spec_feedback, author: @author, user: @user1, content: 'first feedback')
       FactoryGirl.create(:spec_feedback_link, user: @other_user, feedback: @feedback)
-      expect(Notification.count).to eq(2)
+      expect(Notification.count).to eq(3)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
-      expect(Notification.count).to eq(8)
+      expect(Notification.count).to eq(12)
       visit current_path
     end
 
@@ -110,8 +110,9 @@ describe 'Notifications', js: true do
       scroll_to_bottom
       expect(@user1.my_notifications.count).to eq(0)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
+      sleep 1
       visit current_path
-      within(all('.feedback')[0]){ expect(page).to have_content('first feedback') }
+      within(all('.feedback')[0]){ expect(page).to have_content(@feedback.content) }
     end
 
     it 'identifies fresh comments', no_webkit: true do

@@ -25,9 +25,12 @@ describe 'Manager', js: true do
   context 'on the Manager tab' do
     before(:each) do
       @author = FactoryGirl.create(:spec_user, email: 'author@gmail.com')
-      @feedback1 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Most resonant', resonance_value: 2)
-      @feedback2 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Something mixed', resonance_value: 1)
-      @feedback3 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Pretty well isolated', resonance_value: 0)
+      @feedback1 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Most resonant')
+      @feedback2 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Something mixed')
+      @feedback3 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Pretty well isolated')
+      Feedback.all.each_with_index do |feedback, i|
+        feedback.update_attributes(resonance_value: 2 - i)
+      end
       find('.sort .manager').click
     end
 
@@ -82,9 +85,9 @@ describe 'Manager', js: true do
       expect(page).to have_css('#viewing-as', text: @employee2.full_name)
 
       filter_resonance('resonant')
-      expect(page).to have_content(@feedback1.content)
       expect(page).to_not have_content(@feedback2.content)
       expect(page).to_not have_content(@feedback3.content)
+      expect(page).to have_content(@feedback1.content)
       filter_resonance('resonant') # toggle off
       filter_resonance('mixed')
       expect(page).to_not have_content(@feedback1.content)

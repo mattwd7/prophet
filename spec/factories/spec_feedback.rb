@@ -7,6 +7,7 @@ FactoryGirl.define do
   end
 
   factory :spec_full_feedback, class: Feedback do
+    # Resonance Numbers: 3/4
     content "I'm the feedback content, look at me!"
     after(:build) do |f|
       if f.user_id.nil?

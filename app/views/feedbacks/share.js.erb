@@ -2,4 +2,4 @@ closeModal();
 var html = "<%= escape_javascript(render partial: 'feedbacks/share_log', locals: { share_log: @share_log } ) %>";
 var feedback_id = <%= @feedback.id %>;
 $('#feedback-' + feedback_id).find(".comments").append(html);
-$('#feedback-' + feedback_id).find('.peers .number').text(<%= @feedback.peers.count + 1 %>);
+$('#feedback-' + feedback_id).find('.peers .number').text(<%= @feedback.peers.count %>);

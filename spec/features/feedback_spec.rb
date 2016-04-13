@@ -8,13 +8,13 @@ describe 'Feedback', js: true do
   end
 
   it 'displays the peer agreement numbers' do
-    expect(page).to have_content(@feedback.peers_in_agreement.count + 1)
-    expect(page).to have_content(@feedback.peers.count + 1)
+    expect(page).to have_content(@feedback.peers_in_agreement.count)
+    expect(page).to have_content(@feedback.peers.count)
   end
 
   it 'displays the appropriate flavor text' do
-    expect(@feedback.peers_in_agreement.count).to eq(2)
-    expect(@feedback.peers.count).to eq(3)
+    expect(@feedback.peers_in_agreement.count).to eq(3)
+    expect(@feedback.peers.count).to eq(4)
     expect(page).to have_content('RESONANT')
     @feedback.feedback_links.first.update_attributes(agree: false)
     visit root_path
@@ -47,7 +47,7 @@ describe 'Feedback', js: true do
     @feedback.reload
     expect(@feedback.peers.count).to eq(peer_count + 2)
     within("#feedback-#{@feedback.id}") do
-      expect(page).to have_css('.peers .number', text: peer_count + 3) # +1 for author
+      expect(page).to have_css('.peers .number', text: peer_count + 2)
     end
   end
 
@@ -58,13 +58,13 @@ describe 'Feedback', js: true do
       FactoryGirl.create(:spec_feedback_link, user: user, feedback: @feedback)
     end
     @feedback.reload
-    expect(@feedback.peers.count).to eq(103)
-    within("#feedback-#{@feedback.id}"){ find('.action.share').hover }
+    expect(@feedback.peers.count).to eq(104)
+    visit current_path
+    within("#feedback-#{@feedback.id}"){ find('.vote.peers').hover } # DOESN'T WORK :(
     @feedback.peers.first(20) do |peer|
       expect(page).to have_content(peer.full_name)
     end
-    expect(page).to_not have_content(@feedback.peers.all[20].full_name)
-    expect(page).to have_content('and 83 more...')
+    expect(page).to have_content('And 85 more...')
   end
 
   it 'lists current peers or peers in agreement in a modal when you click the corresponding vote bubble' do
