@@ -110,6 +110,7 @@ describe 'Notifications', js: true do
       scroll_to_bottom
       expect(@user1.my_notifications.count).to eq(0)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
+      expect(@user1.my_notifications.count).to eq(1)
       sleep 1
       visit current_path
       within(all('.feedback')[0]){ expect(page).to have_content(@feedback.content) }
