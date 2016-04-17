@@ -42,6 +42,15 @@ class FeedbacksController < ApplicationController
     end
   end
 
+  def merge
+    @feedback_1 = Feedback.find(params['feedback_1_id'])
+    @feedback_2 = Feedback.find(params['feedback_2_id'])
+    respond_to do |format|
+      # format.html
+      format.js
+    end
+  end
+
   def peers
     @feedback = Feedback.find(params[:id])
     if params[:type] && params[:type] == 'Agree'

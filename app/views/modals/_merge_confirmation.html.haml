@@ -1,0 +1,28 @@
+- feedback_1 ||= nil
+- feedback_2 ||= nil # merge target
+.modal#merge-confirmation
+  .header
+    .text Merge
+    .close x
+  .top
+    %h2
+      Feedback merging is IRREVERSIBLE! Merging these feedbacks will combine their peer lists and comment threads into a single,
+      bigger thread. This is an organizational tool for combining feedbacks sent to you about the same thing.
+
+  - [feedback_1, feedback_2].each_with_index do |feedback, index|
+    .merge-feedback.feedback{ class: index == 1 ? 'merge-target' : '' }
+      .banner
+        .avatar
+          = image_tag feedback.author.avatar.url(:large)
+        .data
+          .address= address_info(feedback, current_user)
+          .stats= "#{pluralize(feedback.comments.count, 'comment')}, #{pluralize(feedback.peers.count, 'peer')}"
+          .timestamp= "#{time_ago_in_words(feedback.created_at)} ago"
+      .content
+        = simple_format(feedback.content)
+    - if index == 0
+      .into INTO
+
+  .actions
+    .submit-tag{ tabindex: 0 } Merge
+    .cancel{ tabindex: 0 } Cancel

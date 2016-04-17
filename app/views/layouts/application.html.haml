@@ -57,7 +57,8 @@
 
   - # Overlays
   - if current_user
-    = render partial: 'feedbacks/share_panel'
-    = render partial: 'feedbacks/share_list'
+    = render partial: 'modals/share_panel'
+    = render partial: 'modals/share_list'
+    = render partial: 'modals/merge_confirmation', locals: { feedback_1: Feedback.all[0], feedback_2: Feedback.all[1] }
     = render partial: 'popovers/session_options'
     = render partial: 'popovers/error_messages'

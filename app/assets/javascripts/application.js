@@ -59,3 +59,7 @@ function closeModal(){
     $('.modal').hide();
     $('body').children().removeClass('blur');
 }
+
+function getRecordID(elem){
+    return $(elem).attr('id').match(/\d+/)[0];
+}

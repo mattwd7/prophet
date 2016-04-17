@@ -2,7 +2,7 @@
 .feedback{ id: "feedback-#{feedback.id}", class: current_user.fresh_feedbacks.include?(feedback) ? 'fresh' : '', style: hidden ? 'display:none' : 'display:block' }
   - if current_user.following_up?(feedback)
     .follow-up
-      .close X
+      .close x
       %h1 30-Day Follow-up
       %h2 Its been 30 days since this feedback was posted. Please follow-up with a comment below describing whether or not you think it was addressed!
       = render partial: 'comments/form', locals: { feedback: feedback, placeholder_text: 'Follow up...' }
@@ -16,13 +16,13 @@
       - if feedback.author != feedback.user
         .score
           .flavor= flavor_text(feedback)
-          .votes{ class: feedback.user != current_user  && current_user.is_peer?(feedback) ? 'active' : nil }
+          .votes
             = vote_numbers(feedback, current_user)
     .content
       = simple_format(feedback.content)
     %table.actions
       %tr
-        - if current_user.is_peer?(feedback)
+        - if current_user.can_vote?(feedback)
           %td.action.agree{ class: current_user.agrees_with(feedback) ? 'selected' : nil, 'data-action' => vote_feedback_path(feedback) }
             .icon
             .name
@@ -30,11 +30,16 @@
         %td.action.leave-comment
           .icon
           .name
-            = "Comment"
+            Comment
         %td.action.share
           .icon
           .name
             Share
+        - if feedback.author != current_user
+          %td.action.merge
+            .icon
+            .name
+              Merge
 
   .commenting
     .comments

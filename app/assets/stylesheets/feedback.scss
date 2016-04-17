@@ -200,6 +200,9 @@
       &.share .icon {
         background-image: url('share_icon.png');
       }
+      &.merge .icon {
+        background-image: url('merge_icon.png');
+      }
     }
     .agree, .peers {
       background: transparent;

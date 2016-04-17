@@ -34,6 +34,9 @@ Rails.application.routes.draw do
       get :peers_in_agreement
       get :peers
     end
+    collection do
+      post :merge
+    end
   end
 
   resources :comments do

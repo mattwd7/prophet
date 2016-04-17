@@ -1,0 +1,67 @@
+.drag-backdrop {
+  opacity: 0.3;
+}
+
+.drop-target {
+  background: red;
+}
+
+.hover-target {
+  background: green;
+}
+
+#merge-confirmation {
+  display: block;
+  h2 {
+    margin: 0;
+    padding: 10px 15px;
+    width: auto;
+    font-size: 12px;
+    color: #aaa;
+    background: #eee;
+  }
+  .into {
+    position: absolute;
+    top: 245px;
+    background: #fbf9f9;
+    left: 225px;
+    padding: 5px;
+    z-index: 10;
+  }
+  .feedback {
+    width: auto;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0;
+    &.merge-target {
+      padding-top: 10px;
+    }
+    .data {
+      width: 85%;
+      .stats {
+        font-family: 'avenir';
+        float: right;
+        color: #aaa;
+        font-size: 12px;
+      }
+    }
+  }
+  .actions {
+    & > * {
+      margin: 10px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .cancel {
+      opacity: .7;
+      background: #ccc;
+      color: white;
+      padding: 5px 40px;
+      border-radius: 8px;
+      font-size: 20px;
+      width: 50px;
+      float: right;
+    }
+  }
+}
