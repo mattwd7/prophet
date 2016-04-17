@@ -3,7 +3,7 @@
 }
 
 .drop-target {
-  background: red;
+  border: 5px dashed black;
 }
 
 .hover-target {
@@ -49,12 +49,12 @@
   .actions {
     & > * {
       margin: 10px;
+      opacity: 1;
       &:hover {
         cursor: pointer;
       }
     }
     .cancel {
-      opacity: .7;
       background: #ccc;
       color: white;
       padding: 5px 40px;

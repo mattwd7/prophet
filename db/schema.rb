@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411142751) do
+ActiveRecord::Schema.define(version: 20160417214014) do
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -38,7 +38,11 @@ ActiveRecord::Schema.define(version: 20160411142751) do
     t.datetime "updated_at"
     t.integer  "resonance_value"
     t.boolean  "followed_up?",    default: false, null: false
+    t.boolean  "merged?",         default: false
+    t.string   "merge_ids"
   end
+
+  add_index "feedbacks", ["merged?"], name: "index_feedbacks_on_merged?", using: :btree
 
   create_table "mailer_settings", force: true do |t|
     t.integer  "user_id"

@@ -3,25 +3,16 @@ $(document).ready(function(){
     var backdrop_elements = $("#banner, .column#left, .column#middle > *:not(#feedbacks), .feedback"),
         feedbacks = $('.feedback'),
         feedback_1_id = null,
-        feedback_2_id = null;
+        feedback_2_id = null,
+        revert_duration = 500;
 
 
     feedbacks.draggable({
         addClasses: false,
         handle: '.action.merge',
         zIndex: 1000,
-        revert: function(socketObj) {
-            if (socketObj === false) {
-                console.log(socketObj);
-                // Drop was rejected, revert the helper.
-                var $helper = $("#mydrag");
-                $helper.fadeOut("slow").animate($helper.originalPosition);
-                return true;
-            } else {
-                // Drop was accepted, don't revert.
-                return false;
-            }
-        },
+        revertDuration: revert_duration,
+        revert: 'invalid',
         start: function(event, ui){
             backdrop_elements.not($(this)).addClass('drag-backdrop');
             feedbacks.not($(this)).addClass('drop-target');
@@ -43,15 +34,26 @@ $(document).ready(function(){
                 data: {'feedback_1_id': feedback_1_id, 'feedback_2_id': feedback_2_id}
             })
         }
-    })
+    });
 
-    $('#merge-confirmation').find('.submit-tag').click(function(){
+    $(document).on('click', '#merge-confirmation .submit-tag', function(){
         $.ajax({
             method: 'post',
             url: '/feedbacks/merge',
-            data: {'feedback_1_id': feedback_1_id, 'feedback_2_id': feedback_2_id}
+            data: {'feedback_1_id': feedback_1_id, 'feedback_2_id': feedback_2_id, 'perform_merge': true}
         })
-    })
+    });
+
+    $(document).on('click', '#merge-confirmation .close, #merge-confirmation .cancel', function(){
+        revert_feedback(feedback_1_id);
+    });
+
+    function revert_feedback(feedback_id){
+        $('#feedback-' + feedback_id).animate({
+            top: 0,
+            left: 0
+        }, revert_duration)
+    }
 
 
 });
