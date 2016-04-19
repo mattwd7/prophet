@@ -204,4 +204,63 @@ margin-bottom: 4px;
   padding-left:0px;
 }
 
+.modal {
+  border: 1px solid #D3D3D3;
+  border-radius: 8px;
+  width: 500px;
+  background: white;
+  position: fixed;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 200px;
+  z-index: 100;
+  display: none;
+  .header {
+    background: #8BC34A;
+    color: white;
+    font-size: 24px;
+    font-family: 'Avenir';
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    padding: 10px;
+    & > * {
+      display: inline-block;
+    }
+    .text {
+      font-size: inherit;
+      padding-left: 6px;
+    }
+    .close {
+      float: right;
+      font-size: inherit;
+      margin-top: -6px;
+      padding-right: 6px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+    .action {
+    margin: 20px 0 10px 260px;
+    width: 230px;
+    & > * {
+      display: inline-block;
+      background: #8BC34A;
+      color: white;
+      border-radius: 6px;
+      padding: 5px 30px;
+      font-size: 20px;
+      width: 50px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .cancel {
+      background: #ccc;
+      color: white;
+    }
+  }
+}
+
 
