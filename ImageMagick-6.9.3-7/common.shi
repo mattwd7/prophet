@@ -1,0 +1,21 @@
+# Test environment
+top_srcdir='/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7'
+top_builddir='/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7'
+
+set -a
+COMPARE="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/utilities/compare"
+COMPOSITE="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/utilities/composite"
+CONJURE="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/utilities/conjure"
+CONVERT="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/utilities/convert"
+DISPLAY="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/utilities/display"
+IDENTIFY="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/utilities/identify"
+MONTAGE="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/utilities/montage" 
+VALIDATE="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/tests/validate"
+DRAWTEST="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/tests/drawtest"
+WANDTEST="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/tests/wandtest"
+LD_LIBRARY_PATH="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/magick/.libs:${LD_LIBRARY_PATH}"
+MAGICK_CODER_MODULE_PATH="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/coders"
+MAGICK_CONFIGURE_PATH="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/config:/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/config"
+MAGICK_FILTER_MODULE_PATH="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/filters"
+PATH="/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/utilities:/Users/adecino/Desktop/prophet/ImageMagick-6.9.3-7/tests:${PATH}"
+set +a

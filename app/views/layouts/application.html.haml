@@ -20,11 +20,11 @@
           .me{class: me_selected ? 'selected' : '' }
             .notifications{ style: "visibility: #{current_user.my_notifications.count < 1 ? 'hidden' : ''}" }
               = current_user.my_notifications.count
-            Me
+            Home
           .team{class: me_selected ? '' : 'selected' }
             .notifications{ style: "visibility: #{current_user.team_notifications.count < 1 ? 'hidden' : ''}" }
               = current_user.team_notifications.count
-            Team
+            Me
           - if current_user.type == 'Manager'
             .manager Manager
           - if current_user.type == 'Admin'

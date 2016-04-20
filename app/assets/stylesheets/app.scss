@@ -109,7 +109,10 @@ input[type=checkbox]:hover{ cursor: pointer; }
     width: 500px;
     margin-left: 400px;
     padding-top: 7px;
-    font-size: 20px;
+    font-size: 30px;
+    font-weight: 100;
+    font-family: Avenir LT Std;
+    letter-spacing: .02em;
     & > *:not(.bar) {
       display: inline-block;
       padding: 5px 0;
@@ -122,21 +125,22 @@ input[type=checkbox]:hover{ cursor: pointer; }
     }
     .notifications {
       position: relative;
-      background: rgb(1, 47, 14);
+      background: #33691E;
       border-radius: 50%;
       height: 20px;
       width: 20px;
       color: white;
-      font-size: 15px;
+      font-size: 11px;
       line-height: 23px;
-      left: 100px;
+      left: 123px;
+      top: 25px;
     }
     .bar {
-      margin-top: 5px;
-      width: 24%;
-      height: 1px;
+      margin-top: -5px;
+      width: 18%;
+      height: 2px;
       background-color: #fff;
-      margin-left: 0;
+      margin-left: 16px;
       transition: all .4s ease-in-out;
       &.slide1 {
         margin-left: 33%;
@@ -185,14 +189,24 @@ input[type=checkbox]:hover{ cursor: pointer; }
 
 .resonant {
   color: #33691E;
+  font-size: 14px;
 }
 .mixed {
   color: #8BC34A;
+  font-size: 14px;
 }
 .isolated {
-  color: #ccc;
+  color: #C3BBBB;
+  font-size: 14px;
 }
 
+#h2_Resonance {
+  border-bottom: 1px solid #ccc;
+  font-weight: light;
+  font-size: 18px;
+  width: 230px;
+  margin: 10px auto;
+}
 
 #user_password {
 margin-bottom: 4px;

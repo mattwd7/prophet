@@ -249,12 +249,14 @@
       }
     }
     .content {
-      margin-top: 5px;
+      margin-top: 0px;
       textarea {
         width: 530px;
         max-width: 530px;
         height: 40px;
         left: 60px;
+        letter-spacing: .01em;
+        font-size: 18px;
       }
     }
   }
@@ -264,6 +266,7 @@
       width: 450px;
       max-width: 450px;
       height: 30px;
+      letter-spacing: .01em;
     }
     .submit {
       display: inline-block;
