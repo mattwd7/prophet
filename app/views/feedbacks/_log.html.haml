@@ -7,5 +7,5 @@
           = image_tag 'share_icon.png'
         %td
           .content
-            %span.text= "#{share_log.user.full_name} added #{share_log.names.to_sentence}"
-            %span.timestamp= time_ago_in_words(share_log.created_at)
+            %span.text= log.content
+            %span.timestamp= time_ago_in_words(log.created_at)

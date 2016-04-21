@@ -40,7 +40,7 @@ describe 'Merge feedback' do
     end
 
     it 'creates a merge log in the comments' do
-
+      expect(@merged_feedback.logs.count).to eq(1)
     end
 
     it 'no longer includes original feedbacks in query' do

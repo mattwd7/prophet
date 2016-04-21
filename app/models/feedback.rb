@@ -6,7 +6,7 @@ class Feedback < ActiveRecord::Base
   has_many :feedback_links
   has_many :peers, through: :feedback_links, source: :user
   has_many :notifications
-  has_many :share_logs
+  has_many :logs
 
   validates_presence_of :author_id
   validates_presence_of :user_id, message: 'Tag must be valid.'
@@ -41,7 +41,7 @@ class Feedback < ActiveRecord::Base
       names << user.full_name
       FeedbackLink.create(feedback: self, user: user)
     end
-    self.share_logs.create(user: assigner, names: names) if assigner
+    self.logs.create(type: "ShareLog", user: assigner, names: names) if assigner
   end
 
   def fresh_comments(user)
@@ -49,7 +49,7 @@ class Feedback < ActiveRecord::Base
   end
 
   def comment_history
-   (comments + share_logs).sort{|a,b| a.created_at <=> b.created_at }
+   (comments + logs).sort{|a,b| a.created_at <=> b.created_at }
   end
 
   def create_notification

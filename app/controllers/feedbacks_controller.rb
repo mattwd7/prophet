@@ -22,7 +22,7 @@ class FeedbacksController < ApplicationController
 
   def share
     @feedback = Feedback.find(params[:id])
-    @share_log = @feedback.create_peer_links(params[:additional_peers].split(', '), current_user)
+    @log = @feedback.create_peer_links(params[:additional_peers].split(', '), current_user)
     respond_to do |format|
       format.js
     end
