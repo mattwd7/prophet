@@ -36,7 +36,7 @@ $(document).ready(function(){
 
     function createTag(name, type){
         var klass = name.toLowerCase();
-        var newTag = "<div class='filter-tag'><div class='text " + klass + "'>" + formattedTag(name) + "</div><div class='delete'>x</div></div>";
+        var newTag = "<div class='filter-tag'><div class='text " + klass + "'>" + formattedTag(name) + "</div><div class='delete'>X</div></div>";
         $('#filter-tags .resonance-tags').append(newTag);
         filters.resonance.push(name);
         filterFeedbacks();

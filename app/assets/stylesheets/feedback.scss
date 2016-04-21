@@ -7,9 +7,10 @@
   opacity: .7;
   background: #8BC34A;
   color: white;
-  padding: 5px 40px;
+  padding: 5px 30px;
+  margin-top: 5px;
   border-radius: 8px;
-  font-size: 20px;
+  font-size: 18px;
   width: 50px;
   float: right;
   &.active {
@@ -44,7 +45,7 @@
   margin-bottom: 20px;
   background: rgb(251, 249, 249);
   & > * {
-  padding: 10px 15px;
+  padding: 10px 15px 5px 15px;
   }
   &.fresh .top {
     background: rgb(255,253,162);
@@ -70,6 +71,7 @@
   }
   .flavor {
     vertical-align: 30px;
+    font-size: 20px;
   }
   .votes {
     .vote {
@@ -100,6 +102,8 @@
         font-size: 12px;
         text-align: center;
         margin-left: 12px;
+        font-family: Avenir;
+        font-weight: 600;
       }
       &.agree {
         .number { background: #33691E; }
@@ -126,6 +130,7 @@
     .data {
       font-family: 'Avenir-Heavy';
       margin-left: 10px;
+      margin-top: 6px;
       font-size: 20px;
       .timestamp {
         font-family: 'Avenir-Roman';
@@ -135,6 +140,7 @@
     }
     .score {
       float: right;
+      margin-top: -5px;
       & * {
         display: inline-block;
       }
@@ -144,7 +150,7 @@
     padding-top: 0;
     font-size: 20px;
     clear: both;
-    margin: 15px 0;
+    margin: 15px 0 -8px 0;
   }
   .tags {
     .tag {
@@ -160,7 +166,7 @@
     border-top: 1px solid #999;
     width: 600px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 10px 0px 2px 0px;
     color: #777;
     td {
       width: 25%;
@@ -170,10 +176,15 @@
       }
       & > * {
         display: inline-block;
+        font-size: 20px;
+        font-family: Avenir;
+        font-weight: 600;
+        padding-left: 3px;
+        color: #989898;
       }
       .icon {
-        height: 25px;
-        width: 25px;
+        height: 30px;
+        width: 30px;
         display: inline-block;
         vertical-align: bottom;
         background-repeat: no-repeat;
