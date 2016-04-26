@@ -45,9 +45,9 @@ class FeedbacksController < ApplicationController
   def merge
     @feedback_1 = Feedback.find(params['feedback_1_id'])
     @feedback_2 = Feedback.find(params['feedback_2_id'])
-    @perform_merge = params[:perform_merge]
-    if @perform_merge
-      # merge logic
+    if params[:perform_merge]
+      # @merged_feedback = Feedback.first
+      @merged_feedback = MergeManager.new(@feedback_1, @feedback_2).merge
     end
     respond_to do |format|
       format.js

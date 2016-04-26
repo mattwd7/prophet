@@ -12,6 +12,7 @@ class MergeManager
       new_link.feedback = merged_feedback
       new_link.save
     end
+    # TODO: start comments with the content of the other feedback (and some indicator)
     Comment.where(feedback: [@feedback_1, @feedback_target]).each do |comment|
       new_comment = comment.dup
       new_comment.feedback = merged_feedback

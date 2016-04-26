@@ -4,7 +4,8 @@ require 'merge_manager'
 describe 'Merge feedback' do
   before(:each) do
     @user = FactoryGirl.create(:spec_user)
-    @feedback1 = FactoryGirl.create(:spec_full_feedback, user: @user, content: "You suck!")
+    @author1 = FactoryGirl.create(:spec_user, email: 'author1@gmail.com')
+    @feedback1 = FactoryGirl.create(:spec_full_feedback, user: @user, author: @author1, content: "You suck!")
     @author2 = FactoryGirl.create(:spec_user, email: 'author2@gmail.com')
     @feedback2 = FactoryGirl.create(:spec_full_feedback, user: @user, author: @author2, content: "Man, you REALLY suck!")
     # 2 non-unique peers
@@ -21,6 +22,26 @@ describe 'Merge feedback' do
     end
     [@feedback1, @feedback2].each do |f|
       within("#feedback-#{f.id}"){ expect(page).to have_css('.action.merge') }
+    end
+  end
+
+  it 'replaces the merge-target feedback with the new, merged feedback', js: true do
+    @user.reload
+    expect(@user.feedbacks.count).to eq(2)
+    expect(@user.my_feedbacks.count.count).to eq(2)
+    log_in_with(@user.email, 'password')
+    feedback1_handle = find("#feedback-#{@feedback1.id} .action.merge")
+    expect(page).to have_css("#feedback-#{@feedback2.id} .top .content", count: 1)
+    feedback1_handle.drag_to find("#feedback-#{@feedback2.id} .top .content")
+    expect(page).to have_css('.modal#merge-confirmation')
+    within('#merge-confirmation'){ find('.submit-tag').click }
+    expect(page).to_not have_css("#feedback-#{@feedback1.id}")
+    expect(page).to_not have_css("#feedback-#{@feedback2.id}")
+    merged_feedback = @user.feedbacks.last
+    expect(page).to have_css("#feedback-#{merged_feedback.id}")
+    expect(page).to_not have_css('.modal#merge-confirmation')
+    within("#feedback-#{merged_feedback.id}") do
+      expect(page).to have_content('merged another feedback')
     end
   end
 
@@ -51,8 +72,5 @@ describe 'Merge feedback' do
     it 'can be reverted by a sys admin'
 
   end
-
-  # Scratch this -- drop in some of the model logic testing instead.
-    # it 'by dragging a feedback by the merge icon and dropping into another feedback and confirming the modal'
 
 end

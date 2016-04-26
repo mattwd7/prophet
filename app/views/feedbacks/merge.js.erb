@@ -1,5 +1,12 @@
-<% if @perform_merge %>
-    console.log('Merge it up!');
+<% if @merged_feedback %>
+    var feedback1 = $('#feedback-' + <%= @feedback_1.id %>),
+        feedback2 = $('#feedback-' + <%= @feedback_2.id %>);
+        html = "<%= escape_javascript(render partial: 'feedback', locals: { feedback: @merged_feedback } ) %>";
+
+    $(html).insertAfter(feedback2);
+    feedback1.remove();
+    feedback2.remove();
+    $(".modal").hide();
 <% else %>
     var html = "<%= escape_javascript(render partial: 'modals/merge_confirmation', locals: { feedback_1: @feedback_1, feedback_2: @feedback_2 } ) %>";
     $(html).prependTo('body');
