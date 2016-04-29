@@ -9,7 +9,7 @@
         %td
           .content
             %span.author= comment.user.full_name
-            %span.text= simple_format(comment.content)
+            %span.text= format_content(comment.content)
           .actions
             - if current_user == comment.user && comment.updated_at > 5.minutes.ago
               .edit{href: edit_comment_path(comment)}

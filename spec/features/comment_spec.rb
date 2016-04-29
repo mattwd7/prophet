@@ -64,4 +64,18 @@ describe 'Comment', js: true do
     end
   end
 
+  it 'only shows the first so many characters of a very long feedback' do
+    long_content = "This is my super suuuuper long feedback. Im pissed off about a lot of things and I need whoever Im sending this to to know all about it. If you think I was just going to let it go, you are so mistaken. I demand a greater level of respect that what you showed me at the meeting today. The whole thing was completely unacceptable. In fact, youll be in touch with my lawyer before long. Thats just the way this is going to go. See you in court asshole!"
+    comment = @feedback.comments.first
+    comment.update_attributes(content: long_content)
+    visit current_path
+    within("#comment-#{comment.id}") do
+      expect(page).to have_css('a', text: 'See More')
+      expect(page).to have_content('This is my super suuuuper long feedback.')
+      expect(page).to_not have_content('See you in court asshole!')
+    end
+    find('a', text: 'See More').click
+    expect(page).to have_content('See you in court asshole!')
+  end
+
 end
