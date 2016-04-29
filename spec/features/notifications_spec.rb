@@ -105,6 +105,7 @@ describe 'Notifications', js: true do
       sleep 1
       FactoryGirl.create(:spec_feedback, author: @author, user: @user1, content: 'Most fresh')
       visit current_path
+      puts Feedback.all.map(&:updated_at)
       within(all('.feedback')[0]){ expect(page).to have_content('Most fresh') }
       within(all('.feedback')[1]){ expect(page).to have_content('second most fresh') }
       within(all('.feedback')[2]){ expect(page).to have_content('first feedback') }
