@@ -61,8 +61,31 @@ h2 {
       &:nth-child(1) .number-bubble{ background: #33691E; }
       &:nth-child(2) .number-bubble{ background: #8BC34A; }
       &:nth-child(3) .number-bubble{ background: #ccc; }
+      .resonant {
+        font-size: 15px;
+      }
+      .mixed {
+        font-size: 15px;
+      }
+      .isolated {
+        font-size: 15px;
+      }
+
     }
   }
+}
+
+#middle {
+  float: left;
+  margin: 0 20px;
+}
+
+#right {
+  float: left;
+  width: 250px;
+  & > * {
+  border: 1px solid #ccc;
+}
   .profile {
     .banner {
       background: #ccc;
@@ -98,16 +121,6 @@ h2 {
       word-wrap: break-word;
     }
   }
-}
-
-#middle {
-  float: left;
-  margin: 0 20px;
-}
-
-#right {
-  float:left;
-  width: 250px;
 }
 
 #home-left {

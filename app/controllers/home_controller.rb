@@ -14,6 +14,7 @@ class HomeController < ApplicationController
   def index
     @my_feedbacks = current_user.my_feedbacks
     @team_feedbacks = current_user.team_feedbacks
+    @user_name = current_user.full_name
   end
 
   def recipients

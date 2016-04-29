@@ -8,7 +8,7 @@
             = image_tag current_user.avatar.url(:large)
         %td
           .content
-            = f.text_area :content, placeholder: 'Send feedback to a coworker or request feedback for yourself here...'
+            = f.text_area :content, placeholder: 'Send a teammate feedback (@MatthewDick ...) or make a self-observation (@' + @user_name + ' ...)'
     .bottom
-      = text_area_tag :peers, '', placeholder: 'Tag peers here...'
+      = text_area_tag :peers, '', placeholder: 'Tag peers (@TonyDeCino, @Matthew Dick)...'
       .submit-tag Send

@@ -189,16 +189,21 @@ input[type=checkbox]:hover{ cursor: pointer; }
 
 .resonant {
   color: #33691E;
-  font-size: 14px;
+  font-size: 18px;
+  font-family: Avenir;
+  font-weight: 600;
 }
 .mixed {
   color: #8BC34A;
-  font-size: 14px;
+  font-size: 18px;
+  font-family: Avenir;
+  font-weight: 600;
 }
 .isolated {
   color: #C3BBBB;
-  font-size: 14px;
-}
+  font-size: 18px;
+  font-family: Avenir;
+  font-weight: 600;}
 
 #user_password {
 margin-bottom: 4px;
