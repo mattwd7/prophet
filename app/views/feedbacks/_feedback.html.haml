@@ -19,7 +19,7 @@
           .votes
             = vote_numbers(feedback, current_user)
     .content
-      = simple_format(feedback.content)
+      = format_content(feedback.content)
     %table.actions
       %tr
         - if current_user.can_vote?(feedback)

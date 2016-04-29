@@ -100,6 +100,10 @@ $(document).ready(function(){
     ////////////////////////////////////////////
     // FEEDBACKS
     ////////////////////////////////////////////
+    $(document).on('click', '.content a', function(){
+        $(this).closest('.content').find('span.hidden').show();
+        $(this).closest('span.show-more').remove();
+    })
 
 
 });
