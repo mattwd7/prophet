@@ -1,6 +1,6 @@
 .column#left
   .feedback-summary.filters
-    %h2 Resonance
+    %h2 Filter by Resonance
     %ul
       %li
         .description.resonant Resonant
@@ -11,7 +11,7 @@
       %li
         .description.isolated Isolated
         .number-bubble#isolated= @my_feedbacks.isolated.count.count
-  = render partial: 'users/profile'
+
 
 
 
@@ -27,6 +27,8 @@
 
 
 .column#right
+  = render partial: 'users/profile'
+
 
 
 %table#admin-grid

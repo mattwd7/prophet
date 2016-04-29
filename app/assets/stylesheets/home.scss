@@ -63,6 +63,19 @@ h2 {
       &:nth-child(3) .number-bubble{ background: #ccc; }
     }
   }
+}
+
+#middle {
+  float: left;
+  margin: 0 20px;
+}
+
+#right {
+  float: left;
+  width: 250px;
+  & > * {
+  border: 1px solid #ccc;
+}
   .profile {
     .banner {
       background: #ccc;
@@ -98,16 +111,6 @@ h2 {
       word-wrap: break-word;
     }
   }
-}
-
-#middle {
-  float: left;
-  margin: 0 20px;
-}
-
-#right {
-  float:left;
-  width: 250px;
 }
 
 #home-left {
