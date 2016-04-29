@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
 
   def my_feedbacks(resonance=nil)
     # TODO: fix this query. Incorrectly ordering when other users have notifications for different feedbacks recieved at earlier times
-    query = Feedback.joins("left join notifications on feedbacks.id = notifications.feedback_id").where("feedbacks.user_id = ? or feedbacks.author_id = ?", self.id, self.id).order('notifications.created_at DESC').group('feedbacks.id')
+    # TODO: correct order WITHOUT created_at DESC included... just 'notifications.user_id = #{self.id}' WHAT IS GOING ON!?
+    query = Feedback.joins("left join notifications on feedbacks.id = notifications.feedback_id").where("feedbacks.user_id = ? or feedbacks.author_id = ?", self.id, self.id).order("notifications.user_id = #{self.id}, notifications.created_at DESC").group('feedbacks.id')
     apply_filter(query, resonance)
   end
 

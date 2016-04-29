@@ -134,7 +134,6 @@ describe 'User', js: true do
       find('.team').click
       expect(page).to have_content(@team1.content)
       within("#feedback-#{@team1.id}") do
-        expect(page).to have_css('.active')
         find('.action.agree').click
         sleep 1
         @team1.reload

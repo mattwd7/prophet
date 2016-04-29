@@ -35,7 +35,7 @@
           .icon
           .name
             Share
-        - if feedback.author != current_user
+        - if feedback.author != current_user && feedback.user == current_user
           %td.action.merge
             .icon
             .name
