@@ -61,6 +61,16 @@ h2 {
       &:nth-child(1) .number-bubble{ background: #33691E; }
       &:nth-child(2) .number-bubble{ background: #8BC34A; }
       &:nth-child(3) .number-bubble{ background: #ccc; }
+      .resonant {
+        font-size: 15px;
+      }
+      .mixed {
+        font-size: 15px;
+      }
+      .isolated {
+        font-size: 15px;
+      }
+
     }
   }
 }
