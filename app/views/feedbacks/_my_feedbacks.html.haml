@@ -1,4 +1,4 @@
-.my-feedbacks{ style: (my_feedbacks && my_feedbacks.count.count < 1) ? 'display:none' : '' }
+.my-feedbacks{ style: @user.nil? || @user == current_user ? 'display:none' : '' }
   - if my_feedbacks.nil? || my_feedbacks.count.count < 1
     .no-feedback No feedback results found.
   - else

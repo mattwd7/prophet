@@ -36,7 +36,7 @@ describe 'User', js: true do
     # end
     log_in_with(@user.email, 'password')
 
-    expect(page).to have_css('.team.selected')
+    expect(page).to have_css('.home.selected')
     expect(page).to have_content(@peer1.content)
   end
 
@@ -131,7 +131,7 @@ describe 'User', js: true do
       expect(@team1.peers).to include(@user)
       agree_count = @team1.peers_in_agreement.count
       visit current_path
-      find('.team').click
+      find('.sort .home').click
       expect(page).to have_content(@team1.content)
       within("#feedback-#{@team1.id}") do
         find('.action.agree').click
@@ -146,18 +146,18 @@ describe 'User', js: true do
       end
     end
 
-    it 'sees received feedback on ME feedback and all feedback he is a peer to on TEAM feed' do
+    it 'sees all (me and team) feedback on HOME and feedback received on ME feed' do
+      expect(page).to have_css("#feedback-#{@mine1.id}")
+      expect(page).to have_css("#feedback-#{@mine2.id}")
+      expect(page).to have_css("#feedback-#{@i_am_author.id}")
+      expect(page).to_not have_css("#feedback-#{@team1.id}")
+      expect(page).to have_css("#feedback-#{@peer1.id}")
+      find('.sort .me').click
       expect(page).to have_css("#feedback-#{@mine1.id}")
       expect(page).to have_css("#feedback-#{@mine2.id}")
       expect(page).to have_css("#feedback-#{@i_am_author.id}")
       expect(page).to_not have_css("#feedback-#{@team1.id}")
       expect(page).to_not have_css("#feedback-#{@peer1.id}")
-      find('.sort .team').click
-      expect(page).to_not have_css("#feedback-#{@mine1.id}")
-      expect(page).to_not have_css("#feedback-#{@mine2.id}")
-      expect(page).to_not have_css("#feedback-#{@i_am_author.id}")
-      expect(page).to_not have_css("#feedback-#{@team1.id}")
-      expect(page).to have_css("#feedback-#{@peer1.id}")
     end
 
   end

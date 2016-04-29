@@ -13,12 +13,12 @@ describe 'Notifications', js: true do
     FactoryGirl.create(:spec_feedback, author: @author, user: @user1)
     visit current_path
     expect(@user1.my_notifications.count).to eq(1)
-    expect(@user1.team_notifications.count).to eq(0)
+    expect(@user1.home_notifications.count).to eq(0)
     within('.sort .me'){ expect(page).to have_content(1) }
     FactoryGirl.create(:spec_feedback, author: @author, user: @user1)
     visit current_path
     expect(@user1.my_notifications.count).to eq(2)
-    expect(@user1.team_notifications.count).to eq(0)
+    expect(@user1.home_notifications.count).to eq(0)
     within('.sort .me'){ expect(page).to have_content(2) }
   end
 
@@ -37,10 +37,10 @@ describe 'Notifications', js: true do
     FactoryGirl.create(:spec_feedback_link, user: @user1, feedback: f)
     visit current_path
     expect(@user1.my_notifications.count).to eq(0)
-    expect(@user1.team_notifications.count).to eq(1)
+    expect(@user1.home_notifications.count).to eq(1)
     expect(@other_user.my_notifications.count).to eq(1)
     expect(Notification.count).to eq(3)
-    within('.sort .team'){ expect(page).to have_content(1) }
+    within('.sort .home'){ expect(page).to have_content(1) }
   end
 
   it 'are issued when a comment is left on a feedback' do
@@ -50,7 +50,7 @@ describe 'Notifications', js: true do
     expect(@user1.notifications.count).to eq(0)
     FactoryGirl.create(:spec_comment, feedback: f, user: @other_user)
     expect(@user1.my_notifications.count).to eq(1)
-    expect(@other_user.team_notifications.count).to eq(0) # the commenter does not receive a notification for his own post
+    expect(@other_user.home_notifications.count).to eq(0) # the commenter does not receive a notification for his own post
     expect(@author.my_notifications.count).to eq(1)
     expect(Notification.count).to eq(3)
   end
@@ -72,8 +72,8 @@ describe 'Notifications', js: true do
     end
 
     it 'hides counter element instead of displaying 0' do
-      within('.sort .team'){ expect(page).to_not have_content(0) }
-      within('.sort .team'){ expect(page).to_not have_css('.notifications') }
+      within('.sort .home'){ expect(page).to_not have_content(0) }
+      within('.sort .home'){ expect(page).to_not have_css('.notifications') }
     end
 
     # it 'are destroyed when a user clicks on a feedback' do
@@ -91,6 +91,7 @@ describe 'Notifications', js: true do
       visit current_path
       expect(page).to have_css('.feedback.fresh', count: 4)
       within('.sort .me'){ expect(page).to have_content(4) }
+      find('.sort .me').click
       scroll_to_bottom
       expect(page).to_not have_css('.fresh')
       within('.sort .me'){ expect(page).to_not have_css('.notifications') }

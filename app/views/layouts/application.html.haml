@@ -16,20 +16,19 @@
             = image_tag current_user.avatar.url(:large)
 
         .sort{ style: @hide_sorting ? 'display: none' : '' }
-          - me_selected = (@my_feedbacks && @my_feedbacks.count.count > 0)
-          .me{class: me_selected ? 'selected' : '' }
+          .home.selected
+            .notifications{ style: "visibility: #{current_user.home_notifications.count < 1 ? 'hidden' : ''}" }
+              = current_user.home_notifications.count
+            Home
+          .me
             .notifications{ style: "visibility: #{current_user.my_notifications.count < 1 ? 'hidden' : ''}" }
               = current_user.my_notifications.count
-            Home
-          .team{class: me_selected ? '' : 'selected' }
-            .notifications{ style: "visibility: #{current_user.team_notifications.count < 1 ? 'hidden' : ''}" }
-              = current_user.team_notifications.count
             Me
           - if current_user.type == 'Manager'
             .manager Manager
           - if current_user.type == 'Admin'
             .admin Admin
-          .bar{ style: me_selected ? '' : 'margin-left: 25.5%' }
+          .bar
 
       - else
         = form_for :user, url: session_path(:user), html: { id: 'sign-in' } do |f|

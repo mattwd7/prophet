@@ -113,16 +113,16 @@ function focusFollowUp(input){
 }
 
 function selectBannerTab(input){
-    if (input === 'team'){
+    if (input === 'home'){
         $('.my-feedbacks').hide();
-        $('.team-feedbacks').show();
+        $('.home-feedbacks').show();
         focusFollowUp(input);
     } else if (input === 'me'){
-        $('.team-feedbacks').hide();
+        $('.home-feedbacks').hide();
         $('.my-feedbacks').show();
         focusFollowUp(input);
     } else {
-        $('.team-feedbacks').hide();
+        $('.home-feedbacks').hide();
         $('.my-feedbacks').hide();
     }
     window.scrollTo(0,0)

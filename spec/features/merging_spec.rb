@@ -14,9 +14,9 @@ describe 'Merge feedback' do
   end
 
   it 'has the merge action available for feedbacks you have received', js: true do
-    log_in_with(@user.email, 'password')
     feedback_personal = FactoryGirl.create(:spec_feedback, user: @user, author: @user)
     feedback_sent_from_me = FactoryGirl.create(:spec_feedback, user: @author2, author: @user)
+    log_in_with(@user.email, 'password')
     [feedback_personal, feedback_sent_from_me].each do |f|
       within("#feedback-#{f.id}"){ expect(page).to_not have_css('.action.merge') }
     end

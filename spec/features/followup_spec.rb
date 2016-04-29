@@ -38,7 +38,7 @@ describe 'Feedback followup' do
 
     it 'hides normal commenting and creates a new css element at the top of the feedback for commenting' do
       log_in_with(@peer.email, 'password')
-      find('.sort .team').click
+      find('.sort .home').click
       within('#feedback-' + @feedback.id.to_s) do
         expect(page).to have_css('.follow-up')
         expect(page).to have_content('30-Day Follow-up')

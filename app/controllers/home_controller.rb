@@ -13,7 +13,7 @@ class HomeController < ApplicationController
 
   def index
     @my_feedbacks = current_user.my_feedbacks
-    @team_feedbacks = current_user.team_feedbacks
+    @home_feedbacks = current_user.home_feedbacks
   end
 
   def recipients
@@ -44,8 +44,8 @@ class HomeController < ApplicationController
     all_my_feedbacks = @user.my_feedbacks
     my_feedbacks = @user.my_feedbacks(params[:resonance])
     if @user == current_user
-      team_feedbacks = @user.team_feedbacks(params[:resonance])
-      html = render_to_string(partial: 'feedbacks/index', locals: { my_feedbacks: my_feedbacks, team_feedbacks: team_feedbacks })
+      home_feedbacks = @user.home_feedbacks(params[:resonance])
+      html = render_to_string(partial: 'feedbacks/index', locals: { my_feedbacks: my_feedbacks, home_feedbacks: home_feedbacks })
     else
       html = render_to_string(partial: 'feedbacks/my_feedbacks', locals: { my_feedbacks: my_feedbacks })
     end

@@ -72,8 +72,8 @@ $(document).ready(function(){
                     container.show();
                 }
                 updateResonanceNumbers(data.resonances);
-                if ($('#banner .team').hasClass('selected')){
-                    selectBannerTab('team');
+                if ($('#banner .home').hasClass('selected')){
+                    selectBannerTab('home');
                 }
                 $(".column#middle").removeClass('blur');
                 dirtyFilter = false;
@@ -81,13 +81,13 @@ $(document).ready(function(){
         })
     }
 
-    $('.sort .me, .sort .team').click(function(){
+    $('.sort .me, .sort .home').click(function(){
         var differentUser = filters.user_id !== currentUserId;
         filters.user_id = currentUserId;
         if (dirtyFilter || differentUser){
             filterFeedbacks();
         } else {
-            selectBannerTab($(this).attr('class').match(/me|team/)[0]);
+            selectBannerTab($(this).attr('class').match(/me|home/)[0]);
         }
     });
 
