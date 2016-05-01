@@ -8,9 +8,9 @@ h2 {
 
 .number-bubble {
   font-family: 'Avenir-Roman';
-  width: 40px;
-  height: 40px;
-  line-height: 45px;
+  width: 50px;
+  height: 50px;
+  line-height: 52px;
   color: white;
   border-radius: 50%;
   margin: 5px auto 0 auto;
@@ -44,31 +44,33 @@ h2 {
 
   .feedback-summary {
     font-family: 'Avenir-Heavy';
-    margin-bottom: 20px;
-    padding: 10px;
+    padding: 10px 10px 0px 10px;
     h2 {
       font-family: 'Avenir-Medium';
       font-weight: light;
-      font-size: 18px;
+      font-size: 22px;
+      text-align: -webkit-center;
     }
     ul {
-      padding: 0;
+      padding-left: 0px;
     }
     li {
       display: inline-block;
       text-align: center;
       width: 30%;
+      padding-left: 2px;
+      padding-right: 2px;
       &:nth-child(1) .number-bubble{ background: #33691E; }
       &:nth-child(2) .number-bubble{ background: #8BC34A; }
       &:nth-child(3) .number-bubble{ background: #ccc; }
       .resonant {
-        font-size: 15px;
+        font-size: 18px;
       }
       .mixed {
-        font-size: 15px;
+        font-size: 18px;
       }
       .isolated {
-        font-size: 15px;
+        font-size: 18px;
       }
 
     }
