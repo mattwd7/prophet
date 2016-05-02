@@ -12,6 +12,7 @@
       font-family: 'Avenir-Heavy';
       margin-left: 10px;
       font-size: 20px;
+      padding-top: 8px;
       .timestamp {
         font-family: 'Avenir-Roman';
         font-size: 13px;
@@ -29,7 +30,7 @@
     padding-top: 0;
     font-size: 20px;
     clear: both;
-    margin: 20px 0 0 2px;
+    margin: 28px 0 0 2px;
   }
 
   .additional-peers {
@@ -66,13 +67,15 @@
     .data {
       vertical-align: top;
       margin-left: 10px;
+      padding-top: inherit;
       .name {
         font-family: 'Avenir-Heavy';
-        font-size: 18px;
+        font-size: 20px;
       }
       .title {
         color: #aaa;
-        font-size: 14px;
+        font-size: 15px;
+        font-weight: 900;
       }
     }
   }

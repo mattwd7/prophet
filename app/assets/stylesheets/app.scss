@@ -152,6 +152,21 @@ input[type=checkbox]:hover{ cursor: pointer; }
       top: 25px;
       }
     }
+    .manager {
+      padding-left: 13px;
+      .notifications {
+      position: relative;
+      background: #33691E;
+      border-radius: 50%;
+      height: 20px;
+      width: 20px;
+      color: white;
+      font-size: 11px;
+      line-height: 23px;
+      left: 105px;
+      top: 25px;
+      }
+    }
     .bar {
       margin-top: -5px;
       width: 18%;

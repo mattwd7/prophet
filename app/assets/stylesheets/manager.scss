@@ -23,9 +23,14 @@
     .info {
       display: inline-block;
       vertical-align: top;
+      .name {
+        padding-top: 5px;
+        font-family: Avenir-Heavy;
+        font-size: 18px;
+      }
       .title {
         color: #aaa;
-        font-size: 12px;
+        font-size: 13px;
       }
       .user-tag {
         font-size: 12px;
@@ -44,12 +49,15 @@
   padding: 5px;
   display: inline-block;
   background: none;
+  float: right;
   & > * {
     display: inline-block;
   }
   .text {
     font-size: 18px;
-    font-family: 'Avenir-Roman';
+    font-family: Avenir;
+    font-weight: 600;
+    text-transform: uppercase;
   }
   .delete {
     font-size: 20px;
