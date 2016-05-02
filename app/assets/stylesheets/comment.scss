@@ -18,7 +18,7 @@
     a:hover { text-decoration: underline; }
   }
   .comment {
-    padding: 5px 0;
+    padding: 0px 0;
     transition: 0.8s;
     &.fresh {
       background: rgb(255,253,162);
@@ -38,11 +38,15 @@
       }
       .timestamp {
         font-family: 'Avenir-Roman';
+        font-weight: 900;
       }
     }
     .content {
       font-size: 14px;
-      margin: auto;
+      margin-right: auto;
+      margin-left: auto;
+      margin-top: -8px;
+      padding-bottom: 0px;
       p {
         &:first-of-type {
           display: inline;
@@ -52,6 +56,8 @@
         }
       }
       .author {
+        font-size: 16px;
+        font-weight: 900;
         color: darkblue;
       }
       .edit-comment {
