@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'help' => 'home#help'
   get '/careers' => 'home#careers'
   post '/filter_feedbacks' => 'home#filter_feedbacks'
+  get '/impersonal_feedback_ids' => 'home#impersonal_feedback_ids'
 
   resources :organizations do
     collection do

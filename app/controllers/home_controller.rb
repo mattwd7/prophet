@@ -12,8 +12,16 @@ class HomeController < ApplicationController
   end
 
   def index
-    @my_feedbacks = current_user.my_feedbacks
     @home_feedbacks = current_user.home_feedbacks
+    @my_feedbacks = current_user.my_feedbacks
+  end
+
+  def impersonal_feedback_ids
+    unless current_user
+      render nothing: true
+    else
+      render json: current_user.home_feedbacks.map(&:id) - current_user.my_feedbacks.map(&:id)
+    end
   end
 
   def recipients

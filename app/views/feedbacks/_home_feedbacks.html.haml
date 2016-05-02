@@ -1,6 +1,6 @@
 .home-feedbacks
-  - if home_feedbacks && home_feedbacks.count.count < 1
+  - if feedbacks && feedbacks.count.count < 1
     .no-feedback No feedback results found.
   - else
-    - home_feedbacks.each do |feedback|
+    - feedbacks.each do |feedback|
       = render partial: 'feedbacks/feedback', locals: { feedback: feedback }

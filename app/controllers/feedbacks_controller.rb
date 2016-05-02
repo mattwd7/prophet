@@ -30,8 +30,11 @@ class FeedbacksController < ApplicationController
 
   def destroy_notifications
     feedback = Feedback.find(params[:id])
+    personal_feedback = [feedback.user, feedback.author].include?(current_user)
     feedback.notifications.where(user: current_user).destroy_all
-    render nothing: true
+    respond_to do |format|
+      format.json { render json: { me_feedback: personal_feedback }.to_json }
+    end
   end
 
   def peers_in_agreement

@@ -16,8 +16,26 @@
 //= require turbolinks
 //= require_tree .
 
+var impersonal_feedback_ids;
+
+function closeModal(){
+    $('.modal').hide();
+    $('body').children().removeClass('blur');
+}
+
+function getRecordID(elem){
+    return $(elem).attr('id').match(/\d+/)[0];
+}
 
 $(document).ready(function(){
+
+    $.ajax({
+        url: '/impersonal_feedback_ids',
+        method: 'GET',
+        success: function(data){
+            impersonal_feedback_ids = data;
+        }
+    });
 
     $(document).on('keydown', function(e) {
         if (e.which === 13) { // if is enter
@@ -54,12 +72,3 @@ $(document).ready(function(){
     });
 
 });
-
-function closeModal(){
-    $('.modal').hide();
-    $('body').children().removeClass('blur');
-}
-
-function getRecordID(elem){
-    return $(elem).attr('id').match(/\d+/)[0];
-}

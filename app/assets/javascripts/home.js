@@ -114,16 +114,20 @@ function focusFollowUp(input){
 
 function selectBannerTab(input){
     if (input === 'home'){
-        $('.my-feedbacks').hide();
-        $('.home-feedbacks').show();
+        $('.feedback').show();
         focusFollowUp(input);
     } else if (input === 'me'){
-        $('.home-feedbacks').hide();
-        $('.my-feedbacks').show();
+        hideFeedbacks(impersonal_feedback_ids);
         focusFollowUp(input);
     } else {
         $('.home-feedbacks').hide();
-        $('.my-feedbacks').hide();
     }
     window.scrollTo(0,0)
+}
+
+function hideFeedbacks(feedback_arr){
+    console.log("TODO: fix this getting hit twice.");
+    feedback_arr.forEach(function(id){
+        $("#feedback-" + id).hide();
+    });
 }
