@@ -270,16 +270,19 @@ margin-bottom: 4px;
     }
   }
     .action {
-    margin: 20px 0 10px 260px;
-    width: 230px;
+    margin: 20px 0 20px 0px;
+    float: right;
     & > * {
       display: inline-block;
       background: #8BC34A;
       color: white;
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 5px 30px;
-      font-size: 20px;
-      width: 50px;
+      font-size: 23px;
+      width: 73px;
+      height: 33px;
+      line-height: 38px;
+      margin-right: 5px;
       &:hover {
         cursor: pointer;
       }
@@ -287,6 +290,14 @@ margin-bottom: 4px;
     .cancel {
       background: #ccc;
       color: white;
+      font-size: 23px;
+      width: 73px;
+      height: 33px;
+      line-height: 38px;
+    }
+    .share {
+      font-size: 23px;
+      text-align: center;
     }
   }
 }
