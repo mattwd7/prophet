@@ -11,7 +11,10 @@ $(document).ready(function(){
                 break;
             }
         }
-        marginLeft = String(position * 25.5) + '%';
+        marginLeft = String(position * 28.5) + '%';
+        if (position==0) {
+            marginLeft = '15px';
+        }
         $('.sort .bar').css('margin-left', marginLeft);
         $(this).siblings().removeClass('selected');
         $(this).addClass('selected');

@@ -123,7 +123,23 @@ input[type=checkbox]:hover{ cursor: pointer; }
         cursor: pointer;
       }
     }
-    .notifications {
+    .me {
+      .notifications {
+      position: relative;
+      background: #33691E;
+      border-radius: 50%;
+      height: 20px;
+      width: 20px;
+      color: white;
+      font-size: 11px;
+      line-height: 23px;
+      left: 105px;
+      top: 25px;
+      }
+    }
+
+    .home {
+      .notifications {
       position: relative;
       background: #33691E;
       border-radius: 50%;
@@ -134,13 +150,14 @@ input[type=checkbox]:hover{ cursor: pointer; }
       line-height: 23px;
       left: 123px;
       top: 25px;
+      }
     }
     .bar {
       margin-top: -5px;
       width: 18%;
       height: 2px;
       background-color: #fff;
-      margin-left: 16px;
+      margin-left: 15px;
       transition: all .4s ease-in-out;
       &.slide1 {
         margin-left: 33%;
@@ -253,16 +270,19 @@ margin-bottom: 4px;
     }
   }
     .action {
-    margin: 20px 0 10px 260px;
-    width: 230px;
+    margin: 20px 0 20px 0px;
+    float: right;
     & > * {
       display: inline-block;
       background: #8BC34A;
       color: white;
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 5px 30px;
-      font-size: 20px;
-      width: 50px;
+      font-size: 23px;
+      width: 73px;
+      height: 33px;
+      line-height: 38px;
+      margin-right: 5px;
       &:hover {
         cursor: pointer;
       }
@@ -270,6 +290,14 @@ margin-bottom: 4px;
     .cancel {
       background: #ccc;
       color: white;
+      font-size: 23px;
+      width: 73px;
+      height: 33px;
+      line-height: 38px;
+    }
+    .share {
+      font-size: 23px;
+      text-align: center;
     }
   }
 }
