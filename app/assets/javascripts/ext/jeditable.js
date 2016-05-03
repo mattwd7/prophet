@@ -173,7 +173,7 @@
                 }
 
                 self.editing    = true;
-                self.revert     = $(self).html();
+                self.revert     = $(self).text();
                 $(self).html('');
 
                 /* create the form object */

@@ -4,8 +4,10 @@ $(document).ready(function(){
     $(document).on('click', '.comment .actions .edit', function() {
         var path = $(this).attr('href');
         $(".comment .content .text").editable(path, {
+            type      : 'textarea',
             event     : 'edit',
             cssclass  : 'edit-comment',
+            method    : 'PUT',
             width     : 556,
             height    : 44,
             submit    : 'OK',

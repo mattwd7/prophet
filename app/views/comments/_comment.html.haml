@@ -12,7 +12,7 @@
             %span.text= format_content(comment.content)
           .actions
             - if current_user == comment.user && comment.updated_at > 5.minutes.ago
-              .edit{href: edit_comment_path(comment)}
+              .edit{href: comment_path(comment)}
                 %a Edit
               .delete= link_to 'Delete', '', remote: true
             .timestamp

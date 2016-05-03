@@ -52,12 +52,16 @@ $(document).ready(function(){
             }
         }
     });
-
-    $(document).on('keydown', 'input', function(e){
-        if (e.which == 13){
-            $(this).closest('form').submit();
-        }
-    });
+//
+//    $(document).on('keydown', 'input', function(e){
+//        var exception_classes = ['edit-comment'];
+//        if (e.which == 13){
+//            var target_form = $(this).closest('form');
+//            if ($.inArray(target_form.attr('class'), exception_classes) > 0) {
+//                target_form.submit();
+//            }
+//        }
+//    });
 
     $(document).on('click', '.submit-tag', function(){
         if ($(this).hasClass('active')){

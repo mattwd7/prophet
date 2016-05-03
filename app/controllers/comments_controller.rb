@@ -15,6 +15,12 @@ class CommentsController < ApplicationController
   def edit
   end
 
+  def update
+    @comment = Comment.find(params[:id])
+    @comment.update_attributes(content: params[:value])
+    render text: params[:value]
+  end
+
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
