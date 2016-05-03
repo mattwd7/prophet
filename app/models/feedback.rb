@@ -9,8 +9,8 @@ class Feedback < ActiveRecord::Base
   has_many :logs
 
   validates_presence_of :author_id
-  validates_presence_of :user_id, message: 'Tag must be valid.'
-  validates_presence_of :content, message: 'cannot be blank.'
+  validates_presence_of :user_id, message: 'Feedback must start with a valid user tag from the dropdown list.'
+  validates_presence_of :content, message: 'Feedback content cannot be blank.'
 
   before_validation :parse_recipient
   before_save :set_defaults

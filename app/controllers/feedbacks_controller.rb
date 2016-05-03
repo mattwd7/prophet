@@ -6,11 +6,11 @@ class FeedbacksController < ApplicationController
     if @feedback.save
       @feedback.create_peer_links(params[:peers].split(', ')) if params[:peers]
     else
-      @errors.push(@feedback.errors.full_messages)
+      @feedback.errors.each{ |attr, msg| @errors.push(msg) }
     end
     @errors.flatten!
-    respond_to do
-      |format| format.js
+    respond_to do |format|
+      format.js
     end
   end
 
