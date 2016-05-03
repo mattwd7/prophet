@@ -46,22 +46,4 @@
       }
     }
   }
-  .actions {
-    & > * {
-      margin: 10px;
-      opacity: 1;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-    .cancel {
-      background: #ccc;
-      color: white;
-      padding: 5px 40px;
-      border-radius: 8px;
-      font-size: 20px;
-      width: 50px;
-      float: right;
-    }
-  }
 }

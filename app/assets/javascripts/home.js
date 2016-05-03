@@ -117,9 +117,11 @@ function focusFollowUp(input){
 
 function selectBannerTab(input){
     if (input === 'home'){
+        $('.home-feedbacks').show();
         $('.feedback').show();
         focusFollowUp(input);
     } else if (input === 'me'){
+        $('.home-feedbacks').show();
         hideFeedbacks(impersonal_feedback_ids);
         focusFollowUp(input);
     } else {

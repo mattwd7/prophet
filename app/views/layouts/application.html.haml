@@ -58,6 +58,7 @@
   - if current_user
     = render partial: 'modals/share_panel'
     = render partial: 'modals/share_list'
-    -#= render partial: 'modals/merge_confirmation', locals: { feedback_1: Feedback.all[0], feedback_2: Feedback.all[1] }
+    = render partial: 'modals/delete_comment'
+    -# .modal#merge-confirmation rendered in js.erb (needs feedback parameters)
     = render partial: 'popovers/session_options'
     = render partial: 'popovers/error_messages'

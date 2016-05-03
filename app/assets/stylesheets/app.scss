@@ -111,7 +111,7 @@ input[type=checkbox]:hover{ cursor: pointer; }
     padding-top: 7px;
     font-size: 30px;
     font-weight: 100;
-    font-family: Avenir LT Std;
+    font-family: 'Avenir';
     letter-spacing: .02em;
     & > *:not(.bar) {
       display: inline-block;
@@ -269,7 +269,7 @@ margin-bottom: 4px;
       }
     }
   }
-    .action {
+  .actions {
     margin: 20px 0 20px 0px;
     float: right;
     & > * {

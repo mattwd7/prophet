@@ -36,7 +36,7 @@ $(document).ready(function(){
     $(document).on('click', '.feedback .vote', function(){
         var feedback_id = $(this).closest('.feedback').attr('id').match(/\d+$/)[0],
             type = $(this).hasClass('agree') ? 'Agree' : 'Peers';
-        $('body').children().not('#share-list').not('.ui-autocomplete').addClass('blur');
+        openModal('share-list');
         initShareList(feedback_id, type);
     });
 
@@ -54,14 +54,13 @@ $(document).ready(function(){
                     var user = data[index];
                     userList.append('<li><div class="avatar"><img src="' + user.avatar_url + '"></div><div class="data"><div class="name">' + user.name + '</div><div class="title">' + user.title + '</div></li>')
                 }
-                $("#share-list").show();
+                openModal('share-list');
             }
         })
     }
 
     $(document).on('click', '.feedback .action.share', function(){
         var feedback_id = $(this).closest('.feedback').attr('id').match(/\d+$/)[0];
-        $('body').children().not('#share-panel').not('.ui-autocomplete').addClass('blur');
         initSharePanel(feedback_id);
     });
 
@@ -139,7 +138,7 @@ $(document).ready(function(){
                 .appendTo( ul );
         };
 
-        sharePanel.show();
+        openModal('share-panel');
         sharePanel.find('textarea').focus();
     }
 

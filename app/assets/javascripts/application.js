@@ -18,6 +18,12 @@
 
 var impersonal_feedback_ids;
 
+function openModal(modal_id){
+    var modal_selector = '.modal#' + modal_id;
+    $('body').children().not(modal_selector).not('.ui-autocomplete').addClass('blur');
+    $(modal_selector).show();
+}
+
 function closeModal(){
     $('.modal').hide();
     $('body').children().removeClass('blur');

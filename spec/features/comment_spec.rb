@@ -43,9 +43,13 @@ describe 'Comment', js: true do
       expect(page).to have_css('.delete')
       find('.delete a').click
     end
-    page.driver.browser.accept_js_confirms
+    # page.driver.browser.accept_js_confirms
+    expect(page).to have_css('.modal')
+    expect(page).to have_content('Are you sure you want to delete your comment?')
+    find('.modal .submit-tag').click
     expect(page).to_not have_content(comment.content)
     expect(@feedback.comments.count).to eq(2)
+    expect(page).to_not have_css('.delete')
   end
 
   it 'is displayed with share activity in order of occurrence' do

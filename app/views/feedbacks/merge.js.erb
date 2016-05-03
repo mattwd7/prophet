@@ -10,4 +10,5 @@
 <% else %>
     var html = "<%= escape_javascript(render partial: 'modals/merge_confirmation', locals: { feedback_1: @feedback_1, feedback_2: @feedback_2 } ) %>";
     $(html).prependTo('body');
+    openModal('merge-confirmation');
 <% end %>
