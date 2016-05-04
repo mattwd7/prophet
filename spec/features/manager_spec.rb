@@ -6,6 +6,7 @@ describe 'Manager', js: true do
     @employee1 = FactoryGirl.create(:spec_user, email: 'employee1@gmail.com', first_name: 'employee', last_name: 'one')
     @employee2 = FactoryGirl.create(:spec_user, email: 'employee2@gmail.com', first_name: 'employee', last_name: 'two')
     @employee3 = FactoryGirl.create(:spec_user, email: 'employee3@gmail.com', first_name: 'employee', last_name: 'three')
+    @alien = FactoryGirl.create(:spec_user, email: 'alien@gmail.com', first_name: 'alien', last_name: 'clown')
     User.where(type: nil).each{|user| @manager.add_employee(user) }
     log_in_with(@manager.email, 'password')
   end
@@ -28,14 +29,16 @@ describe 'Manager', js: true do
       @feedback1 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Most resonant')
       @feedback2 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Something mixed')
       @feedback3 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Pretty well isolated')
+      @alien_feedback = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Im Mr MeeSeeks, LOOK AT ME!')
       Feedback.all.each_with_index do |feedback, i|
         feedback.update_attributes(resonance_value: 2 - i)
       end
       find('.sort .manager').click
     end
 
-    it 'prompts manager to choose an employee' do
-      expect(page).to have_content('Select an employee to view feedbacks.')
+    it 'displays feed of all team feedbacks' do
+      [@feedback1, @feedback2, @feedback3].each{|feedback| expect(page).to have_content(feedback.content)}
+      expect(page).to_not have_content(@alien_feedback.content)
     end
 
     it 'lists his employees' do

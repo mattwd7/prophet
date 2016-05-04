@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def my_feedbacks(resonance=nil)
-    query = Feedback.where("feedbacks.user_id = ?", self.id).order("created_at DESC").group('feedbacks.id')
+    query = Feedback.where("feedbacks.user_id = ?", self.id).order("updated_at DESC").group('feedbacks.id')
     apply_filter(query, resonance)
   end
 
