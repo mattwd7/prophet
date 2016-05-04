@@ -100,4 +100,14 @@ describe 'Feedback', js: true do
     expect(page).to have_content('See you in court asshole!')
   end
 
+  it 'is displayed 10 at a time on the home page, displaying more when you scroll to bottom' do
+    27.times { FactoryGirl.create(:spec_feedback, user: @user) }
+    visit current_path
+    expect(page).to have_css('.feedback', count: 10)
+    scroll_to_bottom
+    expect(page).to have_css('.feedback', count: 20)
+    scroll_to_bottom
+    expect(page).to have_css('.feedback', count: 28)
+  end
+
 end

@@ -12,15 +12,19 @@ class HomeController < ApplicationController
   end
 
   def index
-    @home_feedbacks = current_user.home_feedbacks
-    @my_feedbacks = current_user.my_feedbacks
+    @feedbacks = current_user.home_feedbacks.paginate(page: params[:page])
+    # @my_feedbacks = current_user.my_feedbacks.paginate(page: params[:page])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def impersonal_feedback_ids
-    unless current_user
-      render nothing: true
-    else
+    if current_user
       render json: current_user.home_feedbacks.map(&:id) - current_user.my_feedbacks.map(&:id)
+    else
+      render nothing: true
     end
   end
 
@@ -49,15 +53,10 @@ class HomeController < ApplicationController
 
   def filter_feedbacks
     @user = params[:user_id] ? User.find(params[:user_id]) : current_user
-    all_my_feedbacks = @user.my_feedbacks
-    my_feedbacks = @user.my_feedbacks(params[:resonance])
-    if @user == current_user
-      home_feedbacks = @user.home_feedbacks(params[:resonance])
-      html = render_to_string(partial: 'feedbacks/index', locals: { my_feedbacks: my_feedbacks, home_feedbacks: home_feedbacks })
-    else
-      html = render_to_string(partial: 'feedbacks/my_feedbacks', locals: { my_feedbacks: my_feedbacks })
-    end
-    resonances = { resonant: all_my_feedbacks.resonant.count.count, mixed: all_my_feedbacks.mixed.count.count, isolated: all_my_feedbacks.isolated.count.count }
+    @feedbacks = @user.my_feedbacks(params[:resonance])
+    all_user_feedbacks = @user.my_feedbacks
+    html = render_to_string(partial: 'feedbacks/index', locals: { feedbacks: @feedbacks })
+    resonances = { resonant: all_user_feedbacks.resonant.count.count, mixed: all_user_feedbacks.mixed.count.count, isolated: all_user_feedbacks.isolated.count.count }
     respond_to do |format|
       format.json { render json: { feedbacks: html, resonances: resonances } }
     end

@@ -144,9 +144,3 @@ describe 'Notifications', js: true do
   end
 
 end
-
-def scroll_to_bottom
-  (1..15).each do |scroll|
-    page.execute_script "window.scrollBy(0,100)"
-  end
-end

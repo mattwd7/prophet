@@ -1,6 +1,0 @@
-.my-feedbacks{ style: @user.nil? || @user == current_user ? 'display:none' : '' }
-  - if my_feedbacks.nil? || my_feedbacks.count.count < 1
-    .no-feedback No feedback results found.
-  - else
-    - my_feedbacks.each do |feedback|
-      = render partial: 'feedbacks/feedback', locals: { feedback: feedback }

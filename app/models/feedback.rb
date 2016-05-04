@@ -20,6 +20,7 @@ class Feedback < ActiveRecord::Base
   scope :resonant, -> { where(resonance_value: 2) }
   scope :mixed, -> { where(resonance_value: 1) }
   scope :isolated, -> { where(resonance_value: 0) }
+  self.per_page = 10
 
   def author
     User.find(author_id)

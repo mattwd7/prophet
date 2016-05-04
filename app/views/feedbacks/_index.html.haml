@@ -1,3 +1,7 @@
-= render partial: 'feedbacks/home_feedbacks', locals: { feedbacks: home_feedbacks }
+- if feedbacks && feedbacks.count.count < 1
+  .no-feedback No feedback results found.
+- else
+  - feedbacks.each do |feedback|
+    = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
 
--#= render partial: 'feedbacks/my_feedbacks', locals: { my_feedbacks: my_feedbacks, home_feedbacks: home_feedbacks }
+  #infinite-scrolling= will_paginate feedbacks

@@ -4,13 +4,13 @@
     %ul
       %li
         .description.resonant Resonant
-        .number-bubble#resonant= @my_feedbacks.resonant.count.count
+        .number-bubble#resonant= @feedbacks.resonant.count.count
       %li
         .description.mixed Mixed
-        .number-bubble#mixed= @my_feedbacks.mixed.count.count
+        .number-bubble#mixed= @feedbacks.mixed.count.count
       %li
         .description.isolated Isolated
-        .number-bubble#isolated= @my_feedbacks.isolated.count.count
+        .number-bubble#isolated= @feedbacks.isolated.count.count
 
 
 
@@ -22,7 +22,7 @@
   = render partial: 'feedbacks/form'
 
   #feedbacks
-    = render partial: 'feedbacks/index', locals: { my_feedbacks: @my_feedbacks, home_feedbacks: @home_feedbacks }
+    = render partial: 'feedbacks/index', locals: { feedbacks: @feedbacks }
 
 
 

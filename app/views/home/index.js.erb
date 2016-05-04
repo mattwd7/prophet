@@ -1,0 +1,8 @@
+var pagination = $('.pagination');
+$('#feedbacks').append('<%= j render partial: 'feedbacks/index', locals: { feedbacks: @feedbacks } %>');
+<% if @feedbacks.next_page %>
+    pagination.replaceWith('<%= j will_paginate @feedbacks %>');
+<% else %>
+    $(window).off('scroll');
+    pagination.remove();
+<% end %>

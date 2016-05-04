@@ -52,22 +52,33 @@ $(document).ready(function(){
             }
         }
     });
-//
-//    $(document).on('keydown', 'input', function(e){
-//        var exception_classes = ['edit-comment'];
-//        if (e.which == 13){
-//            var target_form = $(this).closest('form');
-//            if ($.inArray(target_form.attr('class'), exception_classes) > 0) {
-//                target_form.submit();
-//            }
-//        }
-//    });
+
+    $(document).on('keydown', 'input', function(e){
+        var exception_classes = ['edit-comment'];
+        if (e.which == 13){
+            var target_form = $(this).closest('form');
+            if ($.inArray(target_form.attr('class'), exception_classes) > 0) {
+                target_form.submit();
+            }
+        }
+    });
 
     $(document).on('click', '.submit-tag', function(){
         if ($(this).hasClass('active')){
             $(this).closest('form').submit();
         }
     });
+
+    // INFINITE SCROLLING
+    if ($('#infinite-scrolling').length > 0) {
+        $(window).on('scroll', function () {
+            var more_posts_url = $('.pagination .next_page').attr('href');
+            if (more_posts_url && $(window).scrollTop() > $(document).height() - $(window).height() - 60) {
+                $('.pagination').html('<img src="loading.gif" alt="Loading..." title="Loading..." />');
+                $.getScript(more_posts_url);
+            }
+        })
+    }
 
     // MODAL HANDLING
 
