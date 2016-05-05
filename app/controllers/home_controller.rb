@@ -65,8 +65,14 @@ class HomeController < ApplicationController
     @feedbacks = @feedbacks.paginate(page: params[:page])
     html = render_to_string(partial: 'feedbacks/index', locals: { feedbacks: @feedbacks })
     resonances = { resonant: all_user_feedbacks.resonant.count.count, mixed: all_user_feedbacks.mixed.count.count, isolated: all_user_feedbacks.isolated.count.count }
-    respond_to do |format|
-      format.json { render json: { feedbacks: html, resonances: resonances } }
+    if params[:page]
+      respond_to do |format|
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { feedbacks: html, resonances: resonances } }
+      end
     end
   end
 

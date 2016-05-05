@@ -49,13 +49,14 @@ $(document).ready(function(){
             $('#filter-tags').hide();
         }
         $.ajax({
-            method: 'post',
+            method: 'get',
             url: '/filter_feedbacks',
             data: filters,
             beforeSend: function(){
                 $(".column#middle").addClass('blur');
             },
             success: function(data){
+                console.log(data);
                 $('#feedbacks').html(data.feedbacks);
                 updateResonanceNumbers(data.resonances);
                 $(".column#middle").removeClass('blur');
