@@ -1,7 +1,7 @@
 <% if @errors.empty? %>
     var html = "<%= escape_javascript(render partial: 'feedback', locals: { feedback: @feedback, hidden: true } ) %>";
     $('.feedback-form').find('#feedback_content, #peers').val('').blur();
-    $(html).prependTo('.home-feedbacks, .my-feedbacks').fadeIn(400);
+    $(html).prependTo('#feedbacks').fadeIn(400);
 <% else %>
     var errorMessages = $('#error-messages');
     errorMessages.html("<%= escape_javascript(raw(simple_format(@errors.join("\n")))) %>");

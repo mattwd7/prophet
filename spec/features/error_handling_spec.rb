@@ -14,7 +14,7 @@ describe 'Feedback', js: true do
       find("#peers").set @user.user_tag
       find('.submit-tag').click
     end
-    expect(page).to have_content("User Tag must be valid.")
+    expect(page).to have_content("Feedback must start with a valid user tag from the dropdown list.")
   end
 
   it 'displays error when no content is included' do
@@ -23,7 +23,7 @@ describe 'Feedback', js: true do
       find("#peers").set @user.user_tag
       find('.submit-tag').click
     end
-    expect(page).to have_content("Content cannot be blank.")
+    expect(page).to have_content("Feedback content cannot be blank.")
   end
 
   it 'displays warning when no peers are tagged'

@@ -7,7 +7,7 @@ describe 'Manager', js: true do
     @employee2 = FactoryGirl.create(:spec_user, email: 'employee2@gmail.com', first_name: 'employee', last_name: 'two')
     @employee3 = FactoryGirl.create(:spec_user, email: 'employee3@gmail.com', first_name: 'employee', last_name: 'three')
     @alien = FactoryGirl.create(:spec_user, email: 'alien@gmail.com', first_name: 'alien', last_name: 'clown')
-    User.where(type: nil).each{|user| @manager.add_employee(user) }
+    User.where(type: nil).each{|user| @manager.add_employee(user) unless user == @alien }
     log_in_with(@manager.email, 'password')
   end
 
@@ -29,7 +29,8 @@ describe 'Manager', js: true do
       @feedback1 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Most resonant')
       @feedback2 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Something mixed')
       @feedback3 = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Pretty well isolated')
-      @alien_feedback = FactoryGirl.create(:spec_feedback, user: @employee2, author: @author, content: 'Im Mr MeeSeeks, LOOK AT ME!')
+      @alien_author = FactoryGirl.create(:spec_user, email: 'alien_author@gmail.com')
+      @alien_feedback = FactoryGirl.create(:spec_feedback, user: @alien, author: @alien_author, content: 'Im Mr MeeSeeks, LOOK AT ME!')
       Feedback.all.each_with_index do |feedback, i|
         feedback.update_attributes(resonance_value: 2 - i)
       end
@@ -77,26 +78,30 @@ describe 'Manager', js: true do
     end
 
     it 'can filter employee feedbacks', no_webkit: true do
-      expect(page).to_not have_content(@feedback1.content)
-      expect(page).to_not have_content(@feedback2.content)
-      expect(page).to_not have_content(@feedback3.content)
+      expect(page).to have_content(@feedback1.content)
+      expect(page).to have_content(@feedback2.content)
+      expect(page).to have_content(@feedback3.content)
 
       view_as(@employee2)
       expect(page).to have_content(@feedback1.content)
       expect(page).to have_content(@feedback2.content)
       expect(page).to have_content(@feedback3.content)
-      expect(page).to have_css('#viewing-as', text: @employee2.full_name)
+      expect(page).to have_css('#viewing-as', text: @employee2.full_name.upcase)
 
       filter_resonance('resonant')
       expect(page).to_not have_content(@feedback2.content)
       expect(page).to_not have_content(@feedback3.content)
       expect(page).to have_content(@feedback1.content)
       filter_resonance('resonant') # toggle off
+
+      sleep 1
       filter_resonance('mixed')
       expect(page).to_not have_content(@feedback1.content)
       expect(page).to have_content(@feedback2.content)
       expect(page).to_not have_content(@feedback3.content)
       filter_resonance('mixed') # toggle off
+
+      sleep 1
       filter_resonance('isolated')
       expect(page).to_not have_content(@feedback1.content)
       expect(page).to_not have_content(@feedback2.content)

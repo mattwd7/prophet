@@ -72,10 +72,24 @@ describe 'User', js: true do
       expect(@recipient.feedbacks.last.content).to_not match(/@\S+/)
     end
 
-    it 'can ask for feedback for himself', no_webkit: true do
+    it 'cannot ask for self-feedback without peers', no_webkit: true do
+      # init_count = @user.feedbacks.count
+      # last_id = Feedback.last.id
+      # find("#feedback_content").set "#{@user.user_tag} Did I effectively communicate the company's goals at the meeting today?"
+      # within('.feedback-form'){ find('.submit-tag').click }
+      # expect(page).to have_css("#feedback-#{last_id + 1}")
+      # expect(@user.feedbacks.count).to eq(init_count + 1)
+      # feedback = @user.feedbacks.last
+      # within "#feedback-#{feedback.id}" do
+      #   expect(page).to_not have_css('.score')
+      # end
+    end
+
+    it 'can ask for self-feedback', no_webkit: true do
       init_count = @user.feedbacks.count
       last_id = Feedback.last.id
       find("#feedback_content").set "#{@user.user_tag} Did I effectively communicate the company's goals at the meeting today?"
+      find('#peers').set @recipient.user_tag
       within('.feedback-form'){ find('.submit-tag').click }
       expect(page).to have_css("#feedback-#{last_id + 1}")
       expect(@user.feedbacks.count).to eq(init_count + 1)
@@ -124,7 +138,7 @@ describe 'User', js: true do
       end
     end
 
-    it 'can vote on a feedback he is a peer of' do
+    it 'can vote on a feedback he is a peer of', no_webkit: true do
       FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @team1)
       @team1.reload
       visit current_path

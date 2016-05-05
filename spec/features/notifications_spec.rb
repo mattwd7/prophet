@@ -92,24 +92,23 @@ describe 'Notifications', js: true do
       expect(page).to have_css('.feedback.fresh', count: 4)
       within('.sort .me'){ expect(page).to have_content(4) }
       find('.sort .me').click
-      scroll_to_bottom
+      scroll_to_bottom('slowly')
       expect(page).to_not have_css('.fresh')
       within('.sort .me'){ expect(page).to_not have_css('.notifications') }
       expect(@user1.my_notifications.count).to eq(0)
     end
 
     it 'brings the freshest feedbacks to the top of the users feed', no_webkit: true do
-      scroll_to_bottom
+      scroll_to_bottom('slowly')
       expect(@user1.my_notifications.count).to eq(0)
       FactoryGirl.create(:spec_feedback, author: @author, user: @user1, content: 'second most fresh')
       sleep 1
       FactoryGirl.create(:spec_feedback, author: @author, user: @user1, content: 'Most fresh')
       visit current_path
-      puts Feedback.all.map(&:updated_at)
       within(all('.feedback')[0]){ expect(page).to have_content('Most fresh') }
       within(all('.feedback')[1]){ expect(page).to have_content('second most fresh') }
       within(all('.feedback')[2]){ expect(page).to have_content('first feedback') }
-      scroll_to_bottom
+      scroll_to_bottom('slowly')
       expect(@user1.my_notifications.count).to eq(0)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
       expect(@user1.my_notifications.count).to eq(1)
@@ -129,7 +128,7 @@ describe 'Notifications', js: true do
 
     it 'forces fresh comments to display beyond the first 2', no_webkit: true do
       init_count = Notification.count
-      scroll_to_bottom
+      scroll_to_bottom('slowly')
       expect(Notification.count).to eq(init_count - 4)
       5.times do
         FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)

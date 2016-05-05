@@ -8,7 +8,7 @@ describe 'Comment', js: true do
     log_in_with(@other_user.email, 'password')
   end
 
-  it 'allows user to edit or delete new comment within 5 minute window of creation or update' do
+  it 'allows user to edit or delete new comment within 5 minute window of creation or update', no_webkit: true do
     within('#new_comment') do
       find('#comment_content').set "This is my new comment"
       find('.submit-tag').click
@@ -22,10 +22,10 @@ describe 'Comment', js: true do
       expect(page).to have_css('.delete', count: 1)
     end
     within(all('.comment').last) do
-      expect(page).to_not have_css('input')
+      expect(page).to_not have_css('textarea')
       find('.edit').click
-      expect(page).to have_css('input')
-      find('input').set "I'm updating my comment content"
+      expect(page).to have_css('textarea')
+      find('textarea').set "I'm updating my comment content"
       find('button', text: 'OK').click
     end
 
@@ -43,10 +43,10 @@ describe 'Comment', js: true do
       expect(page).to have_css('.delete')
       find('.delete a').click
     end
-    # page.driver.browser.accept_js_confirms
     expect(page).to have_css('.modal')
     expect(page).to have_content('Are you sure you want to delete your comment?')
     find('.modal .submit-tag').click
+    visit current_path
     expect(page).to_not have_content(comment.content)
     expect(@feedback.comments.count).to eq(2)
     expect(page).to_not have_css('.delete')
@@ -56,7 +56,7 @@ describe 'Comment', js: true do
     new_user = FactoryGirl.create(:spec_user, email: "newuser@gmail.com")
     find('.action.share').click
     find('#additional_peers').set new_user.user_tag
-    within('#share-panel'){ find('.action .share').click }
+    within('#share-panel'){ find('.actions .share').click }
     within('.commenting') do
       expect(page).to have_content("#{@other_user.full_name} added #{new_user.full_name}")
     end

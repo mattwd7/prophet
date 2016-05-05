@@ -58,7 +58,7 @@ class Feedback < ActiveRecord::Base
   end
 
   def follow_up
-    update_attributes(followed_up?: true)
+    update_attributes(followed_up: true)
     Notification.create(user: user, feedback: self)
   end
 

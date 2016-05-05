@@ -50,6 +50,7 @@ class HomeController < ApplicationController
     end
   end
 
+  # TODO: prevent all of these from hitting the DB twice (FIRST check that the results aren't just cached)
   def filter_feedbacks
     if params[:user_id].present?
       @user = User.find(params[:user_id])
@@ -57,7 +58,7 @@ class HomeController < ApplicationController
       all_user_feedbacks = @user.my_feedbacks
     elsif params[:manager].present? && current_user.is_a?(Manager)
       @feedbacks = current_user.employee_feedbacks(params[:resonance])
-      all_user_feedbacks = @feedbacks
+      all_user_feedbacks = current_user.employee_feedbacks
     else
       @feedbacks = current_user.home_feedbacks(params[:resonance])
       all_user_feedbacks = current_user.home_feedbacks

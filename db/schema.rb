@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429132743) do
+ActiveRecord::Schema.define(version: 20160505141918) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20160429132743) do
     t.boolean  "agree"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "followed_up?", default: false, null: false
+    t.boolean  "followed_up", default: false, null: false
   end
 
   create_table "feedbacks", force: true do |t|
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20160429132743) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "resonance_value"
-    t.boolean  "followed_up?",    default: false, null: false
+    t.boolean  "followed_up",     default: false, null: false
     t.boolean  "merged?",         default: false
     t.string   "merge_ids"
   end

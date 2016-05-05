@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
 
   def follow_up(feedback)
     link = feedback_links.where(feedback: feedback).first
-    link.update_attributes(followed_up?: true) if link
+    link.update_attributes(followed_up: true) if link
   end
 
 private

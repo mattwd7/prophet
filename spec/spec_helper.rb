@@ -106,7 +106,10 @@ def filter_resonance(resonance)
   find(".feedback-summary ##{resonance}").click
 end
 
-def scroll_to_bottom
-  # 15.times { page.execute_script "window.scrollBy(0,100)" }
-  page.execute_script "while ($(window).scrollTop() < $(document).height() - $(window).height() - 60){ window.scrollBy(0,100) }"
+def scroll_to_bottom(slowly=false)
+  if slowly
+    15.times { page.execute_script "window.scrollBy(0,100)" }
+  else
+    page.execute_script "while ($(window).scrollTop() < $(document).height() - $(window).height() - 60){ window.scrollBy(0,100) }"
+  end
 end
