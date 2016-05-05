@@ -3,6 +3,6 @@ $('#feedbacks').append('<%= j render partial: 'feedbacks/index', locals: { feedb
 <% if @feedbacks.next_page %>
     pagination.replaceWith('<%= j will_paginate @feedbacks %>');
 <% else %>
-    $(window).off('scroll');
-    pagination.remove();
+//    $(window).off('scroll');
+//    pagination.remove();
 <% end %>

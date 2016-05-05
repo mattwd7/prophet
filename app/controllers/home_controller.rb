@@ -13,7 +13,6 @@ class HomeController < ApplicationController
 
   def index
     @feedbacks = current_user.home_feedbacks.paginate(page: params[:page])
-    # @my_feedbacks = current_user.my_feedbacks.paginate(page: params[:page])
     respond_to do |format|
       format.html
       format.js
@@ -52,9 +51,18 @@ class HomeController < ApplicationController
   end
 
   def filter_feedbacks
-    @user = params[:user_id] ? User.find(params[:user_id]) : current_user
-    @feedbacks = @user.my_feedbacks(params[:resonance])
-    all_user_feedbacks = @user.my_feedbacks
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
+      @feedbacks = @user.my_feedbacks(params[:resonance])
+      all_user_feedbacks = @user.my_feedbacks
+    elsif params[:manager].present? && current_user.is_a?(Manager)
+      @feedbacks = current_user.employee_feedbacks(params[:resonance])
+      all_user_feedbacks = @feedbacks
+    else
+      @feedbacks = current_user.home_feedbacks(params[:resonance])
+      all_user_feedbacks = current_user.home_feedbacks
+    end
+    @feedbacks = @feedbacks.paginate(page: params[:page])
     html = render_to_string(partial: 'feedbacks/index', locals: { feedbacks: @feedbacks })
     resonances = { resonant: all_user_feedbacks.resonant.count.count, mixed: all_user_feedbacks.mixed.count.count, isolated: all_user_feedbacks.isolated.count.count }
     respond_to do |format|

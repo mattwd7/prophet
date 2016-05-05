@@ -1,18 +1,11 @@
 $(document).ready(function(){
 
     var currentUserId = $('.session').attr('id');
-    var filters = {resonance: [], user_id: currentUserId};
+    var filters = {resonance: [], user_id: null, manager: null};
     var dirtyFilter = false;
 
     $('.filters .number-bubble').click(function(){
-        var type = $(this).closest('.feedback-summary').length > 0 ? 'resonance' : 'attribute';
-        toggleBubble($(this), type);
-    });
-
-    $(document).on('click', '.tag', function(){
-        var name = $(this).text();
-        var elem = $('.attribute:contains(' + name + ') .number-bubble');
-        toggleBubble(elem, 'attribute');
+        toggleBubble($(this));
     });
 
     $(document).on('click', '.filter-tag .delete', function(){
@@ -21,20 +14,20 @@ $(document).ready(function(){
         removeTag(name, type);
     });
 
-    function toggleBubble(elem, type){
+    function toggleBubble(elem){
         var bubble = $(elem),
             name = bubble.siblings().text().toUpperCase();
         if (bubble.hasClass('selected')){
             bubble.removeClass('selected');
-            removeTag(name, type);
+            removeTag(name);
         } else {
             bubble.addClass('selected');
-            createTag(name, type);
+            createTag(name);
         }
         dirtyFilter = true;
     }
 
-    function createTag(name, type){
+    function createTag(name){
         var klass = name.toLowerCase();
         var newTag = "<div class='filter-tag'><div class='text " + klass + "'>" + formattedTag(name) + "</div><div class='delete'>X</div></div>";
         $('#filter-tags .resonance-tags').append(newTag);
@@ -42,7 +35,7 @@ $(document).ready(function(){
         filterFeedbacks();
     }
 
-    function removeTag(name, type){
+    function removeTag(name){
         $(".resonance-tags .filter-tag:contains(" + formattedTag(name) + ")").remove();
         $(".feedback-summary li:contains(" + toTitleCase(name) + ") .number-bubble").removeClass('selected');
         filters.resonance.splice(filters.resonance.indexOf(name), 1);
@@ -63,32 +56,30 @@ $(document).ready(function(){
                 $(".column#middle").addClass('blur');
             },
             success: function(data){
-                if (currentUserId == filters.user_id){
-                    $('#feedbacks').html(data.feedbacks);
-                } else {
-                    var container = getUserFeedbackDiv(filters.user_id);
-                    $('#feedbacks div').hide();
-                    container.html(data.feedbacks);
-                    container.show();
-                }
+                $('#feedbacks').html(data.feedbacks);
                 updateResonanceNumbers(data.resonances);
-                if ($('#banner .home').hasClass('selected')){
-                    selectBannerTab('home');
-                }
                 $(".column#middle").removeClass('blur');
                 dirtyFilter = false;
             }
         })
     }
 
-    $('.sort .me, .sort .home').click(function(){
-        var differentUser = filters.user_id !== currentUserId;
+    $('.sort .home').click(function(){
+        filters.user_id = null;
+        filters.manager = null;
+        filterFeedbacks();
+    });
+
+    $('.sort .me').click(function(){
         filters.user_id = currentUserId;
-        if (dirtyFilter || differentUser){
-            filterFeedbacks();
-        } else {
-            selectBannerTab($(this).attr('class').match(/me|home/)[0]);
-        }
+        filters.manager = null;
+        filterFeedbacks();
+    });
+
+    $('.sort .manager').click(function(){
+        filters.user_id = null;
+        filters.manager = true;
+        filterFeedbacks();
     });
 
     $('#manager-team').find('.employee').click(function(){
@@ -111,14 +102,6 @@ $(document).ready(function(){
         $(".feedback-summary .number-bubble#resonant").text(resonances.resonant);
         $(".feedback-summary .number-bubble#mixed").text(resonances.mixed);
         $(".feedback-summary .number-bubble#isolated").text(resonances.isolated);
-    }
-
-    function getUserFeedbackDiv(user_id){
-        var feedbacks = $('#feedbacks');
-        if (feedbacks.find('.feedbacks#user-' + user_id).length < 1){
-            feedbacks.append("<div class='feedbacks' id='user-" + user_id + "'></div>" );
-        }
-        return feedbacks.find('.feedbacks#user-' + user_id);
     }
 
 });

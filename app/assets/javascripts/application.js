@@ -16,8 +16,6 @@
 //= require turbolinks
 //= require_tree .
 
-var impersonal_feedback_ids;
-
 function openModal(modal_id){
     var modal_selector = '.modal#' + modal_id;
     $('body').children().not(modal_selector).not('.ui-autocomplete').addClass('blur');
@@ -35,14 +33,6 @@ function getRecordID(elem){
 
 $(document).ready(function(){
 
-    $.ajax({
-        url: '/impersonal_feedback_ids',
-        method: 'GET',
-        success: function(data){
-            impersonal_feedback_ids = data;
-        }
-    });
-
     $(document).on('keydown', function(e) {
         if (e.which === 13) { // if is enter
             var focus = $(':focus');
@@ -57,7 +47,7 @@ $(document).ready(function(){
         var exception_classes = ['edit-comment'];
         if (e.which == 13){
             var target_form = $(this).closest('form');
-            if ($.inArray(target_form.attr('class'), exception_classes) > 0) {
+            if ($.inArray(target_form.attr('class'), exception_classes) < 0) {
                 target_form.submit();
             }
         }

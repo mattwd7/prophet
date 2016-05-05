@@ -3,8 +3,9 @@ class Manager < User
   has_many :manager_employees, foreign_key: 'manager_id'
   has_many :employees, through: :manager_employees
 
-  def employee_feedbacks
-    Feedback.where(user: self.employees).order('updated_at DESC').group('feedbacks.id')
+  def employee_feedbacks(resonance=nil)
+    query = Feedback.where(user: self.employees).order('updated_at DESC').group('feedbacks.id')
+    apply_filter(query, resonance)
   end
 
   def add_employee(user)
