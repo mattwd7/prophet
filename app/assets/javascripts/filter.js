@@ -65,7 +65,7 @@ $(document).ready(function(){
     }
 
     function filterFeedbacks(){
-        var column = $(".column#middle")
+        var feedbacks = $("#feedbacks");
         if (filters.resonance.length > 0){
             $('#filter-tags').show();
         } else {
@@ -76,7 +76,7 @@ $(document).ready(function(){
             url: '/filter_feedbacks',
             data: filters,
             beforeSend: function(){
-                $(".column#middle").addClass('fade-out-down');
+                feedbacks.addClass('fade-out-down');
             },
             success: function(data){
                 $('#feedbacks').html(data.feedbacks);
@@ -84,7 +84,7 @@ $(document).ready(function(){
                 dirtyFilter = false;
             },
             complete: function(){
-                $(".column#middle").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+                feedbacks.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
                     function() {
                         $(this).removeClass('fade-out-down');
                     });

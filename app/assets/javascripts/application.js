@@ -33,13 +33,6 @@ function getRecordID(elem){
 
 $(document).ready(function(){
 
-    var waves_config = {
-        duration: 1000,
-        delay: 2000
-    };
-    Waves.attach('.number-bubble', ['waves-circle', 'waves-light']);
-    Waves.init(waves_config);
-
     $(document).on('keydown', function(e) {
         if (e.which === 13) { // if is enter
             var focus = $(':focus');
