@@ -3,6 +3,28 @@ $(document).ready(function(){
     var currentUserId = $('.session').attr('id');
     var filters = {resonance: [], user_id: null, manager: null};
     var dirtyFilter = false;
+    var animsition_options = {
+        inClass: 'fade-out-down',
+        outClass: 'fade-in-up',
+        inDuration: 1500,
+        outDuration: 2000,
+        linkElement: '.animsition-link',
+        // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+        loading: false,
+        loadingParentElement: 'body', //animsition wrapper element
+        loadingClass: 'animsition-loading',
+        loadingInner: '', // e.g '<img src="loading.svg" />'
+        timeout: false,
+        timeoutCountdown: 5000,
+        onLoadEvent: true,
+        browser: [ 'animation-duration', '-webkit-animation-duration'],
+        // "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+        // The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+        overlay : false,
+        overlayClass : 'animsition-overlay-slide',
+        overlayParentElement : 'body',
+        transition: function(url){ window.location.href = url; }
+    };
 
     $('.filters .number-bubble').click(function(){
         toggleBubble($(this));
@@ -43,6 +65,7 @@ $(document).ready(function(){
     }
 
     function filterFeedbacks(){
+        var column = $(".column#middle")
         if (filters.resonance.length > 0){
             $('#filter-tags').show();
         } else {
@@ -54,13 +77,14 @@ $(document).ready(function(){
             data: filters,
             beforeSend: function(){
                 $(".column#middle").addClass('blur');
+//                $(".column#middle").animsition(animsition_options);
             },
             success: function(data){
-                console.log(data);
                 $('#feedbacks').html(data.feedbacks);
                 updateResonanceNumbers(data.resonances);
                 $(".column#middle").removeClass('blur');
                 dirtyFilter = false;
+//                $(".column#middle").animsition(animsition_options);
             }
         })
     }
