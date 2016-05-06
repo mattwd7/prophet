@@ -76,15 +76,18 @@ $(document).ready(function(){
             url: '/filter_feedbacks',
             data: filters,
             beforeSend: function(){
-                $(".column#middle").addClass('blur');
-//                $(".column#middle").animsition(animsition_options);
+                $(".column#middle").addClass('fade-out-down');
             },
             success: function(data){
                 $('#feedbacks').html(data.feedbacks);
                 updateResonanceNumbers(data.resonances);
-                $(".column#middle").removeClass('blur');
                 dirtyFilter = false;
-//                $(".column#middle").animsition(animsition_options);
+            },
+            complete: function(){
+                $(".column#middle").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
+                    function() {
+                        $(this).removeClass('fade-out-down');
+                    });
             }
         })
     }
