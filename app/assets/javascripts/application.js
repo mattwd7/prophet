@@ -18,13 +18,15 @@
 
 function openModal(modal_id){
     var modal_selector = '.modal#' + modal_id;
-    $('body').children().not(modal_selector).not('.ui-autocomplete').addClass('blur');
+    $('.modal').hide();
     $(modal_selector).show();
+    $('.modal-container').addClass('show-modal');
+    $('.modal-overlay').addClass('show-overlay');
 }
 
 function closeModal(){
-    $('.modal').hide();
-    $('body').children().removeClass('blur');
+    $('.modal-container').removeClass('show-modal');
+    $('.modal-overlay').removeClass('show-overlay');
 }
 
 function getRecordID(elem){
