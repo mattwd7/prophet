@@ -20,8 +20,10 @@ function openModal(modal_id){
     var modal_selector = '.modal#' + modal_id;
     $('.modal').hide();
     $(modal_selector).show();
-    $('.modal-container').addClass('show-modal');
-    $('.modal-overlay').addClass('show-overlay');
+    setTimeout(function(){
+        $('.modal-container').addClass('show-modal');
+        $('.modal-overlay').addClass('show-overlay');
+    }, 100);
 }
 
 function closeModal(){
