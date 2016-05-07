@@ -11,21 +11,18 @@ $(document).ready(function(){
         }
     });
 
-//    ENABLED ONLY FOR DEV TESTING
-//    $('.column').hide();
-//    initAdmin();
-
-
-    var users;
+    var users, managers;
     var grid = $('#admin-grid');
+
     function initAdmin(){
         if (!grid.hasClass('initialized')) {
             $.ajax({
                 method: 'get',
                 url: '/organizations/get_users',
                 success: function (data) {
-                    users = data;
-                    initGrid(data);
+                    users = data.users;
+                    managers = data.managers;
+                    initGrid(users);
                 }
             })
         }
@@ -53,6 +50,28 @@ $(document).ready(function(){
         });
 
         grid.addClass('initialized');
+        grid.contextmenu({
+            delegate: "td[user_attribute='managers']",
+            menu: createManagersMenu(),
+            select: function(event, ui) {
+                alert("Manager id = " + ui.cmd);
+                var selected_rows = grid.find('.selected');
+                var user_ids = selected_rows.map(function(i, el){ return $(el).attr('user_id') });
+                console.log(user_ids);
+                $.ajax({
+                    method: 'POST',
+                    url: '/organizations/bulk_update',
+                    data: { user_ids: user_ids, manager_id: ui.cmd },
+                    success: function(data){
+                        console.log(data);
+//                        selected_rows.find("td[user_attribute='managers']").each(function(i, el){
+//                            $(el).text(data);
+//                        })
+                    }
+                })
+            }
+        });
+//        $("td[user_attribute='managers']").contextmenu(menu, {mouseClick: 'right'});
     }
 
     function headers(){
@@ -70,6 +89,43 @@ $(document).ready(function(){
                 "<td user_attribute='email' class='inline-editable'>" + user.email + "</td>" +
                 "<td user_attribute='managers'>" + user.managers + "</td></tr>";
     };
+
+    // GRID MANIPULATION
+
+    // selection
+    var last_index;
+    grid.on('click', 'tr', function(e){
+        var index = grid.find('tr').index(this);
+        if (e.shiftKey){
+            if (index > last_index) {
+                for (var i = last_index; i <= index; i++) {
+                    grid.find('tr').eq(i).addClass('selected');
+                }
+            } else {
+                for (var i = last_index; i >= index; i--) {
+                    grid.find('tr').eq(i).addClass('selected');
+                }
+            }
+        } else {
+            grid.find('tr').removeClass('selected');
+            $(this).addClass('selected');
+        }
+        last_index = index;
+    });
+
+    // context menu
+    function createManagersMenu(){
+        var output = [];
+        managers.forEach(function(manager){
+            output.push(
+                { title: 'Assign to: ' + manager.user_tag, cmd: manager.id }
+            );
+        });
+        return output;
+    }
+
+
+//    $("td[user_attribute='managers']").contextmenu(menu);
 
 });
 

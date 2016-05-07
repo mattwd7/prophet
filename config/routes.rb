@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     collection do
       get :get_users
       put :update_user
+      post :bulk_update
     end
   end
 
