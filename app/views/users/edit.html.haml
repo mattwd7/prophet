@@ -31,7 +31,6 @@
   }
 
 .column#left
-  = render partial: 'users/profile'
 
   %ul#settings-menu
     %li.selected.general
@@ -53,3 +52,6 @@
 .column#middle
   = render partial: 'general_settings'
   = render partial: 'notifications'
+
+.column#right
+  = render partial: 'users/profile'
