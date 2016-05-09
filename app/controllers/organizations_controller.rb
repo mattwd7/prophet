@@ -11,13 +11,13 @@ class OrganizationsController < ApplicationController
     render text: params[:value]
   end
 
-  def bulk_update
-    manager = Manager.find(params[:manager_id])
+  def update_managers
+    manager = Manager.find(params[:manager_id]) if params[:manager_id]
     params[:user_ids].each do |id|
       u = User.find(id)
-      mananger.add_employee(u)
+      manager ? manager.add_employee(u) : u.manager_employees.destroy_all
     end
-    render text: manager.full_name
+    render json: { manager: manager.try(:full_name) || '' }.to_json
   end
 
 end

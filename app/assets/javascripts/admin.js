@@ -49,29 +49,19 @@ $(document).ready(function(){
             });
         });
 
-        grid.addClass('initialized');
         grid.contextmenu({
             delegate: "td[user_attribute='managers']",
             menu: createManagersMenu(),
             select: function(event, ui) {
-                alert("Manager id = " + ui.cmd);
-                var selected_rows = grid.find('.selected');
-                var user_ids = selected_rows.map(function(i, el){ return $(el).attr('user_id') });
-                console.log(user_ids);
-                $.ajax({
-                    method: 'POST',
-                    url: '/organizations/bulk_update',
-                    data: { user_ids: user_ids, manager_id: ui.cmd },
-                    success: function(data){
-                        console.log(data);
-//                        selected_rows.find("td[user_attribute='managers']").each(function(i, el){
-//                            $(el).text(data);
-//                        })
-                    }
-                })
+                if (ui.cmd === 'assign_manager'){
+                    assignManager(ui.item.data().manager_id);
+                } else if (ui.cmd === 'clear_managers') {
+                    assignManager(null);
+                }
             }
         });
-//        $("td[user_attribute='managers']").contextmenu(menu, {mouseClick: 'right'});
+
+        grid.addClass('initialized');
     }
 
     function headers(){
@@ -93,6 +83,7 @@ $(document).ready(function(){
     // GRID MANIPULATION
 
     // selection
+    var user_ids = [];
     var last_index;
     grid.on('click', 'tr', function(e){
         var index = grid.find('tr').index(this);
@@ -111,6 +102,7 @@ $(document).ready(function(){
             $(this).addClass('selected');
         }
         last_index = index;
+        selectedUserIds();
     });
 
     // context menu
@@ -118,14 +110,38 @@ $(document).ready(function(){
         var output = [];
         managers.forEach(function(manager){
             output.push(
-                { title: 'Assign to: ' + manager.user_tag, cmd: manager.id }
+                { title: 'Assign to: ' + manager.user_tag, cmd: 'assign_manager', data: { manager_id: manager.id } }
             );
         });
+        output.push({ title: 'Clear', cmd: 'clear_managers', data: { manager_id: 1} });
         return output;
     }
 
+    function selectedUserIds(){
+        user_ids = [];
+        $.each(grid.find('.selected'), function(i, el){
+            user_ids.push($(el).attr('user_id'));
+        })
+    }
 
-//    $("td[user_attribute='managers']").contextmenu(menu);
+    function assignManager(manager_id){
+        var data = { user_ids: user_ids };
+        if (manager_id != null){
+            data['manager_id'] = manager_id;
+        }
+        var selected_rows = grid.find('.selected');
+        console.log(manager_id);
+        $.ajax({
+            method: 'put',
+            url: '/organizations/update_managers',
+            data: data,
+            success: function(data){
+                selected_rows.find("td[user_attribute='managers']").each(function(i, el){
+                    $(el).text(data.manager);
+                })
+            }
+        })
+    }
 
 });
 
