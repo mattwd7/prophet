@@ -9,20 +9,21 @@
   .submit-tag {
     background: #8BC34A;
     color: white;
-    padding: 5px 10px;
-    font-size: 15px;
-    width: 105px;
+    padding: 10px 13px 0px 31px;
+    font-size: 20px;
+    width: 144px;
     float: none;
-    margin: 0 auto;
-    text-align: center;
-    line-height: 20px;
-    height: 20px;
-    border-radius: 5px;
+    margin-left: 153px;
+    text-align: left;
+    line-height: 26px;
+    height: 33px;
+    border-radius: 8px;
   }
 
   .column#left {
     #settings-menu {
       padding: 0;
+      margin-top: 0px;
       li {
         padding: 10px;
         &.selected {
@@ -43,7 +44,7 @@
       }
     }
     .copyright {
-      font-size: 12px;
+      font-size: 13px;
       color: #aaa;
       padding: 5px;
       ul  {
@@ -53,7 +54,7 @@
       li {
         display: inline-block;
         text-decoration: underline;
-        margin-left: 5px;
+        margin-left: 0px;
         &:hover {
           cursor: pointer;
         }
@@ -68,8 +69,9 @@
     padding: 15px 0;
     h2 {
       border-bottom: 1px solid #ccc;
-      padding-top: 10px;
+      padding-top: 0px;
       padding-bottom: 10px;
+      font-size: 14px;
     }
     & > * > * {
       background: #eee;
@@ -79,6 +81,7 @@
     .label {
       width: 150px;
       display: inline-block;
+      font-weight: bolder;
     }
     li {
       margin-bottom: 20px;
