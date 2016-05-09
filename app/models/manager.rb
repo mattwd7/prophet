@@ -9,7 +9,9 @@ class Manager < User
   end
 
   def add_employee(user)
-    ManagerEmployee.find_or_create_by(employee_id: user.id, manager_id: self.id)
+    if user != self
+      ManagerEmployee.find_or_create_by(employee_id: user.id, manager_id: self.id)
+    end
   end
 
   def remove_employee(user)
