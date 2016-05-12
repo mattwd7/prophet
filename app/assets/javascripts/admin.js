@@ -61,6 +61,18 @@ $(document).ready(function(){
             }
         });
 
+        grid.contextmenu({
+            delegate: "td[user_attribute='role']",
+            menu: [
+                {title: 'Employee', cmd: 'employee'},
+                {title: 'Manager', cmd: 'manager'},
+                {title: 'Admin', cmd: 'admin'},
+            ],
+            select: function(event, ui) {
+                // AJAX CALL HERE
+            }
+        });
+
         grid.addClass('initialized');
     }
 
@@ -69,6 +81,7 @@ $(document).ready(function(){
             "<td>Last Name</td>" +
             "<td>User Tag</td>" +
             "<td>Email</td>" +
+            "<td>Role</td>" +
             "<td>Manager</td></tr>"
     }
 
@@ -77,6 +90,7 @@ $(document).ready(function(){
                 "<td user_attribute='last_name' class='inline-editable'>" + user.last_name + "</td>" +
                 "<td user_attribute='user_tag'>" + user.user_tag + "</td>" +
                 "<td user_attribute='email' class='inline-editable'>" + user.email + "</td>" +
+                "<td user_attribute='role'>" + user.role + "</td>" +
                 "<td user_attribute='managers'>" + user.managers + "</td></tr>";
     };
 
@@ -85,7 +99,7 @@ $(document).ready(function(){
     // selection
     var user_ids = [];
     var last_index;
-    grid.on('click', 'tr', function(e){
+    grid.on('click', 'tbody tr', function(e){
         var index = grid.find('tr').index(this);
         if (e.shiftKey){
             if (index > last_index) {
@@ -105,6 +119,13 @@ $(document).ready(function(){
         selectedUserIds();
     });
 
+    function selectedUserIds(){
+        user_ids = [];
+        $.each(grid.find('.selected'), function(i, el){
+            user_ids.push($(el).attr('user_id'));
+        })
+    }
+
     // context menu
     function createManagersMenu(){
         var output = [];
@@ -115,13 +136,6 @@ $(document).ready(function(){
         });
         output.push({ title: 'Clear', cmd: 'clear_managers', data: { manager_id: 1} });
         return output;
-    }
-
-    function selectedUserIds(){
-        user_ids = [];
-        $.each(grid.find('.selected'), function(i, el){
-            user_ids.push($(el).attr('user_id'));
-        })
     }
 
     function assignManager(manager_id){

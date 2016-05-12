@@ -13,7 +13,8 @@ class Organization < ActiveRecord::Base
   def spreadsheet_data
     users.map do |user|
       manager_hash = { managers: user.managers.map(&:full_name).join(', ') }
-      user.attributes.merge(manager_hash)
+      role_hash = { role: user.type || '' }
+      user.attributes.merge(manager_hash).merge(role_hash)
     end
   end
 
