@@ -63,6 +63,10 @@ $(document).ready(function(){
         }
     });
 
+    $(document).on('submit', 'form', function(){
+        $(this).find('.submit-tag').removeClass('active');
+    });
+
     // INFINITE SCROLLING
     if ($('#infinite-scrolling').length > 0) {
         $(window).on('scroll', function () {

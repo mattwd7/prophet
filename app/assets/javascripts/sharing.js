@@ -5,16 +5,40 @@ $(document).ready(function(){
         additionalPeers = [],
         feedbackID = null;
 
-    $('.feedback').hover(function(){
-        feedbackID = $(this).attr('id').match(/\d+/)[0];
+    $(document).on('mouseover', '.feedback', function(){
+        feedbackID = getRecordID($(this));
 
         $(this).find('.vote.peers').webuiPopover({
-            placement: 'vertical',
+            placement: 'bottom-left',
             trigger: 'hover',
             width: 200,
             type: 'async',
             animation: 'pop',
             url: 'feedbacks/' + feedbackID + '/peers',
+            style: 'inverse',
+            padding: false,
+            content: function(data){
+                var html = '<ul class="peers-popover">';
+                for(var arr_index in data){
+                    if (arr_index > 19) {
+                        html += '<li><a>And ' + (data.length - 19) + ' more...</a></li>';
+                        break;
+                    }
+                    var user = data[arr_index];
+                    html += '<li>' + user.name + '</li>';
+                }
+                html+='</ul>';
+                return html;
+            }
+        });
+
+        $(this).find('.vote.agree').webuiPopover({
+            placement: 'bottom-left',
+            trigger: 'hover',
+            width: 200,
+            type: 'async',
+            animation: 'pop',
+            url: 'feedbacks/' + feedbackID + '/peers?type=Agree',
             style: 'inverse',
             padding: false,
             content: function(data){

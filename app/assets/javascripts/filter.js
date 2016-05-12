@@ -3,28 +3,6 @@ $(document).ready(function(){
     var currentUserId = $('.session').attr('id');
     var filters = {resonance: [], user_id: null, manager: null};
     var dirtyFilter = false;
-    var animsition_options = {
-        inClass: 'fade-out-down',
-        outClass: 'fade-in-up',
-        inDuration: 1500,
-        outDuration: 2000,
-        linkElement: '.animsition-link',
-        // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
-        loading: false,
-        loadingParentElement: 'body', //animsition wrapper element
-        loadingClass: 'animsition-loading',
-        loadingInner: '', // e.g '<img src="loading.svg" />'
-        timeout: false,
-        timeoutCountdown: 5000,
-        onLoadEvent: true,
-        browser: [ 'animation-duration', '-webkit-animation-duration'],
-        // "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
-        // The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
-        overlay : false,
-        overlayClass : 'animsition-overlay-slide',
-        overlayParentElement : 'body',
-        transition: function(url){ window.location.href = url; }
-    };
 
     $('.filters .number-bubble').click(function(){
         toggleBubble($(this));
@@ -66,6 +44,7 @@ $(document).ready(function(){
 
     function filterFeedbacks(){
         var feedbacks = $("#feedbacks");
+        var animating = false;
         if (filters.resonance.length > 0){
             $('#filter-tags').show();
         } else {
@@ -76,6 +55,7 @@ $(document).ready(function(){
             url: '/filter_feedbacks',
             data: filters,
             beforeSend: function(){
+                animating = true;
                 feedbacks.addClass('fade-out-down');
             },
             success: function(data){
@@ -84,10 +64,14 @@ $(document).ready(function(){
                 dirtyFilter = false;
             },
             complete: function(){
-                feedbacks.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd',
-                    function() {
+                if (!animating){
+                    $(this).removeClass('fade-out-down');
+                } else {
+                    feedbacks.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function (){
                         $(this).removeClass('fade-out-down');
                     });
+                }
+                animating = false;
             }
         })
     }
