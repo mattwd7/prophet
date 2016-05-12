@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get :get_users
       put :update_user
       put :update_managers
+      put :update_user_role
     end
   end
 

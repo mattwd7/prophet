@@ -11,7 +11,7 @@ $(document).ready(function(){
         }
     });
 
-    var users, managers;
+    var users, managers, role;
     var grid = $('#admin-grid');
 
     function initAdmin(){
@@ -49,8 +49,7 @@ $(document).ready(function(){
             });
         });
 
-        grid.contextmenu({
-            delegate: "td[user_attribute='managers']",
+        grid.find("td[user_attribute='managers']").contextmenu({
             menu: createManagersMenu(),
             select: function(event, ui) {
                 if (ui.cmd === 'assign_manager'){
@@ -61,15 +60,15 @@ $(document).ready(function(){
             }
         });
 
-        grid.contextmenu({
-            delegate: "td[user_attribute='role']",
+        grid.find("td[user_attribute='role']").contextmenu({
             menu: [
-                {title: 'Employee', cmd: 'employee'},
-                {title: 'Manager', cmd: 'manager'},
-                {title: 'Admin', cmd: 'admin'},
+                { title: 'Employee', cmd: '' },
+                { title: 'Manager', cmd: 'Manager' },
+                { title: 'Admin', cmd: 'Admin' }
             ],
             select: function(event, ui) {
-                // AJAX CALL HERE
+                role = ui.cmd;
+                assignRole();
             }
         });
 
@@ -82,7 +81,7 @@ $(document).ready(function(){
             "<td>User Tag</td>" +
             "<td>Email</td>" +
             "<td>Role</td>" +
-            "<td>Manager</td></tr>"
+            "<td>Managers</td></tr>"
     }
 
     function userRow(user){
@@ -119,6 +118,22 @@ $(document).ready(function(){
         selectedUserIds();
     });
 
+    $(document).on('mousedown', '#admin-grid', function(event, ui){
+        if (event.which == 3){
+            rightClickSelect(event.target);
+        }
+    });
+
+    function rightClickSelect(el){
+        var row = $(el).closest('tr');
+        if(!row.hasClass('selected')){
+//            $('.selected').removeClass('selected');
+//            row.addClass('selected');
+//            user_ids = [row.attr('user_id')];
+            row.click();
+        }
+    }
+
     function selectedUserIds(){
         user_ids = [];
         $.each(grid.find('.selected'), function(i, el){
@@ -131,7 +146,7 @@ $(document).ready(function(){
         var output = [];
         managers.forEach(function(manager){
             output.push(
-                { title: 'Assign to: ' + manager.user_tag, cmd: 'assign_manager', data: { manager_id: manager.id } }
+                { title: 'Assign to: ' + manager.full_name, cmd: 'assign_manager', data: { manager_id: manager.id } }
             );
         });
         output.push({ title: 'Clear', cmd: 'clear_managers', data: { manager_id: 1} });
@@ -143,16 +158,32 @@ $(document).ready(function(){
         if (manager_id != null){
             data['manager_id'] = manager_id;
         }
-        var selected_rows = grid.find('.selected');
-        console.log(manager_id);
         $.ajax({
             method: 'put',
             url: '/organizations/update_managers',
             data: data,
             success: function(data){
-                selected_rows.find("td[user_attribute='managers']").each(function(i, el){
-                    $(el).text(data.manager);
-                })
+                console.log(data);
+                for (var i = 0; i < data.updates.length; i++){
+                    var id = data.updates[i].user_id;
+                    var managers = data.updates[i].managers;
+                    $("tr[user_id=" + id + "]").find("td[user_attribute='managers']").text(managers);
+                }
+            }
+        })
+    }
+
+    function assignRole(){
+        var data = { user_ids: user_ids, role: role };
+        $.ajax({
+            method: 'put',
+            url: '/organizations/update_user_role',
+            data: data,
+            success: function(data){
+                for (var i = 0; i < data.user_ids.length; i++){
+                    var id = data.user_ids[i];
+                    $("tr[user_id=" + id + "]").find("td[user_attribute='role']").text(role)
+                }
             }
         })
     }

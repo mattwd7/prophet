@@ -7,7 +7,7 @@ class Organization < ActiveRecord::Base
   end
 
   def managers
-    users.where(type: 'Manager')
+    users.where(type: 'Manager').map{|u| u.attributes.merge({full_name: u.full_name})}
   end
 
   def spreadsheet_data
