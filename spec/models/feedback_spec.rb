@@ -105,13 +105,20 @@ describe Feedback do
       expect(@feedback.comment_history[2].class).to eq(ShareLog)
     end
 
-    it 'sends an email to the recipient when resonance increases' do
+    it 'sends ONE email to the recipient each time resonance increases' do
       mail_count = ActionMailer::Base.deliveries.count
       @recipient = @feedback.user
       @recipient.mailer_settings.update_all(active?: true)
       @feedback.feedback_links.each{|link| link.update_attributes(agree: false)}
       @feedback.feedback_links.first(2).each{|link| link.update_attributes(agree: true)}
+
+      # ensure 1 email
       expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
+      expect(@recipient.mail_logs.first.content).to eq('1')
+      @feedback.feedback_links.first.update_attributes(agree: false)
+      @feedback.feedback_links.first.update_attributes(agree: true)
+      expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
+
       @feedback.feedback_links.each{|link| link.update_attributes(agree: true)}
       expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 2)
     end

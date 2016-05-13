@@ -64,6 +64,7 @@ $(document).ready(function(){
                 dirtyFilter = false;
             },
             complete: function(){
+                console.log(animating);
                 if (!animating){
                     $(this).removeClass('fade-out-down');
                 } else {

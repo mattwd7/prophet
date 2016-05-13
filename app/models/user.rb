@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :managers, through: :manager_employees
   has_many :notifications
   has_many :share_logs
+  has_many :mail_logs
   has_many :mailer_settings
 
   validates_presence_of :email

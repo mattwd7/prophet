@@ -15,6 +15,7 @@ class Notifier < ActionMailer::Base
   end
 
   def feedback_resonates(feedback)
+    feedback.user.mail_logs.create(feedback: feedback, content: feedback.resonance_value + 1)
     mail(to: feedback.user.email, subject: 'Your feedback is resonating with your peers.')
   end
 

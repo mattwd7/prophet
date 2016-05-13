@@ -11,13 +11,13 @@ private
     new_resonance_value = feedback.calc_resonance_value
     if new_resonance_value > feedback.resonance_value && new_resonance_value > 0
       feedback.create_notification
-      send_email
+      send_email unless feedback.user.mail_logs.where(feedback: feedback, content: new_resonance_value).exists?
     end
-    feedback.update_attributes(resonance_value: feedback.calc_resonance_value)
+    feedback.update_attributes(resonance_value: new_resonance_value)
   end
 
   def create_notification
-    Notification.create(feedback: self.feedback, user: self.user)
+    Notification.create(feedback: feedback, user: user) unless feedback.author == user
   end
 
   def send_email
