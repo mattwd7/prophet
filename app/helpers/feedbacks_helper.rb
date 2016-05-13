@@ -38,4 +38,21 @@ module FeedbacksHelper
     end
   end
 
+  def hidden_comment_content(feedback, user)
+    show = 2; shown = 0; output = []
+    comments_and_logs = feedback.comment_history.reverse
+    comments_and_logs.each do |obj|
+      if shown < show || (obj.is_a?(Comment) && obj.fresh?(user))
+        output << { object: obj, hidden: false }
+        shown += 1 if obj.is_a?(Comment)
+      elsif shown == show && obj.is_a?(Log)
+        output << { object: obj, hidden: false }
+        shown += 1
+      else
+        output << { object: obj, hidden: true }
+      end
+    end
+    output.reverse
+  end
+
 end
