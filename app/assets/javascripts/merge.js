@@ -1,7 +1,8 @@
 $(document).ready(function(){
 
     var backdrop_elements = $("#banner, .column#left, .column#middle > *:not(#feedbacks), .feedback"),
-        feedbacks = $('.feedback'),
+        feedbacks = $('.feedback.mergeable'),
+        non_mergeable_feedbacks = $('.feedback:not(.mergeable)'),
         feedback_1_id = null,
         feedback_2_id = null,
         revert_duration = 500;

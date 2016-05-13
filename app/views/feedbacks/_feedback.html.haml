@@ -1,5 +1,5 @@
 - hidden ||= nil
-.feedback{ id: "feedback-#{feedback.id}", class: current_user.fresh_feedbacks.include?(feedback) ? 'fresh' : '', style: hidden ? 'display:none' : 'display:block' }
+.feedback{ id: "feedback-#{feedback.id}", class: feedback_classes(feedback), style: hidden ? 'display:none' : 'display:block' }
   - if current_user.following_up?(feedback)
     .follow-up
       .close x
@@ -13,11 +13,10 @@
       .data
         .address= address_info(feedback, current_user)
         .timestamp= "#{time_ago_in_words(feedback.created_at)} ago"
-      - if feedback.author != feedback.user
-        .score
-          .flavor= flavor_text(feedback)
-          .votes
-            = vote_numbers(feedback, current_user)
+      .score
+        .flavor= flavor_text(feedback)
+        .votes
+          = vote_numbers(feedback, current_user)
     .content
       = format_content(feedback.content)
     %table.actions

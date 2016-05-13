@@ -1,5 +1,11 @@
 closeModal();
 var html = "<%= escape_javascript(render partial: 'feedbacks/log', locals: { log: @log } ) %>";
-var feedback_id = <%= @feedback.id %>;
-$('#feedback-' + feedback_id).find(".comments").append(html);
-$('#feedback-' + feedback_id).find('.peers .number').text(<%= @feedback.peers.count %>);
+var feedback = $('#feedback-' + <%= @feedback.id %>);
+feedback.find(".comments").append(html);
+feedback.find('.peers .number').text(<%= @feedback.peers.count %>);
+
+var flavor_container = feedback.find('.score .flavor').children().eq(0);
+var resonance_text = "<%= @feedback.resonance_text %>";
+flavor_container.removeClass();
+flavor_container.addClass(resonance_text.toLowerCase());
+flavor_container.text(resonance_text.toUpperCase());

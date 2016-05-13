@@ -54,7 +54,7 @@ class Feedback < ActiveRecord::Base
   end
 
   def create_notification
-    Notification.create(feedback: self, user: self.user)
+    Notification.create(feedback: self, user: self.user) unless self.user == self.author
   end
 
   def follow_up
@@ -64,7 +64,7 @@ class Feedback < ActiveRecord::Base
 
 private
   def set_defaults
-    self.resonance_value ||= -1
+    self.resonance_value ||= 0
   end
 
   def set_author_as_peer
@@ -78,6 +78,6 @@ private
   end
 
   def send_email
-    Notifier.new_feedback(self).deliver if user.mailer_settings.for('new_feedback').active?
+    Notifier.new_feedback(self).deliver if user.mailer_settings.for('new_feedback').active? && self.user != self.author
   end
 end

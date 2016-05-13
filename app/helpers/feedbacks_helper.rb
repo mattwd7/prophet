@@ -1,5 +1,12 @@
 module FeedbacksHelper
 
+  def feedback_classes(feedback)
+    classes = []
+    classes << 'fresh' if current_user.fresh_feedbacks.include?(feedback)
+    classes << 'mergeable' if feedback.author != current_user && feedback.user == current_user
+    classes.join(' ')
+  end
+
   def address_info(feedback, current_user)
     if feedback.author == feedback.user
       "#{feedback.user.full_name} Self-Observation"
