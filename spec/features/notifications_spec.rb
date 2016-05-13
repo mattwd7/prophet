@@ -39,7 +39,7 @@ describe 'Notifications', js: true do
     expect(@user1.my_notifications.count).to eq(0)
     expect(@user1.home_notifications.count).to eq(1)
     expect(@other_user.my_notifications.count).to eq(1)
-    expect(Notification.count).to eq(3)
+    expect(Notification.count).to eq(2)
     within('.sort .home'){ expect(page).to have_content(1) }
   end
 
@@ -59,11 +59,11 @@ describe 'Notifications', js: true do
     before(:each) do
       @feedback = FactoryGirl.create(:spec_feedback, author: @author, user: @user1, content: 'first feedback')
       FactoryGirl.create(:spec_feedback_link, user: @other_user, feedback: @feedback)
-      expect(Notification.count).to eq(3)
+      expect(Notification.count).to eq(2)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
       FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
-      expect(Notification.count).to eq(12)
+      expect(Notification.count).to eq(11)
       visit current_path
     end
 

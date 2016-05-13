@@ -52,17 +52,6 @@ describe 'Admin', js: true do
       end
     end
 
-    it 'can bulk assign a manager to employees' do
-      expect(@manager.employees.count).to eq(3)
-      within('#admin-grid') do
-        expect(page).to have_css('tr', count: @org.users.count)
-        first('tr').click
-        expect(page).to have_css('.selected', count: 1)
-        page.driver.browser.action.key_down(:shift).click(last('tr')).key_up(:shift).perform
-        expect(page).to have_css('.selected', count: @org.users.count)
-      end
-    end
-
   end
 
 end

@@ -94,9 +94,6 @@ describe 'User', js: true do
       expect(page).to have_css("#feedback-#{last_id + 1}")
       expect(@user.feedbacks.count).to eq(init_count + 1)
       feedback = @user.feedbacks.last
-      within "#feedback-#{feedback.id}" do
-        expect(page).to_not have_css('.score')
-      end
     end
 
     it 'can comment on feedback' do
@@ -145,7 +142,6 @@ describe 'User', js: true do
       expect(@team1.peers).to include(@user)
       agree_count = @team1.peers_in_agreement.count
       visit current_path
-      find('.sort .home').click
       expect(page).to have_content(@team1.content)
       within("#feedback-#{@team1.id}") do
         find('.action.agree').click

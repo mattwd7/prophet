@@ -81,11 +81,6 @@ describe Feedback do
       expect(@feedback.resonance_value).to eq(0)
     end
 
-    it 'has a resonance value of -1 if it is a personal feedback request' do
-      request = FactoryGirl.create(:spec_full_feedback, user: @author, author: @author)
-      expect(request.resonance_value).to eq(-1)
-    end
-
     it 'cannot have the same peer assigned twice' do
       same_peer = @feedback.peers.first
       new_peer = FactoryGirl.create(:spec_user, email: 'new_peer@gmail.com')
