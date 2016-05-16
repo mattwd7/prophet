@@ -35,6 +35,16 @@ function getRecordID(elem){
     return $(elem).attr('id').match(/\d+/)[0];
 }
 
+function updateResonance(feedback_id, resonance){
+    var feedback = $('#feedback-' + feedback_id),
+        flavor_container = feedback.find('.score .flavor').children().eq(0);
+    flavor_container.removeClass();
+    flavor_container.addClass(resonance.toLowerCase());
+    flavor_container.text(resonance.toUpperCase());
+    console.log(feedback_id);
+    console.log(resonance);
+}
+
 $(document).ready(function(){
 
     $(document).on('keydown', function(e) {

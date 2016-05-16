@@ -15,9 +15,10 @@ class FeedbacksController < ApplicationController
   end
 
   def vote
-    link = FeedbackLink.where(user: current_user, feedback_id: params[:id]).first
+    feedback = Feedback.find(params[:id])
+    link = FeedbackLink.where(user: current_user, feedback: feedback).first
     link.update_attributes(agree: params[:agree])
-    render nothing: true
+    render json: { resonance: feedback.reload.resonance_text }.to_json
   end
 
   def share

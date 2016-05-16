@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
 
+  before_filter :prevent_snooping, only: [:filter_feedbacks]
+
   def about; end
   def help; end
   def data; end
@@ -74,6 +76,15 @@ class HomeController < ApplicationController
       respond_to do |format|
         format.json { render json: { feedbacks: html, resonances: resonances } }
       end
+    end
+  end
+
+private
+  def prevent_snooping
+    if params[:user_id].present? &&
+        ((!current_user.is_a?(Manager) && params[:user_id].to_i != current_user.id) ||
+            (current_user.is_a?(Manager) && !current_user.employees.map(&:id).include?(params[:user_id])))
+      render nothing: true, status: :forbidden
     end
   end
 

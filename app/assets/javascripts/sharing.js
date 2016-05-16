@@ -61,6 +61,7 @@ $(document).ready(function(){
         var feedback_id = $(this).closest('.feedback').attr('id').match(/\d+$/)[0],
             type = $(this).hasClass('agree') ? 'Agree' : 'Peers';
         openModal('share-list');
+        $('.webui-popover').hide();
         initShareList(feedback_id, type);
     });
 

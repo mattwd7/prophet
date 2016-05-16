@@ -91,11 +91,15 @@ $(document).ready(function(){
         $.ajax({
             type: "POST",
             url: url,
-            data: { agree: agreeing }
+            data: { agree: agreeing },
+            success: function(data){
+                var feedback_id = getRecordID(feedback);
+                updateResonance(feedback_id, data.resonance)
+            }
         });
     });
 
-    $('.view-all').click(function(){
+    $(document).on('click', '.view-all a', function(){
         $(this).closest('.comments').find('.comment, .share-log').show();
         $(this).hide();
     });

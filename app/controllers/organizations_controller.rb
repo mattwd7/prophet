@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
 
-  # TODO: BEFORE FILTER FOR ADMIN!!!
+  before_filter :require_admin
 
   def get_users
     @organization = current_user.organization

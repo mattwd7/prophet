@@ -7,4 +7,10 @@ class ApplicationController < ActionController::Base
     users.map{|p| {user_tag: p.user_tag, avatar_url: p.avatar.url(:large), name: p.full_name, title: p.title}}
   end
 
+  def require_admin
+    unless current_user.is_a?(Admin)
+      render nothing: true, status: :forbidden
+    end
+  end
+
 end
