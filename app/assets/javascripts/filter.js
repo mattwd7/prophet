@@ -72,6 +72,7 @@ $(document).ready(function(){
                     });
                 }
                 animating = false;
+                identifyFreshFeedbacks();
             }
         })
     }
