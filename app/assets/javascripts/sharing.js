@@ -8,13 +8,14 @@ $(document).ready(function(){
     $(document).on('mouseover', '.feedback', function(){
         feedbackID = getRecordID($(this));
 
-        $(this).find('.vote.peers').webuiPopover({
+        $(this).find('.vote.agree').webuiPopover({
+            cache: false,
             placement: 'bottom-left',
             trigger: 'hover',
             width: 200,
             type: 'async',
             animation: 'pop',
-            url: 'feedbacks/' + feedbackID + '/peers',
+            url: 'feedbacks/' + feedbackID + '/peers?type=Agree',
             style: 'inverse',
             padding: false,
             content: function(data){
@@ -32,13 +33,13 @@ $(document).ready(function(){
             }
         });
 
-        $(this).find('.vote.agree').webuiPopover({
+        $(this).find('.vote.peers').webuiPopover({
             placement: 'bottom-left',
             trigger: 'hover',
             width: 200,
             type: 'async',
             animation: 'pop',
-            url: 'feedbacks/' + feedbackID + '/peers?type=Agree',
+            url: 'feedbacks/' + feedbackID + '/peers',
             style: 'inverse',
             padding: false,
             content: function(data){
