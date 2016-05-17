@@ -36,13 +36,14 @@ input[type=checkbox]:hover{ cursor: pointer; }
   z-index: 999;
   border-bottom: 1px solid black;
   .logo {
-    font-family: 'Chancery';
-    font-size: 47px;
+    font-family: 'Avenir';
+    font-size: 58px;
+    font-weight: 600;
     color: white;
     width: 250px;
     height: 80px;
     position: absolute;
-    left: 125px;
+    left: 69px;
   }
   .session {
     float: right;
