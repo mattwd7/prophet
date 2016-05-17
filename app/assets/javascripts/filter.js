@@ -57,6 +57,11 @@ $(document).ready(function(){
             beforeSend: function(){
                 animating = true;
                 feedbacks.addClass('fade-out-down');
+                feedbacks.one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function (){
+                    feedbacks.removeClass('fade-out-down');
+                    animating = false;
+                    console.log('animating completed!')
+                });
             },
             success: function(data){
                 $('#feedbacks').html(data.feedbacks);
@@ -65,11 +70,7 @@ $(document).ready(function(){
             },
             complete: function(){
                 if (!animating){
-                    $(this).removeClass('fade-out-down');
-                } else {
-                    feedbacks.on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function (){
-                        $(this).removeClass('fade-out-down');
-                    });
+                    feedbacks.removeClass('fade-out-down');
                 }
                 animating = false;
                 identifyFreshFeedbacks();

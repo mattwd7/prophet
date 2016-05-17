@@ -251,6 +251,11 @@ margin-bottom: 4px;
 
 #infinite-scrolling {
   display: none;
+  .pagination {
+    margin: 0 auto;
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content{

@@ -7,6 +7,7 @@ $(document).ready(function(){
             initAdmin();
         } else {
             $('.column').show();
+            $('.column').removeClass('fade-out-down');
             $('#admin-grid_wrapper').hide();
         }
     });

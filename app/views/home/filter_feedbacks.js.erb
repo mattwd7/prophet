@@ -1,6 +1,3 @@
 var pagination = $('.pagination');
+pagination.eq(0).closest('#infinite-scrolling').remove();
 $('#feedbacks').append('<%= j render partial: 'feedbacks/index', locals: { feedbacks: @feedbacks } %>');
-<% if @feedbacks.next_page %>
-    pagination.replaceWith('<%= j will_paginate @feedbacks %>');
-    identifyFreshFeedbacks();
-<% end %>

@@ -1,11 +1,9 @@
 var freshFeedbacks = [];
 function identifyFreshFeedbacks(){
-    console.log('refreshing...');
     freshFeedbacks = $.map($('.feedback.fresh'), (function(elem){
         return { id: $(elem).attr('id').match(/\d+/)[0],
             basePosition: $(elem).offset().top + $(elem).height() };
     }));
-    console.log(freshFeedbacks);
 }
 
 $(document).ready(function(){
