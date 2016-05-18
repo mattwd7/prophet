@@ -12,7 +12,9 @@ class OrganizationsController < ApplicationController
       @user.temp_password = Devise.friendly_token.first(8)
       @user.password = @user.temp_password
       @user.save
-      render nothing: true
+      respond_to? do |format|
+        format.js
+      end
   end
 
   def update_user
