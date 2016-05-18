@@ -52,6 +52,24 @@ describe 'Admin', js: true do
       end
     end
 
+    it 'can add new employee to organization, resulting in random password and email with password' do
+      user_count = @org.users.count
+      mail_count = ActionMailer::Base.deliveries.count
+      new_user = {first_name: 'Donald', last_name: 'trump', email: 'DT_wall@gmail.com'}
+      expect(page).to have_content('Add User')
+      find('.add-user').click
+      within '.modal#add-user' do
+        find('#user_first_name').set new_user[:first_name]
+        find('#user_last_name').set new_user[:last_name]
+        find('#user_email').set new_user[:email]
+        find('.submit-tag').click
+      end
+      expect(@org.users.count).to eq(user_count + 1)
+      expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
+      # visit destroy_user_session_path
+      # log_in_with(new_user[:email], '')
+    end
+
   end
 
 end

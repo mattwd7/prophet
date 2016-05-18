@@ -21,11 +21,24 @@ input:not([type=checkbox]):not([type=file]) {
 }
 li { list-style-type: none; }
 
-label:hover { cursor: pointer; }
-input[type=checkbox]:hover{ cursor: pointer; }
-
-.editable:hover { cursor: pointer; }
+.editable:hover, .actions > *, label:hover, input[type=checkbox]:hover { cursor: pointer; }
 .submit-tag { outline: none; }
+
+.button {
+  color: white;
+  border-radius: 8px;
+  padding: 5px 30px;
+  font-size: 23px;
+  min-width: 73px;
+  height: 33px;
+  line-height: 38px;
+  &.confirm {
+    background: #8BC34A;
+  }
+  &.cancel {
+    background: #ccc;
+  }
+}
 
 #banner {
   background: #8BC34A;

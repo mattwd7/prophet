@@ -96,7 +96,7 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('click', '.modal .close, .modal .cancel', function(){
+    $(document).on('click', '.modal .close, .modal .cancel, .modal-overlay', function(){
         closeModal();
     });
 

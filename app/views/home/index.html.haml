@@ -33,6 +33,5 @@
   = render partial: 'users/profile'
 
 
-
-%table#admin-grid
-  %tbody
+- if current_user.is_a?(Admin)
+  = render partial: 'users/admin'

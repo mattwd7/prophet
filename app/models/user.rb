@@ -21,7 +21,9 @@ class User < ActiveRecord::Base
 
   validates_presence_of :email
   before_save :make_proper, :generate_user_tag, :update_user_tag
-  after_create :set_mailer_settings
+  after_create :set_mailer_settings, :email_credentials
+
+  attr_accessor :temp_password
 
   def full_name
     first_name + ' ' + last_name
@@ -142,6 +144,10 @@ private
     MailerSetting::DEFAULT_SETTINGS.each do |setting|
       self.mailer_settings.create(setting)
     end
+  end
+
+  def email_credentials
+    Notifier.new_user(self, temp_password).deliver
   end
 
 end

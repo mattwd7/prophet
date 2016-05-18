@@ -1,8 +1,20 @@
-#admin-grid {
-  tr:hover {
-    cursor: pointer;
+#admin {
+  display: none;
+  .actions {
+    height: 60px;
+    & > * {
+      float: right;
+      margin-left: 5px;
+      font-size: 17px;
+    }
   }
-  .selected {
-    background: #8BC34A;
+
+  #admin-grid {
+    tr:hover {
+      cursor: pointer;
+    }
+    .selected {
+      background: #8BC34A;
+    }
   }
 }

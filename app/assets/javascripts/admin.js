@@ -1,15 +1,20 @@
 $(document).ready(function(){
 
     $('.sort div').click(function(){
+        var column = $('.column');
         if ($(this).hasClass('admin')){
-            $('.column').hide();
-            $('#admin-grid_wrapper').show();
+            column.hide();
+            $('#admin').show();
             initAdmin();
         } else {
-            $('.column').show();
-            $('.column').removeClass('fade-out-down');
-            $('#admin-grid_wrapper').hide();
+            column.show();
+            column.removeClass('fade-out-down');
+            $('#admin').hide();
         }
+    });
+
+    $('.add-user').click(function(){
+        openModal('add-user');
     });
 
     var users, managers, role;

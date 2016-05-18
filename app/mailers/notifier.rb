@@ -2,6 +2,12 @@ class Notifier < ActionMailer::Base
   # layout 'email'
   default from: "Prophet Team <no-reply@prophet.com>"
 
+  def new_user(user, password)
+    @user = user
+    @password = password
+    mail(to: @user.email, subject: 'Welcome to Prophet!')
+  end
+
   def new_feedback(feedback)
     mail(to: feedback.user.email, subject: 'You have new feedback!')
   end
