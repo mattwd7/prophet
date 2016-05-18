@@ -16,6 +16,7 @@ input:not([type=checkbox]):not([type=file]) {
   height: 25px;
   width: 150px;
   padding-left: 5px;
+  margin-bottom: 5px;
   -webkit-box-shadow: 0 0 0px 1000px white inset;
   border: 1px solid #ccc;
 }
