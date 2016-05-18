@@ -38,9 +38,11 @@ function getRecordID(elem){
 function updateResonance(feedback_id, resonance){
     var feedback = $('#feedback-' + feedback_id),
         flavor_container = feedback.find('.score .flavor').children().eq(0);
-    flavor_container.removeClass();
-    flavor_container.addClass(resonance.toLowerCase());
-    flavor_container.text(resonance.toUpperCase());
+    flavor_container.fadeOut('fast', function(){
+        flavor_container.removeClass();
+        flavor_container.addClass(resonance.toLowerCase());
+        flavor_container.text(resonance.toUpperCase()).fadeIn('fast');
+    });
 }
 
 $(document).ready(function(){

@@ -4,13 +4,16 @@
     %ul
       %li
         .description.resonant Resonant
-        .number-bubble#resonant= @feedbacks.resonant.count.count
+        .number-bubble#resonant
+          %span= @feedbacks.resonant.count.count
       %li
         .description.mixed Mixed
-        .number-bubble#mixed= @feedbacks.mixed.count.count
+        .number-bubble#mixed
+          %span= @feedbacks.mixed.count.count
       %li
         .description.isolated Isolated
-        .number-bubble#isolated= @feedbacks.isolated.count.count
+        .number-bubble#isolated
+          %span= @feedbacks.isolated.count.count
 
 
 

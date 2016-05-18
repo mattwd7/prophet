@@ -111,9 +111,13 @@ $(document).ready(function(){
     }
 
     function updateResonanceNumbers(resonances){
-        $(".feedback-summary .number-bubble#resonant").text(resonances.resonant);
-        $(".feedback-summary .number-bubble#mixed").text(resonances.mixed);
-        $(".feedback-summary .number-bubble#isolated").text(resonances.isolated);
+        var feedback_summary = $('.feedback-summary');
+        feedback_summary.find('span').fadeOut('fast', function(){
+            feedback_summary.find(".number-bubble#resonant span").text(resonances.resonant);
+            feedback_summary.find(".number-bubble#mixed span").text(resonances.mixed);
+            feedback_summary.find(".number-bubble#isolated span").text(resonances.isolated);
+            feedback_summary.find('span').fadeIn('fast');
+        });
     }
 
 });
