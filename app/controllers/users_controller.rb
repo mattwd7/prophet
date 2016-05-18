@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     else
       @user.assign_attributes(permitted_params)
       if @user.save
-        @user.update_mailer_settings(params['mailer_settings'])
+        @user.update_mailer_settings(params['mailer_settings']) if params['mailer_settings']
         @user.avatar.reprocess! if @user.cropping?
         redirect_to edit_user_path
       else
@@ -39,7 +39,11 @@ class UsersController < ApplicationController
 
 private
   def permitted_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :company, :avatar, :crop_x, :crop_y, :crop_w, :crop_h)
+    if params[:user][:password].blank?
+      params.require(:user).permit(:email, :first_name, :last_name, :company, :avatar, :crop_x, :crop_y, :crop_w, :crop_h)
+    else
+      params.require(:user).permit(:email, :password, :password_confirmation, :reset_password_token, :first_name, :last_name, :company, :avatar, :crop_x, :crop_y, :crop_w, :crop_h)
+    end
   end
 
   def hide_sorting

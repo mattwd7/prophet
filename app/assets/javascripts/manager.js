@@ -17,11 +17,13 @@ $(document).ready(function(){
         $(this).addClass('selected');
         var name = $(this).find('.name').text();
         var viewAs = "<div id='viewing-as'><div class='text'>" + name + "</div></div>";
-        $('.column#middle').prepend(viewAs);
+        $('#filter-tags').prepend(viewAs);
     });
 
     $('.sort').not('.manager').click(function(){
         $('#viewing-as').remove();
+        $('#manager-team .employee.selected').removeClass('selected');
+        checkFilterTagDisplay();
     });
 
     function managerSelectPrompt(){

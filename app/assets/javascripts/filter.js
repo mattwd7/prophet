@@ -19,9 +19,11 @@ $(document).ready(function(){
             name = bubble.siblings().text().toUpperCase();
         if (bubble.hasClass('selected')){
             bubble.removeClass('selected');
+            bubble.siblings().removeClass('selected');
             removeTag(name);
         } else {
             bubble.addClass('selected');
+            bubble.siblings().addClass('selected');
             createTag(name);
         }
         dirtyFilter = true;
@@ -37,7 +39,7 @@ $(document).ready(function(){
 
     function removeTag(name){
         $(".resonance-tags .filter-tag:contains(" + formattedTag(name) + ")").remove();
-        $(".feedback-summary li:contains(" + toTitleCase(name) + ") .number-bubble").removeClass('selected');
+        $(".feedback-summary li:contains(" + toTitleCase(name) + ") div").removeClass('selected');
         filters.resonance.splice(filters.resonance.indexOf(name), 1);
         filterFeedbacks();
     }
@@ -45,11 +47,7 @@ $(document).ready(function(){
     function filterFeedbacks(){
         var feedbacks = $("#feedbacks");
         var animating = false;
-        if (filters.resonance.length > 0){
-            $('#filter-tags').show();
-        } else {
-            $('#filter-tags').hide();
-        }
+        checkFilterTagDisplay();
         $.ajax({
             method: 'get',
             url: '/filter_feedbacks',
@@ -119,3 +117,12 @@ $(document).ready(function(){
     }
 
 });
+
+function checkFilterTagDisplay(){
+    var filter_tags = $("#filter-tags");
+    if (filter_tags.find('.resonance-tags').children().length < 1 && filter_tags.find('#viewing-as').length < 1){
+        filter_tags.hide();
+    } else {
+        filter_tags.show();
+    }
+}
