@@ -13,7 +13,12 @@ Rails.application.routes.draw do
   get '/filter_feedbacks' => 'home#filter_feedbacks'
   get '/impersonal_feedback_ids' => 'home#impersonal_feedback_ids'
 
+  devise_for :users
+
   resources :organizations do
+    member do
+      post :add_user
+    end
     collection do
       get :get_users
       put :update_user
@@ -22,7 +27,6 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users
   resources :users do
     collection do
       post :registration_request

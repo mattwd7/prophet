@@ -7,6 +7,14 @@ class OrganizationsController < ApplicationController
     render json: {users: @organization.spreadsheet_data, managers: @organization.managers}.to_json
   end
 
+  def add_user
+      @user = User.new(params.require(:user).permit(:first_name, :last_name, :email, :organization_id))
+      @user.temp_password = Devise.friendly_token.first(8)
+      @user.password = @user.temp_password
+      @user.save
+      render nothing: true
+  end
+
   def update_user
     user = User.find(params[:id])
     user.update_attribute(params[:attribute].to_sym, params[:value])

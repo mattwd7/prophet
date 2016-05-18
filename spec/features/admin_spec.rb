@@ -5,6 +5,7 @@ describe 'Admin', js: true do
     @org = FactoryGirl.create(:spec_organization_full)
     @admin = @org.admins.first
     @manager = FactoryGirl.create(:spec_manager, organization: @org)
+    # 12 users in initial organization
     User.first(3).each{|u| @manager.add_employee(u)}
     log_in_with(@admin.email, 'password')
   end
@@ -64,10 +65,10 @@ describe 'Admin', js: true do
         find('#user_email').set new_user[:email]
         find('.submit-tag').click
       end
-      expect(@org.users.count).to eq(user_count + 1)
+      sleep 1
       expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
-      # visit destroy_user_session_path
-      # log_in_with(new_user[:email], '')
+      expect(@org.users.count).to eq(user_count + 1)
+      expect(page).to have_css('#admin-grid tbody tr', count: 12)
     end
 
   end

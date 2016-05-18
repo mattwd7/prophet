@@ -5,7 +5,8 @@
 
   %h3 Add a new employee from your organization manually
 
-  = form_for :user, as: User, url: users_path, html: { method: :post, multipart: true } do |f|
+  - organization = current_user.organization.id
+  = form_for :user, as: User, url: add_user_organization_path(organization), html: { method: :post, multipart: true } do |f|
     %ul
       %li
         .label First Name
@@ -19,6 +20,7 @@
       %li
         .label Profile Photo
         = f.file_field :avatar
+    = f.hidden_field :organization_id, value: organization
 
     .actions
       .submit-tag.active{ tabindex: 0 } Save User
