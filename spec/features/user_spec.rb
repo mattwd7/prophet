@@ -33,7 +33,7 @@ describe 'User', js: true do
         find('.submit-tag').click
       end
       expect(page).to have_css('#general')
-      expect(@user.mailer_settings.map(&:active?).count(true)).to eq(@user.mailer_settings.count)
+      expect(@user.mailer_settings.map(&:active).count(true)).to eq(@user.mailer_settings.count)
     end
 
   end

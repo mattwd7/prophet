@@ -4,7 +4,7 @@
     .close x
     
   - organization = current_user.organization.id
-  = form_for :user, as: User, url: add_user_organization_path(organization), html: { method: :post, multipart: true } do |f|
+  = form_for :user, url: add_user_organization_path(organization) do |f|
     %ul
       %li
         .label First Name

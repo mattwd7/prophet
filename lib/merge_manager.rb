@@ -25,7 +25,7 @@ class MergeManager
     end
 
     if merged_feedback.save
-      [@feedback_1, @feedback_target].each{|f| f.update_attributes(merged?: true)}
+      [@feedback_1, @feedback_target].each{|f| f.update_attributes(merged: true)}
       merged_feedback.logs.create(type: 'MergeLog', user: merged_feedback.user)
       merged_feedback
     end

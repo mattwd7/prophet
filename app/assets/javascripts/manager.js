@@ -17,6 +17,7 @@ $(document).ready(function(){
         var name = $(this).find('.name').text();
         var viewAs = "<div id='viewing-as'><div class='text'>" + name + "</div></div>";
         $('#filter-tags').prepend(viewAs);
+        checkFilterTagDisplay();
     });
 
     $('.sort').not('.manager').click(function(){

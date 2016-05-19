@@ -85,8 +85,10 @@ class User < ActiveRecord::Base
   end
 
   def update_mailer_settings(params)
-    mailer_settings.each do |setting|
-      setting.update_attributes(active?: !params[setting.name].nil?)
+    if params
+      mailer_settings.each do |setting|
+        setting.update_attributes(active: !params[setting.name].nil?)
+      end
     end
   end
 
