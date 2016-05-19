@@ -4,6 +4,9 @@ FactoryGirl.define do
     last_name 'Dick'
     email 'matt@gmail.com'
     password 'password'
+    after(:build) do |user|
+      user.organization ||= FactoryGirl.create(:spec_organization)
+    end
   end
 
   factory :spec_manager, class: Manager do

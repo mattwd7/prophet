@@ -48,7 +48,6 @@ $(document).ready(function(){
     $(document).on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function (e){
         var feedbacks = $('#feedbacks');
         if ($(e.target).attr('id') == feedbacks.attr('id')){
-            console.log('on target');
             feedbacks.removeClass('fade-out-down');
         }
     });

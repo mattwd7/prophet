@@ -3,13 +3,12 @@
   %h2 Change your email notification settings
 
   .edit-user
-    = form_for @user, html: { method: :put, multipart: true } do |f|
-      = f.hidden_field :first_name
+    = form_for @user, url: { controller: 'users', action: 'update' }, html: { method: :put, multipart: true } do |f|
       %ul
         %li.label Send emails for:
         - @user.mailer_settings.each do |setting|
           %li
-            = check_box_tag "mailer_settings[#{setting.name}]", 1, setting.active?
+            = check_box_tag "user[mailer_settings][#{setting.name}]", 1, setting.active?
             .label= label_tag setting.name, setting.name.capitalize.gsub('_', ' ')
 
         %li

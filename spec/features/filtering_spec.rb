@@ -49,6 +49,7 @@ describe 'Feedback filtering', js: true do
 end
 
 def filter_resonance(resonance)
+  sleep 1
   find(".feedback-summary ##{resonance}").click
 end
 

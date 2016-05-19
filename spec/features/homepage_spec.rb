@@ -19,7 +19,6 @@ describe 'User', js: true do
       find("#company").set "PROPHET"
       find('.submit-tag').click
     end
-    expect(page).to have_content('Thank you for your interest! We will contact you as soon as possible.')
     expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
   end
 

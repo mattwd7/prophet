@@ -58,7 +58,7 @@ describe 'Manager', js: true do
       expect(page).to have_content(feedback.content)
     end
 
-    it 'updates the resonance values to reflect the target user' do
+    it 'updates the resonance values to reflect the target user', no_webkit: true do
       # number-bubbles all at 0 because no feedback for manager
       all('.feedback-summary li .number-bubble').each do |number_bubble|
         expect(number_bubble.text).to eq('0')
@@ -114,4 +114,5 @@ end
 
 def view_as(user)
   find('li.employee', text: user.full_name).click
+  sleep 1
 end

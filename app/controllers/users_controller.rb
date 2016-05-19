@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     else
       @user.assign_attributes(permitted_params)
       if @user.save
-        @user.update_mailer_settings(params['mailer_settings']) if params['mailer_settings']
+        @user.update_mailer_settings(params[:user]['mailer_settings'])
         @user.avatar.reprocess! if @user.cropping?
         redirect_to edit_user_path
       else

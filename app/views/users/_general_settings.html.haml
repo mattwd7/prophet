@@ -3,17 +3,17 @@
   %h2 Change your basic account settings here
 
   .edit-user
-    = form_for @user, html: { method: :put, multipart: true } do |f|
+    = form_for @user, url: { controller: 'users', action: 'update' }, html: { method: :put, multipart: true } do |f|
       %ul
         %li
           .label First Name
-          = f.text_field :first_name
+          = f.text_field :first_name, autofocus: true
         %li
           .label Last Name
           = f.text_field :last_name
         %li
           .label Email
-          = f.email_field :email, autofocus: true
+          = f.email_field :email
         %li
           .label Profile Photo
           = f.file_field :avatar
@@ -37,7 +37,7 @@
 
   %h1 Password Reset
   %h2 Change your password or recover your existing one
-  = form_for @user, html: { method: :put } do |f|
+  = form_for @user, url: { controller: 'users', action: 'update' }, html: { method: :put } do |f|
     = f.hidden_field :reset_password_token
     %ul
       %li
