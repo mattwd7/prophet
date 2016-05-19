@@ -43,10 +43,10 @@ describe Feedback do
 
   it 'sends an email to the recipient on creation' do
     mail_count = ActionMailer::Base.deliveries.count
-    @recipient.mailer_settings.each{|ms| ms.update_attributes(active?: false)}
+    @recipient.mailer_settings.each{|ms| ms.update_attributes(active: false)}
     FactoryGirl.create(:spec_feedback, user: @recipient, author: @author)
     expect(ActionMailer::Base.deliveries.count).to eq(mail_count)
-    @recipient.mailer_settings.each{|ms| ms.update_attributes(active?: true)}
+    @recipient.mailer_settings.each{|ms| ms.update_attributes(active: true)}
     FactoryGirl.create(:spec_feedback, user: @recipient, author: @author)
     expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
   end
@@ -103,7 +103,7 @@ describe Feedback do
     it 'sends ONE email to the recipient each time resonance increases' do
       mail_count = ActionMailer::Base.deliveries.count
       @recipient = @feedback.user
-      @recipient.mailer_settings.update_all(active?: true)
+      @recipient.mailer_settings.update_all(active: true)
       @feedback.feedback_links.each{|link| link.update_attributes(agree: false)}
       @feedback.feedback_links.first(2).each{|link| link.update_attributes(agree: true)}
 

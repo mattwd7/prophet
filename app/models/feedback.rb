@@ -16,7 +16,7 @@ class Feedback < ActiveRecord::Base
   before_save :set_defaults
   after_create :set_author_as_peer, :create_notification, :send_email
 
-  default_scope { where(merged?: false) }
+  default_scope { where(merged: false) }
   scope :resonant, -> { where(resonance_value: 2) }
   scope :mixed, -> { where(resonance_value: 1) }
   scope :isolated, -> { where(resonance_value: 0) }
