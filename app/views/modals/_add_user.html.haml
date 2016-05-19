@@ -2,9 +2,7 @@
   .header
     .text Add User
     .close x
-
-  %h3 Add a new employee from your organization manually
-
+    
   - organization = current_user.organization.id
   = form_for :user, as: User, url: add_user_organization_path(organization), html: { method: :post, multipart: true } do |f|
     %ul
@@ -23,4 +21,5 @@
     = f.hidden_field :organization_id, value: organization
 
     .actions
-      .submit-tag.active{ tabindex: 0 } Save User
+      .submit-tag.active{ tabindex: 0 } Create
+      .cancel{ tabindex: 0 } Cancel
