@@ -1,5 +1,5 @@
 - if feedbacks && feedbacks.count.count < 1
-  .no-feedback No feedback results found.
+  = render partial: 'feedbacks/empty'
 - else
   - feedbacks.each do |feedback|
     = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
