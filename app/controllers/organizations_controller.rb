@@ -11,8 +11,7 @@ class OrganizationsController < ApplicationController
       @user = User.new(params.require(:user).permit(:first_name, :last_name, :email, :organization_id))
       @user.temp_password = Devise.friendly_token.first(8)
       @user.password = @user.temp_password
-      @user.save
-      respond_to? do |format|
+      respond_to do |format|
         format.js
       end
   end
