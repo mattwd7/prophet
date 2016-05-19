@@ -24,9 +24,9 @@
             .notifications{ style: "visibility: #{current_user.my_notifications.count < 1 ? 'hidden' : ''}" }
               = current_user.my_notifications.count
             Me
-          - if current_user.type == 'Manager'
+          - if current_user.is_a?(Manager)
             .manager Manager
-          - if current_user.type == 'Admin'
+          - if current_user.is_a?(Admin)
             .admin Admin
           .bar
 
@@ -34,7 +34,7 @@
         = form_for :user, url: session_path(:user), html: { id: 'sign-in' } do |f|
           .email
             = f.label 'Email'
-            = f.text_field :email
+            = f.text_field :email, autofocus: true
             .rememberable
               = f.check_box :remember_me, tabindex: -1
               = 'Keep me logged in'

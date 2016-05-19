@@ -1,20 +1,10 @@
 $(document).ready(function(){
     var banner = $('#banner');
 
+    var bar_positions = {home: 1.5, me: 23.5, manager: 46, admin: 72};
     $(document).on('click', '#banner .sort div:not(.notifications, .bar, .selected)', function(){
         selectBannerTab($(this).attr('class'));
-        var tabs = $('.sort div').not('.notifications, .bar'),
-            position, marginLeft;
-        for (var i = 0; i < tabs.length; i++){
-            if (tabs.eq(i)[0] === $(this)[0]){
-                position = i;
-                break;
-            }
-        }
-        marginLeft = String(position * 28.5) + '%';
-        if (position==0) {
-            marginLeft = '15px';
-        }
+        var marginLeft = bar_positions[$(this).attr('class')] + '%';
         $('.sort .bar').css('margin-left', marginLeft);
         $(this).siblings().removeClass('selected');
         $(this).addClass('selected');
@@ -94,7 +84,7 @@ $(document).ready(function(){
             data: { agree: agreeing },
             success: function(data){
                 var feedback_id = getRecordID(feedback);
-                updateResonance(feedback_id, data.resonance)
+                updateResonanceText(feedback_id, data.resonance)
             }
         });
     });

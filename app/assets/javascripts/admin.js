@@ -6,10 +6,11 @@ $(document).ready(function(){
             column.hide();
             $('#admin').show();
             initAdmin();
+            wasAdmin = true;
         } else {
+            $('#admin').hide();
             column.show();
             column.removeClass('fade-out-down');
-            $('#admin').hide();
         }
     });
 

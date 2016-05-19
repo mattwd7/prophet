@@ -1,6 +1,9 @@
 .commenting {
-  padding: 10px 0;
+  padding: 10px 0 !important;
   background: #eee;
+  .comments > * {
+    padding: 0 15px;
+  }
   .avatar {
     width: 35px;
     height: 35px;
@@ -18,10 +21,10 @@
     a:hover { text-decoration: underline; }
   }
   .comment {
-    padding: 0px 0;
     transition: 0.8s;
     &.fresh {
       background: rgb(255,253,162);
+      border: 1px solid #ccc;
     }
     .actions {
       & * {
@@ -106,7 +109,7 @@
   max-width: 535px;
 }
 .comment-form {
-  padding-top: 10px;
+  padding: 10px 15px 0 15px;
   & > * {
     display: inline-block;
   }

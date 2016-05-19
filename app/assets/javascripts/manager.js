@@ -4,7 +4,6 @@ $(document).ready(function(){
     $('.sort div').click(function(){
         if ($(this).hasClass('manager')){
             employeesPanel.slideDown('slow');
-            managerSelectPrompt();
         } else if (!$(this).hasClass('bar')){
             employeesPanel.slideUp('slow');
         }
@@ -25,12 +24,5 @@ $(document).ready(function(){
         $('#manager-team .employee.selected').removeClass('selected');
         checkFilterTagDisplay();
     });
-
-    function managerSelectPrompt(){
-        var prompt = $("#feedbacks").find('#manager-select-prompt');
-        if (prompt.length < 1) {
-            $("#feedbacks").append("<div id='manager-select-prompt'>Select an employee to view feedbacks.</div>");
-        }
-    }
 
 });

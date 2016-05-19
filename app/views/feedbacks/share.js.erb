@@ -4,7 +4,7 @@ var feedback = $('#feedback-' + <%= @feedback.id %>);
 feedback.find(".comments").append(html);
 feedback.find('.peers .number').text(<%= @feedback.peers.count %>);
 
-updateResonance("<%= @feedback.id %>", "<%= @feedback.resonance_text %>")
+updateResonanceText("<%= @feedback.id %>", "<%= @feedback.resonance_text %>")
 var flavor_container = feedback.find('.score .flavor').children().eq(0);
 var resonance_text = "<%= @feedback.resonance_text %>";
 flavor_container.removeClass();

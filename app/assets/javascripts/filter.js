@@ -1,8 +1,10 @@
+var wasAdmin = false;
+
 $(document).ready(function(){
 
     var currentUserId = $('.session').attr('id');
     var filters = {resonance: [], user_id: null, manager: null};
-    var dirtyFilter = false;
+    var dirty_numbers = false;
 
     $('.filters .number-bubble').click(function(){
         toggleBubble($(this));
@@ -26,7 +28,6 @@ $(document).ready(function(){
             bubble.siblings().addClass('selected');
             createTag(name);
         }
-        dirtyFilter = true;
     }
 
     function createTag(name){
@@ -44,6 +45,14 @@ $(document).ready(function(){
         filterFeedbacks();
     }
 
+    $(document).on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function (e){
+        var feedbacks = $('#feedbacks');
+        if ($(e.target).attr('id') == feedbacks.attr('id')){
+            console.log('on target');
+            feedbacks.removeClass('fade-out-down');
+        }
+    });
+
     function filterFeedbacks(){
         var feedbacks = $("#feedbacks");
         var animating = false;
@@ -55,46 +64,54 @@ $(document).ready(function(){
             beforeSend: function(){
                 animating = true;
                 feedbacks.addClass('fade-out-down');
-                feedbacks.one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function (){
-                    feedbacks.removeClass('fade-out-down');
-                    animating = false;
-                    console.log('animating completed!')
-                });
             },
             success: function(data){
                 $('#feedbacks').html(data.feedbacks);
-                updateResonanceNumbers(data.resonances);
-                dirtyFilter = false;
+                if (dirty_numbers){
+                    updateResonanceNumbers(data.resonances);
+                    dirty_numbers = false;
+                }
             },
             complete: function(){
-                if (!animating){
+                if (!animating || wasAdmin){
                     feedbacks.removeClass('fade-out-down');
                 }
                 animating = false;
                 identifyFreshFeedbacks();
+                wasAdmin = false;
             }
         })
     }
 
     $('.sort .home').click(function(){
-        filters.user_id = null;
-        filters.manager = null;
-        filterFeedbacks();
+        if (!$(this).attr('class').match(/selected/)) {
+            dirty_numbers = true;
+            filters.user_id = null;
+            filters.manager = null;
+            filterFeedbacks();
+        }
     });
 
     $('.sort .me').click(function(){
-        filters.user_id = currentUserId;
-        filters.manager = null;
-        filterFeedbacks();
+        if (!$(this).attr('class').match(/selected/)) {
+            dirty_numbers = true;
+            filters.user_id = currentUserId;
+            filters.manager = null;
+            filterFeedbacks();
+        }
     });
 
     $('.sort .manager').click(function(){
-        filters.user_id = null;
-        filters.manager = true;
-        filterFeedbacks();
+        if (!$(this).attr('class').match(/selected/)) {
+            dirty_numbers = true;
+            filters.user_id = null;
+            filters.manager = true;
+            filterFeedbacks();
+        }
     });
 
     $('#manager-team').find('.employee').click(function(){
+        dirty_numbers = true;
         filters = {resonance: [], user_id: $(this).attr('id')};
         filterFeedbacks();
     });
