@@ -24,7 +24,7 @@ describe 'User', js: true do
 
   it 'in env without feedback sees that there is no content' do
     log_in_with(@user.email, 'password')
-    expect(page).to have_content('No feedback results found.')
+    expect(page).to have_css('.no-feedbacks')
   end
 
   it 'without personal feedback defaults to ALL' do
