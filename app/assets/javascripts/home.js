@@ -70,14 +70,16 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('click', '.action.agree div', function(){
-        console.log('action!');
+    $(document).on('click', '.action.agree', function(){
         var feedback = $(this).closest('.feedback');
-        var action = $(this).closest('.action'),
+        var action = $(this),
             url = action.attr('data-action'),
             agreeing = !action.hasClass('selected'),
             change = agreeing ? 1 : -1,
             agree_count = feedback.find('.vote.agree .number');
+        console.log('stop fucking double calling!');
+        var checked = action.find('input').prop('checked');
+        action.find('input').prop('checked', !checked);
         action.toggleClass('selected');
         agree_count.text(+(agree_count.text()) + change);
         $.ajax({
@@ -103,9 +105,6 @@ $(document).ready(function(){
         $(this).closest('.content').find('span.hidden').show();
         $(this).closest('span.show-more').remove();
     });
-
-    $('.agree-checkbox').labelauty({label: '', force_random_id: true});
-
 
 });
 

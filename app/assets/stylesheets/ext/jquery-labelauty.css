@@ -79,7 +79,7 @@ input.labelauty + label > span.labelauty-checked-image + span.labelauty-checked
 }
 
 /* When not Checked */
-input.labelauty:not(:checked):not([disabled]) + label:hover
+.action.agree:hover input.labelauty:not(:checked):not([disabled]) + label
 {
 	background-color: #ddd;
 	color: #a7a7a7;
@@ -101,7 +101,7 @@ input.labelauty:checked + label
 	color: #ffffff;
 }
 
-input.labelauty:checked:not([disabled]) + label:hover
+.action.agree:hover input.labelauty:checked:not([disabled]) + label
 {
 	background-color: #8BC34A;
 }
@@ -134,10 +134,10 @@ input.labelauty[disabled] + label
 /* Add a background to (un)checked images */
 input.labelauty + label > span.labelauty-unchecked-image
 {
-	background-image: url( ../images/input-unchecked.png );
+	background-image: url(input-unchecked.png);
 }
 
 input.labelauty + label > span.labelauty-checked-image
 {
-	background-image: url( ../images/input-checked.png );
+	background-image: url(input-checked.png);
 }

@@ -62,4 +62,12 @@ module FeedbacksHelper
     output.reverse
   end
 
+  def pretty_agree(checked)
+    ("<input #{checked ? 'checked=checked' : ''} class='agree-checkbox labelauty' name='agree' type='checkbox' value='Agree' style='display: none;'>" +
+    "<label>" +
+      "<span class='labelauty-unchecked-image'></span>" +
+      "<span class='labelauty-checked-image'></span>" +
+    "</label>").html_safe
+  end
+
 end
