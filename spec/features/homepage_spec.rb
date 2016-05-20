@@ -30,13 +30,24 @@ describe 'User', js: true do
   it 'without personal feedback defaults to ALL' do
     @peer1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user is a peer
     FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @peer1)
-    # @peer1.comments.each do |c|
-    #   FactoryGirl.create(:spec_comment_link, user: @user, comment: c)
-    # end
     log_in_with(@user.email, 'password')
 
     expect(page).to have_css('.home.selected')
     expect(page).to have_content(@peer1.content)
+  end
+
+  it 'removes no-feedbacks partial after entering first feedback' do
+    log_in_with(@user.email, 'password')
+    expect(page).to have_css('.no-feedbacks')
+    init_count = @recipient.feedbacks.count
+
+    find("#feedback_content").set "@TonyDecino Feedback content for Tony is HERE."
+    within('.feedback-form'){ find('.submit-tag').click }
+    sleep 1
+    expect(@recipient.feedbacks.count).to eq(init_count + 1)
+    expect(page).to_not have_css('.no-feedbacks')
+    find('.sort .me').click
+    expect(page).to have_css('.no-feedbacks')
   end
 
   context 'in established environment' do
@@ -47,9 +58,6 @@ describe 'User', js: true do
       @team1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user completely uninvolved
       @peer1 = FactoryGirl.create(:spec_full_feedback, author: @author, user: @recipient) # @user is a peer
       FactoryGirl.create(:spec_feedback_link, user: @user, feedback: @peer1)
-      # @peer1.comments.each do |c|
-      #   FactoryGirl.create(:spec_comment_link, user: @user, comment: c)
-      # end
       log_in_with(@user.email, 'password')
     end
 
@@ -69,19 +77,6 @@ describe 'User', js: true do
       sleep 1
       expect(@recipient.feedbacks.count).to eq(init_count + 1)
       expect(@recipient.feedbacks.last.content).to_not match(/@\S+/)
-    end
-
-    it 'cannot ask for self-feedback without peers', no_webkit: true do
-      # init_count = @user.feedbacks.count
-      # last_id = Feedback.last.id
-      # find("#feedback_content").set "#{@user.user_tag} Did I effectively communicate the company's goals at the meeting today?"
-      # within('.feedback-form'){ find('.submit-tag').click }
-      # expect(page).to have_css("#feedback-#{last_id + 1}")
-      # expect(@user.feedbacks.count).to eq(init_count + 1)
-      # feedback = @user.feedbacks.last
-      # within "#feedback-#{feedback.id}" do
-      #   expect(page).to_not have_css('.score')
-      # end
     end
 
     it 'can ask for self-feedback', no_webkit: true do

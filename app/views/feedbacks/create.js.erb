@@ -1,4 +1,5 @@
 <% if @errors.empty? %>
+    $('.no-feedbacks').remove();
     var html = "<%= escape_javascript(render partial: 'feedback', locals: { feedback: @feedback, hidden: true } ) %>";
     $('.feedback-form').find('#feedback_content, #peers').val('').blur();
     $(html).prependTo('#feedbacks').fadeIn(400);

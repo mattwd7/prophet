@@ -84,6 +84,7 @@ $(document).ready(function(){
         $(window).on('scroll', function () {
             var more_posts_url = $('.pagination .next_page').attr('href');
             if (more_posts_url && $(window).scrollTop() > $(document).height() - $(window).height() - 60) {
+                console.log('triggered');
                 $('.pagination').html('<img src="assets/loading.gif" alt="Loading..." title="Loading..." width="40" height="40" />');
                 $('#infinite-scrolling').show();
                 $.getScript(more_posts_url);

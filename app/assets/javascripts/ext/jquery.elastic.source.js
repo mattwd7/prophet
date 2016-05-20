@@ -131,6 +131,12 @@
 				$textarea.bind('keyup change cut paste', function(){
 					update(); 
 				});
+
+                $textarea.closest('form').submit(function(){
+                    setTimeout(function(){
+                        update();
+                    }, 100);
+                });
 				
 				// Update width of twin if browser or textarea is resized (solution for textareas with widths in percent)
 				$(window).bind('resize', setTwinWidth);

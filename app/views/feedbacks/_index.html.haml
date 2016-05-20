@@ -4,4 +4,5 @@
   - feedbacks.each do |feedback|
     = render partial: 'feedbacks/feedback', locals: { feedback: feedback }
 
-  #infinite-scrolling= will_paginate feedbacks
+  - if feedbacks.count.count > Feedback.per_page
+    #infinite-scrolling= will_paginate feedbacks
