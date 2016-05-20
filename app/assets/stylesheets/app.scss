@@ -47,7 +47,7 @@ li { list-style-type: none; }
   position: fixed;
   width: 100%;
   top: 0px;
-  z-index: 999;
+  z-index: 2002;
   border-bottom: 1px solid black;
   .logo {
     font-family: 'Avenir';
@@ -275,6 +275,7 @@ margin-bottom: 4px;
   }
 }
 
-.ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content{
-  position: fixed;
+.ui-autocomplete {
+  height: 500px;
+  overflow-y: scroll;
 }

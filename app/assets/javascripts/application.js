@@ -26,7 +26,6 @@ function openModal(modal_id){
 //        $(modal_selector).find('input').not("input[type='hidden']").eq(0).focus();
     }, 100);
 }
-
 function closeModal(){
     $('.modal-container').removeClass('show-modal');
     $('.modal-overlay').removeClass('show-overlay');
@@ -98,7 +97,6 @@ $(document).ready(function(){
             closeModal();
         }
     });
-
     $(document).on('click', '.modal .close, .modal .cancel, .modal-overlay', function(){
         closeModal();
     });

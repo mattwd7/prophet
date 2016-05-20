@@ -144,6 +144,9 @@ $(document).ready(function(){
                     response(regex_validated_array);
                 },
                 minLength: 1,
+                create: function(event, ui){
+                    $('.ui-autocomplete').last().addClass('modal-autocomplete');
+                },
                 focus: function() {
                     // prevent value inserted on focus
                     return false;

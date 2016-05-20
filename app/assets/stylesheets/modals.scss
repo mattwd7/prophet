@@ -6,7 +6,7 @@
   max-width: 630px;
   min-width: 320px;
   height: auto;
-  z-index: 2000;
+  z-index: 9001;
   visibility: hidden;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -113,7 +113,7 @@
   visibility: hidden;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 9000;
   opacity: 0;
   background: #ccc;
   -webkit-transition: all 0.3s;
@@ -123,4 +123,11 @@
     opacity: 0.7;
     visibility: visible;
   }
+}
+
+.modal-autocomplete {
+  position: fixed;
+  z-index: 9002;
+  height: 400px;
+  overflow-y: scroll;
 }
