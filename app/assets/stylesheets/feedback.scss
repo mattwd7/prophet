@@ -222,17 +222,26 @@
         background-size: contain;
       }
       &.agree {
+        transition: color 0.25s;
+        -moz-transition: color 0.25s;
+        -webkit-transition: color 0.25s;
+        -o-transition: color 0.25s;
+        &:hover {
+          color: #a7a7a7;
+        }
         &.selected {
           color: #33691E;
-          .icon { background: #33691E; }
+          &:hover {
+            color: #8BC34A;
+          }
         }
         .icon {
-          border: 1px solid #aaa;
           border-radius: 50%;
-          width: 25px;
-          height: 25px;
-          overflow: hidden;
-          background: #ccc;
+          width: auto;
+          height: inherit;
+          label {
+            border-radius: 50%;
+          }
         }
       }
       &.leave-comment .icon {
