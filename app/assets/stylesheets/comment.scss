@@ -104,9 +104,12 @@
   }
 }
 
-.follow-up .comment-form textarea {
-  width: 535px;
-  max-width: 535px;
+.follow-up .comment-form {
+  padding: 0;
+  textarea {
+    width: 515px;
+    max-width: 515px;
+  }
 }
 .comment-form {
   padding: 10px 15px 0 15px;
