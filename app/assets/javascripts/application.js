@@ -23,6 +23,7 @@ function openModal(modal_id){
     setTimeout(function(){
         $('.modal-container').addClass('show-modal');
         $('.modal-overlay').addClass('show-overlay');
+//        $(modal_selector).find('input').not("input[type='hidden']").eq(0).focus();
     }, 100);
 }
 

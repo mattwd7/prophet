@@ -58,6 +58,7 @@ describe 'Admin', js: true do
       mail_count = ActionMailer::Base.deliveries.count
       new_user = {first_name: 'Donald', last_name: 'trump', email: 'DT_wall@gmail.com'}
       expect(page).to have_content('Add User')
+      expect(page).to have_css('#admin-grid tbody tr', count: 12)
       find('.add-user').click
       within '.modal#add-user' do
         find('#user_first_name').set new_user[:first_name]
@@ -68,7 +69,8 @@ describe 'Admin', js: true do
       sleep 1
       expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
       expect(@org.users.count).to eq(user_count + 1)
-      expect(page).to have_css('#admin-grid tbody tr', count: 12)
+      sleep 10
+      expect(page).to have_css('#admin-grid tbody tr', count: 13)
     end
 
   end

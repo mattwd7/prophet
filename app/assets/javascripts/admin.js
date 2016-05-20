@@ -1,3 +1,5 @@
+var grid;
+
 $(document).ready(function(){
 
     $('.sort div').click(function(){
@@ -19,8 +21,7 @@ $(document).ready(function(){
     });
 
     var users, managers, role;
-    var grid = $('#admin-grid');
-
+    grid = $('#admin-grid');
     function initAdmin(){
         if (!grid.hasClass('initialized')) {
             $.ajax({

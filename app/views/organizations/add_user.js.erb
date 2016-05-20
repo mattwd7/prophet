@@ -1,4 +1,18 @@
-//var user = <%= @user %>;
-//var row = [user.first_name, user.last_name, user.user_tag, user.email, '', ''];
-//$('#admin-grid');
-alert('hey');
+closeModal();
+var user = {};
+user.first_name = "<%= escape_javascript(@user.first_name) %>";
+user.last_name = "<%= escape_javascript(@user.last_name) %>";
+user.user_tag = "<%= escape_javascript(@user.user_tag) %>";
+user.email = "<%= escape_javascript(@user.email) %>";
+var row = [user.first_name, user.last_name, user.user_tag, user.email, '', ''];
+
+grid.append(userRow(user));
+
+function userRow(user){
+    return  "<tr user_id=" + user.id + "><td user_attribute='first_name' class='inline-editable'>" + user.first_name + "</td>" +
+            "<td user_attribute='last_name' class='inline-editable'>" + user.last_name + "</td>" +
+            "<td user_attribute='user_tag'>" + user.user_tag + "</td>" +
+            "<td user_attribute='email' class='inline-editable'>" + user.email + "</td>" +
+            "<td user_attribute='role'>" + user.role + "</td>" +
+            "<td user_attribute='managers'>" + user.managers + "</td></tr>";
+};

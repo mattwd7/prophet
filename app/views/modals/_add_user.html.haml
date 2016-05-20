@@ -4,7 +4,7 @@
     .close x
     
   - organization = current_user.organization.id
-  = form_for :user, url: add_user_organization_path(organization) do |f|
+  = form_for :user, url: add_user_organization_path(organization), remote: true do |f|
     %ul
       %li
         .label First Name
