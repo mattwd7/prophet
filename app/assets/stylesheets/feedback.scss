@@ -224,15 +224,15 @@
       &.agree {
         &.selected {
           color: #33691E;
-          .icon { background: #33691E; }
+//          .icon { background: #33691E; }
         }
         .icon {
-          border: 1px solid #aaa;
           border-radius: 50%;
-          width: 25px;
-          height: 25px;
-          overflow: hidden;
-          background: #ccc;
+          width: auto;
+          height: inherit;
+          label {
+            border-radius: 50%;
+          }
         }
       }
       &.leave-comment .icon {

@@ -24,6 +24,7 @@
         - if current_user.can_vote?(feedback)
           %td.action.agree{ class: current_user.agrees_with(feedback) ? 'selected' : nil, 'data-action' => vote_feedback_path(feedback) }
             .icon
+              = check_box_tag :agree, 'Agree', current_user.agrees_with(feedback), class: 'agree-checkbox'
             .name
               Agree
         %td.action.leave-comment

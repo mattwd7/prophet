@@ -70,13 +70,15 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('click', '.action.agree', function(){
+    $(document).on('click', '.action.agree div', function(){
+        console.log('action!');
         var feedback = $(this).closest('.feedback');
-        var url = $(this).attr('data-action'),
-            agreeing = !$(this).hasClass('selected'),
+        var action = $(this).closest('.action'),
+            url = action.attr('data-action'),
+            agreeing = !action.hasClass('selected'),
             change = agreeing ? 1 : -1,
             agree_count = feedback.find('.vote.agree .number');
-        $(this).toggleClass('selected');
+        action.toggleClass('selected');
         agree_count.text(+(agree_count.text()) + change);
         $.ajax({
             type: "POST",
@@ -100,7 +102,9 @@ $(document).ready(function(){
     $(document).on('click', '.content a', function(){
         $(this).closest('.content').find('span.hidden').show();
         $(this).closest('span.show-more').remove();
-    })
+    });
+
+    $('.agree-checkbox').labelauty({label: '', force_random_id: true});
 
 
 });
