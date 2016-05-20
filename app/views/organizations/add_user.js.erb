@@ -6,7 +6,8 @@ user.user_tag = "<%= escape_javascript(@user.user_tag) %>";
 user.email = "<%= escape_javascript(@user.email) %>";
 var row = [user.first_name, user.last_name, user.user_tag, user.email, '', ''];
 
-grid.append(userRow(user));
+//grid.append(userRow(user));
+dataTable.row.add(row).draw(false);
 
 function userRow(user){
     return  "<tr user_id=" + user.id + "><td user_attribute='first_name' class='inline-editable'>" + user.first_name + "</td>" +

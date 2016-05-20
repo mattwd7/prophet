@@ -69,8 +69,8 @@ describe 'Admin', js: true do
       sleep 1
       expect(ActionMailer::Base.deliveries.count).to eq(mail_count + 1)
       expect(@org.users.count).to eq(user_count + 1)
-      sleep 10
       expect(page).to have_css('#admin-grid tbody tr', count: 13)
+      expect(page).to have_content(13)
     end
 
   end

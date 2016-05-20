@@ -1,6 +1,7 @@
-var grid;
+var dataTable;
 
 $(document).ready(function(){
+    var grid;
 
     $('.sort div').click(function(){
         var column = $('.column');
@@ -42,7 +43,7 @@ $(document).ready(function(){
             var user = users[i];
             grid.append(userRow(user));
         }
-        grid.DataTable({
+        dataTable = grid.DataTable({
             'order': [[ 1, "asc" ], [ 0, "asc" ]],
             'paging': false
         });
