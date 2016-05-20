@@ -71,6 +71,7 @@ describe 'Manager', js: true do
       end
       # reset all numbers back to manager's numbers
       find('.sort .me').click
+      sleep 1
       expect(page).to have_css('.no-feedbacks')
       all('.feedback-summary li .number-bubble').each do |number_bubble|
         expect(number_bubble.text).to eq('0')
