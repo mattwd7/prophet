@@ -27,7 +27,7 @@ Comment.create!([
   {content: "I agree it lacked polish.", user_id: 3, feedback_id: 3},
   {content: "I wasn't there so I can't really offer an opinion.", user_id: 3, feedback_id: 2}
 ])
-FeedbackLink.create!([
+FeedbackLink.create([
   {feedback_id: 1, user_id: 1, agree: true, followed_up: false},
   {feedback_id: 1, user_id: 2, agree: true, followed_up: false},
   {feedback_id: 1, user_id: 3, agree: nil, followed_up: false},
