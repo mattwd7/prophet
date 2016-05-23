@@ -125,7 +125,6 @@ describe 'Notifications', js: true do
       within(all('.feedback')[0]){ expect(page).to_not have_css('.fresh') }
     end
 
-
     it 'forces fresh comments to display beyond the first 2', no_webkit: true do
       init_count = Notification.count
       scroll_to_bottom('slowly')
@@ -138,6 +137,19 @@ describe 'Notifications', js: true do
         expect(page).to have_css('.comment.fresh', count: 5)
         expect(page).to have_content('View 3 more comments')
       end
+    end
+
+    it 'identifies fresh comments after js filter' do
+      FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
+      visit current_path
+      expect(page).to have_css('.comment.fresh')
+      find('.sort .me').click
+      sleep 1
+      find('.sort .home').click
+      sleep 1
+      expect(page).to have_css('.comment.fresh')
+      scroll_to_bottom
+      within(all('.feedback')[0]){ expect(page).to_not have_css('.fresh') }
     end
 
   end

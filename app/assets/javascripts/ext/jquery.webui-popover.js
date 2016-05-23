@@ -730,19 +730,19 @@
                         if (isH) {
                             placement = pageX <= clientWidth / 2 ? 'right-bottom' : 'left-bottom';
                         } else {
-                            placement = 'bottom';
+                            placement = 'bottom-left';
                         }
                     } else if (pageY < clientHeight * 2 / 3) {
                         if (isH) {
                             placement = pageX <= clientWidth / 2 ? 'right' : 'left';
                         } else {
-                            placement = pageY <= clientHeight / 2 ? 'bottom' : 'top';
+                            placement = pageY <= clientHeight / 2 ? 'bottom-left' : 'top-left';
                         }
                     } else {
                         if (isH) {
                             placement = pageX <= clientWidth / 2 ? 'right-top' : 'left-top';
                         } else {
-                            placement = 'top';
+                            placement = 'top-left';
                         }
                     }
                 } else {

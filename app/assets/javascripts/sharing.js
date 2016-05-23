@@ -10,7 +10,7 @@ $(document).ready(function(){
 
         $(this).find('.vote.agree').webuiPopover({
             cache: false,
-            placement: 'bottom-left',
+            placement: 'vertical',
             trigger: 'hover',
             width: 200,
             type: 'async',
@@ -34,7 +34,7 @@ $(document).ready(function(){
         });
 
         $(this).find('.vote.peers').webuiPopover({
-            placement: 'bottom-left',
+            placement: 'vertical',
             trigger: 'hover',
             width: 200,
             type: 'async',

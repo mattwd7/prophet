@@ -1,13 +1,10 @@
 class Organization < ActiveRecord::Base
 
   has_many :users
-
-  def admins
-    users.where(type: 'Admin')
-  end
+  has_many :admins
 
   def managers
-    users.where(type: 'Manager').map{|u| u.attributes.merge({full_name: u.full_name})}
+    users.where(type: ['Manager', 'Admin'])
   end
 
   def spreadsheet_data

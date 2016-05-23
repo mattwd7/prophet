@@ -4,7 +4,9 @@ class OrganizationsController < ApplicationController
 
   def get_users
     @organization = current_user.organization
-    render json: {users: @organization.spreadsheet_data, managers: @organization.managers}.to_json
+    render json: {users: @organization.spreadsheet_data,
+                  managers: @organization.managers.map{ |manager| manager.attributes.merge({full_name: manager.full_name}) }
+                 }.to_json
   end
 
   def add_user
@@ -43,8 +45,10 @@ class OrganizationsController < ApplicationController
     successful_update_ids = []
     params[:user_ids].each do |id|
       u = User.find(id)
-      u.type =  params[:role]
-      successful_update_ids.push(u.id) if u.save
+      unless u == current_user # prevent Admin from reassigning self
+        u.type =  params[:role]
+        successful_update_ids.push(u.id) if u.save
+      end
     end
     render json: { user_ids: successful_update_ids }.to_json
   end

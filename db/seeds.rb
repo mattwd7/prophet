@@ -1,7 +1,7 @@
 Organization.create!([
    {name: "Prophet LLC"}
 ])
-User.create!([
+User.create([
   {email: "seb@symbiotic.com", first_name: "Sebastian", last_name: "Cardoso", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 3, current_sign_in_at: "2016-05-20 22:20:59", last_sign_in_at: "2016-05-20 04:18:41", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", user_tag: "@SebastianCardoso", avatar_file_name: nil, avatar_content_type: nil, avatar_file_size: nil, avatar_updated_at: nil, bio: nil, title: "Founder", type: "Admin", organization_id: 1},
   {email: "engineer1@symbiotic.com", first_name: "Engineer", last_name: "One", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-05-20 22:32:51", last_sign_in_at: "2016-05-20 22:32:51", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", user_tag: "@EngineerOne", avatar_file_name: nil, avatar_content_type: nil, avatar_file_size: nil, avatar_updated_at: nil, bio: nil, title: "Engineer", type: "", organization_id: 1},
   {email: "engineer2@symbiotic.com", first_name: "Engineer", last_name: "Two", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-05-20 22:36:10", last_sign_in_at: "2016-05-20 22:36:10", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", user_tag: "@EngineerTwo", avatar_file_name: nil, avatar_content_type: nil, avatar_file_size: nil, avatar_updated_at: nil, bio: nil, title: "Engineer", type: "", organization_id: 1},
@@ -9,7 +9,7 @@ User.create!([
   {email: "artist@symbiotic.com", first_name: "Robin", last_name: "Mayne", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-05-20 22:21:55", last_sign_in_at: "2016-05-20 22:21:55", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", user_tag: "@RobinMayne", avatar_file_name: nil, avatar_content_type: nil, avatar_file_size: nil, avatar_updated_at: nil, bio: nil, title: "Artist", type: "", organization_id: 1},
   {email: "designer@symbiotic.com", first_name: "Thomas", last_name: "Vu", password: "password", password_confirmation: "password", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 1, current_sign_in_at: "2016-05-20 22:39:12", last_sign_in_at: "2016-05-20 22:39:12", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", user_tag: "@ThomasVu", avatar_file_name: nil, avatar_content_type: nil, avatar_file_size: nil, avatar_updated_at: nil, bio: nil, title: "Designer", type: "", organization_id: 1}
 ])
-Feedback.create!([
+Feedback.create([
    {user_id: 6, author_id: 1, content: "The team and I are having constant issues with your ability to communicate clearly in Slack. We often have to ping threads with you because we are unsure of whether or not you've acknowledged the information in them. Going forward, it would be great if you could work on being more reactive to members of the team that are reaching out to you via Slack or other channels.", resonance_value: 1, followed_up: false, merged: false, merge_ids: nil},
    {user_id: 6, author_id: 1, content: "You're lack of engagement during the call with the design candidate this morning was troubling. Is there anything on your mind you'd like to talk about?", resonance_value: 2, followed_up: false, merged: false, merge_ids: nil},
    {user_id: 5, author_id: 5, content: "I feel like my latest rendering of the Symbiotic Splash art wasn't that great...what do you guys think?", resonance_value: 1, followed_up: false, merged: false, merge_ids: nil},
@@ -17,7 +17,7 @@ Feedback.create!([
    {user_id: 6, author_id: 2, content: "Your design concepts for the latest dungeon seemed really weak and not thoroughly thought out. Overall, seems like you've been pretty disengaged recently. Are we being clear enough about our expectations?", resonance_value: 0, followed_up: false, merged: false, merge_ids: nil},
    {user_id: 1, author_id: 3, content: "Thanks for getting me onboarded with the team. It's been a pretty smooth process so far and I'm excited to be here.", resonance_value: 0, followed_up: false, merged: false, merge_ids: nil}
 ])
-Comment.create!([
+Comment.create([
   {content: "Hey guys -\r\n\r\nI'm also adding some other folks to this thread who were also on the call this morning. ", user_id: 5, feedback_id: 2},
   {content: "I also have this issue when I communicate with you, Thomas. Definitely would be great if you could be more reactive going forward - let us know how we can help.", user_id: 5, feedback_id: 1},
   {content: "Agreed. Let me know how I can be clearer about this expectation I have.", user_id: 2, feedback_id: 1},

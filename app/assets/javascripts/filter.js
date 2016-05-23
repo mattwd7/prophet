@@ -49,6 +49,7 @@ $(document).ready(function(){
         var feedbacks = $('#feedbacks');
         if ($(e.target).attr('id') == feedbacks.attr('id')){
             feedbacks.removeClass('fade-out-down');
+            identifyFreshFeedbacks();
         }
     });
 
@@ -74,9 +75,9 @@ $(document).ready(function(){
             complete: function(){
                 if (!animating || wasAdmin){
                     feedbacks.removeClass('fade-out-down');
+                    identifyFreshFeedbacks();
                 }
                 animating = false;
-                identifyFreshFeedbacks();
                 wasAdmin = false;
             }
         })

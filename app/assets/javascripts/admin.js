@@ -172,7 +172,6 @@ $(document).ready(function(){
             url: '/organizations/update_managers',
             data: data,
             success: function(data){
-                console.log(data);
                 for (var i = 0; i < data.updates.length; i++){
                     var id = data.updates[i].user_id;
                     var managers = data.updates[i].managers;
