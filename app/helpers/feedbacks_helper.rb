@@ -9,7 +9,7 @@ module FeedbacksHelper
 
   def address_info(feedback, current_user)
     if feedback.author == feedback.user
-      "#{feedback.user.full_name} Self-Observation"
+      "#{feedback.user.full_name} Self-Feedback"
     elsif feedback.author == current_user
       "ME to #{feedback.user.full_name}"
     elsif feedback.user == current_user
