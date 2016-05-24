@@ -1,6 +1,6 @@
 var dataTable, managers, grid, user_ids = [];
-var user_attributes = ['first_name', 'last_name', 'user_tag', 'email', 'role', 'managers'],
-    editable_attributes = ['first_name', 'last_name', 'email'];
+var user_attributes = ['first_name', 'last_name', 'user_tag', 'email', 'title', 'role', 'managers'],
+    editable_attributes = ['first_name', 'last_name', 'email', 'title'];
 
 $(document).ready(function(){
     $('.sort div').click(function(){
@@ -84,6 +84,7 @@ $(document).ready(function(){
             "<td>Last Name</td>" +
             "<td>User Tag</td>" +
             "<td>Email</td>" +
+            "<td>Title</td>" +
             "<td>Role</td>" +
             "<td>Managers</td></tr>"
     }
@@ -93,6 +94,7 @@ $(document).ready(function(){
                 "<td user_attribute='last_name' class='inline-editable'>" + user.last_name + "</td>" +
                 "<td user_attribute='user_tag'>" + user.user_tag + "</td>" +
                 "<td user_attribute='email' class='inline-editable'>" + user.email + "</td>" +
+                "<td user_attribute='title' class='inline-editable'>" + user.title + "</td>" +
                 "<td user_attribute='role'>" + user.role + "</td>" +
                 "<td user_attribute='managers'>" + user.managers + "</td></tr>";
     };
@@ -230,7 +232,6 @@ function assignRowAttributes(user_id){
             cell = row.find('td').eq(i);
         cell.attr('user_attribute', attr);
         if (editable_attributes.indexOf(attr) >= 0){
-//            cell.addClass('inline-editable');
             makeEditable(cell);
         }
     }
@@ -241,6 +242,7 @@ function makeEditable(cell){
     $(cell).editable('organizations/update_user', {
         method: 'PUT',
         onblur: 'submit',
+        placeholder: '<span class="ph">Click to edit</span>',
         submitdata: { id: $(cell).closest('tr').attr('user_id'), attribute: $(cell).closest('td').attr('user_attribute') },
         data: function(string){ return $.trim(string); }
     });

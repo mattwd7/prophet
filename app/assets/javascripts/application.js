@@ -32,6 +32,11 @@ function closeModal(){
     $('.modal-container').removeClass('show-modal');
     $('.modal-overlay').removeClass('show-overlay');
 }
+function clearModal(){
+    $('.modal-container').find('input:not([type="hidden"])').each(function(i, el){
+        $(el).val('');
+    })
+}
 
 function getRecordID(elem){
     return $(elem).attr('id').match(/\d+/)[0];

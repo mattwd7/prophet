@@ -33,7 +33,7 @@ describe 'Admin', js: true do
       end
     end
 
-    it 'can change an employees first name, last name, and email', no_webkit: true do
+    it 'can change an employees first name, last name, email, and title', no_webkit: true do
       within('#admin-grid_wrapper tbody') do
         all('td')[0].click
         find('input').set('charles')
@@ -44,11 +44,13 @@ describe 'Admin', js: true do
         all('td')[3].click
         find('input').set('c.shaw@gmail.com')
         all('td')[4].click
+        find('input').set('Software Engineer')
+        all('td')[6].click
         expect(page).to_not have_content('input')
-        all('td')[5].click # commit last input
+        all('td')[7].click # commit last input
       end
       user_attributes = User.find_by_user_tag('@CharlesShaw').attributes.values
-      ['Charles', 'Shaw', 'c.shaw@gmail.com'].each do |new_attribute|
+      ['Charles', 'Shaw', 'c.shaw@gmail.com', 'Software Engineer'].each do |new_attribute|
         expect(user_attributes).to include(new_attribute)
       end
     end
