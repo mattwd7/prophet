@@ -1,8 +1,8 @@
-var dataTable;
+var dataTable, managers, grid, user_ids = [];
+var user_attributes = ['first_name', 'last_name', 'user_tag', 'email', 'role', 'managers'],
+    editable_attributes = ['first_name', 'last_name', 'email'];
 
 $(document).ready(function(){
-    var grid;
-
     $('.sort div').click(function(){
         var column = $('.column');
         if ($(this).hasClass('admin')){
@@ -21,7 +21,7 @@ $(document).ready(function(){
         openModal('add-user');
     });
 
-    var users, managers, role;
+    var users, role;
     grid = $('#admin-grid');
     function initAdmin(){
         if (!grid.hasClass('initialized')) {
@@ -50,12 +50,7 @@ $(document).ready(function(){
 
         // Use .each() to allow for proper $(this) scope
         $('#admin-grid_wrapper').find('.inline-editable').each(function(){
-            $(this).editable('organizations/update_user', {
-                method: 'PUT',
-                onblur: 'submit',
-                submitdata: { id: $(this).closest('tr').attr('user_id'), attribute: $(this).closest('td').attr('user_attribute') },
-                data: function(string){ return $.trim(string); }
-            });
+            makeEditable($(this));
         });
 
         grid.find("td[user_attribute='managers']").contextmenu({
@@ -105,7 +100,6 @@ $(document).ready(function(){
     // GRID MANIPULATION
 
     // selection
-    var user_ids = [];
     var last_index;
     grid.on('click', 'tbody tr', function(e){
         var index = grid.find('tr').index(this);
@@ -127,74 +121,127 @@ $(document).ready(function(){
         selectedUserIds();
     });
 
-    $(document).on('mousedown', '#admin-grid', function(event, ui){
-        if (event.which == 3){
-            rightClickSelect(event.target);
+});
+
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+
+$(document).on('mousedown', '#admin-grid', function(event, ui){
+    if (event.which == 3){
+        rightClickSelect(event.target);
+    }
+});
+
+function rightClickSelect(el){
+    var row = $(el).closest('tr');
+    if(!row.hasClass('selected')){
+        row.click();
+    }
+}
+
+function selectedUserIds(){
+    user_ids = [];
+    $.each(grid.find('.selected'), function(i, el){
+        user_ids.push($(el).attr('user_id'));
+    });
+    console.log(user_ids);
+}
+
+function assignManager(manager_id){
+    var data = { user_ids: user_ids };
+    if (manager_id != null){
+        data['manager_id'] = manager_id;
+    }
+    $.ajax({
+        method: 'put',
+        url: '/organizations/update_managers',
+        data: data,
+        success: function(data){
+            for (var i = 0; i < data.updates.length; i++){
+                var id = data.updates[i].user_id;
+                var managers = data.updates[i].managers;
+                $("tr[user_id=" + id + "]").find("td[user_attribute='managers']").text(managers);
+            }
+        }
+    })
+}
+
+function assignRole(){
+    var data = { user_ids: user_ids, role: role };
+    $.ajax({
+        method: 'put',
+        url: '/organizations/update_user_role',
+        data: data,
+        success: function(data){
+            for (var i = 0; i < data.user_ids.length; i++){
+                var id = data.user_ids[i];
+                $("tr[user_id=" + id + "]").find("td[user_attribute='role']").text(role)
+            }
+        }
+    })
+}
+
+function createManagersMenu(){
+    var output = [];
+    managers.forEach(function(manager){
+        output.push(
+            { title: 'Assign to: ' + manager.full_name, cmd: 'assign_manager', data: { manager_id: manager.id } }
+        );
+    });
+    output.push({ title: 'Clear', cmd: 'clear_managers', data: { manager_id: 1} });
+    return output;
+}
+
+function addRow(row, user_id){
+    var grid = $('#admin-grid');
+    dataTable.row.add(row).draw(false);
+    assignRowAttributes(user_id);
+
+    grid.find("td[user_attribute='managers']").contextmenu({
+        menu: createManagersMenu(),
+        select: function(event, ui) {
+            if (ui.cmd === 'assign_manager'){
+                assignManager(ui.item.data().manager_id);
+            } else if (ui.cmd === 'clear_managers') {
+                assignManager(null);
+            }
         }
     });
 
-    function rightClickSelect(el){
-        var row = $(el).closest('tr');
-        if(!row.hasClass('selected')){
-//            $('.selected').removeClass('selected');
-//            row.addClass('selected');
-//            user_ids = [row.attr('user_id')];
-            row.click();
+    grid.find("td[user_attribute='role']").contextmenu({
+        menu: [
+            { title: 'Employee', cmd: '' },
+            { title: 'Manager', cmd: 'Manager' },
+            { title: 'Admin', cmd: 'Admin' }
+        ],
+        select: function(event, ui) {
+            role = ui.cmd;
+            assignRole();
+        }
+    });
+}
+
+function assignRowAttributes(user_id){
+    var row = $('#admin-grid tbody tr').filter(function(i, el){ return $(el).attr('user_id') === undefined });
+    row.attr('user_id', user_id);
+    for (var i = 0; i < user_attributes.length; i++){
+        var attr = user_attributes[i],
+            cell = row.find('td').eq(i);
+        cell.attr('user_attribute', attr);
+        if (editable_attributes.indexOf(attr) >= 0){
+//            cell.addClass('inline-editable');
+            makeEditable(cell);
         }
     }
+}
 
-    function selectedUserIds(){
-        user_ids = [];
-        $.each(grid.find('.selected'), function(i, el){
-            user_ids.push($(el).attr('user_id'));
-        })
-    }
-
-    // context menu
-    function createManagersMenu(){
-        var output = [];
-        managers.forEach(function(manager){
-            output.push(
-                { title: 'Assign to: ' + manager.full_name, cmd: 'assign_manager', data: { manager_id: manager.id } }
-            );
-        });
-        output.push({ title: 'Clear', cmd: 'clear_managers', data: { manager_id: 1} });
-        return output;
-    }
-
-    function assignManager(manager_id){
-        var data = { user_ids: user_ids };
-        if (manager_id != null){
-            data['manager_id'] = manager_id;
-        }
-        $.ajax({
-            method: 'put',
-            url: '/organizations/update_managers',
-            data: data,
-            success: function(data){
-                for (var i = 0; i < data.updates.length; i++){
-                    var id = data.updates[i].user_id;
-                    var managers = data.updates[i].managers;
-                    $("tr[user_id=" + id + "]").find("td[user_attribute='managers']").text(managers);
-                }
-            }
-        })
-    }
-
-    function assignRole(){
-        var data = { user_ids: user_ids, role: role };
-        $.ajax({
-            method: 'put',
-            url: '/organizations/update_user_role',
-            data: data,
-            success: function(data){
-                for (var i = 0; i < data.user_ids.length; i++){
-                    var id = data.user_ids[i];
-                    $("tr[user_id=" + id + "]").find("td[user_attribute='role']").text(role)
-                }
-            }
-        })
-    }
-
-});
-
+function makeEditable(cell){
+    $(cell).addClass('inline-editable');
+    $(cell).editable('organizations/update_user', {
+        method: 'PUT',
+        onblur: 'submit',
+        submitdata: { id: $(cell).closest('tr').attr('user_id'), attribute: $(cell).closest('td').attr('user_attribute') },
+        data: function(string){ return $.trim(string); }
+    });
+}

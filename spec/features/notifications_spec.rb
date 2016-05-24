@@ -148,6 +148,7 @@ describe 'Notifications', js: true do
       find('.sort .home').click
       sleep 1
       expect(page).to have_css('.comment.fresh')
+      sleep 1
       scroll_to_bottom
       within(all('.feedback')[0]){ expect(page).to_not have_css('.fresh') }
     end
