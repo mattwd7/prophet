@@ -58,7 +58,7 @@ describe 'Admin', js: true do
     it 'can add new employee to organization, resulting in random password and email with password' do
       user_count = @org.users.count
       mail_count = ActionMailer::Base.deliveries.count
-      new_user = {first_name: 'Donald', last_name: 'trump', email: 'DT_wall@gmail.com'}
+      new_user = {first_name: 'Donald', last_name: 'trump', email: 'DT_wall@gmail.com', title: 'ceo'}
       expect(page).to have_content('Add User')
       expect(page).to have_css('#admin-grid tbody tr', count: 12)
       find('.add-user').click
@@ -66,6 +66,7 @@ describe 'Admin', js: true do
         find('#user_first_name').set new_user[:first_name]
         find('#user_last_name').set new_user[:last_name]
         find('#user_email').set new_user[:email]
+        find('#user_title').set new_user[:title]
         find('.submit-tag').click
       end
       sleep 1

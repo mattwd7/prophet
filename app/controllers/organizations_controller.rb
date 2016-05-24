@@ -15,7 +15,6 @@ class OrganizationsController < ApplicationController
       @user.password = @user.temp_password
       @user.save
       respond_to do |format|
-        # @user = @user.attributes
         format.js
       end
   end

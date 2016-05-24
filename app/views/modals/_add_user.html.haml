@@ -16,6 +16,9 @@
         .label Email
         = f.email_field :email
       %li
+        .label Title
+        = f.email_field :title
+      %li
         .label Profile Photo
         = f.file_field :avatar
     = f.hidden_field :organization_id, value: organization

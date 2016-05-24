@@ -6,5 +6,6 @@ user.first_name = "<%= escape_javascript(@user.first_name) %>";
 user.last_name = "<%= escape_javascript(@user.last_name) %>";
 user.user_tag = "<%= escape_javascript(@user.user_tag) %>";
 user.email = "<%= escape_javascript(@user.email) %>";
-var row = [user.first_name, user.last_name, user.user_tag, user.email, '', ''];
+user.title = "<%= escape_javascript(@user.title) %>";
+var row = [user.first_name, user.last_name, user.user_tag, user.email, user.title, '', ''];
 addRow(row, user.id);
