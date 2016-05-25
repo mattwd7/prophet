@@ -1,24 +1,24 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  S3_ACCESS_KEY = "AKIAJAFI6HWVUKD6TQ4Q"
-  S3_SECRET = "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"
-
-  PAPERCLIP_ROOT_PATH = ENV['PAPERCLIP_ROOT_PATH'] || "/#{Rails.env}"
-
-  Paperclip::Attachment.default_options.merge!({storage: :s3,
-                                                s3_credentials: {
-                                                    access_key_id: S3_ACCESS_KEY,
-                                                    secret_access_key: S3_SECRET
-                                                },
-                                                s3_protocol: "https",
-                                                s3_region: "us-west-1",
-                                                path: PAPERCLIP_ROOT_PATH + "/users/:user/:style.:extension",
-                                                bucket: "prophet2"
-                                               })
-
-  GENERIC_PAPERCLIP_SETTINGS = {
-      :path => PAPERCLIP_ROOT_PATH + "/:class_name/:attachment/:hashed_path/:record_id_:style.:extension"
-  }
+  # S3_ACCESS_KEY = "AKIAJAFI6HWVUKD6TQ4Q"
+  # S3_SECRET = "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"
+  #
+  # PAPERCLIP_ROOT_PATH = ENV['PAPERCLIP_ROOT_PATH'] || "/#{Rails.env}"
+  #
+  # Paperclip::Attachment.default_options.merge!({storage: :s3,
+  #                                               s3_credentials: {
+  #                                                   access_key_id: S3_ACCESS_KEY,
+  #                                                   secret_access_key: S3_SECRET
+  #                                               },
+  #                                               s3_protocol: "https",
+  #                                               s3_region: "us-west-1",
+  #                                               path: PAPERCLIP_ROOT_PATH + "/users/:user/:style.:extension",
+  #                                               bucket: "prophet2"
+  #                                              })
+  #
+  # GENERIC_PAPERCLIP_SETTINGS = {
+  #     :path => PAPERCLIP_ROOT_PATH + "/:class_name/:attachment/:hashed_path/:record_id_:style.:extension"
+  # }
 
   # Code is not reloaded between requests.
   config.cache_classes = true

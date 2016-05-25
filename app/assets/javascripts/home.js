@@ -77,7 +77,6 @@ $(document).ready(function(){
             agreeing = !action.hasClass('selected'),
             change = agreeing ? 1 : -1,
             agree_count = feedback.find('.vote.agree .number');
-        console.log('stop fucking double calling!');
         var checked = action.find('input').prop('checked');
         action.find('input').prop('checked', !checked);
         action.toggleClass('selected');
