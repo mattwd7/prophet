@@ -7,6 +7,7 @@ gem 'mysql2', '~>0.3.17'
 gem 'devise'
 gem 'haml', '~> 4.0.6'
 gem 'paperclip'
+gem 'aws-sdk', '< 2'
 gem 'will_paginate'
 
 gem 'sass-rails', '~> 4.0.3'

@@ -4,7 +4,14 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_attached_file :avatar, default_url: ":style/missing.png", styles: { small: "100x100#", large: "350x350>" }, processors: [:cropper]
+  STATIC_SCALES = {
+      small: "100x100#",
+      large: "350x350>"
+  }
+
+  has_attached_file :avatar, default_url: ":style/missing.png",
+                    styles: { small: "100x100#", large: "350x350>" },
+                    processors: [:cropper]
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   belongs_to :organization
@@ -78,7 +85,7 @@ class User < ActiveRecord::Base
   def avatar_geometry(style = :original)
     @geometry ||= {}
     if avatar.path(style)
-      @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
+      @geometry[style] ||= Paperclip::Geometry.from_file(open(avatar.url(style)))
     else
       @geometry[style] = OpenStruct.new(width: 0, height: 0)
     end
