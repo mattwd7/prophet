@@ -1,3 +1,3 @@
 Paperclip.interpolates(:user) do |attachment, style|
-  "user_#{attachment.instance.id.to_s}"
+  "#{attachment.instance.id}"
 end

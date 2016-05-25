@@ -37,7 +37,7 @@ Paperclip::Attachment.default_options.merge!({storage: :s3,
                                               },
                                               s3_protocol: "https",
                                               s3_region: "us-west-1",
-                                              path: PAPERCLIP_ROOT_PATH + "/:user/:basename/:style.:extension",
+                                              path: PAPERCLIP_ROOT_PATH + "/users/:user/:style.:extension",
                                               bucket: "prophet2"
                                              })
 
