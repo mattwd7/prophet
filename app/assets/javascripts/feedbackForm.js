@@ -48,7 +48,9 @@ $(document).ready(function(){
                 })
                 .autocomplete({
                     source: function( request, response ) {
-                        var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term.replace(' ', '')), "i");
+                        var term = request.term;
+                        term = term.substring(term.lastIndexOf('@'));
+                        var matcher = new RegExp($.ui.autocomplete.escapeRegex(term.replace(' ', '')), "i");
                         response( $.grep( recipientList, function( item ){
                             return matcher.test( item.user_tag );
                         }))
@@ -59,7 +61,17 @@ $(document).ready(function(){
                         return false;
                     },
                     select: function( event, ui ) {
-                        $(this).val(ui.item.user_tag + ' ');
+                        // replace existing or just complete it
+                        var content = $(this).val(),
+                            existingTag = content.match(/@\w+\s/),
+                            newTag = ui.item.user_tag + ' ';
+                        if (existingTag){
+                            content = content.replace(existingTag[0], newTag);
+                        } else {
+                            content = newTag + content;
+                        }
+                        content = content.substring(0, content.lastIndexOf('@')-1) + ' ';
+                        $(this).val(content);
                         return false;
                     }
                 })
@@ -121,7 +133,7 @@ $(document).ready(function(){
                     }
                 })
                 .autocomplete( "instance" )._renderItem = function( ul, item ) {
-                return $( "<li>" )
+                    return $( "<li>" )
                     .append( "<div class='avatar'><img src='" + item.avatar_url + "'/></div><div class='info'>" + item.name + "<div class='title'>" + item.title + "</div><div class='user-tag'>" + item.user_tag + "</div></div>" )
                     .appendTo( ul );
             };
