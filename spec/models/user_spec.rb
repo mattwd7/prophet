@@ -29,6 +29,8 @@ describe User do
   it 'creates mailer settings on creation' do
     user = FactoryGirl.create(:spec_user)
     expect(user.mailer_settings.count).to be > 0
+    user.reload
+    expect(user.reset_password_token).to_not be_nil
   end
 
 
