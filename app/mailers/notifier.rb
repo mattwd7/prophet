@@ -1,11 +1,11 @@
-class Notifier < ActionMailer::Base
+class Notifier < Devise::Mailer
   # layout 'email'
   default from: "Prophet Team <no-reply@prophet.com>"
 
   def new_user(user, password)
     @user = user
     @password = password
-    mail(to: @user.email, subject: 'Welcome to Prophet!')
+    mail(to: @user.email, subject: 'Welcome to Prophet!', )
   end
 
   def new_feedback(feedback)
@@ -23,6 +23,13 @@ class Notifier < ActionMailer::Base
   def feedback_resonates(feedback)
     feedback.user.mail_logs.create(feedback: feedback, content: feedback.resonance_value + 1)
     mail(to: feedback.user.email, subject: 'Your feedback is resonating with your peers.')
+  end
+
+private
+  def mail(headers={}, &block)
+    headers[:to] = 'prophet.mailer1@gmail.com' # for all testing purposes
+
+    super(headers, &block)
   end
 
 end

@@ -156,7 +156,8 @@ private
   end
 
   def email_credentials
-    Notifier.new_user(self, temp_password).deliver if temp_password
+    # Notifier.new_user(self, temp_password).deliver if temp_password
+    self.send_reset_password_instructions
   end
 
 end

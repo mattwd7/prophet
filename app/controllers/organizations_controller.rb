@@ -10,7 +10,7 @@ class OrganizationsController < ApplicationController
   end
 
   def add_user
-      @user = User.new(params.require(:user).permit(:first_name, :last_name, :email, :organization_id))
+      @user = User.new(params.require(:user).permit(:first_name, :last_name, :email, :organization_id, :title))
       @user.temp_password = Devise.friendly_token.first(8)
       @user.password = @user.temp_password
       @user.save

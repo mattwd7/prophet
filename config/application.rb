@@ -22,6 +22,18 @@ module Prophet
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    config.action_mailer.delivery_method = :smtp
+    # SMTP settings for gmail
+    config.action_mailer.smtp_settings = {
+        :address              => "smtp.gmail.com",
+        :port                 => 587,
+        :user_name            => 'prophet.mailer1@gmail.com',
+        :password             => 'WeAreProphet',
+        :authentication       => "plain",
+        :enable_starttls_auto => true
+    }
+
     S3_ACCESS_KEY = "AKIAJAFI6HWVUKD6TQ4Q"
     S3_SECRET = "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"
 
@@ -37,9 +49,5 @@ module Prophet
                                                   path: PAPERCLIP_ROOT_PATH + "/users/:user/:style.:extension",
                                                   bucket: "prophet2"
                                                  })
-
-    GENERIC_PAPERCLIP_SETTINGS = {
-        :path => PAPERCLIP_ROOT_PATH + "/:class_name/:attachment/:hashed_path/:record_id_:style.:extension"
-    }
   end
 end
