@@ -56,13 +56,13 @@ class HomeController < ApplicationController
   def filter_feedbacks
     if params[:user_id].present?
       @user = User.find(params[:user_id])
-      @feedbacks = @user.my_feedbacks(params[:resonance])
+      @feedbacks = @user.my_feedbacks(params[:resonance], params[:search])
       all_user_feedbacks = @user.my_feedbacks
     elsif params[:manager].present? && current_user.is_a?(Manager)
-      @feedbacks = current_user.employee_feedbacks(params[:resonance])
+      @feedbacks = current_user.employee_feedbacks(params[:resonance], params[:search])
       all_user_feedbacks = current_user.employee_feedbacks
     else
-      @feedbacks = current_user.home_feedbacks(params[:resonance])
+      @feedbacks = current_user.home_feedbacks(params[:resonance], params[:search])
       all_user_feedbacks = current_user.home_feedbacks
     end
     @feedbacks = @feedbacks.paginate(page: params[:page])

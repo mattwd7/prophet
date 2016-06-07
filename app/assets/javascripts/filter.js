@@ -3,7 +3,7 @@ var wasAdmin = false;
 $(document).ready(function(){
 
     var currentUserId = $('.session').attr('id');
-    var filters = {resonance: [], user_id: null, manager: null};
+    var filters = {resonance: [], user_id: null, manager: null, search: ""};
     var dirty_numbers = false;
 
     $('.filters .number-bubble').click(function(){
@@ -44,6 +44,17 @@ $(document).ready(function(){
         filters.resonance.splice(filters.resonance.indexOf(name), 1);
         filterFeedbacks();
     }
+
+    $('#search_feedbacks').keyup(function(e){
+        if (e.keyCode == 13){
+            $(this).trigger("performSearch");
+        }
+    });
+
+    $('#search_feedbacks').bind('performSearch', function(){
+        filters.search = $('#search_feedbacks').val();
+        filterFeedbacks();
+    });
 
     $(document).on('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function (e){
         var feedbacks = $('#feedbacks');

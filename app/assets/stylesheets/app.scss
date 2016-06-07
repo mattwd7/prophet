@@ -80,6 +80,15 @@ li { list-style-type: none; }
       }
     }
   }
+  .search {
+    float: right;
+    margin: 25px 20px;
+    #search_feedbacks {
+      height: 30px;
+      font-size: 14px;
+      font-family: avenir;
+    }
+  }
   #sign-in {
     float: right;
     margin-right: 200px;

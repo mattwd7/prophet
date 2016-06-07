@@ -46,6 +46,46 @@ describe 'Feedback filtering', js: true do
     expect(page).to have_content(@isolated_feedback.content)
   end
 
+  it 'uses the search bar to filter feedbacks on content' do
+    search('alone')
+    expect(page).to_not have_content(@resonant_feedback.content)
+    expect(page).to_not have_content(@mixed_feedback.content)
+    expect(page).to have_content(@isolated_feedback.content)
+    filter_resonance('mixed')
+    expect(page).to_not have_content(@resonant_feedback.content)
+    expect(page).to_not have_content(@mixed_feedback.content)
+    expect(page).to_not have_content(@isolated_feedback.content)
+    filter_resonance('mixed')
+    filter_resonance('isolated')
+    expect(page).to_not have_content(@resonant_feedback.content)
+    expect(page).to_not have_content(@mixed_feedback.content)
+    expect(page).to have_content(@isolated_feedback.content)
+
+    search('')
+    expect(page).to_not have_content(@resonant_feedback.content)
+    expect(page).to_not have_content(@mixed_feedback.content)
+    expect(page).to have_content(@isolated_feedback.content)
+    filter_resonance('isolated')
+    expect(page).to have_content(@resonant_feedback.content)
+    expect(page).to have_content(@mixed_feedback.content)
+    expect(page).to have_content(@isolated_feedback.content)
+
+    search('one this')
+    expect(page).to_not have_content(@resonant_feedback.content)
+    expect(page).to have_content(@mixed_feedback.content)
+    expect(page).to have_content(@isolated_feedback.content)
+
+    search('everyone agrees')
+    expect(page).to have_content(@resonant_feedback.content)
+    expect(page).to_not have_content(@mixed_feedback.content)
+    expect(page).to_not have_content(@isolated_feedback.content)
+
+    search('bogus')
+    expect(page).to_not have_content(@resonant_feedback.content)
+    expect(page).to_not have_content(@mixed_feedback.content)
+    expect(page).to_not have_content(@isolated_feedback.content)
+  end
+
 end
 
 def filter_resonance(resonance)
@@ -57,4 +97,9 @@ def filter_attribute(attribute)
   within('.attributes') do
     within('li', text: attribute){ find('.number-bubble').click }
   end
+end
+
+def search(search_terms)
+  find("#search_feedbacks").set "#{search_terms}\n"
+  sleep 1
 end
