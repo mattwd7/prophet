@@ -5,6 +5,7 @@ $(document).ready(function(){
     var currentUserId = $('.session').attr('id');
     var filters = {resonance: [], user_id: null, manager: null, search: ""};
     var dirty_numbers = false;
+    var searchField = $('#search_feedbacks');
 
     $('.filters .number-bubble').click(function(){
         toggleBubble($(this));
@@ -45,13 +46,23 @@ $(document).ready(function(){
         filterFeedbacks();
     }
 
-    $('#search_feedbacks').keyup(function(e){
+    searchField.focus(function(){
+        $(this).closest('.search').find('img').hide();
+    });
+
+    searchField.blur(function(){
+        if ($(this).val().length < 1){
+            $(this).closest('.search').find('img').show();
+        }
+    });
+
+    searchField.keyup(function(e){
         if (e.keyCode == 13){
             $(this).trigger("performSearch");
         }
     });
 
-    $('#search_feedbacks').bind('performSearch', function(){
+    searchField.bind('performSearch', function(){
         filters.search = $('#search_feedbacks').val();
         filterFeedbacks();
     });
