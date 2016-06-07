@@ -30,8 +30,6 @@ class User < ActiveRecord::Base
   before_save :make_proper, :generate_user_tag, :update_user_tag
   after_create :set_mailer_settings, :email_credentials
 
-  attr_accessor :temp_password
-
   def full_name
     first_name + ' ' + last_name
   end
