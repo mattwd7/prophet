@@ -15,6 +15,11 @@
           .avatar
             = image_tag current_user.avatar.url(:large)
 
+        .search
+          = text_field_tag :search_feedbacks, '', placeholder: 'Search Prophet'
+          .image-container
+            = image_tag 'search.png'
+
         .sort{ style: @hide_sorting ? 'display: none' : '' }
           .home.selected
             .notifications{ style: "visibility: #{current_user.home_notifications.count < 1 ? 'hidden' : ''}" }

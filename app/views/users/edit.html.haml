@@ -23,7 +23,7 @@
           marginTop: '-' + Math.round(coords.y * ry * #{@user.avatar_geometry(:original).height} / image_h) + 'px'
       });
 
-      var ratio = #{@user.avatar_geometry(:original).width} / #{@user.avatar_geometry(:large).width};
+      var ratio = 1; //#{@user.avatar_geometry(:original).width} / #{@user.avatar_geometry(:large).width};
       $("#crop_x").val(Math.round(coords.x * ratio));
       $("#crop_y").val(Math.round(coords.y * ratio));
       $("#crop_w").val(Math.round(coords.w * ratio));

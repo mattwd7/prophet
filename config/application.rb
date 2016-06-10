@@ -49,5 +49,9 @@ module Prophet
                                                   path: PAPERCLIP_ROOT_PATH + "/users/:user/:style.:extension",
                                                   bucket: "prophet2"
                                                  })
+
+    # prevent avatars < 10KB from opening as a StringIO instead of a TempFile
+    OpenURI::Buffer.send :remove_const, 'StringMax' if OpenURI::Buffer.const_defined?('StringMax')
+    OpenURI::Buffer.const_set 'StringMax', 0
   end
 end
