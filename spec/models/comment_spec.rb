@@ -24,9 +24,9 @@ describe Comment do
   end
 
   it 'sends an email to the feedback recipient' do
-    mail_count = ActionMailer::Base.deliveries.count
     @other_user = FactoryGirl.create(:spec_user, email: 'other_user@gmail.com')
-    @user.mailer_settings.each{|ms| ms.update_attributes(active: false)}
+    @user.mailer_settings.update_all(active: false)
+    mail_count = ActionMailer::Base.deliveries.count
     FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
     expect(ActionMailer::Base.deliveries.count).to eq(mail_count)
     @user.mailer_settings.each{|ms| ms.update_attributes(active: true)}

@@ -10,7 +10,9 @@ class OrganizationsController < ApplicationController
   end
 
   def add_user
-      @user = User.create(params.require(:user).permit(:first_name, :last_name, :email, :organization_id, :title))
+      @user = User.new(params.require(:user).permit(:first_name, :last_name, :email, :organization_id, :title))
+      @user.assign_attributes(password: 'temp_pass', password_confirmation: 'temp_pass')
+      @user.save
       respond_to do |format|
         format.js
       end

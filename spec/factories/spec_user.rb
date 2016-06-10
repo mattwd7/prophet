@@ -15,6 +15,9 @@ FactoryGirl.define do
     email 'manager@gmail.com'
     password 'password'
     type 'Manager'
+    after(:build) do |user|
+      user.organization ||= FactoryGirl.create(:spec_organization)
+    end
   end
 
   factory :spec_admin, class: Admin do
@@ -23,5 +26,8 @@ FactoryGirl.define do
     email 'admin@gmail.com'
     password 'password'
     type 'Admin'
+    after(:build) do |user|
+      user.organization ||= FactoryGirl.create(:spec_organization)
+    end
   end
 end
