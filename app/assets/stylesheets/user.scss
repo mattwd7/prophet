@@ -92,7 +92,7 @@
     li {
     }
     #avatar-handling {
-      height: 350px;
+      overflow: auto;
       .previewing {
         float: left;
         #preview-container {
