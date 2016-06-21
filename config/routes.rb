@@ -52,6 +52,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :slack do
+    resources :feedbacks
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
