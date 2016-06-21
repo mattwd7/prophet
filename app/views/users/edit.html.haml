@@ -23,11 +23,14 @@
           marginTop: '-' + Math.round(coords.y * ry * #{@user.avatar_geometry(:original).height} / image_h) + 'px'
       });
 
-      var ratio = 1; //#{@user.avatar_geometry(:original).width} / #{@user.avatar_geometry(:large).width};
-      $("#crop_x").val(Math.round(coords.x * ratio));
-      $("#crop_y").val(Math.round(coords.y * ratio));
-      $("#crop_w").val(Math.round(coords.w * ratio));
-      $("#crop_h").val(Math.round(coords.h * ratio));
+      var ratio_w = "#{@user.avatar_geometry(:original).width}" / $("#cropbox img").width();
+      var ratio_h = "#{@user.avatar_geometry(:original).height}" / $("#cropbox img").height();
+      $("#crop_x").val(Math.round(coords.x * ratio_w));
+      $("#crop_y").val(Math.round(coords.y * ratio_h));
+      $("#crop_w").val(Math.round(coords.w * ratio_w));
+      $("#crop_h").val(Math.round(coords.h * ratio_h));
+      var params = 'x: ' + $("#crop_x").val() + '; y: ' + $("#crop_y").val() + '; w: ' + $("#crop_w").val() + '; h: ' + $("#crop_h").val();
+      console.log(params);
   }
 
 .column#left
