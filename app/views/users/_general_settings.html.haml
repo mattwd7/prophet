@@ -35,18 +35,17 @@
         %li
           .submit-tag.active Save Changes
 
-  %h1 Password Reset
-  %h2 Change your password or recover your existing one
-  = form_for @user, url: { controller: 'users', action: 'update' }, html: { method: :put } do |f|
-    = f.hidden_field :reset_password_token
-    %ul
-      %li
-        .label New Password
-        = f.password_field :password
-      %li
-        .label Verify Password
-        = f.password_field :password_confirmation
-      %li
-        .label
-        = link_to 'Forgot your password?', nil, tabindex: -1
-      .submit-tag.active Save Changes
+      %h1 Password Reset
+      %h2 Change your password or recover your existing one
+      = f.hidden_field :reset_password_token
+      %ul
+        %li
+          .label New Password
+          = f.password_field :password
+        %li
+          .label Verify Password
+          = f.password_field :password_confirmation
+        %li
+          .label
+          = link_to 'Forgot your password?', nil, tabindex: -1
+        .submit-tag.active Save Changes

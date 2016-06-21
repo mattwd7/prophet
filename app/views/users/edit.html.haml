@@ -2,14 +2,21 @@
   var image_w, image_h
 
   $(document).ready(function(){
-      image_w = $('#cropbox').find('img').width();
-      image_h = $('#cropbox').find('img').height();
-      $('#cropbox').Jcrop({
-          onChange: update_crop,
-          onSelect: update_crop,
-          aspectRatio: 1
-      });
+      $('#cropbox').hover(function(){
+          initJcrop();
+      })
   });
+
+  function initJcrop(){
+      console.log("JCROP OPERATIONAL");
+        image_w = $('#cropbox').find('img').width();
+        image_h = $('#cropbox').find('img').height();
+        $('#cropbox').Jcrop({
+            onChange: update_crop,
+            onSelect: update_crop,
+            aspectRatio: 1
+        });
+  }
 
   function update_crop(coords) {
       var rx = (image_w * 100) / (#{@user.avatar_geometry(:original).width} * coords.w );
@@ -23,14 +30,12 @@
           marginTop: '-' + Math.round(coords.y * ry * #{@user.avatar_geometry(:original).height} / image_h) + 'px'
       });
 
-      var ratio_w = "#{@user.avatar_geometry(:original).width}" / $("#cropbox img").width();
-      var ratio_h = "#{@user.avatar_geometry(:original).height}" / $("#cropbox img").height();
+      var ratio_w = "#{@user.avatar_geometry(:original).width}" / image_w;
+      var ratio_h = "#{@user.avatar_geometry(:original).height}" / image_h;
       $("#crop_x").val(Math.round(coords.x * ratio_w));
       $("#crop_y").val(Math.round(coords.y * ratio_h));
       $("#crop_w").val(Math.round(coords.w * ratio_w));
       $("#crop_h").val(Math.round(coords.h * ratio_h));
-      var params = 'x: ' + $("#crop_x").val() + '; y: ' + $("#crop_y").val() + '; w: ' + $("#crop_w").val() + '; h: ' + $("#crop_h").val();
-      console.log(params);
   }
 
 .column#left
