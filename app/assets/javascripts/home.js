@@ -112,9 +112,12 @@ function focusFollowUp(input){
 }
 
 function selectBannerTab(input){
+    var banner = $('#banner');
     if (input === 'admin'){
+        banner.find('.search').hide();
         $('#feedbacks').hide();
     } else {
+        banner.find('.search').show();
         $('#feedbacks').show();
         focusFollowUp(input);
     }

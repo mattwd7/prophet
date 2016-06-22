@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_filter :hide_sorting
 
   def create
     @user = User.new(permitted_params)
@@ -45,10 +44,6 @@ private
     else
       params.require(:user).permit(:email, :password, :password_confirmation, :reset_password_token, :first_name, :last_name, :company, :avatar, :crop_x, :crop_y, :crop_w, :crop_h)
     end
-  end
-
-  def hide_sorting
-    @hide_sorting = true
   end
 
 end
