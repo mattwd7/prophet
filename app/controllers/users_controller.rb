@@ -26,7 +26,6 @@ class UsersController < ApplicationController
     else
       @user.assign_attributes(permitted_params)
       if @user.save
-        [:crop_x, :crop_y, :crop_w, :crop_h].each{|prop| puts "#{prop.to_s}: #{@user.try(prop)}"}
         @user.update_mailer_settings(params[:user]['mailer_settings'])
         @user.avatar.reprocess! if @user.cropping?
         redirect_to edit_user_path
