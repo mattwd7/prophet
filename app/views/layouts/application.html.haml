@@ -15,10 +15,10 @@
           .avatar
             = image_tag current_user.avatar.url(:large)
 
-        .search{ style: controller.controller_name != 'home' ? 'display: none' : '' }
-          = text_field_tag :search_feedbacks, '', placeholder: 'Search Prophet'
-          .image-container
-            = image_tag 'search.png'
+        -#.search{ style: controller.controller_name != 'home' ? 'display: none' : '' }
+        -#  = text_field_tag :search_feedbacks, '', placeholder: 'Search Prophet'
+        -#  .image-container
+        -#    = image_tag 'search.png'
 
         .sort{ style: controller.controller_name != 'home' ? 'display: none' : '' }
           .home.selected
@@ -38,13 +38,13 @@
       - else
         = form_for :user, url: session_path(:user), html: { id: 'sign-in' } do |f|
           .email
-            = f.label 'Email'
+            = f.label :email
             = f.text_field :email, autofocus: true
             .rememberable
               = f.check_box :remember_me, tabindex: -1
               = 'Keep me logged in'
           .password
-            = f.label 'Password'
+            = f.label :password
             = f.password_field :password
             = link_to 'Forgot your password?', nil, tabindex: -1
           .submit-tag.active{ 'tabindex' => 0 } Log in
@@ -52,9 +52,13 @@
     #warning-messages
 
     .full
-      -#%p.errors= flash[:error]
-      -#%p.notices= flash[:notice]
-      = yield
+      - if controller.class.parent == Devise
+        .devise
+          %p.errors= flash[:error]
+          %p.notices= flash[:notice]
+          = yield
+      - else
+        = yield
 
     - unless current_user
       = render partial: 'home/footer'

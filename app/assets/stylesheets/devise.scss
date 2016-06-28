@@ -1,0 +1,17 @@
+.devise {
+  width: 300px;
+  margin: 0 auto;
+  h2 {
+    text-align: center;
+  }
+  input[type=email], input[type=password] {
+    width: 100% !important;
+    margin: 0 auto;
+  }
+  input[type=submit]{
+    width: auto;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
