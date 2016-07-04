@@ -24,10 +24,16 @@ class UsersController < ApplicationController
       @user.update_attributes(bio: params[:value])
       render text: params[:value]
     else
+      if permitted_params.keys.include?('password_confirmation') && !@user.valid_password?(params[:user][:current_password])
+        flash[:error] = 'Invalid current password.'
+        redirect_to edit_user_path and return
+      end
       @user.assign_attributes(permitted_params)
       if @user.save
         @user.update_mailer_settings(params[:user]['mailer_settings'])
         @user.avatar.reprocess! if @user.cropping?
+        sign_in @user, bypass: true
+        flash[:notice] = "User successfully updated."
         redirect_to edit_user_path
       else
         flash[:error] = @user.errors.full_messages

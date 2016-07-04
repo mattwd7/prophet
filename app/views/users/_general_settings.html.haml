@@ -38,7 +38,12 @@
       %h1 Password Reset
       %h2 Change your password or recover your existing one
       = f.hidden_field :reset_password_token
+
       %ul
+        %li
+          .label
+            = f.label :current_password
+          = f.password_field :current_password
         %li
           .label New Password
           = f.password_field :password

@@ -38,6 +38,10 @@
       $("#crop_h").val(Math.round(coords.h * ratio_h));
   }
 
+.devise
+  %p.errors= flash[:error]
+  %p.notices= flash[:notice]
+
 .column#left
 
   %ul#settings-menu

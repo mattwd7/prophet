@@ -36,6 +36,28 @@ describe 'User', js: true do
       expect(@user.mailer_settings.map(&:active).count(true)).to eq(@user.mailer_settings.count)
     end
 
+    it 'can change password' do
+      visit edit_user_path(@user)
+      fill_in "user[current_password]", with: 'wrong'
+      fill_in "user[password]", with: 'new password'
+      fill_in "user[password_confirmation]", with: 'new password'
+      first('.submit-tag').click
+      expect(page).to have_content("Invalid current password")
+
+      fill_in "user[current_password]", with: 'password'
+      fill_in "user[password]", with: 'new password'
+      fill_in "user[password_confirmation]", with: 'new password'
+      first('.submit-tag').click
+      expect(page).to have_content("User successfully updated")
+
+      fill_in "user[current_password]", with: 'password'
+      fill_in "user[password]", with: 'new password'
+      fill_in "user[password_confirmation]", with: 'new password'
+      first('.submit-tag').click
+      expect(page).to have_content("Invalid current password")
+    end
+
+
   end
 
 end
