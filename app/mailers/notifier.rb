@@ -5,7 +5,7 @@ class Notifier < Devise::Mailer
   def new_user(user, password)
     @user = user
     @password = password
-    mail(to: @user.email, subject: 'Welcome to Prophet!', )
+    mail(to: @user.email, subject: 'Welcome to Prophet!')
   end
 
   def new_feedback(feedback)
@@ -28,6 +28,8 @@ class Notifier < Devise::Mailer
 private
   def mail(headers={}, &block)
     headers[:to] = 'prophet.mailer1@gmail.com' unless Rails.env.production? # for all testing purposes
+    puts '!!!', headers
+    Rails.logger.info headers
 
     super(headers, &block)
   end
