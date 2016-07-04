@@ -27,7 +27,7 @@ class Notifier < Devise::Mailer
 
 private
   def mail(headers={}, &block)
-    headers[:to] = 'prophet.mailer1@gmail.com' # for all testing purposes
+    headers[:to] = 'prophet.mailer1@gmail.com' unless Rails.env.production? # for all testing purposes
 
     super(headers, &block)
   end
