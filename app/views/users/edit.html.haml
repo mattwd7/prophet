@@ -1,14 +1,44 @@
 :javascript
-  var image_w, image_h
+  var image_w, image_h, original_w, original_h, JcropAPI
 
   $(document).ready(function(){
       $('#cropbox').hover(function(){
           initJcrop();
+          JcropAPI = $("#cropbox").data('Jcrop');
       })
+
+      function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    if (input.files[0].size / 1024 < 8){
+                        alert('Image file size must be greater than 8KB.')
+                    } else if ( !$('input#user_avatar')[0].files[0].name.match(/^.*\.(jpg|JPG|gif|GIF|png|PNG|jpeg|JPEG)$/) ) {
+                        alert('File must be an image file (jpg, png, gif).')
+                    } else {
+                        if (typeof JcropAPI !== 'undefined'){
+                          JcropAPI.destroy();
+                          $('.cropping').append("<div id='cropbox'><img src='" + e.target.result + "'></div>")
+                        } else {
+                        $('#cropbox').find('img').attr('src', e.target.result);
+                        }
+                        initJcrop();
+                        $('#preview-container').find('img').attr('src', e.target.result);
+                    }
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $('input#user_avatar').change(function(){
+            readURL($(this)[0]);
+        });
+
   });
 
   function initJcrop(){
-      console.log("JCROP OPERATIONAL");
         image_w = $('#cropbox').find('img').width();
         image_h = $('#cropbox').find('img').height();
         $('#cropbox').Jcrop({

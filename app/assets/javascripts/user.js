@@ -8,6 +8,6 @@ $(document).ready(function(){
             $('#' + $(this).attr('class')).show();
             $(this).addClass('selected');
         }
-    })
+    });
 
 });
