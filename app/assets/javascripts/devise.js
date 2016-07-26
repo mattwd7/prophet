@@ -1,5 +1,5 @@
 $(document).ready(function(){
 
-    $('.devise').fadeOut(5000);
+//    $('.devise').fadeOut(5000);
 
 });

@@ -80,6 +80,15 @@ $(document).ready(function(){
         }
     });
 
+    $(document).on('keyup', 'form', function(){
+        var inputs = $(this).find('input[type="text"], input[type="textarea"]').map(function(i, el){
+            return $(el).val();
+        }).get().join('');
+        if (inputs.length > 0){
+            $(this).find('.submit-tag').addClass('active');
+        }
+    })
+
     $(document).on('submit', 'form', function(){
         $(this).find('.submit-tag').removeClass('active');
     });
