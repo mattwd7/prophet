@@ -1,17 +1,46 @@
 .devise {
-  width: 300px;
+  width: 559px;
   margin: 0 auto;
-  h2 {
+  h1 {
+    font-weight: 800;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 10px;
     text-align: center;
+  }
+  hr {
+    margin-top: -4px;
+    width: 280px;
+    border: 0;
+    height: 1px;
+    background: gray;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
   }
   input[type=email], input[type=password] {
     width: 100% !important;
     margin: 0 auto;
+    margin-bottom: 0px;
+    height: 35px;
   }
   input[type=submit]{
     width: auto;
+    margin-left: 240px;
+    margin-top: 15px;
+    font-family: Avenir;
   }
   a:hover {
     text-decoration: underline;
+  }
+  .background {
+    width: 600px;
+    background: #eee;
+    border: 1px solid #ccc;
+    padding: 15px 0;
+    border-radius: 5px;
+  }
+  .field {
+    width: 250px;
+    padding-left: 175px;
+    padding-top: 10px;
   }
 }
