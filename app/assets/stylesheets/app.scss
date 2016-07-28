@@ -47,16 +47,22 @@ li { list-style-type: none; }
   font-size: 0.9em;
 }
 
-#controller-messages {
+.flash-message {
   position: fixed;
   width: 700px;
-  border: 3px solid red;
   padding: 15px 10px;
   text-align: center;
-  transform: translate(-50%, -15%);
+  transform: translate(-50%, 0);
   left: 50%;
+  top: 10%;
   background: white;
   z-index: 2003;
+  &.notice {
+    border: 3px solid #8BC34A;
+  }
+  &.errors, &.alert {
+    border: 3px solid red;
+  }
 }
 
 #banner {

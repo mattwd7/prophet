@@ -30,23 +30,30 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do
     if !current_user.present?
       store_location
-      if params["action"] && params["action"] == "retrieve_data"
-        render :js => "window.location = '/#{@app}/sign_in'"
-      else
-        redirect_to root_path
-      end
+      redirect_to root_path
     else
       redirect_to root_path, :notice => 'You do not have permission to access these details'
     end
   end
 
-  def store_location
-    session[:return_to_is_get] = (request.request_method_symbol == :get)
-    if request.request_method_symbol != :get
-      session[:return_to_params] = params
-    else
-      session[:return_to] = request.fullpath
-    end
-  end
+  # def store_location
+  #   session[:return_to_is_get] = (request.request_method_symbol == :get)
+  #   if request.request_method_symbol != :get
+  #     session[:return_to_params] = params
+  #   else
+  #     session[:return_to] = request.fullpath
+  #   end
+  # end
+  #
+  # def redirect_back_or_default(default)
+  #   if session[:return_to_is_get] == false
+  #     redirect_to(session[:return_to_params])
+  #     session[:return_to_is_get] = nil
+  #     session[:return_to_params] = nil
+  #   else
+  #     redirect_to(session[:return_to] || default)
+  #     session[:return_to] = nil
+  #   end
+  # end
 
 end
