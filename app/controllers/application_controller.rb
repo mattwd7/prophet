@@ -13,4 +13,40 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def load_and_authorize_resource(args = {})
+    class_instance = args[:class].present? ? args[:class] : controller_name.camelize.singularize.constantize
+    action = args[:action].present? ? args[:action] : action_name.to_sym
+    id = args[:id].present? ? args[:id] : params[:id]
+
+    if id
+      resource = class_instance.find(id)
+      authorize! action, resource
+      instance_variable_set("@#{class_instance.name.underscore}", resource)
+    else
+      authorize! action, class_instance
+    end
+  end
+
+  rescue_from CanCan::AccessDenied do
+    if !current_user.present?
+      store_location
+      if params["action"] && params["action"] == "retrieve_data"
+        render :js => "window.location = '/#{@app}/sign_in'"
+      else
+        redirect_to root_path
+      end
+    else
+      redirect_to root_path, :notice => 'You do not have permission to access these details'
+    end
+  end
+
+  def store_location
+    session[:return_to_is_get] = (request.request_method_symbol == :get)
+    if request.request_method_symbol != :get
+      session[:return_to_params] = params
+    else
+      session[:return_to] = request.fullpath
+    end
+  end
+
 end

@@ -52,10 +52,11 @@
     #warning-messages
 
     .full
+      #controller-messages{ style: flash.empty? ? "display:none" : "" }
+        .errors= flash[:error]
+        .notices= flash[:notice]
       - if controller.class.parent == Devise
         .devise
-          %p.errors= flash[:error]
-          %p.notices= flash[:notice]
           = yield
       - else
         = yield

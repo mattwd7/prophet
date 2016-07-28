@@ -47,6 +47,18 @@ li { list-style-type: none; }
   font-size: 0.9em;
 }
 
+#controller-messages {
+  position: fixed;
+  width: 700px;
+  border: 3px solid red;
+  padding: 15px 10px;
+  text-align: center;
+  transform: translate(-50%, -15%);
+  left: 50%;
+  background: white;
+  z-index: 2003;
+}
+
 #banner {
   background: #8BC34A;
   height: 80px;

@@ -1,4 +1,9 @@
 class FeedbacksController < ApplicationController
+  before_filter :load_and_authorize_resource
+
+  def show
+    @feedback = Feedback.find(params[:id])
+  end
 
   def create
     @errors = []

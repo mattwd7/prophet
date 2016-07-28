@@ -54,6 +54,8 @@ function updateResonanceText(feedback_id, resonance){
 
 $(document).ready(function(){
 
+    $("#controller-messages").delay(3000).fadeOut('slow');
+
     $(document).on('keydown', function(e) {
         if (e.which === 13) { // if is enter
             var focus = $(':focus');
