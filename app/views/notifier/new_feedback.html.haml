@@ -1,1 +1,7 @@
-%h1 You have new feedback!
+%p= "Hey #{@feedback.user.first_name},"
+%p= "#{@feedback.author.full_name} sent you the following feedback -"
+
+.feedback
+  = render partial: "feedbacks/content", locals: { feedback: @feedback, user: @feedback.user }
+
+.button.agree= link_to "View feedback in Prophet", feedback_url(@feedback.id)

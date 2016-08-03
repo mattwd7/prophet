@@ -1,4 +1,6 @@
+- feedback ||= nil
 - hidden ||= nil
+
 .feedback{ id: "feedback-#{feedback.id}", class: feedback_classes(feedback), style: hidden ? 'display:none' : 'display:block' }
   - if current_user.following_up?(feedback)
     .follow-up
@@ -7,40 +9,8 @@
       %h2 Its been 30 days since this feedback was posted. Please follow-up with a comment below describing whether or not you think it was addressed!
       = render partial: 'comments/form', locals: { feedback: feedback, placeholder_text: 'Follow up...' }
   .top
-    .banner
-      .avatar
-        = image_tag feedback.author.avatar.url(:large)
-      .data
-        .address= address_info(feedback, current_user)
-        .timestamp= "#{time_ago_in_words(feedback.created_at)} ago"
-      .score
-        .flavor= flavor_text(feedback)
-        .votes
-          = vote_numbers(feedback, current_user)
-    .content
-      = format_content(feedback.content)
-    %table.actions
-      %tr
-        - if current_user.can_vote?(feedback)
-          %td.action.agree{ class: current_user.agrees_with(feedback) ? 'selected' : nil, 'data-action' => vote_feedback_path(feedback) }
-            .icon
-              -#= check_box_tag :agree, 'Agree', current_user.agrees_with(feedback), class: 'agree-checkbox'
-              = pretty_agree(current_user.agrees_with(feedback))
-            .name
-              Agree
-        %td.action.leave-comment
-          .icon
-          .name
-            Comment
-        %td.action.share
-          .icon
-          .name
-            Share
-        -#- if feedback.author != current_user && feedback.user == current_user
-        -#  %td.action.merge
-        -#    .icon
-        -#    .name
-        -#      Merge
+    = render partial: "feedbacks/content", locals: { feedback: feedback, user: current_user }
+    = render partial: "feedbacks/actions", locals: { feedback: feedback }
 
   .commenting
     .comments

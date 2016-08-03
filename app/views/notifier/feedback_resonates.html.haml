@@ -1,1 +1,7 @@
-%h1 Feeddback you've received is resonating with your peers! Serious business.
+%p= "Hey #{@feedback.user.first_name},"
+%p= "The following feedback is resonating among your peers -"
+
+.feedback
+  = render partial: "feedbacks/content", locals: { feedback: @feedback, user: @feedback.user }
+
+.button.agree= link_to "View feedback in Prophet", feedback_url(@feedback.id)

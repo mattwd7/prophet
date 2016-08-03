@@ -1,1 +1,13 @@
-%h1 Your feedback has a new comment!
+%p= "Hey #{@feedback.user.first_name}"
+%p= "#{@comment.user.full_name} left a comment on the following feedback -"
+
+.feedback
+  = render partial: "feedbacks/content", locals: { feedback: @feedback, user: @feedback.user }
+
+%p= "#{@comment.user.first_name} wrote:"
+
+.feedback
+  .comment
+    = render partial: "comments/comment", locals: { comment: @comment, user: @comment.feedback.user }
+
+.button.agree= link_to "View feedback in Prophet", feedback_url(@feedback.id)

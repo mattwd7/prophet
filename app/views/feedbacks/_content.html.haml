@@ -1,0 +1,15 @@
+- feedback ||= nil
+- user ||= current_user ||= nil
+
+.banner
+  .avatar
+    = image_tag feedback.author.avatar.url(:large)
+  .data
+    .address= address_info(feedback, user)
+    .timestamp= "#{time_ago_in_words(feedback.created_at)} ago"
+  .score
+    .flavor= flavor_text(feedback)
+    .votes
+      = vote_numbers(feedback, user)
+.content
+  = format_content(feedback.content)

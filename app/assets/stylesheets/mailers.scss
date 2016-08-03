@@ -1,0 +1,21 @@
+.mailer {
+  margin: 80px 0 0 0;
+  width: 800px;
+  background: white;
+  padding: 10px 40px;
+  font-size: 14pt;
+  a { text-decoration: none; }
+  a:visited { color: inherit; }
+
+  .button {
+    background: #8BC34A;
+    padding: 5px 30px;
+    display: table;
+    margin: 0 auto;
+    width: 570px;
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,24 @@
+- feedback ||= nil
+
+%table.actions
+  %tr
+    - if current_user.can_vote?(feedback)
+      %td.action.agree{ class: current_user.agrees_with(feedback) ? 'selected' : nil, 'data-action' => vote_feedback_path(feedback) }
+        .icon
+          -#= check_box_tag :agree, 'Agree', current_user.agrees_with(feedback), class: 'agree-checkbox'
+          = pretty_agree(current_user.agrees_with(feedback))
+        .name
+          Agree
+    %td.action.leave-comment
+      .icon
+      .name
+        Comment
+    %td.action.share
+      .icon
+      .name
+        Share
+    -#- if feedback.author != current_user && feedback.user == current_user
+    -#  %td.action.merge
+    -#    .icon
+    -#    .name
+    -#      Merge

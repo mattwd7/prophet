@@ -1,1 +1,7 @@
-%h1 Your feedback has been followed up on!
+%p= "Hey #{@feedback.user.first_name},"
+%p= "The following feedback has been followed up on -"
+
+.feedback
+  = render partial: "feedbacks/content", locals: { feedback: @feedback, user: @feedback.user }
+
+.button.agree= link_to "View feedback in Prophet", feedback_url(@feedback.id)

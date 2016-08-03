@@ -9,6 +9,8 @@ gem 'haml', '~> 4.0.6'
 gem 'paperclip'
 gem 'aws-sdk', '< 2'
 gem 'will_paginate'
+gem 'premailer-rails'
+gem 'nokogiri'
 
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'

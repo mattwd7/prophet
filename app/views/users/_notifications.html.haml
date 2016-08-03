@@ -9,7 +9,7 @@
         - @user.mailer_settings.each do |setting|
           %li
             = check_box_tag "user[mailer_settings][#{setting.name}]", 1, setting.active?
-            .label= label_tag setting.name, setting.name.capitalize.gsub('_', ' ')
+            .label= label_tag "user[mailer_settings][#{setting.name}]", setting.name.capitalize.gsub('_', ' ')
 
         %li
           .submit-tag.active Save Changes

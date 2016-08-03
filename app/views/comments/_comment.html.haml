@@ -1,5 +1,8 @@
+- comment ||= nil
+- user ||= current_user ||= nil
 - hidden ||= nil
-- fresh = comment.fresh?(current_user)
+- fresh = comment.fresh?(user)
+
 .comment{ id: "comment-#{comment.id}", style: hidden ? 'display:none' : 'display:block', class: fresh ? 'fresh' : '' }
   %table
     %tr
@@ -11,7 +14,7 @@
             %span.author= comment.user.full_name
             %span.text= format_content(comment.content)
           .actions
-            - if current_user == comment.user && comment.updated_at > 5.minutes.ago
+            - if user == comment.user && comment.updated_at > 5.minutes.ago
               .edit{href: comment_path(comment)}
                 %a Edit
               .delete= link_to 'Delete', '', remote: true
