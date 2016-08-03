@@ -4,8 +4,12 @@
   background: white;
   padding: 10px 40px;
   font-size: 14pt;
-  a { text-decoration: none; }
-  a:visited { color: inherit; }
+
+  a {
+    text-decoration: none;
+    color: white;
+    &:visited { color: inherit; }
+  }
 
   .button {
     background: #8BC34A;
