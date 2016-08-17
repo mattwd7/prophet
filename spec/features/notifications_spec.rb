@@ -140,7 +140,7 @@ describe 'Notifications', js: true do
     end
 
     it 'identifies fresh comments after js filter' do
-      FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback)
+      FactoryGirl.create(:spec_comment, user: @other_user, feedback: @feedback, content: 'fresh comment here')
       visit current_path
       expect(page).to have_css('.comment.fresh')
       find('.sort .me').click

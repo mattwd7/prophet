@@ -21,7 +21,7 @@
       - comments_and_logs.each do |comment_or_log|
         - object = comment_or_log[:object]
         - if object.is_a?(Comment)
-          = render partial: 'comments/comment', locals: { comment: object, hidden: comment_or_log[:hidden] }
+          = render partial: 'comments/comment', locals: { comment: object, user: current_user, hidden: comment_or_log[:hidden] }
         - else
           = render partial: 'feedbacks/log', locals: { log: object, hidden: comment_or_log[:hidden] }
 

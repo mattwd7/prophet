@@ -33,6 +33,8 @@ class Notifier < Devise::Mailer
 
 private
   def mail(headers={}, &block)
+    return if Rails.env.production? # for public demonstration purposes without emails
+
     headers[:to] = 'prophet.mailer1@gmail.com' unless Rails.env.production? # for all testing purposes
     headers[:content_type] = 'text/html'
 

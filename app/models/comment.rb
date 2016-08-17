@@ -24,7 +24,6 @@ private
   end
 
   def send_email
-    puts '!!!', 'sending email after comment creation', '!!!', feedback.user.mailer_settings.for('new_comment').active?
     Notifier.new_comment(self.feedback, self).deliver if feedback.user.mailer_settings.for('new_comment').active?
   end
 
